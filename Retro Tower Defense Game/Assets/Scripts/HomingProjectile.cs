@@ -11,7 +11,7 @@ public class HomingProjectile : Projectile
     // Start is called before the first frame update
     void Start()
     {
-        //closestTarget();
+        
     }
 
     // Update is called once per frame
@@ -38,12 +38,12 @@ public class HomingProjectile : Projectile
     }
     private void closestTarget()
     {
-        Enemy[] allTargets = GameObject.FindObjectsByType<Enemy>(FindObjectsSortMode.InstanceID);
+        Enemy[] allTargets = GameObject.FindObjectsByType<Enemy>(FindObjectsSortMode.InstanceID); //Find enemies by type
         float bestDist = Mathf.Infinity;
         float tempDist;
         foreach (Enemy e in allTargets)
         {
-            tempDist = Vector2.Distance(position, e.transform.position);
+            tempDist = Vector2.Distance(position, e.transform.position); //Get closest enemy to the projectile
             if (tempDist < bestDist)
             {
                 bestDist = tempDist;
