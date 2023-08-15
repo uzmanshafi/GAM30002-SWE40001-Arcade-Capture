@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,35 +11,54 @@ public class HomingProjectile : Projectile
     // Start is called before the first frame update
     void Start()
     {
-        
+        //closestTarget();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        checkTarget();
+        move();
+    }
+
+    private void checkTarget()
+    {
+        if (target == null)
+        {
+            closestTarget();
+        }
     }
 
     public override void move()
     {
-        closestTarget();
-        direction = (position - (Vector2)target.transform.position).normalized;
-        position = direction * speed;
+        
+        direction = (target.transform.position - transform.position).normalized;
+        transform.position += (Vector3)(direction * speed) * Time.deltaTime;
 
     }
     private void closestTarget()
     {
         Enemy[] allTargets = GameObject.FindObjectsByType<Enemy>(FindObjectsSortMode.InstanceID);
-        float bestDist = 0;
+        float bestDist = Mathf.Infinity;
         float tempDist;
         foreach (Enemy e in allTargets)
         {
             tempDist = Vector2.Distance(position, e.transform.position);
-            if (tempDist > bestDist)
+            if (tempDist < bestDist)
             {
                 bestDist = tempDist;
                 target = e;
             }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Enemy e;
+        if (collision.gameObject.TryGetComponent<Enemy>(out e))
+        {
+            //e.TakeDamage(1);
+            Destroy(gameObject);
         }
     }
 
