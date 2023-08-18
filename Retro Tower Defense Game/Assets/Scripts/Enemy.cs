@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float MovementSpeed;
-    [SerializeField] private Waypoints waypoints;
+    [SerializeField] public Waypoints waypoints;
 
     private int i = 0;
     private Vector3 currentPointHeading;
@@ -61,6 +61,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    internal void TakeDamage(int v)
+    {
+        throw new NotImplementedException();
+    }
+
     private void rotate()
     {
         if(currentPointHeading.x > waypoints.getWaypointPosition(i - 1).x)
@@ -75,6 +80,7 @@ public class Enemy : MonoBehaviour
 
     private void endReached()
     {
-        gameObject.SetActive(false);
+        GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
+        Destroy(gameObject);
     }
 }
