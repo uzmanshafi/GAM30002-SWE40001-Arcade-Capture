@@ -48,7 +48,7 @@ public class Tower : MonoBehaviour
     private void furthestTarget()
     {
 
-        RaycastHit2D[] results = Physics2D.CircleCastAll(transform.position, 100, Vector2.up, LayerMask.GetMask("Enemy")); //Raycast and return any objects on layer enemy
+        RaycastHit2D[] results = Physics2D.CircleCastAll(transform.position, range, Vector2.up, LayerMask.GetMask("Enemy")); //Raycast and return any objects on layer enemy
         if (results.Length == 0)
         {
             target = null;

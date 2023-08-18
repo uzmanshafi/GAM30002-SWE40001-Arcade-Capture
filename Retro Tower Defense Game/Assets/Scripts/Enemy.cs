@@ -80,6 +80,7 @@ public class Enemy : MonoBehaviour
 
     private void endReached()
     {
+        GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
         Destroy(gameObject);
     }
 }
