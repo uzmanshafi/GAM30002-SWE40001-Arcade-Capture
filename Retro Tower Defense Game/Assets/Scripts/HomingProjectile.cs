@@ -19,6 +19,7 @@ public class HomingProjectile : Projectile
     {
         checkTarget();
         move();
+        
     }
 
     private void checkTarget()

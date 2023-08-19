@@ -48,7 +48,7 @@ public class Tower : MonoBehaviour
     private void furthestTarget()
     {
 
-        RaycastHit2D[] results = Physics2D.CircleCastAll(transform.position, range, Vector2.up, LayerMask.GetMask("Enemy")); //Raycast and return any objects on layer enemy
+        RaycastHit2D[] results = Physics2D.CircleCastAll(transform.position, range, Vector2.up, LayerMask.GetMask("Enemy")); //Raycast and return any objects on layer enemy: Check if raycast is efficient
         if (results.Length == 0)
         {
             target = null;
@@ -73,7 +73,7 @@ public class Tower : MonoBehaviour
             foreach (Enemy e in enemies_in_range) // find enemy closest to end point (Distance not furthest on path)
             {
                 if (e == null) { continue; }
-                endPoint = e.waypoints.Points[e.waypoints.Points.Length - 1];
+                endPoint = e.getWaypoints().Points[e.getWaypoints().Points.Length - 1];
                 tempDistance = Vector2.Distance(e.transform.position, endPoint);
                 if (tempDistance < bestDistance)
                 {
