@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float MovementSpeed;
+    [SerializeField] private float movementSpeed;
     [SerializeField] private Waypoints waypoints;
 
     private int i = 0; //index for heading position
     private Vector3 currentPointHeading;
+
+    public float MovementSpeed => movementSpeed; // Getter
+    public Waypoints Waypoints => waypoints; // Getter (I would prefer the name to not be the same as the type)
+
 
     // Start is called before the first frame update
     void Start()
@@ -84,15 +88,4 @@ public class Enemy : MonoBehaviour
         GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
         Destroy(gameObject);
     }
-
-    public Waypoints getWaypoints()
-    {
-        return waypoints;
-    }
-
-    public float getMovementSpeed()
-    {
-        return MovementSpeed;
-    }
-
 }
