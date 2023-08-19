@@ -1,0 +1,10 @@
+The menu is the interface to interact with towers. The tower does not know anything about how the menu works or even that it exists, it just needs to expose the required information that the menu needs.
+Base Cost, Image, Name
+The menu is a collection of all the towers and it will display them in some way. (perhaps greyed out if too expensive) Each menu item must have a button (or the whole thing is a button) which will check if the player has enough money. If so it will add a shadow of the tower (Austin and/or Uzi will work on this) which will follow the mouse and be placeable. It will display the range and if the current position is valid (Just copy Bloons Tower Defence). On click it will again check if there is enough money (preventing a future bug if money has somehow gone down between selection) and then it will create a new tower and update the player's money. Don't forget to make sure it is not on the path (From what I understand the path is a collection of points. Perhaps do some maths to calculate if the position + tower radius is within a constant path width of each line. I will do this if you are unsure.) 
+
+Jobs:
+
+Liam will work on the menus.
+Uzi will work on the placement. For now use a keyboard key such as 'K' to add the shadow tower to the mouse.
+
+Any questions ask Bill
