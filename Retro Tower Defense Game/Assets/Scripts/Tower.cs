@@ -13,16 +13,12 @@ public class Tower : MonoBehaviour
     [SerializeField] public float towerRadius;
     [SerializeField] public float range = 5;
 
-    public Vector2 position; //I think position variable will always be useless considering we have access to transform.position
-    
-    
-
     [SerializeField] private GameObject[] bulletTypes;
 
     // Start is called before the first frame update
     void Start()
     {
-        position = transform.position;
+
     }
 
     // Update is called once per frame
@@ -48,7 +44,7 @@ public class Tower : MonoBehaviour
     private void furthestTarget()
     {
 
-        RaycastHit2D[] results = Physics2D.CircleCastAll(transform.position, range, Vector2.up, LayerMask.GetMask("Enemy")); //Raycast and return any objects on layer enemy
+        RaycastHit2D[] results = Physics2D.CircleCastAll(transform.position, range, Vector2.up, LayerMask.GetMask("Enemy")); //Raycast and return any objects on layer enemy: Check if raycast is efficient
         if (results.Length == 0)
         {
             target = null;
@@ -73,7 +69,7 @@ public class Tower : MonoBehaviour
             foreach (Enemy e in enemies_in_range) // find enemy closest to end point (Distance not furthest on path)
             {
                 if (e == null) { continue; }
-                endPoint = e.waypoints.Points[e.waypoints.Points.Length - 1];
+                endPoint = e.Waypoints.Points[e.Waypoints.Points.Length - 1];
                 tempDistance = Vector2.Distance(e.transform.position, endPoint);
                 if (tempDistance < bestDistance)
                 {
