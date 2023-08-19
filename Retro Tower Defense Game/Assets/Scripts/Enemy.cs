@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed;
+    [SerializeField] private float MovementSpeed;
     [SerializeField] private Waypoints waypoints;
 
     private int i = 0; //index for heading position
     private Vector3 currentPointHeading;
 
-    public float MovementSpeed => movementSpeed; // Getter
-    public Waypoints Waypoints => waypoints; // Getter (I would prefer the name to not be the same as the type)
+    public float GetMovementSpeed => MovementSpeed; // Getter
+    public Waypoints GetWaypoints => waypoints; // Getter (I would prefer the name to not be the same as the type)
 
 
     // Start is called before the first frame update
