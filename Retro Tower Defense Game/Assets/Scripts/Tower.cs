@@ -69,7 +69,7 @@ public class Tower : MonoBehaviour
             foreach (Enemy e in enemies_in_range) // find enemy closest to end point (Distance not furthest on path)
             {
                 if (e == null) { continue; }
-                endPoint = e.Waypoints.Points[e.Waypoints.Points.Length - 1];
+                endPoint = e.GetWaypoints.Points[e.GetWaypoints.Points.Length - 1];
                 tempDistance = Vector2.Distance(e.transform.position, endPoint);
                 if (tempDistance < bestDistance)
                 {
