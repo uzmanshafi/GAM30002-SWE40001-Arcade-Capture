@@ -6,9 +6,11 @@ public abstract class Projectile : MonoBehaviour
 {
     [SerializeField] public float speed;
 
+
     protected Vector2 position;
     protected Vector2 direction;
 
+    public Enemy target;
     //public Vector2 Position => position;
     //public Vector2 Direction => direction;
 
