@@ -94,6 +94,14 @@ public class Enemy : MonoBehaviour
 
     private void endReached()
     {
+        if (gameObject.name == "Enemy")
+        {
+            GameObject.FindAnyObjectByType<Health>().TakeDamage(1);
+        }
+        else
+        {
+            GameObject.FindAnyObjectByType<Health>().TakeDamage(5);
+        }
         GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
         Destroy(gameObject);
     }
