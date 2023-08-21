@@ -10,14 +10,18 @@ public class Enemy : MonoBehaviour
 
     private int i = 0; //index for heading position
     private Vector3 currentPointHeading;
+    private int health;
 
     public float GetMovementSpeed => MovementSpeed; // Getter
     public Waypoints GetWaypoints => waypoints; // Getter (I would prefer the name to not be the same as the type)
+    public Vector3 GetDestination => currentPointHeading; //Getter 
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        health = 2;
         gameObject.SetActive(true);
         transform.position = waypoints.Points[i];
         i += 1;
@@ -66,9 +70,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    internal void TakeDamage(int v)
+    internal void TakeDamage(int damage)
     {
-        throw new NotImplementedException();
+        health -= damage;
+        if(health <= 0)
+        {
+            GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
+            Destroy(gameObject);
+        }
     }
 
     private void rotate()
@@ -85,6 +94,14 @@ public class Enemy : MonoBehaviour
 
     private void endReached()
     {
+        if (gameObject.name == "Enemy")
+        {
+            GameObject.FindAnyObjectByType<Health>().TakeDamage(1);
+        }
+        else
+        {
+            GameObject.FindAnyObjectByType<Health>().TakeDamage(5);
+        }
         GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
         Destroy(gameObject);
     }
