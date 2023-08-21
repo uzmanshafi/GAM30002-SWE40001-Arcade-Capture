@@ -223,8 +223,12 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 337850506411788777, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
+      propertyPath: EnemyDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 337850506411788777, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
       propertyPath: specialEnemies
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 337850506411788777, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
       propertyPath: enemies.Array.size

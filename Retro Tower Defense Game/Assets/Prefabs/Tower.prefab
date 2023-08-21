@@ -103,6 +103,6 @@ MonoBehaviour:
   target: {fileID: 0}
   towerRadius: 0
   range: 4
-  position: {x: 1, y: 0}
   bulletTypes:
+  - {fileID: 2396885586352238776, guid: 6631765ac04225b409ca5fe42e5f007b, type: 3}
   - {fileID: 2396885586352238776, guid: 50711a9323c949342b7cba54aa11ae7a, type: 3}

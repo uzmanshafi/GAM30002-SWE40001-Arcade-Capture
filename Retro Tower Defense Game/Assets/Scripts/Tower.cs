@@ -33,8 +33,8 @@ public class Tower : MonoBehaviour
         if (Time.time - lastShotTime > cooldown && target != null)
         {
             Vector3 dir = (target.transform.position - transform.position).normalized;
-            GameObject bullet = Instantiate(bulletTypes[0], transform.position + dir, Quaternion.identity );
-            HomingProjectile projectile = bullet.GetComponent<HomingProjectile>(); //Shoots homing projectile since I havent made 'Basic Projectile' and can't use abstract classes as components.
+            GameObject bullet = Instantiate(bulletTypes[0], transform.position /*+ dir*/, Quaternion.identity );
+            Projectile projectile = bullet.GetComponent<Projectile>(); 
             projectile.target = target;
             lastShotTime = Time.time;
         }

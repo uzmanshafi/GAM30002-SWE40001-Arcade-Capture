@@ -6,7 +6,7 @@ using UnityEngine;
 public class HomingProjectile : Projectile
 {
 
-    public Enemy target;
+    //public Enemy target;
 
     // Start is called before the first frame update
     void Start()
