@@ -18,7 +18,7 @@ public class WaypointEditor : Editor
 
             //create handles
             Vector3 currentWaypointPoint = Waypoints.CurrentPosition + Waypoints.Points[i];
-            Vector3 newWaypointPoint = Handles.FreeMoveHandle(currentWaypointPoint, Quaternion.identity, 0.7f, new Vector3(0.3f, 0.3f, 0.3f), Handles.SphereHandleCap);
+            Vector3 newWaypointPoint = Handles.FreeMoveHandle(currentWaypointPoint, 0.7f, new Vector3(0.3f, 0.3f, 0.3f), Handles.SphereHandleCap);
 
             //Labels
             Vector3 allignment = Vector3.down * 0.3f + Vector3.right * 0.3f;
