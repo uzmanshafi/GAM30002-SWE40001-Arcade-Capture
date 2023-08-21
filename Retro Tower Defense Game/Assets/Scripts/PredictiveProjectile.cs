@@ -40,37 +40,16 @@ public class PredictiveProjectile : Projectile
 
     private void aimPrediction()
     {
-        target.GetWaypoints
-
         float distance_to_target = Vector2.Distance(transform.position, target.transform.position);
         float time_to_target = distance_to_target / (speed * Time.deltaTime);
 
-        Vector3 movementPerTick = Vector3.MoveTowards(target.transform.position, target.GetDestination, (target.GetMovementSpeed) * Time.deltaTime) - target.transform.position;
-        float targetXMovement = movementPerTick.x;
+        Vector3 movementPerTick = Vector3.MoveTowards(target.transform.position, target.GetDestination, (target.GetMovementSpeed) * Time.deltaTime) - target.transform.position; //simulates the movement of the enemy from its position
+        float targetXMovement = movementPerTick.x; 
         float targetXPos = target.transform.position.x;
-        float xdisplacementPerTick;
-
-        if (targetXMovement > 0) 
-        {
-            xdisplacementPerTick = targetXPos - (targetXPos + (targetXMovement));
-        }
-        else
-        {
-            xdisplacementPerTick = targetXPos - (targetXPos + (targetXMovement));
-        }
 
         float targetYMovement = movementPerTick.y;
         float targetYPos = target.transform.position.y;
-        float ydisplacementPerTick;
 
-        if (targetYMovement > 0) 
-        {
-            ydisplacementPerTick = targetYPos - (targetYPos + (targetYMovement));
-        }
-        else
-        {
-            ydisplacementPerTick = targetYPos - (targetYPos + (targetYMovement));
-        }
 
         float xDisplacement = targetXMovement * time_to_target;
         float yDisplacement = targetYMovement * time_to_target;
@@ -83,7 +62,6 @@ public class PredictiveProjectile : Projectile
 
         Vector2 bulletVel = new Vector2((float)(speed * Math.Cos(firing_angle)), (float)(speed * Math.Sin(firing_angle))); //Utilising the speed and firing angle, create a vector for the new bullet's required velocity
 
-        //transform.LookAt(target.transform);
         rb.velocity = bulletVel;
 
     }
