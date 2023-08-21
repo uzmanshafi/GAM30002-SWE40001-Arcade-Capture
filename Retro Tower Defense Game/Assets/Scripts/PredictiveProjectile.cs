@@ -40,7 +40,23 @@ public class PredictiveProjectile : Projectile
 
     private void aimPrediction()
     {
-        float distance_to_target = Vector2.Distance(transform.position, target.transform.position);
+        transform.position; //Pi
+        transfrom.speed; //Ps
+        transform.direction; //?
+        target.transform.position; //Ei
+        target.GetMovementSpeed; //Es
+        target.GetDestination; //Ed
+
+        //float A = transform.speed
+        //float B = target.getMovementSpeed
+        //float C = distanceBetweenInitialPositions
+        //float cosa = ( (Ei - Pi) dot (Pi + C) ) / ( |Ei - Pi||Pi + C| )
+        //float time = ( A*C*cosa +- C*Sqrt(B^2*cosa^2 - B^2 + A^2) ) / ( B^2 - A^2 )
+
+        //Check that A =/= B, if it does figure out what to
+        
+
+/*        float distance_to_target = Vector2.Distance(transform.position, target.transform.position);
         float time_to_target = distance_to_target / (speed * Time.deltaTime);
 
         Vector3 movementPerTick = Vector3.MoveTowards(target.transform.position, target.GetDestination, (target.GetMovementSpeed) * Time.deltaTime) - target.transform.position; //simulates the movement of the enemy from its position
@@ -63,7 +79,7 @@ public class PredictiveProjectile : Projectile
         Vector2 bulletVel = new Vector2((float)(speed * Math.Cos(firing_angle)), (float)(speed * Math.Sin(firing_angle))); //Utilising the speed and firing angle, create a vector for the new bullet's required velocity
 
         rb.velocity = bulletVel;
-
+*/
     }
 
 }
