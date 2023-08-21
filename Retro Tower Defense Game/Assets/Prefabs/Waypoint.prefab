@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 337850506411788779}
-  - component: {fileID: 337850506411788776}
   - component: {fileID: 337850506411788777}
+  - component: {fileID: 3221700600878956218}
   m_Layer: 0
   m_Name: Waypoint
   m_TagString: Untagged
@@ -31,28 +31,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &337850506411788776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337850506411788782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ddd91f1327286a458f100d11d9b3c92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  points:
-  - {x: -9.156638, y: 3.1617093, z: 0.00057905354}
-  - {x: -4.188238, y: 3.2438307, z: 0.00057905354}
-  - {x: -4.3935437, y: -1.7656295, z: 0.00057905354}
-  - {x: 1.1086528, y: -1.8066907, z: 0.00057905354}
-  - {x: 1.3139586, y: 3.3670146, z: 0.00057905354}
-  - {x: 6.7750945, y: 3.4080753, z: 0.00057905354}
-  - {x: 6.4055448, y: -1.5192621, z: 0.00057905354}
 --- !u!114 &337850506411788777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +45,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105321bbf4930b946b0fff2335b23e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
-  EnemyCount: 10
+  enemies:
+  - {fileID: 680841621375074119, guid: 539fbdf77cff6324daf53e1cabfa1f8e, type: 3}
+  - {fileID: 680841621375074119, guid: 8c3945630018fdf438f472fd0489d1c1, type: 3}
+  WaveSize: 10
+  specialEnemies: 8
   EnemyDelay: 4
+--- !u!114 &3221700600878956218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337850506411788782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ddd91f1327286a458f100d11d9b3c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - {x: -9.338882, y: 2.7732213, z: -0.00039750896}
+  - {x: -8.106339, y: -2.631006, z: -0.00039750896}
+  - {x: -1.5406798, y: -2.559898, z: -0.00039750896}
+  - {x: 2.465086, y: 1.4221649, z: -0.00039750896}
