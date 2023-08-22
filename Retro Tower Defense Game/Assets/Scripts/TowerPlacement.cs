@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,19 +8,10 @@ public class TowerPlacement : MonoBehaviour
     public GameObject towerPrefab;
     private GameObject currentTower;
     private bool placingTower = false;
-    private bool canPlaceTower = true;
+    private bool movingTower = false;
 
     public Tilemap groundTilemap;
     public Tilemap topTilemap;
-
-    private GameObject towerToMove;
-
-    private LayerMask towerLayerMask;
-
-    private void Start()
-    {
-        towerLayerMask = LayerMask.GetMask("Tower"); 
-    }
 
     private void Update()
     {
@@ -30,133 +20,78 @@ public class TowerPlacement : MonoBehaviour
             ToggleTowerPlacementMode();
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (towerToMove != null)
-            {
-                HandleTowerMove();
-            }
-            else if (placingTower)
-            {
-                HandleTowerPlacement();
-            }
-            else
-            {
-                HandleTowerSelection();
-            }
-        }
-
         if (placingTower)
         {
-            MoveTowerWithCursor();
+            HandleTowerPlacement();
+        }
+        else if (movingTower)
+        {
+            HandleTowerMove();
         }
     }
 
     private void ToggleTowerPlacementMode()
     {
-        placingTower = !placingTower;
-
-        if (placingTower)
+        if (!placingTower && !movingTower)
         {
-            if (currentTower == null)
-            {
-                currentTower = Instantiate(towerPrefab);
-                currentTower.SetActive(false);
-            }
+            placingTower = true;
+            currentTower = Instantiate(towerPrefab);
+            currentTower.SetActive(true);
         }
         else
         {
             Destroy(currentTower);
+            placingTower = false;
+            movingTower = false;
         }
-
-        towerToMove = null;
     }
 
     private void HandleTowerPlacement()
     {
-        if (canPlaceTower) // Check if tower can be placed
-        {
-            if (currentTower != null)
-            {
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector3Int cellPosition = groundTilemap.WorldToCell(mousePos);
-
-                if (!IsCellOccupied(cellPosition))
-                {
-                    Vector3 towerPosition = groundTilemap.GetCellCenterWorld(cellPosition);
-                    towerPosition.y += groundTilemap.cellSize.y / 2;
-                    Instantiate(towerPrefab, towerPosition, Quaternion.identity);
-                    Destroy(currentTower);
-
-                    canPlaceTower = false; // Disable placing until the tower is moved or another tower is placed
-                }
-            }
-        }
-    }
-
-    private void HandleTowerSelection()
-    {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero, Mathf.Infinity, towerLayerMask);
+        mousePos.z = 0;
+        Vector3Int cellPosition = groundTilemap.WorldToCell(mousePos);
 
-        Debug.Log("Number of colliders hit: " + hits.Length);
-
-        foreach (RaycastHit2D hit in hits)
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Hit: " + hit.collider);
-
-            if (hit.collider.CompareTag("Tower"))
+            if (IsCellValid(cellPosition))
             {
-                Debug.Log("Tower clicked!");
+                currentTower.transform.position = groundTilemap.GetCellCenterWorld(cellPosition);
+                placingTower = false;
             }
         }
-
-        if (hits.Length > 0 && hits[0].collider.CompareTag("Tower"))
+        else
         {
-            towerToMove = hits[0].collider.gameObject;
+            currentTower.transform.position = mousePos;
         }
     }
 
     private void HandleTowerMove()
     {
-        if (towerToMove != null)
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-            towerToMove.transform.position = mousePos;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+        Vector3Int cellPosition = groundTilemap.WorldToCell(mousePos);
 
-            if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (IsCellValid(cellPosition))
             {
-                towerToMove = null; // Release the tower
-                canPlaceTower = true; // Enable placing again once the tower is moved
+                currentTower.transform.position = groundTilemap.GetCellCenterWorld(cellPosition);
+                movingTower = false;
             }
         }
-    }
-
-    private void MoveTowerWithCursor()
-    {
-        if (currentTower != null)
+        else
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
             currentTower.transform.position = mousePos;
-            currentTower.SetActive(true);
         }
     }
 
-    private bool IsCellOccupied(Vector3Int cellPosition)
+    private bool IsCellValid(Vector3Int cellPosition)
     {
         TileBase groundTile = groundTilemap.GetTile(cellPosition);
         TileBase topTile = topTilemap.GetTile(cellPosition);
-
-        if (groundTile != null && topTile == null)
-        {
-            if (groundTilemap.GetTileFlags(cellPosition) == TileFlags.None)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        
+        
+        return groundTile != null && topTile == null;
     }
 }
