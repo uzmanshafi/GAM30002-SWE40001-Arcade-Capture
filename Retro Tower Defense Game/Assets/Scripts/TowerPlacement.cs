@@ -12,11 +12,6 @@ public class TowerPlacement : MonoBehaviour
     public Tilemap groundTilemap; 
     public Tilemap topTilemap;
 
-    private void Start()
-    {
-        groundTilemap = GetComponentInChildren<Tilemap>();
-        topTilemap = GetComponentInChildren<Tilemap>();
-    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
@@ -67,11 +62,14 @@ public class TowerPlacement : MonoBehaviour
     {
         if (currentTower != null)
         {
-            Vector3Int cellPosition = groundTilemap.WorldToCell(currentTower.transform.position);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int cellPosition = groundTilemap.WorldToCell(mousePos);
 
             if (!IsCellOccupied(cellPosition))
             {
-                Instantiate(towerPrefab, groundTilemap.GetCellCenterWorld(cellPosition), Quaternion.identity);
+                Vector3 towerPosition = groundTilemap.GetCellCenterWorld(cellPosition);
+                towerPosition.y += groundTilemap.cellSize.y / 2;
+                Instantiate(towerPrefab, towerPosition, Quaternion.identity);
                 Destroy(currentTower);
             }
         }
