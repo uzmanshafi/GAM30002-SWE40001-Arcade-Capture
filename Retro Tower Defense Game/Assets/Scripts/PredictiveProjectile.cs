@@ -104,7 +104,10 @@ public class PredictiveProjectile : Projectile
             if (time_to_destination <= point.time)
             {
                 //Fire
-                //transform.direction = (collision_point - transform.position).normalized;
+                transform.direction = (point.collision_point - transform.position).normalized;
+                
+                //Create bullet and stuff
+                
                 return;
             }
         }
@@ -112,7 +115,7 @@ public class PredictiveProjectile : Projectile
         //aimPrediction()
         //Repeat but update enemy position and enemy direction based on next waypoints. GetCollisionPoint elapsed time is time_to_destination. If enemy escapes (last waypoint) then return
 
-
+        //Leave this blank for testing, to do corners make this function recursive
 
     }
 
