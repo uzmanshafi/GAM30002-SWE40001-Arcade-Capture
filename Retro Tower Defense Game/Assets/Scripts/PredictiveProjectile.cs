@@ -38,48 +38,82 @@ public class PredictiveProjectile : Projectile
         }
     }
 
+    //Returns the collision point and time of collision of the predicted shot. This only works for rays, it does not account for corners. Use the returned point to check if it lies on the enemy path. elapsed_time is the time that it took the enemy to reach enemy_position
+    private (Vector2? collision_point, float? time) GetCollisionPoint(Vector2 enemy_position, Vector2 enemy_direction, float enemy_speed, float elapsed_time)
+    {
+        //The vector from Enemy to Tower
+        Vector2 ET = transform.position - enemy_position;
+
+        float dot_product = Vector2.Dot(enemy_direction, ET);
+
+        float speed_squared_difference = Math.pow(enemy_speed, 2) - Math.pow(transform.speed, 2);
+
+        float time;
+
+        if (speed_squared_difference == 0 ) {
+            //Divide by 0, special case must be treated differently
+
+            time = ET.sqrMagnitude / (2 * enemy_speed * dot_product);
+
+        } else {
+            float discriminant = Math.pow(enemy_speed * dot_product, 2) * ET.sqrMagnitude;
+
+            if (discriminant < 0) {
+                //No solutions
+                return (null, null);
+
+            } else if (discriminant == 0) {
+                //One solution
+                time = enemy_speed * (dot_product) / speed_squared_difference;
+            } else {
+                //Two solutions
+
+                time = (enemy_speed * (dot_product) - Math.Sqrt(discriminant)) / speed_squared_difference;
+
+                //Make sure time is positive
+                if (time < elapsed_time) {
+                    time = (enemy_speed * (dot_product) + Math.Sqrt(discriminant)) / speed_squared_difference;
+                }
+            }
+        }
+
+        if (time < elapsed_time) {
+            return (null, null);
+        }
+
+        //Enemy Position + time * Enemy Speed * Enemy Direction = Collision point
+        //Collision Point - Tower Position normalised is the projectile Direction
+
+        Vector2 collision_point = enemy_position + time * enemy_speed * enemy_direction;
+
+        return (collision_point, time);
+    }
+
+
     private void aimPrediction()
     {
-        transform.position; //Pi
-        transfrom.speed; //Ps
-        transform.direction; //?
-        target.transform.position; //Ei
-        target.GetMovementSpeed; //Es
-        target.GetDestination; //Ed
+        //See time for enemy to reach destination
+        float time_to_destination = (target.GetDestination - target.transform.position).magnitude / target.GetMovementSpeed;
 
-        //float A = transform.speed
-        //float B = target.getMovementSpeed
-        //float C = distanceBetweenInitialPositions
-        //float cosa = ( (Ei - Pi) dot (Pi + C) ) / ( |Ei - Pi||Pi + C| )
-        //float time = ( A*C*cosa +- C*Sqrt(B^2*cosa^2 - B^2 + A^2) ) / ( B^2 - A^2 )
+        Vector2 enemy_direction = (target.GetDestination - target.transform.position).normalized;
 
-        //Check that A =/= B, if it does figure out what to
-        
+        var point = GetCollisionPoint(target.transform.position, enemy_direction, target.GetMovementSpeed, 0);
 
-/*        float distance_to_target = Vector2.Distance(transform.position, target.transform.position);
-        float time_to_target = distance_to_target / (speed * Time.deltaTime);
+        if (point.collision_point is Vector2 cp) {
+            //Check if on enemy path
+            if (time_to_destination <= point.time)
+            {
+                //Fire
+                //transform.direction = (collision_point - transform.position).normalized;
+                return;
+            }
+        }
 
-        Vector3 movementPerTick = Vector3.MoveTowards(target.transform.position, target.GetDestination, (target.GetMovementSpeed) * Time.deltaTime) - target.transform.position; //simulates the movement of the enemy from its position
-        float targetXMovement = movementPerTick.x; 
-        float targetXPos = target.transform.position.x;
-
-        float targetYMovement = movementPerTick.y;
-        float targetYPos = target.transform.position.y;
+        //aimPrediction()
+        //Repeat but update enemy position and enemy direction based on next waypoints. GetCollisionPoint elapsed time is time_to_destination. If enemy escapes (last waypoint) then return
 
 
-        float xDisplacement = targetXMovement * time_to_target;
-        float yDisplacement = targetYMovement * time_to_target;
-        Vector2 predictedVec = new Vector2(targetXPos + xDisplacement, targetYPos + yDisplacement); //predict location based on time for projectile to reach the target
 
-        float dx = predictedVec.x - transform.position.x;
-        float dy = predictedVec.y - transform.position.y;
-
-        double firing_angle = Math.Atan2(dy, dx); //using the displacmement, Find the angle we will have to fire at from our current pos.
-
-        Vector2 bulletVel = new Vector2((float)(speed * Math.Cos(firing_angle)), (float)(speed * Math.Sin(firing_angle))); //Utilising the speed and firing angle, create a vector for the new bullet's required velocity
-
-        rb.velocity = bulletVel;
-*/
     }
 
 }
