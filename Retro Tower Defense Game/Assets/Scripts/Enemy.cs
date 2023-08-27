@@ -9,12 +9,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Waypoints waypoints;
 
     private int i = 0; //index for heading position
-    private Vector3 currentPointHeading;
+    private Vector3 destination;
     private int health;
 
     public float GetMovementSpeed => MovementSpeed; // Getter
     public Waypoints GetWaypoints => waypoints; // Getter (I would prefer the name to not be the same as the type)
-    public Vector3 GetDestination => currentPointHeading; //Getter 
+    public Vector3 GetDestination => destination; //Getter 
 
 
 
@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(true);
         transform.position = waypoints.Points[i];
         i += 1;
-        currentPointHeading = waypoints.getWaypointPosition(i);
+        destination = waypoints.getWaypointPosition(i);
     }
 
     // Update is called once per frame
@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
     private void move()
     {
         //gameObject.GetComponent<Rigidbody2D>().N
-        transform.position = Vector3.MoveTowards(transform.position, currentPointHeading, MovementSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, destination, MovementSpeed * Time.deltaTime);
 
         if (pointReached())
         {
@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
 
     private bool pointReached()
     {
-        float distanceToNext = (transform.position - currentPointHeading).magnitude;
+        float distanceToNext = (transform.position - destination).magnitude;
         if (distanceToNext < 0.1f)
         {
             return true;
@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour
         if (i < finalWaypointIndex)
         {
             i++;
-            currentPointHeading = waypoints.getWaypointPosition(i);
+            destination = waypoints.getWaypointPosition(i);
             rotate();
         }
         else
@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour
 
     private void rotate()
     {
-        if(currentPointHeading.x > waypoints.getWaypointPosition(i - 1).x)
+        if(destination.x > waypoints.getWaypointPosition(i - 1).x)
         {
             transform.eulerAngles = new Vector3(0,0,0);
         }
