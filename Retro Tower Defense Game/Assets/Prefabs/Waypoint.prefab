@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 337850506411788779}
   - component: {fileID: 337850506411788777}
   - component: {fileID: 3221700600878956218}
+  - component: {fileID: 1480435208552004210}
   m_Layer: 0
   m_Name: Waypoint
   m_TagString: Untagged
@@ -49,8 +50,8 @@ MonoBehaviour:
   - {fileID: 680841621375074119, guid: 539fbdf77cff6324daf53e1cabfa1f8e, type: 3}
   - {fileID: 680841621375074119, guid: 8c3945630018fdf438f472fd0489d1c1, type: 3}
   WaveSize: 10
-  specialEnemies: 8
-  EnemyDelay: 4
+  specialEnemies: 5
+  EnemyDelay: 2
 --- !u!114 &3221700600878956218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +65,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: -9.338882, y: 2.7732213, z: -0.00039750896}
-  - {x: -8.106339, y: -2.631006, z: -0.00039750896}
-  - {x: -1.5406798, y: -2.559898, z: -0.00039750896}
+  - {x: -10.39213, y: 3.82647, z: -0.00039750896}
+  - {x: -5.344659, y: -2.6310062, z: -0.00039750896}
+  - {x: -3.7209544, y: 2.52741, z: -0.00039750896}
   - {x: 2.465086, y: 1.4221649, z: -0.00039750896}
+  - {x: 1.265935, y: -3.5197914, z: -0.00039750896}
+  - {x: 9.623653, y: 3.0210323, z: -0.00039750896}
+--- !u!114 &1480435208552004210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337850506411788782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e36f972421ede9449c01314f4d5d0f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 5
