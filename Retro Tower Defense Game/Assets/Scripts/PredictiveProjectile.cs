@@ -46,7 +46,7 @@ public class PredictiveProjectile : Projectile
 
         float dot_product = Vector2.Dot(enemy_direction, ET);
 
-        float speed_squared_difference = Math.pow(enemy_speed, 2) - Math.pow(transform.speed, 2);
+        float speed_squared_difference = (float)(Math.Pow(enemy_speed, 2) - Math.Pow(speed, 2));
 
         float time;
 
@@ -56,7 +56,7 @@ public class PredictiveProjectile : Projectile
             time = ET.sqrMagnitude / (2 * enemy_speed * dot_product);
 
         } else {
-            float discriminant = Math.pow(enemy_speed * dot_product, 2) * ET.sqrMagnitude;
+            float discriminant = (float)Math.Pow(enemy_speed * dot_product, 2) * ET.sqrMagnitude;
 
             if (discriminant < 0) {
                 //No solutions
@@ -68,11 +68,11 @@ public class PredictiveProjectile : Projectile
             } else {
                 //Two solutions
 
-                time = (enemy_speed * (dot_product) - Math.Sqrt(discriminant)) / speed_squared_difference;
+                time = (enemy_speed * (dot_product) - (float)Math.Sqrt(discriminant)) / speed_squared_difference;
 
                 //Make sure time is positive
                 if (time < elapsed_time) {
-                    time = (enemy_speed * (dot_product) + Math.Sqrt(discriminant)) / speed_squared_difference;
+                    time = (enemy_speed * (dot_product) + (float)Math.Sqrt(discriminant)) / speed_squared_difference;
                 }
             }
         }
@@ -104,7 +104,7 @@ public class PredictiveProjectile : Projectile
             if (time_to_destination <= point.time)
             {
                 //Fire
-                transform.direction = (point.collision_point - transform.position).normalized;
+                direction = (cp - transform.position).normalized;
                 
                 //Create bullet and stuff
                 
