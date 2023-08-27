@@ -15,8 +15,7 @@ public class Enemy : MonoBehaviour
     public float GetMovementSpeed => MovementSpeed; // Getter
     public Waypoints GetWaypoints => waypoints; // Getter (I would prefer the name to not be the same as the type)
     public Vector3 GetDestination => destination; //Getter 
-
-
+    public int getWaypointIndex => i; //Getter
 
     // Start is called before the first frame update
     void Start()
