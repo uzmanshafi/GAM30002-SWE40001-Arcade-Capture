@@ -31,3 +31,8 @@ bool SegmentCircleCollision(Vector2 start, Vector2 end, Vector2 centre, float ra
 
 	return true;
 }
+
+bool CircleCircleCollision(Vector2 centre1, float radius1, Vector2 centre2, float radius2)
+{
+	return Math.Pow(radius1 + radius2, 2) >= (centre2 - centre1).sqrMagnitude;
+}
