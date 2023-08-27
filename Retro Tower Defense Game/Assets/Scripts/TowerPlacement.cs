@@ -9,6 +9,7 @@ public class TowerPlacement : MonoBehaviour
     private GameObject currentTower;
     private bool placingTower = false;
     private bool movingTower = false;
+    private GameObject towerToMove;
 
     public Tilemap groundTilemap;
     public Tilemap topTilemap;
@@ -23,10 +24,16 @@ public class TowerPlacement : MonoBehaviour
         if (placingTower)
         {
             HandleTowerPlacement();
+            HandleTowerRotation();
         }
         else if (movingTower)
         {
             HandleTowerMove();
+            HandleTowerRotation();
+        }
+        else
+        {
+            HandleTowerSelection();
         }
     }
 
@@ -43,6 +50,7 @@ public class TowerPlacement : MonoBehaviour
             Destroy(currentTower);
             placingTower = false;
             movingTower = false;
+            towerToMove = null;
         }
     }
 
@@ -76,13 +84,48 @@ public class TowerPlacement : MonoBehaviour
         {
             if (IsCellValid(cellPosition))
             {
-                currentTower.transform.position = groundTilemap.GetCellCenterWorld(cellPosition);
+                towerToMove.transform.position = groundTilemap.GetCellCenterWorld(cellPosition);
                 movingTower = false;
+                towerToMove = null;
             }
         }
         else
         {
-            currentTower.transform.position = mousePos;
+            towerToMove.transform.position = mousePos;
+        }
+    }
+
+    private void HandleTowerSelection()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero);
+
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.collider.CompareTag("Tower"))
+                {
+                    towerToMove = hit.collider.gameObject;
+                    movingTower = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    private void HandleTowerRotation()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && (placingTower || movingTower))
+        {
+            if (currentTower != null)
+            {
+                currentTower.transform.Rotate(Vector3.forward, 45f);
+            }
+            else if (towerToMove != null)
+            {
+                towerToMove.transform.Rotate(Vector3.forward, 45f);
+            }
         }
     }
 
@@ -90,7 +133,6 @@ public class TowerPlacement : MonoBehaviour
     {
         TileBase groundTile = groundTilemap.GetTile(cellPosition);
         TileBase topTile = topTilemap.GetTile(cellPosition);
-        
         
         return groundTile != null && topTile == null;
     }
