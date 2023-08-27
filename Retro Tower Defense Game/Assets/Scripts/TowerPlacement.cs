@@ -14,6 +14,8 @@ public class TowerPlacement : MonoBehaviour
     public Tilemap groundTilemap;
     public Tilemap topTilemap;
 
+    public LayerMask topTilemapLayerMask;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
@@ -21,15 +23,18 @@ public class TowerPlacement : MonoBehaviour
             ToggleTowerPlacementMode();
         }
 
+        if (Input.GetKeyDown(KeyCode.R) && (placingTower || movingTower))
+        {
+            RotateTowerBeforePlacement();
+        }
+
         if (placingTower)
         {
             HandleTowerPlacement();
-            HandleTowerRotation();
         }
         else if (movingTower)
         {
             HandleTowerMove();
-            HandleTowerRotation();
         }
         else
         {
@@ -58,13 +63,15 @@ public class TowerPlacement : MonoBehaviour
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
+
+        // Convert mouse position to cell coordinates
         Vector3Int cellPosition = groundTilemap.WorldToCell(mousePos);
 
         if (Input.GetMouseButtonDown(0))
         {
             if (IsCellValid(cellPosition))
             {
-                currentTower.transform.position = groundTilemap.GetCellCenterWorld(cellPosition);
+                currentTower.transform.position = mousePos;
                 placingTower = false;
             }
         }
@@ -78,13 +85,15 @@ public class TowerPlacement : MonoBehaviour
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
+
+        // Converts mouse position to cell coordinates
         Vector3Int cellPosition = groundTilemap.WorldToCell(mousePos);
 
         if (Input.GetMouseButtonDown(0))
         {
             if (IsCellValid(cellPosition))
             {
-                towerToMove.transform.position = groundTilemap.GetCellCenterWorld(cellPosition);
+                towerToMove.transform.position = mousePos;
                 movingTower = false;
                 towerToMove = null;
             }
@@ -114,18 +123,15 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-    private void HandleTowerRotation()
+    private void RotateTowerBeforePlacement()
     {
-        if (Input.GetKeyDown(KeyCode.R) && (placingTower || movingTower))
+        if (currentTower != null)
         {
-            if (currentTower != null)
-            {
-                currentTower.transform.Rotate(Vector3.forward, 45f);
-            }
-            else if (towerToMove != null)
-            {
-                towerToMove.transform.Rotate(Vector3.forward, 45f);
-            }
+            currentTower.transform.Rotate(Vector3.forward, 45f);
+        }
+        else if (towerToMove != null)
+        {
+            towerToMove.transform.Rotate(Vector3.forward, 45f);
         }
     }
 
@@ -133,7 +139,22 @@ public class TowerPlacement : MonoBehaviour
     {
         TileBase groundTile = groundTilemap.GetTile(cellPosition);
         TileBase topTile = topTilemap.GetTile(cellPosition);
-        
-        return groundTile != null && topTile == null;
+
+        if (groundTile != null && topTile == null)
+        {
+            // Checks if the cell is within the bounds of the top tilemap collider
+            Vector3 cellCenter = topTilemap.GetCellCenterWorld(cellPosition);
+            Collider2D topTileCollider = Physics2D.OverlapPoint(cellCenter, topTilemapLayerMask);
+
+            // Checks if the cell is within the bounds of the arcade prefab's collider
+            Collider2D arcadeCollider = Physics2D.OverlapPoint(cellCenter);
+
+            if (topTileCollider == null && arcadeCollider == null)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
