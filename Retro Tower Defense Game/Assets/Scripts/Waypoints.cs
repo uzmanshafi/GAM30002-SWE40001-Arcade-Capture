@@ -39,12 +39,12 @@ public class Waypoints : MonoBehaviour
         for (int i = 0; i < points.Length; i++ )
         {
             Gizmos.color = Color.black;
-            Gizmos.DrawWireSphere(points[i] + currentPosition, 0.5f);
+            Gizmos.DrawWireSphere(points[i], 0.5f);
 
             if (i < points.Length - 1)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(points[i] + currentPosition, points[i + 1] + currentPosition);
+                Gizmos.DrawLine(points[i], points[i + 1]);
             }
         }
 
