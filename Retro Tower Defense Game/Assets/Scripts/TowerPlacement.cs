@@ -73,6 +73,11 @@ public class TowerPlacement : MonoBehaviour
             {
                 currentTower.transform.position = mousePos;
                 placingTower = false;
+                Debug.Log("Tower placed successfully.");
+            }
+            else
+            {
+                Debug.Log("Cannot place tower in this location.");
             }
         }
         else
@@ -159,6 +164,4 @@ public class TowerPlacement : MonoBehaviour
 
         return false;
     }
-
-
 }
