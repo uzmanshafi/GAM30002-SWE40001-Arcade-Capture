@@ -16,12 +16,12 @@ public class AsteroidsTower : Tower
     {
         if (Time.time - lastShotTime > cooldown)
         {
-            fire();
+            tryShoot();
             lastShotTime = Time.time;
         }
     }
 
-    private void fire()
+    protected override void tryShoot()
     {
         float spawnY = Random.Range
                 (Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)).y, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height + 10)).y);
