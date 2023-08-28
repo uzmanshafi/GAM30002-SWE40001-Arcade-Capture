@@ -134,7 +134,6 @@ public class TowerPlacement : MonoBehaviour
             towerToMove.transform.Rotate(Vector3.forward, 45f);
         }
     }
-
     private bool IsCellValid(Vector3Int cellPosition)
     {
         TileBase groundTile = groundTilemap.GetTile(cellPosition);
@@ -142,19 +141,24 @@ public class TowerPlacement : MonoBehaviour
 
         if (groundTile != null && topTile == null)
         {
-            // Checks if the cell is within the bounds of the top tilemap collider
             Vector3 cellCenter = topTilemap.GetCellCenterWorld(cellPosition);
-            Collider2D topTileCollider = Physics2D.OverlapPoint(cellCenter, topTilemapLayerMask);
+            Vector3 towerPosition = currentTower.transform.position;
 
-            // Checks if the cell is within the bounds of the arcade prefab's collider
-            Collider2D arcadeCollider = Physics2D.OverlapPoint(cellCenter);
+            // Define a ray direction from the tower position to the cell center
+            Vector3 rayDirection = (cellCenter - towerPosition).normalized;
 
-            if (topTileCollider == null && arcadeCollider == null)
+            // Cast a ray from the tower position to the cell center
+            RaycastHit2D hit = Physics2D.Raycast(towerPosition, rayDirection, Vector3.Distance(cellCenter, towerPosition), topTilemapLayerMask);
+
+            if (hit.collider == null)
             {
+                // No obstacles in the way, the placement is valid
                 return true;
             }
         }
 
         return false;
     }
+
+
 }
