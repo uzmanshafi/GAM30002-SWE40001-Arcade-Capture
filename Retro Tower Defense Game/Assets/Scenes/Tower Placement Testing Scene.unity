@@ -5359,6 +5359,9 @@ MonoBehaviour:
   towerPrefab: {fileID: 8076282756041783590, guid: 790f0c2bd8d56af4ebaaa3df77304c82, type: 3}
   groundTilemap: {fileID: 335287380}
   topTilemap: {fileID: 2132503519}
+  topTilemapLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &687702002
 Transform:
   m_ObjectHideFlags: 0
@@ -5431,7 +5434,8 @@ GameObject:
   - component: {fileID: 2132503517}
   - component: {fileID: 2132503519}
   - component: {fileID: 2132503518}
-  m_Layer: 0
+  - component: {fileID: 2132503520}
+  m_Layer: 7
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6574,6 +6578,42 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &2132503520
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132503516}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &2136589828
 GameObject:
   m_ObjectHideFlags: 0
