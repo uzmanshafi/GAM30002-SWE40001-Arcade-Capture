@@ -7,13 +7,13 @@ public class Tower : MonoBehaviour
     [SerializeField] protected float cost;
     [SerializeField] protected float cooldown = 1;
 
-    private float lastShotTime; //used to determine cooldown
+    protected float lastShotTime; //used to determine cooldown
     [SerializeField] private Enemy target;
 
     [SerializeField] public float towerRadius;
     [SerializeField] public float range = 5;
 
-    [SerializeField] private GameObject[] bulletTypes;
+    [SerializeField] protected GameObject[] bulletTypes;
 
     // Start is called before the first frame update
     void Start()
