@@ -30,6 +30,6 @@ public class AsteroidsTower : Tower
         GameObject asteroid = Instantiate(bulletTypes[2], new Vector2(spawnX, spawnY), Quaternion.identity);
         Vector2 dir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - asteroid.transform.position).normalized;
         asteroid.GetComponent<Rigidbody2D>().velocity = dir * asteroidSpeed;
-        Destroy(asteroid,5);
+        Destroy(asteroid,3);
     }
 }

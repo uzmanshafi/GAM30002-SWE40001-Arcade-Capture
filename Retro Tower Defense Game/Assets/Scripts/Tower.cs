@@ -3,7 +3,6 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
 {
-    [SerializeField] protected float damage = 1;
     [SerializeField] protected float cost;
     [SerializeField] protected float cooldown = 1;
 
