@@ -39,7 +39,7 @@ public class PredictiveProjectile : Projectile
     }
 
     //Returns the collision point and time of collision of the predicted shot. This only works for rays, it does not account for corners. Use the returned point to check if it lies on the enemy path. elapsed_time is the time that it took the enemy to reach enemy_position
-    private (Vector2? collision_point, float? time) GetCollisionPoint(Vector2 enemy_position, Vector2 enemy_direction, float enemy_speed, float elapsed_time)
+    private (Vector2? point, float? time) GetCollisionPoint(Vector2 enemy_position, Vector2 enemy_direction, float enemy_speed, float elapsed_time)
     {
         //The vector from Enemy to Tower
         Vector2 ET = (Vector2)transform.position - enemy_position;
@@ -90,13 +90,49 @@ public class PredictiveProjectile : Projectile
     }
 
 
+    float TimeToWaypoint(Vector2 start, Vector2 end, float speed)
+    {
+        return (end - start).magnitude / speed;
+    }
+
     private void aimPrediction()
     {
-        //See time for enemy to reach destination
-        float time_to_destination = (target.GetDestination - target.transform.position).magnitude / target.GetMovementSpeed;
 
+        //Run for enemy position and first waypoint, then use waypoints alone
         Vector2 enemy_direction = (target.GetDestination - target.transform.position).normalized;
+        (Vector2? point, float? time) collision = GetCollisionPoint(target.transform.position, enemy_direction, target.GetMovementSpeed, 0);
 
+        if (collision.point is Vector2 point)
+        {
+            float time_to_waypoint = TimeToWaypoint(target.transform.position, target.GetDestination, target.GetMovementSpeed);
+            if (time_to_waypoint >= (float)collision.time)
+            {
+                //Fire
+                direction = (point - (Vector2)transform.position).normalized;
+
+                rb.velocity = direction * speed;
+
+                return;
+
+            } else {
+                //start looping
+            }
+
+        }
+
+
+
+        // for (int i = target.getWaypointIndex; i < target.GetWaypoints.Points.Length; ++i)
+        // {
+            
+        // }
+        // target.getWaypointIndex;
+        // target.getWaypointPosition()
+
+
+
+
+/*
         (Vector2? collision_point, float? time) point;
         float elapsedTime = 0;
         for (int i = target.getWaypointIndex; i <= target.GetWaypoints.Points.Length - 2; i++) //start at i = index of waypoint enemy is approaching
@@ -128,7 +164,7 @@ public class PredictiveProjectile : Projectile
                 }
             }
         }
-        
+        */
 
         
 
