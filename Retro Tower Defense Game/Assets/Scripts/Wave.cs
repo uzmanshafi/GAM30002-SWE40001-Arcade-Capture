@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.IO;
 
 public class Wave : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Wave : MonoBehaviour
     
     private float timeSinceLastEnemy;
     private int batchIndex = 0;
+    GameObject[] enemies;
 
     private Vector2 start;
 
@@ -17,7 +19,7 @@ public class Wave : MonoBehaviour
     void Start()
     { //All just for testing
         start = gameObject.GetComponent<Waypoints>().Points[0];
-        GameObject[] enemies = GameObject.FindAnyObjectByType<samplePooler>().enemies;
+        enemies = GameObject.FindAnyObjectByType<samplePooler>().enemies;
         GameObject[] Pink3 = { enemies[0], enemies[0], enemies[0]};
         WaveBatch batch1 = new WaveBatch(Pink3, 0.8f);
         waveBatches.Add(2f, batch1);
@@ -36,7 +38,10 @@ public class Wave : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            loadFromFile("ExampleFormat.csv");
+        }
         if (waveBatches.Count > 0 && Time.time > waveBatches.First().Key)
         {
             KeyValuePair<float, WaveBatch> kvp = waveBatches.First();
@@ -57,4 +62,49 @@ public class Wave : MonoBehaviour
             timeSinceLastEnemy = 0f;
         }
     }
+
+    public void loadFromFile(string fileName)
+    {
+        Debug.Log("starting load");
+        waveBatches = new SortedDictionary<float, WaveBatch>();
+        using (var parser = new StreamReader(fileName))
+        {
+            while (!parser.EndOfStream)
+            {
+
+                string[] fields = parser.ReadLine().Split(',');
+                foreach (string s in fields)
+                {
+                    s.Trim();
+                }
+                if (fields[0] == "Time") { continue; }
+                float time;
+                if (!float.TryParse(fields[0], out time))
+                {
+                    continue;
+                }
+                GameObject[] enemies2Spawn;
+                int numEnemies = 1;
+                if (fields[1].Contains("|"))
+                {
+                    numEnemies = fields[1].Count(f => (f == '|')) + 1;
+                    enemies2Spawn = new GameObject[numEnemies];
+                    string[] enemyNums = fields[1].Split('|');
+                    for (int i = 0; i < numEnemies; i++)
+                    {
+                        enemies2Spawn[i] = enemies[int.Parse(enemyNums[i])];
+                    }
+                }
+                else
+                {
+                    enemies2Spawn = new GameObject[]{ enemies[int.Parse(fields[1])] };
+                }
+                Debug.Log(fields[0] + '|' + enemies2Spawn + '|' + fields[2]);
+                waveBatches.Add(time,new WaveBatch(enemies2Spawn, float.Parse(fields[2])));
+                Debug.Log("Adding enemies at T = " + fields[0]);
+            }
+        }
+    }
+
+
 }
