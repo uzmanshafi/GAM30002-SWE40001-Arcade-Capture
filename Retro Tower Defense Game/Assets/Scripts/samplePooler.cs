@@ -5,7 +5,7 @@ using UnityEngine;
 public class samplePooler : MonoBehaviour
 {
 
-    [SerializeField] private GameObject[] enemies;
+    [SerializeField] public GameObject[] enemies;
     [SerializeField] private int WaveSize;
     [SerializeField] private int specialEnemies; //placeholder, could make new variable for each enemy type
     [SerializeField] private float EnemyDelay;
