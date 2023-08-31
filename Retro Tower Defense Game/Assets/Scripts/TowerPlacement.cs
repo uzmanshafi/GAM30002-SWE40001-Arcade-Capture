@@ -85,12 +85,18 @@ public class TowerPlacement : MonoBehaviour
     private void AttemptPickupTower(Vector3 position)
     {
         Collider2D hitCollider = Physics2D.OverlapPoint(position);
-        if (hitCollider != null && hitCollider.gameObject.CompareTag("ArcadeTower"))
+        if (hitCollider != null)
         {
-            Destroy(hitCollider.gameObject);
-            SpawnTower(position);
+            Debug.Log("Collider hit: " + hitCollider.gameObject.name);
+            if (hitCollider.gameObject.CompareTag("Tower"))
+            {
+                Debug.Log("Tower hit.");
+                Destroy(hitCollider.gameObject);
+                SpawnTower(position);
+            }
         }
     }
+
 
     private void RotateTower()
     {
@@ -116,7 +122,14 @@ public class TowerPlacement : MonoBehaviour
             return false;
         }
 
-        // Checks for overlap with other towers
+        Collider2D hitPathCollider = Physics2D.OverlapCircle(location, 0.35f, 1 << LayerMask.NameToLayer("Pathing"));
+        if (hitPathCollider != null && hitPathCollider.gameObject == pathTilemap.gameObject)
+        {
+            Debug.Log("Overlaps the path");
+            return false;
+        }
+
+        
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(location, 0.35f, 1 << LayerMask.NameToLayer("Tower"));
         foreach (Collider2D hitCollider in hitColliders)
         {
@@ -125,13 +138,6 @@ public class TowerPlacement : MonoBehaviour
                 Debug.Log("Overlaps another tower");
                 return false;
             }
-        }
-
-        Collider2D hitPathCollider = Physics2D.OverlapCircle(location, 0.35f, 1 << LayerMask.NameToLayer("Pathing"));
-        if (hitPathCollider != null)
-        {
-            Debug.Log("Overlaps the path");
-            return false;
         }
 
         Debug.Log("Valid Location");
