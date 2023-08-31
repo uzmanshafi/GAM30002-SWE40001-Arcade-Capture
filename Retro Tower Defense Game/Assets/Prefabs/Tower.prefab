@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3754044211217079559}
   - component: {fileID: 3754044211217079558}
-  - component: {fileID: 3754044211217079556}
+  - component: {fileID: 1991707381681165175}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3754044211217079556
+--- !u!114 &1991707381681165175
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3754044211217079577}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1533f0ea1fb69845b51b8e9f170278d, type: 3}
+  m_Script: {fileID: 11500000, guid: 9090a7e0ec3ea8a45835fb4cfabce759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
@@ -102,7 +102,5 @@ MonoBehaviour:
   cooldown: 1
   target: {fileID: 0}
   towerRadius: 0
-  range: 4
-  bulletTypes:
-  - {fileID: 2396885586352238776, guid: 6631765ac04225b409ca5fe42e5f007b, type: 3}
-  - {fileID: 2396885586352238776, guid: 50711a9323c949342b7cba54aa11ae7a, type: 3}
+  range: 5
+  bulletTypes: []
