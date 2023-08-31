@@ -1,160 +1,149 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class TowerPlacement : MonoBehaviour
 {
-    public GameObject towerPrefab;
-    private GameObject currentTower;
-    private bool placingTower = false;
-    private bool movingTower = false;
-    private GameObject towerToMove;
-
+    public GameObject arcadeTowerPrefab;
     public Tilemap groundTilemap;
-    public Tilemap topTilemap;
+    public Tilemap pathTilemap;
+    private GameObject currentTower;
 
-    public LayerMask topTilemapLayerMask;
+    private SpriteRenderer currentTowerSpriteRenderer;
 
-    private void Update()
+
+    void Update()
     {
+        Vector3 mouseWorldPos = GetMouseWorldPosition();
+
         if (Input.GetKeyDown(KeyCode.K))
         {
-            ToggleTowerPlacementMode();
+            SpawnTower(mouseWorldPos);
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && (placingTower || movingTower))
+        if (currentTower != null)
         {
-            RotateTowerBeforePlacement();
-        }
+            DragTower(mouseWorldPos);
 
-        if (placingTower)
-        {
-            HandleTowerPlacement();
-        }
-        else if (movingTower)
-        {
-            HandleTowerMove();
-        }
-        else
-        {
-            HandleTowerSelection();
-        }
-    }
-
-    private void ToggleTowerPlacementMode()
-    {
-        if (!placingTower && !movingTower)
-        {
-            placingTower = true;
-            currentTower = Instantiate(towerPrefab);
-            currentTower.SetActive(true);
-        }
-        else
-        {
-            Destroy(currentTower);
-            placingTower = false;
-            movingTower = false;
-            towerToMove = null;
-        }
-    }
-
-    private void HandleTowerPlacement()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0;
-
-        // Convert mouse position to cell coordinates
-        Vector3Int cellPosition = groundTilemap.WorldToCell(mousePos);
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (IsCellValid(cellPosition))
+            if (Input.GetMouseButtonDown(0))
             {
-                currentTower.transform.position = mousePos;
-                placingTower = false;
-            }
-        }
-        else
-        {
-            currentTower.transform.position = mousePos;
-        }
-    }
-
-    private void HandleTowerMove()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0;
-
-        // Converts mouse position to cell coordinates
-        Vector3Int cellPosition = groundTilemap.WorldToCell(mousePos);
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (IsCellValid(cellPosition))
-            {
-                towerToMove.transform.position = mousePos;
-                movingTower = false;
-                towerToMove = null;
-            }
-        }
-        else
-        {
-            towerToMove.transform.position = mousePos;
-        }
-    }
-
-    private void HandleTowerSelection()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero);
-
-            foreach (RaycastHit2D hit in hits)
-            {
-                if (hit.collider.CompareTag("Tower"))
+                if (IsValidLocation(mouseWorldPos))
                 {
-                    towerToMove = hit.collider.gameObject;
-                    movingTower = true;
-                    break;
+                    DropTower();
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RotateTower();
+            }
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            AttemptPickupTower(mouseWorldPos);
         }
     }
 
-    private void RotateTowerBeforePlacement()
+    private Vector3 GetMouseWorldPosition()
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0;
+        return mouseWorldPos;
+    }
+
+    private void SpawnTower(Vector3 position)
+    {
+        if (currentTower == null)
+        {
+            currentTower = Instantiate(arcadeTowerPrefab, position, Quaternion.identity);
+            currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
+        }
+    }
+
+
+    private void DragTower(Vector3 newPosition)
+    {
+        currentTower.transform.position = newPosition;
+        if (IsValidLocation(newPosition))
+        {
+            currentTowerSpriteRenderer.color = new Color(0, 1, 0, 0.8f);  // Green with 10% opacity
+        }
+        else
+        {
+            currentTowerSpriteRenderer.color = new Color(1, 0, 0, 0.8f);  // Red with 10% opacity
+        }
+    }
+
+
+    private void DropTower()
+    {
+        currentTowerSpriteRenderer.color = Color.white;  // Resets color to white
+        currentTower = null;
+        currentTowerSpriteRenderer = null;
+    }
+
+
+    private void AttemptPickupTower(Vector3 position)
+    {
+        Collider2D hitCollider = Physics2D.OverlapPoint(position);
+        if (hitCollider != null)
+        {
+            Debug.Log("Collider hit: " + hitCollider.gameObject.name);
+            if (hitCollider.gameObject.CompareTag("Tower"))
+            {
+                Debug.Log("Tower hit.");
+                Destroy(hitCollider.gameObject);
+                SpawnTower(position);
+            }
+        }
+    }
+
+
+    private void RotateTower()
     {
         if (currentTower != null)
         {
-            currentTower.transform.Rotate(Vector3.forward, 45f);
-        }
-        else if (towerToMove != null)
-        {
-            towerToMove.transform.Rotate(Vector3.forward, 45f);
+            currentTower.transform.Rotate(0, 0, 45);
         }
     }
 
-    private bool IsCellValid(Vector3Int cellPosition)
+    private bool IsValidLocation(Vector3 location)
     {
-        TileBase groundTile = groundTilemap.GetTile(cellPosition);
-        TileBase topTile = topTilemap.GetTile(cellPosition);
+        Vector3Int cellPosition = groundTilemap.WorldToCell(location);
 
-        if (groundTile != null && topTile == null)
+        if (!groundTilemap.HasTile(cellPosition))
         {
-            // Checks if the cell is within the bounds of the top tilemap collider
-            Vector3 cellCenter = topTilemap.GetCellCenterWorld(cellPosition);
-            Collider2D topTileCollider = Physics2D.OverlapPoint(cellCenter, topTilemapLayerMask);
+            Debug.Log("Not a ground tile");
+            return false;
+        }
 
-            // Checks if the cell is within the bounds of the arcade prefab's collider
-            Collider2D arcadeCollider = Physics2D.OverlapPoint(cellCenter);
+        if (pathTilemap.HasTile(cellPosition))
+        {
+            Debug.Log("It's a path tile");
+            return false;
+        }
 
-            if (topTileCollider == null && arcadeCollider == null)
+        Collider2D hitPathCollider = Physics2D.OverlapCircle(location, 0.35f, 1 << LayerMask.NameToLayer("Pathing"));
+        if (hitPathCollider != null && hitPathCollider.gameObject == pathTilemap.gameObject)
+        {
+            Debug.Log("Overlaps the path");
+            return false;
+        }
+
+        
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(location, 0.35f, 1 << LayerMask.NameToLayer("Tower"));
+        foreach (Collider2D hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject != currentTower)
             {
-                return true;
+                Debug.Log("Overlaps another tower");
+                return false;
             }
         }
 
-        return false;
+        Debug.Log("Valid Location");
+        return true;
     }
+
+
+
 }
