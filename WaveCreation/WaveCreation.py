@@ -6,7 +6,7 @@ with open(fileName, mode='w') as wave_file:
     wave_writer = csv.writer(wave_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
     totalSpawnTime = 0
     while (True):
-        print("Currently Enemies will finish spawning at T = " + str(totalSpawnTime))
+        print("Currently will spawn last batch starting at T = " + str(totalSpawnTime))
         spawnTime = input("Enter spawn time as int or float ( I.E if you put this as 1 the first enemy will spawn at t = 1)) Or enter q to quit: ")
         if spawnTime == 'q':
             break
