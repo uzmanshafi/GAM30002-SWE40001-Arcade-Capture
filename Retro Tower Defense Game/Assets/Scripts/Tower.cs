@@ -68,14 +68,18 @@ public abstract class Tower : MonoBehaviour
         return null;
     }
 
-    private (Vector2? collision_point, float? time) GetCollisionPoint(Vector2 enemy_position, Vector2 enemy_direction, float enemy_speed, float projectile_speed,float elapsed_time)
+    //Add the time returned to the elapsed time to get total time
+    private (Vector2? collision_point, float? time) GetCollisionPoint(Vector2 enemy_position, Vector2 enemy_direction, float enemy_speed, float projectile_speed, float elapsed_time)
     {
         //The vector from Enemy to Tower
         Vector2 ET = (Vector2)transform.position - enemy_position;
 
         float dot_product = Vector2.Dot(enemy_direction, ET);
 
-        float speed_squared_difference = (float)(Math.Pow(enemy_speed, 2) - Math.Pow(projectile_speed, 2));
+        float enemy_speed_squared = (float)Math.Pow(enemy_speed, 2);
+        float projectile_speed_squared = (float)Math.Pow(projectile_speed, 2);
+        float speed_squared_difference = enemy_speed_squared - projectile_speed_squared;
+
 
         float time;
 
@@ -84,12 +88,12 @@ public abstract class Tower : MonoBehaviour
             Debug.Log("Divide by 0");
             //Divide by 0, special case must be treated differently
 
-            time = ET.sqrMagnitude / (2 * enemy_speed * dot_product);
-
+            //time = ET.sqrMagnitude / (2 * enemy_speed * dot_product);
+            time = (ET.sqrMagnitude - (float)Math.Pow(elapsed_time, 2) * projectile_speed_squared) / (2 * (elapsed_time * projectile_speed_squared + enemy_speed * dot_product));
         }
         else
         {
-            float discriminant = (float)Math.Pow(enemy_speed * dot_product, 2) - ((float)Math.Pow(enemy_speed, 2) - (float)Math.Pow(projectile_speed, 2)) *  ET.sqrMagnitude;
+            float discriminant = (float)Math.Pow(elapsed_time * projectile_speed_squared + enemy_speed * dot_product, 2) - speed_squared_difference * (ET.sqrMagnitude - (float)Math.Pow(elapsed_time, 2) * projectile_speed_squared);
 
             if (discriminant < 0)
             {
@@ -100,23 +104,23 @@ public abstract class Tower : MonoBehaviour
             else if (discriminant == 0)
             {
                 //One solution
-                time = enemy_speed * (dot_product) / speed_squared_difference;
+                time = (elapsed_time * projectile_speed_squared + enemy_speed * (dot_product)) / speed_squared_difference;
             }
             else
             {
                 //Two solutions
 
-                time = (enemy_speed * (dot_product) - (float)Math.Sqrt(discriminant)) / speed_squared_difference;
+                time = (elapsed_time * projectile_speed_squared + enemy_speed * (dot_product) - (float)Math.Sqrt(discriminant)) / speed_squared_difference;
 
                 //Make sure time is positive
-                if (time < elapsed_time)
+                if (time < 0)
                 {
-                    time = (enemy_speed * (dot_product) + (float)Math.Sqrt(discriminant)) / speed_squared_difference;
+                    time = (elapsed_time * projectile_speed_squared + enemy_speed * (dot_product) + (float)Math.Sqrt(discriminant)) / speed_squared_difference;
                 }
             }
         }
 
-        if (time < elapsed_time)
+        if (time < 0)
         {
             return (null, null);
         }
@@ -129,40 +133,58 @@ public abstract class Tower : MonoBehaviour
         return (collision_point, time);
     }
 
+    private float TimeToDestination(Vector2 current_position, Vector2 destination_position, float speed)
+    {
+        return (destination_position - current_position).magnitude / speed;
+    }
+
+    private (Vector2? direction, float time_to_destination) AttemptToFire(Vector2 enemy_position, Vector2 enemy_destination, float enemy_speed, Vector2 tower_position, float projectile_speed, float elapsed_time)
+    {
+        Vector2 enemy_direction = (enemy_destination - enemy_position).normalized;
+        (Vector2? collision_point, float? time) point = GetCollisionPoint(enemy_position, enemy_direction, enemy_speed, projectile_speed, elapsed_time);
+
+        float time_to_destination = TimeToDestination(enemy_position, enemy_destination, target.GetMovementSpeed);
+        if (point.collision_point is Vector2 cp)
+        {
+            if (point.time <= time_to_destination)
+            {
+                //Fire
+                Vector2 direction = (cp - tower_position).normalized;
+                return (direction, time_to_destination);
+            }
+        }
+        return (null, time_to_destination);
+    }
 
     protected Vector2? aimPrediction(float projectile_speed)
     {
-        //See time for enemy to reach destination
-        float time_to_destination = (target.GetDestination - target.transform.position).magnitude / target.GetMovementSpeed;
 
-        Vector2 enemy_direction = (target.GetDestination - target.transform.position).normalized;
+        //It takes in the current enemy position and then goes from there
+        // target.transform.position;
+        // target.GetWaypoints.getWaypointPosition(target.getWaypointIndex);
+        // 0;
 
-        (Vector2? collision_point, float? time) point;
-        float elapsedTime = 0;
-        for (int i = target.getWaypointIndex; i <= target.GetWaypoints.Points.Length - 2; i++) //start at i = index of waypoint enemy is approaching
+        // target.GetWaypoints.getWaypointPosition(target.getWaypointIndex);
+        // target.GetWaypoints.getWaypointPosition(target.getWaypointIndex + 1)
+        // elapsed_time;
+        float total_time = 0;
+
+        (Vector2? direction, float time) attempt = AttemptToFire(target.transform.position, target.GetDestination, target.GetMovementSpeed, (Vector2)transform.position, projectile_speed, total_time);
+
+
+        if (attempt.direction is Vector2 dir)
         {
-            if (true)//(i == target.getWaypointIndex) //if first iteration, enemy is heading from current position to index position
+            return dir;
+        } else {
+            for (int index = target.getWaypointIndex; index < target.GetWaypoints.Points.Length - 1; ++index)
             {
-                point = GetCollisionPoint(target.transform.position, enemy_direction, target.GetMovementSpeed, projectile_speed, 0);
-                elapsedTime += time_to_destination; //increment elapsed time by time taken to get to waypoint
-            }
-            else
-            {
-                time_to_destination = (target.GetWaypoints.getWaypointPosition(i + 1) - target.GetWaypoints.getWaypointPosition(i)).magnitude / target.GetMovementSpeed; //time to destination is updated to relect the new distance between points
-                enemy_direction = (target.GetWaypoints.getWaypointPosition(i + 1) - target.GetWaypoints.getWaypointPosition(i)).normalized;
-                point = GetCollisionPoint(target.GetWaypoints.getWaypointPosition(i), target.GetWaypoints.getWaypointPosition(i + 1), target.GetMovementSpeed, projectile_speed, elapsedTime);
-                elapsedTime += time_to_destination;
-            }
-            
-            if (point.collision_point is Vector2 cp)
-            {
-                //Check if on enemy path
-                if (point.time <= time_to_destination)
-                {
-                    //Fire
-                    Vector2 direction = (cp - (Vector2)transform.position).normalized;
+                total_time += attempt.time;
 
-                    return direction;
+                attempt = AttemptToFire(target.GetWaypoints.getWaypointPosition(index), target.GetWaypoints.getWaypointPosition(index + 1), target.GetMovementSpeed, (Vector2)transform.position, projectile_speed, total_time);
+
+                if (attempt.direction is Vector2 dir2)
+                {
+                    return dir2;
                 }
             }
         }
