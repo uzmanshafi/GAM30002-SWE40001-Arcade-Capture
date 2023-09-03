@@ -17,7 +17,7 @@ public class DonkeyKongProjectile : Projectile
     private float barrelLifetime;
 
     // These are the points that the enemy has been to. We copy them here because the enemy could be destroyed
-    private Vector3 pathPoints;
+    private Vector3[] pathPoints;
 
     // This index starts at the end and goes towards 0.
     private int pathPointIndex;
@@ -31,7 +31,7 @@ public class DonkeyKongProjectile : Projectile
         // Save the path that the barrel will follow once it hits the path
         // Copy the waypoints that the enemy has gone through
         pathPoints = new Vector3[target.getWaypointIndex];
-        Array.Copy(target.GetWaypoints.Points, 0, pathPoints, 0, target.getWaypointIndex);
+        System.Array.Copy(target.GetWaypoints.Points, 0, pathPoints, 0, target.getWaypointIndex);
 
         pathPointIndex = target.getWaypointIndex - 1;
     }
@@ -52,16 +52,16 @@ public class DonkeyKongProjectile : Projectile
                     //Destroy(this) ??
                 }
                 destination = pathPoints[pathPointIndex];
-                direction = (destination - transform.position).normalized;
+                direction = (destination - (Vector2)transform.position).normalized;
             }
 
         } else {
             //pointReached is going to be a globally accessible function. (Yes technically it could be an interface)
             if (pointReached((Vector2)transform.position, (Vector2)destination)) {
                 // Currently this will just changes the state. Otherwise we could destroy this object and create a barrel object that does the same thing
-                rollingAlongPath = true
+                rollingAlongPath = true;
                 destination = pathPoints[pathPointIndex];
-                direction = (destination - transform.position).normalized;
+                direction = (destination - (Vector2)transform.position).normalized;
             }
         }
     }
@@ -84,4 +84,11 @@ public class DonkeyKongProjectile : Projectile
             }
         }
     }
+
+    private bool pointReached(Vector2 position, Vector2 destination, float threshold = 0.01f) //will delegate to game manager when it exists
+    {
+        float distanceToNext = (position - destination).sqrMagnitude;
+        return distanceToNext <= threshold;
+    }
+
 }

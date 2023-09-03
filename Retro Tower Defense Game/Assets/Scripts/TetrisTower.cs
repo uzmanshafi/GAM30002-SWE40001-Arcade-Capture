@@ -41,14 +41,20 @@ public class TetrisTower : Tower
 
 	protected override void tryShoot()
 	{
-		furthestTarget();
+		target = furthestTarget();
 		if (Time.time - lastShotTime > cooldown && target != null)
 		{
-			Vector3 dir = (target.transform.position - transform.position).normalized;
+			
 
 			GameObject bullet = Instantiate(bulletTypes[0], transform.position /*+ dir*/, Quaternion.identity);
-			Projectile projectile = bullet.GetComponent<Projectile>();
-			projectile.target = target;
+			TetrisProjectile projectile = bullet.GetComponent<TetrisProjectile>();
+			projectile.owner = this;
+			Vector2? dir = aimPrediction(projectile.speed);
+			if (dir is Vector2 _dir)
+			{
+				bullet.GetComponent<Rigidbody2D>().velocity = _dir * projectile.speed;
+			}
+			
 			lastShotTime = Time.time;
 		}
 
@@ -56,7 +62,7 @@ public class TetrisTower : Tower
 
 	// This function is called by the projectile and it returns the damage multiplier.
 	public float enemyHitEvent(Enemy enemy) {
-		if (lastEnemyHit === enemy) {
+		if (lastEnemyHit == enemy) {
 			hitCount++;
 			return comboMultiplier * (hitCount - 1); 
 		} else {
