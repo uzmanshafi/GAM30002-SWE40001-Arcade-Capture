@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 0
-  cooldown: 1
+  cooldown: 2
   target: {fileID: 0}
   towerRadius: 0
   range: 5
