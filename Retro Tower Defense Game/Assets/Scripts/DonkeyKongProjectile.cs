@@ -11,7 +11,7 @@ public class DonkeyKongProjectile : Projectile
     private Vector2 destination;
 
     // This is how many enemies it can hit before it is destroyed
-    private int pierce;
+    [SerializeField] private int pierce;
 
     // Milliseconds, begins once on path (I don't know when this is instantiated because constructors don't seem to be a thing in unity)
     private float barrelLifetime;
@@ -72,17 +72,24 @@ public class DonkeyKongProjectile : Projectile
         transform.position += (Vector3)(direction * speed) * Time.deltaTime;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
             e.TakeDamage(damage);
             pierce--;
-            if (pierce <= 0) {
-                //Destroy(this) ??
+            if (pierce <= 0)
+            {
+                Destroy(gameObject);
             }
+            //Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.collider);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
     }
 
     private bool pointReached(Vector2 position, Vector2 destination, float threshold = 0.01f) //will delegate to game manager when it exists

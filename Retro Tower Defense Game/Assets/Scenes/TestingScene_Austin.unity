@@ -137,11 +137,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: f712f85d229c6e6408cd4b289372b24c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.39
+      value: -2.81
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: f712f85d229c6e6408cd4b289372b24c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.05
+      value: 1.03
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: f712f85d229c6e6408cd4b289372b24c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -212,7 +212,7 @@ MonoBehaviour:
   towerRadius: 0
   range: 5
   bulletTypes:
-  - {fileID: 2396885586352238776, guid: 6631765ac04225b409ca5fe42e5f007b, type: 3}
+  - {fileID: 3830349631884370754, guid: 88895b9ed3c8f2f4ab957a7d4924691e, type: 3}
   projectile_speed: 7
 --- !u!1 &524336259 stripped
 GameObject:
@@ -408,11 +408,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: 451d06b33bc8b4e42922a46addf5b86f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.06
+      value: 12.34
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: 451d06b33bc8b4e42922a46addf5b86f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.82
+      value: 7.06
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: 451d06b33bc8b4e42922a46addf5b86f, type: 3}
       propertyPath: m_LocalPosition.z
