@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5766174398743787262}
   - component: {fileID: 5746692350255006153}
+  - component: {fileID: 2153730788913607986}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: Adult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 0.9786886, b: 0, a: 1}
+  m_Sprite: {fileID: 411710240, guid: b73e304d658a58742bfc6a99454bacb8, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,6 +85,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2153730788913607986
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408846565720004719}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 13bd3e7013dabe443ae55e64aeb1d88e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &680841621375074119
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +118,7 @@ GameObject:
   - component: {fileID: 7202263765785567983}
   - component: {fileID: 6195671173762668737}
   m_Layer: 3
-  m_Name: Enemy 1
+  m_Name: Adult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab4f1d883bda1f74a81e44226a9f8182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 4
+  MovementSpeed: 2
   waypoints: {fileID: 3221700600878956218, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
 --- !u!60 &6195671173762668737
 PolygonCollider2D:
