@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3754044211217079559}
   - component: {fileID: 3754044211217079558}
   - component: {fileID: 1991707381681165175}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9090a7e0ec3ea8a45835fb4cfabce759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
   cost: 0
   cooldown: 1
   target: {fileID: 0}

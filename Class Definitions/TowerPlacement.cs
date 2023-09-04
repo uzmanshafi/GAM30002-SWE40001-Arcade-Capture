@@ -29,5 +29,23 @@ bool SegmentCircleCollision(Vector2 start, Vector2 end, Vector2 centre, float ra
 	float minimum_distance = float.PositiveInfinity;
 	float maximum_distance = Math.max(DistanceBetweenPoints(centre, start), DistanceBetweenPoints(centre, end));
 
-	return true;
+	if (Vector2.Dot(end - start, end - centre) > 0 && Vector2.Dot(start - end, start - centre) > 0)
+	{
+		minimum_distance = 2 * TriangleArea(start, end, centre) / DistanceBetweenPoints(start, end);
+	} else
+	{
+		minimum_distance = Math.Min(DistanceBetweenPoints(centre, start), DistanceBetweenPoints(centre, end));
+	}
+
+	return minimum_distance <= radius && maximum_distance >= radius;
+}
+
+bool CircleCircleCollision(Vector2 centre1, float radius1, Vector2 centre2, float radius2)
+{
+	return Math.Pow(radius1 + radius2, 2) >= (centre2 - centre1).sqrMagnitude;
+}
+
+bool SegmentCircleCollisionWithWidth(Vector2 start, VectorVector2 centre, float radius, )
+{
+
 }

@@ -31,7 +31,7 @@ public class PredictiveTower : Tower
             {
                 projectileRB.velocity = _dir * projectile_speed;
             }
-           
+            bullet.GetComponent<Projectile>().target = target;
             lastShotTime = Time.time;
         }
 
