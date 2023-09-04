@@ -4,10 +4,10 @@ using UnityEngine.Tilemaps;
 public class TowerPlacement : MonoBehaviour
 {
     public GameObject arcadeTowerPrefab;
+    public GameObject spaceInvadersTowerPrefab;
     public Tilemap groundTilemap;
     public Tilemap pathTilemap;
     private GameObject currentTower;
-
     private SpriteRenderer currentTowerSpriteRenderer;
 
 
@@ -17,7 +17,12 @@ public class TowerPlacement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            SpawnTower(mouseWorldPos);
+            SpawnTower(arcadeTowerPrefab, mouseWorldPos);
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SpawnTower(spaceInvadersTowerPrefab, mouseWorldPos);
         }
 
         if (currentTower != null)
@@ -26,7 +31,7 @@ public class TowerPlacement : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                if (IsValidLocation(mouseWorldPos))
+                if (IsValidLocation(mouseWorldPos, currentTower.name))
                 {
                     DropTower();
                 }
@@ -50,11 +55,12 @@ public class TowerPlacement : MonoBehaviour
         return mouseWorldPos;
     }
 
-    private void SpawnTower(Vector3 position)
+    private void SpawnTower(GameObject towerPrefab, Vector3 position)
     {
         if (currentTower == null)
         {
-            currentTower = Instantiate(arcadeTowerPrefab, position, Quaternion.identity);
+            Debug.Log("Attempting to spawn tower at: " + position);
+            currentTower = Instantiate(towerPrefab, position, Quaternion.identity);
             currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
         }
     }
@@ -63,7 +69,7 @@ public class TowerPlacement : MonoBehaviour
     private void DragTower(Vector3 newPosition)
     {
         currentTower.transform.position = newPosition;
-        if (IsValidLocation(newPosition))
+        if (IsValidLocation(newPosition, currentTower.name))
         {
             currentTowerSpriteRenderer.color = new Color(0, 1, 0, 0.8f);  // Green with 10% opacity
         }
@@ -84,13 +90,29 @@ public class TowerPlacement : MonoBehaviour
 
     private void AttemptPickupTower(Vector3 position)
     {
+        Debug.Log("Attempt to pick up tower");
+
         Collider2D hitCollider = Physics2D.OverlapPoint(position);
-        if (hitCollider != null && hitCollider.gameObject.CompareTag("ArcadeTower"))
+
+        if (hitCollider != null)
         {
-            Destroy(hitCollider.gameObject);
-            SpawnTower(position);
+            Debug.Log("Collider hit: " + hitCollider.gameObject.name);
+
+            if (hitCollider.gameObject.CompareTag("ArcadeTower"))
+            {
+                Debug.Log("Destroying and recreating tower");
+
+                Destroy(hitCollider.gameObject);
+
+                // Spawn a new tower and set it to currentTower so that you can drag it.
+                currentTower = Instantiate(arcadeTowerPrefab, position, Quaternion.identity);
+                currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
+            }
         }
     }
+
+
+
 
     private void RotateTower()
     {
@@ -100,7 +122,7 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-    private bool IsValidLocation(Vector3 location)
+    private bool IsValidLocation(Vector3 location, string towerName)
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(location);
 
@@ -116,7 +138,6 @@ public class TowerPlacement : MonoBehaviour
             return false;
         }
 
-        // Checks for overlap with other towers
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(location, 0.35f, 1 << LayerMask.NameToLayer("Tower"));
         foreach (Collider2D hitCollider in hitColliders)
         {
@@ -134,9 +155,25 @@ public class TowerPlacement : MonoBehaviour
             return false;
         }
 
+        if (towerName.Contains("SpaceInvadersTower")) // Checking specifically for the SpaceInvadersTower
+        {
+            BoxCollider2D towerCollider = currentTower.GetComponent<BoxCollider2D>();
+            Vector2 size = towerCollider.size;
+            Vector2 offset = towerCollider.offset;
+            Vector2 trueCenter = (Vector2)location + offset;
+
+            Collider2D hitCollider = Physics2D.OverlapBox(trueCenter, size, 0, LayerMask.GetMask("Pathing"));
+            if (hitCollider != null)
+            {
+                Debug.Log("SpaceInvadersTower intersects with the path");
+                return false;
+            }
+        }
+
         Debug.Log("Valid Location");
         return true;
     }
+
 
 
 

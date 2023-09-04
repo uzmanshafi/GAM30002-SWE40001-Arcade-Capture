@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3754044211217079559}
   - component: {fileID: 3754044211217079558}
-  - component: {fileID: 9018168070805958319}
   - component: {fileID: 5390131242059471247}
+  - component: {fileID: 8033816856714362006}
+  - component: {fileID: 6859551101935885960}
   m_Layer: 6
-  m_Name: TetrisTower
+  m_Name: SpaceInvaderTower
   m_TagString: ArcadeTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b7e4265bdf54e75429e69a2f73f0e6e8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e39912fbff2469545a2b0a43647a7486, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,32 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9018168070805958319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3754044211217079577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 595b2405414139d4fb86ba141f0871e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cost: 0
-  cooldown: 1
-  target: {fileID: 0}
-  towerRadius: 0
-  range: 5
-  bulletTypes:
-  - {fileID: 2449253969107945116, guid: a87e96cb28b977f40908336c6ee3cb42, type: 3}
-  - {fileID: 2449253969107945116, guid: 054edc90316f2b747ade4ef4dab38fc8, type: 3}
-  - {fileID: 2449253969107945116, guid: 92017051ae7f4cc4d92f043ed170a2c3, type: 3}
-  - {fileID: 2449253969107945116, guid: 86092e11ed5def14685653be028bb34a, type: 3}
-  - {fileID: 2449253969107945116, guid: f1fc612a623c7b648a0f919d2a6eb369, type: 3}
-  - {fileID: 2449253969107945116, guid: a4ae82f13d54b75419580e04a33b6bff, type: 3}
-  - {fileID: 2449253969107945116, guid: 765898e52f7a50c43a60a96490ea0c90, type: 3}
-  comboMultiplier: 2
 --- !u!60 &5390131242059471247
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -177,3 +152,67 @@ PolygonCollider2D:
       - {x: 0.079961784, y: 0.07014685}
       - {x: 0.08054406, y: 0.0799335}
   m_UseDelaunayMesh: 0
+--- !u!114 &8033816856714362006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3754044211217079577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 426fa7578bce8464b8d27f38c13ddfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  cooldown: 1
+  target: {fileID: 0}
+  towerRadius: 0
+  range: 5
+  bulletTypes: []
+  movementSpeed: 1
+--- !u!61 &6859551101935885960
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3754044211217079577}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.18, y: 0.18}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.18}
+  m_EdgeRadius: 0
