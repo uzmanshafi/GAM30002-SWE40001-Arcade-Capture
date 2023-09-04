@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 7202263765785567983}
   - component: {fileID: -6862360172784018698}
   m_Layer: 3
-  m_Name: Enemy 1
+  m_Name: Family
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab4f1d883bda1f74a81e44226a9f8182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 2
-  MaxHP: 0
+  MovementSpeed: 1
+  MaxHP: 9
   waypoints: {fileID: 7233254628650745001, guid: b831fe55041ad804db6449a233e6406a, type: 3}
 --- !u!70 &-6862360172784018698
 CapsuleCollider2D:
