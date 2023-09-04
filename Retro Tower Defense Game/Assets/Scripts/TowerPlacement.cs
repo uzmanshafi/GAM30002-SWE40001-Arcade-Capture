@@ -60,10 +60,18 @@ public class TowerPlacement : MonoBehaviour
         {
             Debug.Log("Attempting to spawn tower at: " + position);
             currentTower = Instantiate(towerPrefab);
-            currentTower.transform.position = position + new Vector3(0.5f, 0.5f, 0); // Adjust these values according to your sprite size
+            currentTower.transform.position = position + new Vector3(1.5f, 1.5f, 0);
             currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
+
+            
+            SpaceInvadersTower spaceInvadersTowerScript = currentTower.GetComponent<SpaceInvadersTower>();
+            if (spaceInvadersTowerScript != null)
+            {
+                spaceInvadersTowerScript.SetBoundaries(); 
+            }
         }
     }
+
 
     private void DragTower(Vector3 newPosition)
     {
