@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3173395491193632451
+--- !u!1 &3754044211217079577
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,73 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4477345509365437314}
-  m_Layer: 0
-  m_Name: Sample
-  m_TagString: Untagged
+  - component: {fileID: 3754044211217079559}
+  - component: {fileID: 3754044211217079558}
+  - component: {fileID: 9018168070805958319}
+  - component: {fileID: 5390131242059471247}
+  m_Layer: 6
+  m_Name: TetrisTower
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4477345509365437314
+--- !u!4 &3754044211217079559
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3173395491193632451}
+  m_GameObject: {fileID: 3754044211217079577}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-<<<<<<< Updated upstream:Retro Tower Defense Game/Assets/Prefabs/Sample.prefab
-  - {fileID: 6960742809963273445}
-=======
-  - {fileID: 7923628354185436711}
->>>>>>> Stashed changes:Retro Tower Defense Game/Assets/Prefabs/Arcade Machines/Tower.prefab
+  - {fileID: 5942466736315212998}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5196167731802701738
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6960742809963273445}
-  - component: {fileID: 7780170260537350747}
-  m_Layer: 0
-  m_Name: sphere-11
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6960742809963273445
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5196167731802701738}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4477345509365437314}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7780170260537350747
+--- !u!212 &3754044211217079558
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5196167731802701738}
+  m_GameObject: {fileID: 3754044211217079577}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -109,20 +76,18 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fe21a67f23d6d9741b5dc7eb93ab2338, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b7e4265bdf54e75429e69a2f73f0e6e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< Updated upstream:Retro Tower Defense Game/Assets/Prefabs/Sample.prefab
-=======
---- !u!114 &1991707381681165175
+--- !u!114 &9018168070805958319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3754044211217079577}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9090a7e0ec3ea8a45835fb4cfabce759, type: 3}
+  m_Script: {fileID: 11500000, guid: 595b2405414139d4fb86ba141f0871e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 0
@@ -139,8 +104,81 @@ MonoBehaviour:
   target: {fileID: 0}
   towerRadius: 0
   range: 5
-  bulletTypes: []
---- !u!1 &5736695295549539567
+  bulletTypes:
+  - {fileID: 2449253969107945116, guid: a87e96cb28b977f40908336c6ee3cb42, type: 3}
+  - {fileID: 2449253969107945116, guid: 054edc90316f2b747ade4ef4dab38fc8, type: 3}
+  - {fileID: 2449253969107945116, guid: 92017051ae7f4cc4d92f043ed170a2c3, type: 3}
+  - {fileID: 2449253969107945116, guid: 86092e11ed5def14685653be028bb34a, type: 3}
+  - {fileID: 2449253969107945116, guid: f1fc612a623c7b648a0f919d2a6eb369, type: 3}
+  - {fileID: 2449253969107945116, guid: a4ae82f13d54b75419580e04a33b6bff, type: 3}
+  - {fileID: 2449253969107945116, guid: 765898e52f7a50c43a60a96490ea0c90, type: 3}
+  comboMultiplier: 2
+--- !u!60 &5390131242059471247
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3754044211217079577}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.18, y: 0.18}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.08023912, y: 0.08054405}
+      - {x: -0.08001831, y: 0.07000103}
+      - {x: -0.089977466, y: 0.06994347}
+      - {x: -0.090170585, y: -0.020536274}
+      - {x: -0.080617756, y: -0.020239351}
+      - {x: -0.080687776, y: -0.050108373}
+      - {x: -0.07034442, y: -0.050106317}
+      - {x: -0.07034442, y: -0.06023822}
+      - {x: -0.060446218, y: -0.060240604}
+      - {x: -0.060169566, y: -0.06999184}
+      - {x: 0.06045331, y: -0.06969556}
+      - {x: 0.060217787, y: -0.060270455}
+      - {x: 0.07010922, y: -0.060526945}
+      - {x: 0.069880664, y: -0.050078444}
+      - {x: 0.08024948, y: -0.050344545}
+      - {x: 0.08030892, y: -0.020656122}
+      - {x: 0.0903569, y: -0.020424508}
+      - {x: 0.09039252, y: 0.07006338}
+      - {x: 0.079961784, y: 0.07014685}
+      - {x: 0.08054406, y: 0.0799335}
+  m_UseDelaunayMesh: 0
+--- !u!1 &6760678157341543392
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,8 +186,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7923628354185436711}
-  - component: {fileID: 7959461661914404072}
+  - component: {fileID: 5942466736315212998}
+  - component: {fileID: 5780935494434523416}
   m_Layer: 9
   m_Name: Radius
   m_TagString: Untagged
@@ -157,28 +195,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7923628354185436711
+--- !u!4 &5942466736315212998
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5736695295549539567}
+  m_GameObject: {fileID: 6760678157341543392}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000000029802322, y: -0.000000029802322, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3754044211217079559}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7959461661914404072
+--- !u!212 &5780935494434523416
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5736695295549539567}
+  m_GameObject: {fileID: 6760678157341543392}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -224,4 +262,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
->>>>>>> Stashed changes:Retro Tower Defense Game/Assets/Prefabs/Arcade Machines/Tower.prefab
