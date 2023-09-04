@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using System.Collections;
 
 public abstract class Tower : MonoBehaviour
 {
@@ -194,11 +193,5 @@ public abstract class Tower : MonoBehaviour
 
         return null; 
     }
-    
-    // Draws the range radius of a tower when clicked
-    private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Color.blue;
-		Gizmos.DrawWireSphere(transform.position, range);
-	}
+
 }
