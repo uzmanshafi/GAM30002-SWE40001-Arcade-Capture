@@ -5,7 +5,7 @@ using UnityEngine;
 public class TetrisProjectile : Projectile
 {
 
-    private TetrisTower owner; // This is instantiated on creation
+    public TetrisTower owner; // This is instantiated on creation
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +26,10 @@ public class TetrisProjectile : Projectile
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Tower"))
+        {
+            Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.collider);
+        }
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
