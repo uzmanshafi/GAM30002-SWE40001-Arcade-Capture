@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7980918483570796967}
   - component: {fileID: 7038142168826106431}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: 6318509633392541917}
   - component: {fileID: -6009220908133245710}
   - component: {fileID: 2405597065662109880}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Predictive Bullet
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

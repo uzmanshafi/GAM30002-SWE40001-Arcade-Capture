@@ -44,9 +44,10 @@ public class TetrisTower : Tower
 		target = furthestTarget();
 		if (Time.time - lastShotTime > cooldown && target != null)
 		{
-			
 
-			GameObject bullet = Instantiate(bulletTypes[0], transform.position /*+ dir*/, Quaternion.identity);
+			int bulletType = Random.Range(0,6);
+
+			GameObject bullet = Instantiate(bulletTypes[bulletType], transform.position /*+ dir*/, Quaternion.identity);
 			TetrisProjectile projectile = bullet.GetComponent<TetrisProjectile>();
 			projectile.owner = this;
 			Vector2? dir = aimPrediction(projectile.speed);

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8280970786720691263}
   - component: {fileID: 5328670687850135885}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: 6672676371147940388}
   - component: {fileID: 5658509897885081361}
   - component: {fileID: 6163084387461974000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Asteroid
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

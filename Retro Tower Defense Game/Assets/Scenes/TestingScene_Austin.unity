@@ -137,11 +137,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: f712f85d229c6e6408cd4b289372b24c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.81
+      value: -3.16
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: f712f85d229c6e6408cd4b289372b24c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.03
+      value: -2.29
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: f712f85d229c6e6408cd4b289372b24c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -241,6 +241,23 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 6310525875718958529, guid: f00ff9d707f4b4e459b28e4d89a98b3f, type: 3}
   asteroidSpeed: 15
+--- !u!1 &551689702 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 337850506411788782, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
+  m_PrefabInstance: {fileID: 337850505081421669}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &551689708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551689702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a26161a7a1578e45b56427b37d9c765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &757300968
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,11 +425,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: 451d06b33bc8b4e42922a46addf5b86f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.34
+      value: 9.8
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: 451d06b33bc8b4e42922a46addf5b86f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.06
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 3754044211217079559, guid: 451d06b33bc8b4e42922a46addf5b86f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -514,7 +531,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 337850506411788782, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 551689708}
   m_SourcePrefab: {fileID: 100100000, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
 --- !u!1001 &3754044212314243574
 PrefabInstance:

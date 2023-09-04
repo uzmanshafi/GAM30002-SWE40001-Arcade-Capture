@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1269029101343952191}
   - component: {fileID: 1557976259834195720}
   - component: {fileID: 4450941752590524299}
-  - component: {fileID: 7285479310312166982}
-  m_Layer: 0
-  m_Name: TetrisProjectile
-  m_TagString: Untagged
+  - component: {fileID: 2620239160753200002}
+  m_Layer: 8
+  m_Name: TetrisProjectile 3
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,8 +78,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &7285479310312166982
-BoxCollider2D:
+--- !u!60 &2620239160753200002
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -110,7 +110,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.01, y: -0.01}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -120,9 +120,17 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.18912621, y: 0.1315573}
+      - {x: -0.19140033, y: -0.020933129}
+      - {x: -0.080618024, y: -0.020939916}
+      - {x: -0.0806695, y: -0.12912364}
+      - {x: 0.1903711, y: -0.13039444}
+      - {x: 0.19139326, y: 0.020010632}
+      - {x: 0.081693575, y: 0.02043004}
+      - {x: 0.08125305, y: 0.12914895}
+  m_UseDelaunayMesh: 0
 --- !u!1 &6147670073828571156
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7369500094039374297}
   - component: {fileID: 2244097878927663497}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +204,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 80b20dfb83e2682459f7d227e2891d2b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a2a6f45832922cc43b76f9b54ffbc457, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
