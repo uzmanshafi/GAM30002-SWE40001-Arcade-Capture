@@ -42,17 +42,21 @@ public class DonkeyKongProjectile : Projectile
         if (rollingAlongPath) {
             barrelLifetime -= Time.deltaTime;
             if (barrelLifetime <= 0) {
-                //Destroy(this) ??
+                Destroy(gameObject);
             }
 
             //Check if at point
-            if (pointReached((Vector2)transform.position, (Vector2)pathPoints[pathPointIndex])) {
+            if (pointReached((Vector2)transform.position, (Vector2)pathPoints[pathPointIndex], 0.1f)) {
                 pathPointIndex--;
                 if (pathPointIndex < 0) {
-                    //Destroy(this) ??
+                    Destroy(gameObject);
                 }
                 destination = pathPoints[pathPointIndex];
                 direction = (destination - (Vector2)transform.position).normalized;
+            }
+            else
+            {
+                move();
             }
 
         } else {
@@ -64,6 +68,7 @@ public class DonkeyKongProjectile : Projectile
                 direction = (destination - (Vector2)transform.position).normalized;
             }
         }
+
     }
 
     public override void move()
@@ -83,7 +88,7 @@ public class DonkeyKongProjectile : Projectile
             {
                 Destroy(gameObject);
             }
-            //Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.collider);
+
         }
     }
 
