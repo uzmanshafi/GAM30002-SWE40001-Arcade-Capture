@@ -145,7 +145,7 @@ public abstract class Tower : MonoBehaviour
         Vector2 enemy_direction = (enemy_destination - enemy_position).normalized;
         (Vector2? collision_point, float? time) point = GetCollisionPoint(enemy_position, enemy_direction, enemy_speed, projectile_speed, elapsed_time);
 
-        float time_to_destination = TimeToDestination(enemy_position, enemy_destination, target.GetMovementSpeed);
+        float time_to_destination = TimeToDestination(enemy_position, enemy_destination, enemy_speed);
         if (point.collision_point is Vector2 cp)
         {
             if (point.time <= time_to_destination)
