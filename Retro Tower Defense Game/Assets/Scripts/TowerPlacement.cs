@@ -10,7 +10,6 @@ public class TowerPlacement : MonoBehaviour
     private GameObject currentTower;
     private SpriteRenderer currentTowerSpriteRenderer;
 
-
     void Update()
     {
         Vector3 mouseWorldPos = GetMouseWorldPosition();
@@ -60,11 +59,11 @@ public class TowerPlacement : MonoBehaviour
         if (currentTower == null)
         {
             Debug.Log("Attempting to spawn tower at: " + position);
-            currentTower = Instantiate(towerPrefab, position, Quaternion.identity);
+            currentTower = Instantiate(towerPrefab);
+            currentTower.transform.position = position + new Vector3(0.5f, 0.5f, 0); // Adjust these values according to your sprite size
             currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
         }
     }
-
 
     private void DragTower(Vector3 newPosition)
     {
@@ -79,14 +78,12 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-
     private void DropTower()
     {
         currentTowerSpriteRenderer.color = Color.white;  // Resets color to white
         currentTower = null;
         currentTowerSpriteRenderer = null;
     }
-
 
     private void AttemptPickupTower(Vector3 position)
     {
@@ -110,9 +107,6 @@ public class TowerPlacement : MonoBehaviour
             }
         }
     }
-
-
-
 
     private void RotateTower()
     {
@@ -155,7 +149,7 @@ public class TowerPlacement : MonoBehaviour
             return false;
         }
 
-        if (towerName.Contains("SpaceInvadersTower")) // Checking specifically for the SpaceInvadersTower
+        if (towerName.Contains("SpaceInvadersTower"))
         {
             BoxCollider2D towerCollider = currentTower.GetComponent<BoxCollider2D>();
             Vector2 size = towerCollider.size;
@@ -163,6 +157,10 @@ public class TowerPlacement : MonoBehaviour
             Vector2 trueCenter = (Vector2)location + offset;
 
             Collider2D hitCollider = Physics2D.OverlapBox(trueCenter, size, 0, LayerMask.GetMask("Pathing"));
+
+            Debug.Log($"OverlapBox location: {trueCenter}, size: {size}");
+            Debug.Log("OverlapBox hit: " + (hitCollider != null ? hitCollider.name : "None"));
+
             if (hitCollider != null)
             {
                 Debug.Log("SpaceInvadersTower intersects with the path");
@@ -173,8 +171,5 @@ public class TowerPlacement : MonoBehaviour
         Debug.Log("Valid Location");
         return true;
     }
-
-
-
 
 }
