@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5766174398743787262}
   - component: {fileID: 5746692350255006153}
-  - component: {fileID: 6906146473708781953}
-  - component: {fileID: 1698155794384584410}
+  - component: {fileID: 2153730788913607986}
   m_Layer: 0
-  m_Name: Child
+  m_Name: Grandparent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,8 +73,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 1508995319, guid: 081ba9ed872abdd4bbb0524c48d41c67, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 385072072, guid: ae9e428aabddafd4d9de1df690fc7716, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &6906146473708781953
+--- !u!95 &2153730788913607986
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -96,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 408846565720004719}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9686718483a0736409ff9543fe3d7500, type: 2}
+  m_Controller: {fileID: 9100000, guid: fb9fb3c40f1f98246b3bfacb1fa2056e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -107,21 +106,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!111 &1698155794384584410
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 408846565720004719}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 72f4092277ed95d479611b6a8e0806d9, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &680841621375074119
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,9 +116,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4837448037053905684}
   - component: {fileID: 7202263765785567983}
-  - component: {fileID: 6195671173762668737}
+  - component: {fileID: -1585394076357341514}
   m_Layer: 3
-  m_Name: Child
+  m_Name: Grandparent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,10 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab4f1d883bda1f74a81e44226a9f8182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 4
+  MovementSpeed: 1
   waypoints: {fileID: 3221700600878956218, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
---- !u!60 &6195671173762668737
-PolygonCollider2D:
+--- !u!70 &-1585394076357341514
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -203,18 +187,5 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.2853803, y: -0.5048254}
-      - {x: 0.5724665, y: 0.012149453}
-      - {x: -0.2743774, y: 0.48830804}
-  m_UseDelaunayMesh: 0
+  m_Size: {x: 0.2, y: 0.5}
+  m_Direction: 0
