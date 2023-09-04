@@ -153,7 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 3
-  waypoints: {fileID: 3221700600878956218, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
+  MaxHP: 2
+  waypoints: {fileID: 7233254628650745001, guid: b831fe55041ad804db6449a233e6406a, type: 3}
 --- !u!70 &-2395603997519067798
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
