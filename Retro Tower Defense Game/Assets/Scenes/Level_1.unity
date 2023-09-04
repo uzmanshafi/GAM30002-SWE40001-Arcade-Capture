@@ -10505,6 +10505,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level_1_Path
       objectReference: {fileID: 0}
+    - target: {fileID: 5861960808710910801, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      propertyPath: waveFileNames.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861960808710910801, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      propertyPath: waveFileNames.Array.data[0]
+      value: Lvl1-Wave1.csv
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861960808710910801, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      propertyPath: waveFileNames.Array.data[1]
+      value: ExampleFormat.csv
+      objectReference: {fileID: 0}
     - target: {fileID: 7710798837261151279, guid: b831fe55041ad804db6449a233e6406a, type: 3}
       propertyPath: m_RootOrder
       value: 1
