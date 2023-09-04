@@ -49,6 +49,7 @@ public abstract class Tower : MonoBehaviour
         }
 
         float bestDistance = Mathf.Infinity;
+        Enemy bestEnemy = null;
         float tempDistance;
         Vector3 endPoint;
         if (enemies_in_range.Length > 0)
@@ -61,9 +62,10 @@ public abstract class Tower : MonoBehaviour
                 if (tempDistance < bestDistance)
                 {
                     bestDistance = tempDistance;
-                    return e;
+                    bestEnemy = e;
                 }
             }
+            return bestEnemy;
         }
         return null;
     }

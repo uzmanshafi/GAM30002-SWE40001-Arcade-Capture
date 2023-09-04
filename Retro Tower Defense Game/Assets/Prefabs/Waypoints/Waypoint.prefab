@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 337850506411788777}
   - component: {fileID: 3221700600878956218}
   - component: {fileID: 1480435208552004210}
+  - component: {fileID: 6046925291321468527}
   m_Layer: 0
   m_Name: Waypoint
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &337850506411788777
 MonoBehaviour:
@@ -49,16 +50,8 @@ MonoBehaviour:
   enemies:
   - {fileID: 680841621375074119, guid: 539fbdf77cff6324daf53e1cabfa1f8e, type: 3}
   - {fileID: 680841621375074119, guid: 8c3945630018fdf438f472fd0489d1c1, type: 3}
-  - {fileID: 680841621375074119, guid: 59ded8f81cc9f4b4d8978f2e5998eb2c, type: 3}
-  - {fileID: 680841621375074119, guid: c72a5025cfccfd349883f6c0c6cf0723, type: 3}
-  - {fileID: 680841621375074119, guid: 54d3be7b5786675438e264ea0a1105fe, type: 3}
-  - {fileID: 680841621375074119, guid: 09f5685c18d8818438e4586cde7e16dd, type: 3}
-  - {fileID: 680841621375074119, guid: 53d867b147b60fa45a067074375ae8e9, type: 3}
-  - {fileID: 680841621375074119, guid: 4fcafbc5879226a4c9eddbd451611b28, type: 3}
-  - {fileID: 680841621375074119, guid: 79e8c5ace7756244e933ed183d8380f1, type: 3}
-  - {fileID: 680841621375074119, guid: 8ff8117c851a41444927dd58fd350601, type: 3}
-  WaveSize: 20
-  specialEnemies: 5
+  WaveSize: 0
+  specialEnemies: 0
   EnemyDelay: 2
 --- !u!114 &3221700600878956218
 MonoBehaviour:
@@ -73,12 +66,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: -10.39213, y: 3.82647, z: -1.5}
-  - {x: -5.344659, y: -2.6310062, z: -1.5}
-  - {x: -3.7209544, y: 2.52741, z: -1.5}
-  - {x: 2.465086, y: 1.4221649, z: -1.5}
-  - {x: 1.265935, y: -3.5197914, z: -1.5}
-  - {x: 9.623653, y: 3.0210323, z: -1.5}
+  - {x: -10.507977, y: 3.3630798, z: -0.00039750896}
+  - {x: -5.305649, y: -2.6310055, z: -0.00039750896}
+  - {x: -3.7209544, y: 2.52741, z: -0.00039750896}
+  - {x: 2.465086, y: 1.4221649, z: -0.00039750896}
+  - {x: 1.265935, y: -3.5197914, z: -0.00039750896}
+  - {x: 9.623653, y: 3.0210323, z: -0.00039750896}
 --- !u!114 &1480435208552004210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,3 +85,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 5
+--- !u!114 &6046925291321468527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337850506411788782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0dffb7644ac5c04bb35c9c166e937fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
