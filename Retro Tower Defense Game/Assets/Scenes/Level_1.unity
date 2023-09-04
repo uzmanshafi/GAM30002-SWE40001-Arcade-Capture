@@ -2814,7 +2814,7 @@ GameObject:
   - component: {fileID: 1032469542}
   - component: {fileID: 1032469544}
   - component: {fileID: 1032469543}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Path
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2876,7 +2876,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -4237,6 +4237,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1426585151}
   m_CullTransparentMesh: 1
+--- !u!1 &1431980153 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1454790746438013099, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+  m_PrefabInstance: {fileID: 7235623277564690254}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1431980159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431980153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 671540b31e6f5f84fa9ddd9526a23280, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arcadeTowerPrefab: {fileID: 3754044211217079577, guid: 451d06b33bc8b4e42922a46addf5b86f, type: 3}
+  groundTilemap: {fileID: 1474541320}
+  pathTilemap: {fileID: 1032469544}
+--- !u!114 &1431980160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431980153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a26161a7a1578e45b56427b37d9c765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1474541317
 GameObject:
   m_ObjectHideFlags: 0
@@ -4310,7 +4342,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -10520,5 +10552,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1454790746438013099, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1431980159}
+    - targetCorrespondingSourceObject: {fileID: 1454790746438013099, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1431980160}
   m_SourcePrefab: {fileID: 100100000, guid: b831fe55041ad804db6449a233e6406a, type: 3}
