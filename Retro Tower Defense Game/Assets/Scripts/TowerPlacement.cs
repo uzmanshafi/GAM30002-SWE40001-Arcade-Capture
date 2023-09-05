@@ -3,8 +3,7 @@ using UnityEngine.Tilemaps;
 
 public class TowerPlacement : MonoBehaviour
 {
-    public GameObject arcadeTowerPrefab;
-    public GameObject spaceInvadersTowerPrefab;
+    public GameObject[] towerPrefabs;
     public Tilemap groundTilemap;
     public Tilemap pathTilemap;
     private GameObject currentTower;
@@ -13,16 +12,6 @@ public class TowerPlacement : MonoBehaviour
     void Update()
     {
         Vector3 mouseWorldPos = GetMouseWorldPosition();
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            SpawnTower(arcadeTowerPrefab, mouseWorldPos);
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            SpawnTower(spaceInvadersTowerPrefab, mouseWorldPos);
-        }
 
         if (currentTower != null)
         {
@@ -54,35 +43,49 @@ public class TowerPlacement : MonoBehaviour
         return mouseWorldPos;
     }
 
+    public void SpawnTowerOnButtonClick(int index)
+    {
+        Vector3 mouseWorldPos = GetMouseWorldPosition();
+
+
+        if (currentTower != null)
+        {
+            Destroy(currentTower);
+            currentTower = null;
+            currentTowerSpriteRenderer = null;
+        }
+
+        SpawnTower(towerPrefabs[index], mouseWorldPos);
+    }
+
     private void SpawnTower(GameObject towerPrefab, Vector3 position)
     {
-        if (currentTower == null)
+        if (currentTower != null)
         {
-            Debug.Log("Attempting to spawn tower at: " + position);
-            currentTower = Instantiate(towerPrefab);
-            currentTower.transform.position = position + new Vector3(1.5f, 1.5f, 0);
-            currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
-
-            
-            SpaceInvadersTower spaceInvadersTowerScript = currentTower.GetComponent<SpaceInvadersTower>();
-            if (spaceInvadersTowerScript != null)
-            {
-                spaceInvadersTowerScript.SetBoundaries(); 
-            }
+            Destroy(currentTower);
+            currentTower = null;
+            currentTowerSpriteRenderer = null;
         }
+
+        currentTower = Instantiate(towerPrefab);
+        currentTower.transform.position = position + new Vector3(1.5f, 1.5f, 0);
+        currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
+
+
     }
 
 
     private void DragTower(Vector3 newPosition)
     {
         currentTower.transform.position = newPosition;
+
         if (IsValidLocation(newPosition, currentTower.name))
         {
-            currentTowerSpriteRenderer.color = new Color(0, 1, 0, 0.8f);  // Green with 10% opacity
+            currentTowerSpriteRenderer.color = new Color(0, 1, 0, 0.8f);
         }
         else
         {
-            currentTowerSpriteRenderer.color = new Color(1, 0, 0, 0.8f);  // Red with 10% opacity
+            currentTowerSpriteRenderer.color = new Color(1, 0, 0, 0.8f);
         }
     }
 
@@ -95,26 +98,24 @@ public class TowerPlacement : MonoBehaviour
 
     private void AttemptPickupTower(Vector3 position)
     {
-        Debug.Log("Attempt to pick up tower");
-
         Collider2D hitCollider = Physics2D.OverlapPoint(position);
 
-        if (hitCollider != null)
+        if (hitCollider != null && hitCollider.gameObject.CompareTag("ArcadeTower"))
         {
-            Debug.Log("Collider hit: " + hitCollider.gameObject.name);
 
-            if (hitCollider.gameObject.CompareTag("ArcadeTower"))
+            if (currentTower != null)
             {
-                Debug.Log("Destroying and recreating tower");
-
-                Destroy(hitCollider.gameObject);
-
-                // Spawn a new tower and set it to currentTower so that you can drag it.
-                currentTower = Instantiate(arcadeTowerPrefab, position, Quaternion.identity);
-                currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
+                Destroy(currentTower);
+                currentTower = null;
+                currentTowerSpriteRenderer = null;
             }
+
+
+            currentTower = hitCollider.gameObject;
+            currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
         }
     }
+
 
     private void RotateTower()
     {

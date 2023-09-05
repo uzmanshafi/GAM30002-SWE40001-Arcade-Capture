@@ -1713,7 +1713,7 @@ MonoBehaviour:
       - m_Target: {fileID: 690477376}
         m_TargetAssemblyTypeName: TowerPlacement, Assembly-CSharp
         m_MethodName: SpawnTowerOnButtonClick
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2325,7 +2325,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671540b31e6f5f84fa9ddd9526a23280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arcadeTowerPrefab: {fileID: 8076282756041783590, guid: 790f0c2bd8d56af4ebaaa3df77304c82, type: 3}
+  towerPrefabs:
+  - {fileID: 3754044211217079577, guid: 451d06b33bc8b4e42922a46addf5b86f, type: 3}
+  - {fileID: 8076282756041783590, guid: 67850651758945643bc913e5ed63ec8b, type: 3}
+  - {fileID: 8076282756041783590, guid: f3dc2489d59e90b498534f7758acfe5c, type: 3}
+  - {fileID: 8076282756041783590, guid: 790f0c2bd8d56af4ebaaa3df77304c82, type: 3}
+  - {fileID: 8076282756041783590, guid: 3d7920eb91745ac489bb809d2ac7177e, type: 3}
+  - {fileID: 8076282756041783590, guid: 5e660e7ae2d8071499d50797b9890c05, type: 3}
+  - {fileID: 8076282756041783590, guid: 476d8e28fafb65d4e9d43a15c653d2ba, type: 3}
   groundTilemap: {fileID: 1474541320}
   pathTilemap: {fileID: 1032469544}
 --- !u!1 &692697605
@@ -15576,7 +15583,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1811862365}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 690477376}
+        m_TargetAssemblyTypeName: TowerPlacement, Assembly-CSharp
+        m_MethodName: SpawnTowerOnButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1811862365
 MonoBehaviour:
   m_ObjectHideFlags: 0

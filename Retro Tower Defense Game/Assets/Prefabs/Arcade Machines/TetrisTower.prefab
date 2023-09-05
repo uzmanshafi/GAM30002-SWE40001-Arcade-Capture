@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5390131242059471247}
   m_Layer: 6
   m_Name: TetrisTower
-  m_TagString: Tower
+  m_TagString: ArcadeTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
