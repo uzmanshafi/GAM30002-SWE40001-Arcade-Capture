@@ -15,11 +15,6 @@ public class TowerPlacement : MonoBehaviour
     {
         Vector3 mouseWorldPos = GetMouseWorldPosition();
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            SpawnTower(mouseWorldPos);
-        }
-
         if (currentTower != null)
         {
             DragTower(mouseWorldPos);
@@ -72,6 +67,13 @@ public class TowerPlacement : MonoBehaviour
             currentTowerSpriteRenderer.color = new Color(1, 0, 0, 0.8f);  // Red with 10% opacity
         }
     }
+
+    public void SpawnTowerOnButtonClick()
+    {
+        Vector3 mouseWorldPos = GetMouseWorldPosition();
+        SpawnTower(mouseWorldPos);
+    }
+
 
 
     private void DropTower()
