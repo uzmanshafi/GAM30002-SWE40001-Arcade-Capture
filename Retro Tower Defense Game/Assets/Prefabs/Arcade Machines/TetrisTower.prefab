@@ -98,11 +98,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595b2405414139d4fb86ba141f0871e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 0
+  cost: 10
   cooldown: 1
   target: {fileID: 0}
-  towerRadius: 0
+  towerRadius: 3
   range: 5
+  radius: 0
+  radiusDisplay: {fileID: 0}
+  mesh: {fileID: 0}
   bulletTypes:
   - {fileID: 2449253969107945116, guid: a87e96cb28b977f40908336c6ee3cb42, type: 3}
   - {fileID: 2449253969107945116, guid: 054edc90316f2b747ade4ef4dab38fc8, type: 3}

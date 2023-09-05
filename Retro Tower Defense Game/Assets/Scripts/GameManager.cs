@@ -1,15 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private TowerButton ClickedButton {get; private set;}
-    
+    public static GameManager instance;
+
+    public int stars = 5;
+    public float money = 500;
+    public int currentWave = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Tower"), LayerMask.NameToLayer("Projectile"));
     }
 
     // Update is called once per frame
@@ -18,8 +24,11 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void PickTower(TowerButton TowerButton)
+    public bool pointReached(Vector2 position, Vector2 destination, float threshold = 0.01f)
     {
-        this.ClickedButton = TowerButton;
+        float distanceToNext = (position - destination).sqrMagnitude;
+        return distanceToNext <= threshold;
     }
+
 }
+

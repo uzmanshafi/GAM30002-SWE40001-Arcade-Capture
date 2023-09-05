@@ -2029,7 +2029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c82f09bb8420824f922551b754d25f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameGameLevel: Level1
+  _nameGameLevel: Level_1
   noSavedGameDialog: {fileID: 1425690242}
   volumeTextValue: {fileID: 1535152604}
   volumeSlider: {fileID: 1426117342}
@@ -5378,7 +5378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1382609510
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6637,7 +6637,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c68fde842b38404498eb03d7d32f2075, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c9ffb4b8263a0c49b89ef0edf0154c4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
