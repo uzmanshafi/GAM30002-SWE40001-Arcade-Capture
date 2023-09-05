@@ -50,7 +50,7 @@ public class TowerPlacement : MonoBehaviour
         return mouseWorldPos;
     }
 
-    private void SpawnTower(Vector3 position)
+    public void SpawnTower(Vector3 position)
     {
         if (currentTower == null)
         {
