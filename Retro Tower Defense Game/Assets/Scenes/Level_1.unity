@@ -4254,7 +4254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671540b31e6f5f84fa9ddd9526a23280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arcadeTowerPrefab: {fileID: 8708052108609951444, guid: b6d92c8a4a0d15a4184eaa0a86a4e55c, type: 3}
+  arcadeTowerPrefab: {fileID: 8677206282542315729, guid: 972975a0732eea64aa5a4aa32680c001, type: 3}
   groundTilemap: {fileID: 1474541320}
   pathTilemap: {fileID: 1032469544}
 --- !u!114 &1431980160
@@ -10547,15 +10547,27 @@ PrefabInstance:
       objectReference: {fileID: 680841621375074119, guid: 55cedd94248768c43b0e12a78a8d958e, type: 3}
     - target: {fileID: 5861960808710910801, guid: b831fe55041ad804db6449a233e6406a, type: 3}
       propertyPath: waveFileNames.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5861960808710910801, guid: b831fe55041ad804db6449a233e6406a, type: 3}
       propertyPath: waveFileNames.Array.data[0]
-      value: Lvl1-Wave1.csv
+      value: Wave1.csv
       objectReference: {fileID: 0}
     - target: {fileID: 5861960808710910801, guid: b831fe55041ad804db6449a233e6406a, type: 3}
       propertyPath: waveFileNames.Array.data[1]
-      value: ExampleFormat.csv
+      value: Wave2.csv
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861960808710910801, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      propertyPath: waveFileNames.Array.data[2]
+      value: Wave3.csv
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861960808710910801, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      propertyPath: waveFileNames.Array.data[3]
+      value: Wave4.csv
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861960808710910801, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      propertyPath: waveFileNames.Array.data[4]
+      value: Wave5.csv
       objectReference: {fileID: 0}
     - target: {fileID: 7710798837261151279, guid: b831fe55041ad804db6449a233e6406a, type: 3}
       propertyPath: m_RootOrder
