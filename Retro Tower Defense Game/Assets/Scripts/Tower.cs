@@ -87,7 +87,6 @@ public abstract class Tower : MonoBehaviour
 
         if (speed_squared_difference == 0)
         {
-            Debug.Log("Divide by 0");
             //Divide by 0, special case must be treated differently
 
             //time = ET.sqrMagnitude / (2 * enemy_speed * dot_product);

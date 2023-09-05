@@ -14,7 +14,7 @@ public class DonkeyKongProjectile : Projectile
     [SerializeField] private int pierce;
 
     // Milliseconds, begins once on path (I don't know when this is instantiated because constructors don't seem to be a thing in unity)
-    private float barrelLifetime;
+    [SerializeField] private float barrelLifetime;
 
     // These are the points that the enemy has been to. We copy them here because the enemy could be destroyed
     private Vector3[] pathPoints;
@@ -48,11 +48,13 @@ public class DonkeyKongProjectile : Projectile
             //Check if at point
             if (pointReached((Vector2)transform.position, (Vector2)pathPoints[pathPointIndex], 0.1f)) {
                 pathPointIndex--;
-                if (pathPointIndex < 0) {
+                if (pathPointIndex <= 0) {
+                    Debug.Log("End Reached!");
                     Destroy(gameObject);
                 }
                 destination = pathPoints[pathPointIndex];
                 direction = (destination - (Vector2)transform.position).normalized;
+                rotate();
             }
             else
             {
@@ -60,12 +62,18 @@ public class DonkeyKongProjectile : Projectile
             }
 
         } else {
+            if (target != null)
+            {
+                destination = target.transform.position;
+            }
             //pointReached is going to be a globally accessible function. (Yes technically it could be an interface)
-            if (pointReached((Vector2)transform.position, (Vector2)destination)) {
+            if (pointReached((Vector2)transform.position, (Vector2)destination, 0.1f)) {
                 // Currently this will just changes the state. Otherwise we could destroy this object and create a barrel object that does the same thing
                 rollingAlongPath = true;
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 destination = pathPoints[pathPointIndex];
                 direction = (destination - (Vector2)transform.position).normalized;
+                rotate();
             }
         }
 
@@ -92,14 +100,18 @@ public class DonkeyKongProjectile : Projectile
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void rotate()
     {
-        
+        transform.right = direction;
     }
 
     private bool pointReached(Vector2 position, Vector2 destination, float threshold = 0.01f) //will delegate to game manager when it exists
     {
         float distanceToNext = (position - destination).sqrMagnitude;
+        if (distanceToNext <= threshold)
+        {
+            Debug.Log("PointReached!");
+        }
         return distanceToNext <= threshold;
     }
 
