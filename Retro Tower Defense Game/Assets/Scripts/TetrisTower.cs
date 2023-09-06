@@ -55,7 +55,7 @@ public class TetrisTower : Tower
 			{
 				bullet.GetComponent<Rigidbody2D>().velocity = _dir * projectile.speed;
 			}
-			
+			Destroy(bullet, 4);
 			lastShotTime = Time.time;
 		}
 

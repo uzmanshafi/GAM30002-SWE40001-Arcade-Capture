@@ -22,7 +22,6 @@ public class Wave : MonoBehaviour
     private Vector2 start;
 
     private bool waveLoaded = false;
-    private bool lvlStarted = false;
 
     void Start()
     { //All just for testing
@@ -35,12 +34,7 @@ public class Wave : MonoBehaviour
     void Update()
     {
         waveTime += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            lvlStarted = true;
-            waveTime = 0;
-        }
-        if (lvlStarted && !waveLoaded && waveIndex <= waveFileNames.Length - 1)
+        if (Input.GetKeyDown(KeyCode.Alpha0) && !waveLoaded && waveIndex <= waveFileNames.Length - 1)
         {
             loadFromFile("WaveFiles/" + waveFileNames[waveIndex]);
             waveTime = 0;
