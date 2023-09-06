@@ -22,27 +22,13 @@ public class Wave : MonoBehaviour
     private Vector2 start;
 
     private bool waveLoaded = false;
+    private bool lvlStarted = false;
 
     void Start()
     { //All just for testing
         start = gameObject.GetComponent<Waypoints>().Points[0];
         enemies = GameObject.FindAnyObjectByType<samplePooler>().enemies;
         gameManager = GameObject.FindAnyObjectByType<GameManager>();
-
-
-        GameObject[] Pink3 = { enemies[0], enemies[0], enemies[0] };
-        WaveBatch batch1 = new WaveBatch(Pink3, 0.8f);
-        waveBatches.Add(2f, batch1);
-        GameObject[] wave2E = { enemies[0], enemies[0], enemies[1], enemies[1] };
-        WaveBatch batch2 = new WaveBatch(wave2E, 1.5f);
-        for (int i = 0; i < 10; i++)
-        {
-            waveBatches.Add(i * 6f, batch2);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            //waveBatches.Add(i * 8f, batch1);
-        }
     }
 
     // Update is called once per frame
@@ -51,9 +37,10 @@ public class Wave : MonoBehaviour
         waveTime += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            loadFromFile("WaveFiles/Lvl1-Wave1.csv");
+            lvlStarted = true;
+            waveTime = 0;
         }
-        if (!waveLoaded && waveIndex <= waveFileNames.Length - 1)
+        if (lvlStarted && !waveLoaded && waveIndex <= waveFileNames.Length - 1)
         {
             loadFromFile("WaveFiles/" + waveFileNames[waveIndex]);
             waveTime = 0;

@@ -70,7 +70,8 @@ public class TowerPlacement : MonoBehaviour
         currentTower = Instantiate(towerPrefab);
         currentTower.transform.position = position + new Vector3(1.5f, 1.5f, 0);
         currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
-
+        Tower shootScript = currentTower.GetComponent<Tower>();
+        shootScript.enabled = !shootScript.enabled;
 
     }
 
@@ -91,6 +92,8 @@ public class TowerPlacement : MonoBehaviour
 
     private void DropTower()
     {
+        Tower shootScript = currentTower.GetComponent<Tower>();
+        shootScript.enabled = !shootScript.enabled;
         currentTowerSpriteRenderer.color = Color.white;  // Resets color to white
         currentTower = null;
         currentTowerSpriteRenderer = null;
@@ -113,6 +116,8 @@ public class TowerPlacement : MonoBehaviour
 
             currentTower = hitCollider.gameObject;
             currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
+            Tower shootScript = currentTower.GetComponent<Tower>();
+            shootScript.enabled = !shootScript.enabled;
         }
     }
 
@@ -121,7 +126,7 @@ public class TowerPlacement : MonoBehaviour
     {
         if (currentTower != null)
         {
-            currentTower.transform.Rotate(0, 0, 45);
+            currentTower.transform.Rotate(0, 0, -45);
         }
     }
 
