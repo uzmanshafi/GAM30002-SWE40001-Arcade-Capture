@@ -50,7 +50,9 @@ public class AsteroidsTower : Tower
 
 
         GameObject asteroid = Instantiate(bulletTypes[0], transform.position, Quaternion.identity);
-        Vector2 dir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - asteroid.transform.position).normalized;
+        Vector2 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - asteroid.transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x);
+        dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         asteroid.GetComponent<Rigidbody2D>().velocity = dir * asteroidSpeed;
         Destroy(asteroid, 2);
     }

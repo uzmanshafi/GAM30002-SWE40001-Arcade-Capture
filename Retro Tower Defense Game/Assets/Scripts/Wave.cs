@@ -40,6 +40,7 @@ public class Wave : MonoBehaviour
             waveTime = 0;
             waveLoaded = true;
             waveIndex++;
+            gameManager.currentWave += 1;
         }
         if (waveBatches.Count > 0 && waveTime > waveBatches.First().Key)
         {
