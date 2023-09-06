@@ -101,7 +101,7 @@ public class DonkeyKongProjectile : Projectile
 
         }
 
-        if (collision.IsTouchingLayers(LayerMask.NameToLayer("Pathing")))
+        if (collision.tag == "Path")
         {
             pathReached();
         }
