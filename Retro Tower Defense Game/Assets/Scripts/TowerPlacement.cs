@@ -8,10 +8,23 @@ public class TowerPlacement : MonoBehaviour
     public Tilemap pathTilemap;
     private GameObject currentTower;
     private SpriteRenderer currentTowerSpriteRenderer;
+    private float lastClickTime = 0;
+    private float catchTime = 0.25f; // Max time in seconds between double clicks
 
     void Update()
     {
         Vector3 mouseWorldPos = GetMouseWorldPosition();
+
+        // Destroy the tower when the ESC key is pressed
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (currentTower != null)
+            {
+                Destroy(currentTower);
+                currentTower = null;
+                currentTowerSpriteRenderer = null;
+            }
+        }
 
         if (currentTower != null)
         {
@@ -46,35 +59,17 @@ public class TowerPlacement : MonoBehaviour
     public void SpawnTowerOnButtonClick(int index)
     {
         Vector3 mouseWorldPos = GetMouseWorldPosition();
-
-
-        if (currentTower != null)
-        {
-            Destroy(currentTower);
-            currentTower = null;
-            currentTowerSpriteRenderer = null;
-        }
-
         SpawnTower(towerPrefabs[index], mouseWorldPos);
     }
 
     private void SpawnTower(GameObject towerPrefab, Vector3 position)
     {
-        if (currentTower != null)
-        {
-            Destroy(currentTower);
-            currentTower = null;
-            currentTowerSpriteRenderer = null;
-        }
-
         currentTower = Instantiate(towerPrefab);
         currentTower.transform.position = position + new Vector3(1.5f, 1.5f, 0);
         currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
         Tower shootScript = currentTower.GetComponent<Tower>();
-        shootScript.enabled = !shootScript.enabled;
-
+        shootScript.enabled = false;
     }
-
 
     private void DragTower(Vector3 newPosition)
     {
@@ -93,8 +88,8 @@ public class TowerPlacement : MonoBehaviour
     private void DropTower()
     {
         Tower shootScript = currentTower.GetComponent<Tower>();
-        shootScript.enabled = !shootScript.enabled;
-        currentTowerSpriteRenderer.color = Color.white;  // Resets color to white
+        shootScript.enabled = true;
+        currentTowerSpriteRenderer.color = Color.white;
         currentTower = null;
         currentTowerSpriteRenderer = null;
     }
@@ -105,22 +100,16 @@ public class TowerPlacement : MonoBehaviour
 
         if (hitCollider != null && hitCollider.gameObject.CompareTag("ArcadeTower"))
         {
-
-            if (currentTower != null)
+            if (Time.time - lastClickTime < catchTime)
             {
-                Destroy(currentTower);
-                currentTower = null;
-                currentTowerSpriteRenderer = null;
+                Destroy(hitCollider.gameObject);
             }
-
-
-            currentTower = hitCollider.gameObject;
-            currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
-            Tower shootScript = currentTower.GetComponent<Tower>();
-            shootScript.enabled = !shootScript.enabled;
+            else
+            {
+                lastClickTime = Time.time;
+            }
         }
     }
-
 
     private void RotateTower()
     {
@@ -134,56 +123,18 @@ public class TowerPlacement : MonoBehaviour
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(location);
 
-        if (!groundTilemap.HasTile(cellPosition))
-        {
-            Debug.Log("Not a ground tile");
-            return false;
-        }
-
-        if (pathTilemap.HasTile(cellPosition))
-        {
-            Debug.Log("It's a path tile");
-            return false;
-        }
+        if (!groundTilemap.HasTile(cellPosition)) return false;
+        if (pathTilemap.HasTile(cellPosition)) return false;
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(location, 0.35f, 1 << LayerMask.NameToLayer("Tower"));
         foreach (Collider2D hitCollider in hitColliders)
         {
             if (hitCollider.gameObject != currentTower)
             {
-                Debug.Log("Overlaps another tower");
                 return false;
             }
         }
 
-        Collider2D hitPathCollider = Physics2D.OverlapCircle(location, 0.35f, 1 << LayerMask.NameToLayer("Pathing"));
-        if (hitPathCollider != null)
-        {
-            Debug.Log("Overlaps the path");
-            return false;
-        }
-
-        if (towerName.Contains("SpaceInvadersTower"))
-        {
-            BoxCollider2D towerCollider = currentTower.GetComponent<BoxCollider2D>();
-            Vector2 size = towerCollider.size;
-            Vector2 offset = towerCollider.offset;
-            Vector2 trueCenter = (Vector2)location + offset;
-
-            Collider2D hitCollider = Physics2D.OverlapBox(trueCenter, size, 0, LayerMask.GetMask("Pathing"));
-
-            Debug.Log($"OverlapBox location: {trueCenter}, size: {size}");
-            Debug.Log("OverlapBox hit: " + (hitCollider != null ? hitCollider.name : "None"));
-
-            if (hitCollider != null)
-            {
-                Debug.Log("SpaceInvadersTower intersects with the path");
-                return false;
-            }
-        }
-
-        Debug.Log("Valid Location");
         return true;
     }
-
 }

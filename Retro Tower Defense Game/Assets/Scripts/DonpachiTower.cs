@@ -4,29 +4,52 @@ using UnityEngine;
 
 public class DonpachiTower : Tower
 {
-
-    [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float projectileSpeed = 5f;
+    private float currentAngle = 0f;  // Initial angle
+    [SerializeField] private float angleIncrement = 10f; // Angle increment for the spiral pattern
+
     void Update()
     {
-        transform.Rotate(Vector3.forward, 360 * Time.deltaTime);
-
+        tryShoot();
     }
 
     protected override void tryShoot()
     {
-        ShootProjectile();
-        lastShotTime = Time.time;
+        if (Time.time - lastShotTime > cooldown)
+        {
+     
+            Quaternion rotation1 = Quaternion.Euler(0, 0, currentAngle);
+            Vector2 direction1 = rotation1 * Vector2.up;
+
+            Quaternion rotation2 = Quaternion.Euler(0, 0, currentAngle + 180f);
+            Vector2 direction2 = rotation2 * Vector2.up; 
+
+
+            ShootProjectile(direction1);
+
+            ShootProjectile(direction2);
+
+            currentAngle += angleIncrement;
+
+            if (currentAngle >= 360f)
+            {
+                currentAngle -= 360f;
+            }
+
+            lastShotTime = Time.time;
+        }
     }
 
-
-    void ShootProjectile()
+    private void ShootProjectile(Vector2 direction)
     {
-        
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+        GameObject bullet = Instantiate(bulletTypes[0], transform.position, Quaternion.identity);
+        Rigidbody2D projectileRB = bullet.GetComponent<Rigidbody2D>();
+        projectileRB.velocity = direction * projectileSpeed;
 
-        Vector2 shootDirection = transform.up;
-        rb.velocity = shootDirection * projectileSpeed;
+        
+        bullet.GetComponent<Projectile>().target = null;
+
+        
+        Destroy(bullet, 5f);
     }
 }

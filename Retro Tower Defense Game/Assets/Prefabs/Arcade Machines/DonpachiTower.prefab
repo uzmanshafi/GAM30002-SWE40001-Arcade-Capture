@@ -165,14 +165,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0cd23d559cf6645acbdc61eaa3eded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 0
-  cooldown: 1
+  cost: 10
+  cooldown: 0.5
   target: {fileID: 0}
   towerRadius: 0
   range: 5
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
-  bulletTypes: []
-  projectilePrefab: {fileID: 2396885586352238776, guid: 50711a9323c949342b7cba54aa11ae7a, type: 3}
-  projectileSpeed: 5
+  bulletTypes:
+  - {fileID: 2396885586352238776, guid: 221bdd90329558b4492adce3c9f3e450, type: 3}
+  projectileSpeed: 6
+  angleIncrement: 16
