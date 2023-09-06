@@ -40,9 +40,9 @@ public class MenuController : MonoBehaviour
    public void ExitButton()
    {
         Application.Quit();
-   }
+    }
 
-   public void SetVolume(float volume)
+    public void SetVolume(float volume)
    {
         AudioListener.volume = volume;
         volumeTextValue.text = volume.ToString("0.0");
