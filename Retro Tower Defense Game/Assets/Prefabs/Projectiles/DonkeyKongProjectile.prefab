@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6978393940308056044}
   - component: {fileID: 2552712277473976744}
   - component: {fileID: 6001816930670599746}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: DonkeyKongProjectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1517703832487706825}
   - component: {fileID: 3870437945063335115}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int stars = 5;
     public float money = 500;
     public int currentWave = 0;
+    public int health = 10;
 
     private List<GameObject> _allEnemies = new List<GameObject>();
 
