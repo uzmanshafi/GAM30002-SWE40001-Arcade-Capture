@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     
-    public TMP_Text moneyText;
-    public TMP_Text starsText;
-    public TMP_Text waveText;
+    public Text moneyText;
+    public Text starsText;
+    public Text waveText;
 
     public GameObject towerMenu;
     public GameObject upgradeMenu;
