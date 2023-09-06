@@ -1,82 +1,91 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public abstract class Tower : MonoBehaviour
+// This will go toward the nearest enemy. Once it arrives it starts rolling down the path towards the entrance. If the lifetimer or pierce is exceeded it is destroyed (Or reaches entrance)
+
+public class BreakoutProjectile : Projectile
 {
-    [SerializeField] public float cost;
-    [SerializeField] protected float cooldown = 1;
-
-    protected float lastShotTime; //used to determine cooldown
-    [SerializeField] protected Enemy target;
-
-    [SerializeField] public float towerRadius;
-    [SerializeField] public float range = 5;
-    [SerializeField] public float radius;
-    [SerializeField] public GameObject radiusDisplay;
-    [SerializeField] public GameObject mesh;
-    [SerializeField] protected GameObject[] bulletTypes;
+    // This is how many enemies it can hit before it is destroyed
+    [SerializeField] private int pierce;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        // destination = target.transform.position;
     }
 
-    // Update is called once per frame
+    // Update is called once per frame. (Does this call move?)
     void Update()
     {
-        tryShoot();
-    }
-     
-    public void selected(bool t)
-    {
-        radiusDisplay.SetActive(t);
-        radiusDisplay.transform.localScale = new Vector2(towerRadius * 2, towerRadius * 2);
+        move();
     }
 
-    protected abstract void tryShoot();
-
-    protected Enemy? furthestTarget()
+    public override void move()
     {
+        //Go towards destination. Note that we update destination if rollingAlongPath
+        transform.position += (Vector3)(direction * speed) * Time.deltaTime;
+    }
 
-        RaycastHit2D[] results = Physics2D.CircleCastAll(transform.position, range, Vector2.up, LayerMask.GetMask("Enemy")); //Raycast and return any objects on layer enemy: Check if raycast is efficient
-        if (results.Length == 0)
-        {
-            target = null;
-        }
-        Enemy[] enemies_in_range = new Enemy[results.Length];
 
-        for (int i = 0; i < results.Length; i++) //Create and populate array of enemies
-        {
-            Enemy e;
-            if (results[i].collider.gameObject.TryGetComponent<Enemy>(out e))
-            {
-                enemies_in_range[i] = e;
-            }
-            //r.collider.gameObject.GetComponent<Enemy>().waypoints.Points[r.collider.gameObject.GetComponent<Enemy>().waypoints.Points.Length];
-        }
-
-        float bestDistance = Mathf.Infinity;
-        Enemy bestEnemy = null;
-        float tempDistance;
-        Vector3 endPoint;
-        if (enemies_in_range.Length > 0)
-        {
-            foreach (Enemy e in enemies_in_range) // find enemy closest to end point (Distance not furthest on path)
-            {
-                if (e == null) { continue; }
-                endPoint = e.GetWaypoints.Points[e.GetWaypoints.Points.Length - 1];
-                tempDistance = Vector2.Distance(e.transform.position, endPoint);
-                if (tempDistance < bestDistance)
-                {
-                    bestDistance = tempDistance;
-                    bestEnemy = e;
+    private Enemy? nearestEnemy(Vector2 position, Enemy[] enemies) {
+        Enemy? closest = null;
+        foreach (Enemy enemy in enemies) {
+            if (closest == null) {
+                closest = enemy;
+            } else {
+                if ((position - (Vector2)enemy.transform.position).sqrMagnitude < (position - (Vector2)closest.transform.position).sqrMagnitude) {
+                    closest = enemy;
                 }
             }
-            return bestEnemy;
         }
-        return null;
+        return closest;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Enemy e;
+        if (collision.gameObject.TryGetComponent<Enemy>(out e))
+        {
+            e.TakeDamage(damage);
+            pierce--;
+            if (pierce <= 0)
+            {
+                Destroy(gameObject);
+            } else {
+                //Go towards nearest enemy with predictive magic
+                //The AllEnemies array must be accessible
+                
+                Enemy? nearest = nearestEnemy(transform.position, AllEnemies);
+
+                if (nearest is Enemy _nearest) {
+                    Vector2? dir = aimPrediction(speed, _nearest);
+                    if (dir is Vector2 _dir) {
+                        direction = _dir;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Yes this is copied from tower and it will be moved after the playtest
+
+
+
+
 
     //Add the time returned to the elapsed time to get total time
     private (Vector2? collision_point, float? time) GetCollisionPoint(Vector2 enemy_position, Vector2 enemy_direction, float enemy_speed, float projectile_speed, float elapsed_time)
@@ -166,7 +175,7 @@ public abstract class Tower : MonoBehaviour
         return (null, time_to_destination);
     }
 
-    protected Vector2? aimPrediction(float projectile_speed)
+    protected Vector2? aimPrediction(float projectile_speed, Enemy target)
     {
 
         //It takes in the current enemy position and then goes from there
