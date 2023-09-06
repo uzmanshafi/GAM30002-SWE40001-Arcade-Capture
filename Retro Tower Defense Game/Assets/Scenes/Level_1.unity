@@ -7065,9 +7065,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b28dd8acb5c2cd4fb4b9a4fa1c4ca0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyText: {fileID: 1989691201}
-  starsText: {fileID: 1725849370}
-  waveText: {fileID: 1815648423}
+  moneyText: {fileID: 0}
+  starsText: {fileID: 0}
+  waveText: {fileID: 0}
   towerMenu: {fileID: 543581716}
   upgradeMenu: {fileID: 1053012118}
 --- !u!1 &1434695282
@@ -15024,8 +15024,24 @@ PrefabInstance:
       propertyPath: waveFileNames.Array.data[4]
       value: Wave5.csv
       objectReference: {fileID: 0}
+    - target: {fileID: 7233254628650745001, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      propertyPath: points.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7233254628650745001, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      propertyPath: points.Array.data[12].x
+      value: 4.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7233254628650745001, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      propertyPath: points.Array.data[12].y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7710798837261151279, guid: b831fe55041ad804db6449a233e6406a, type: 3}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710798837261151279, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+      propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7710798837261151279, guid: b831fe55041ad804db6449a233e6406a, type: 3}
@@ -15038,7 +15054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7710798837261151279, guid: b831fe55041ad804db6449a233e6406a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.061613135
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7710798837261151279, guid: b831fe55041ad804db6449a233e6406a, type: 3}
       propertyPath: m_LocalRotation.w
