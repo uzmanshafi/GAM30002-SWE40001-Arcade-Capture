@@ -8,7 +8,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float MaxHP;
     [SerializeField] private Waypoints waypoints;
+    [SerializeField] private float moneyOnKill;
 
+    GameManager GameManager;
 
     private int i = 0; //index for heading position
     private Vector3 destination;
@@ -80,6 +82,7 @@ public class Enemy : MonoBehaviour
             //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
             GameObject.FindAnyObjectByType<GameManager>().AllEnemies.Remove(gameObject);
             Destroy(gameObject);
+            GameManager.instance.money += moneyOnKill;
         }
     }
 
