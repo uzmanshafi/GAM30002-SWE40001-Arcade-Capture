@@ -168,6 +168,9 @@ MonoBehaviour:
   target: {fileID: 0}
   towerRadius: 0
   range: 5
+  radius: 0
+  radiusDisplay: {fileID: 0}
+  mesh: {fileID: 0}
   bulletTypes:
-  - {fileID: 6310525875718958529, guid: f00ff9d707f4b4e459b28e4d89a98b3f, type: 3}
+  - {fileID: 6310525875718958529, guid: e72588c0033c0714e9506fd876da0b62, type: 3}
   asteroidSpeed: 40

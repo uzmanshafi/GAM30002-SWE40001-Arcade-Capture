@@ -12,10 +12,14 @@ public class GameManager : MonoBehaviour
     public float money = 500;
     public int currentWave = 0;
 
+    private GameObject[] allEnemies;
+
     // Start is called before the first frame update
     void Start()
     {
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Tower"), LayerMask.NameToLayer("Projectile"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("Projectile"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Pathing"), LayerMask.NameToLayer("Projectile"));
     }
 
     // Update is called once per frame

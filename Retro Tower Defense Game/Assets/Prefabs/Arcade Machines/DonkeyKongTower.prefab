@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 264820729999802671}
   - component: {fileID: 4967782201886804948}
   m_Layer: 6
-  m_Name: DonkeyKongArcade
+  m_Name: DonkeyKongTower
   m_TagString: ArcadeTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,8 +51,11 @@ MonoBehaviour:
   target: {fileID: 0}
   towerRadius: 0
   range: 5
+  radius: 0
+  radiusDisplay: {fileID: 0}
+  mesh: {fileID: 0}
   bulletTypes:
-  - {fileID: 1187973415504143877, guid: 50afbae308c42d74e83b81a2230a041d, type: 3}
+  - {fileID: 1187973415504143877, guid: 2e276a9c0c0ab53438704399f602a93a, type: 3}
   projectile_speed: 4
 --- !u!60 &264820729999802671
 PolygonCollider2D:
