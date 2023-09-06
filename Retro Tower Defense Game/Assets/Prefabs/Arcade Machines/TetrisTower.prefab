@@ -102,7 +102,7 @@ MonoBehaviour:
   cooldown: 1
   target: {fileID: 0}
   towerRadius: 3
-  range: 3
+  range: 2
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
