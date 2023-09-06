@@ -77,7 +77,8 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
+            //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
+            GameObject.FindAnyObjectByType<GameManager>().AllEnemies.Remove(gameObject);
             Destroy(gameObject);
         }
     }
@@ -99,15 +100,11 @@ public class Enemy : MonoBehaviour
 
     private void endReached()
     {
-        if (gameObject.name == "Enemy")
-        {
-            GameObject.FindAnyObjectByType<Health>().TakeDamage(1);
-        }
-        else
-        {
-            GameObject.FindAnyObjectByType<Health>().TakeDamage(5);
-        }
-        GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
+
+        GameObject.FindAnyObjectByType<Health>().TakeDamage((int)MaxHP);
+
+        //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
+        GameObject.FindAnyObjectByType<GameManager>().AllEnemies.Remove(gameObject);
         Destroy(gameObject);
     }
 }

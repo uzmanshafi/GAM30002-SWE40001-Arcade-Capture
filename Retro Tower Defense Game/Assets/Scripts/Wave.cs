@@ -15,7 +15,9 @@ public class Wave : MonoBehaviour
     private int batchIndex = 0;
     private int waveIndex = 0;
 
-    GameObject[] enemies;
+    private GameObject[] enemies;
+
+    private GameManager gameManager;
 
     private Vector2 start;
 
@@ -25,7 +27,7 @@ public class Wave : MonoBehaviour
     { //All just for testing
         start = gameObject.GetComponent<Waypoints>().Points[0];
         enemies = GameObject.FindAnyObjectByType<samplePooler>().enemies;
-
+        gameManager = GameObject.FindAnyObjectByType<GameManager>();
 
 
         GameObject[] Pink3 = { enemies[0], enemies[0], enemies[0] };
@@ -63,7 +65,8 @@ public class Wave : MonoBehaviour
             KeyValuePair<float, WaveBatch> kvp = waveBatches.First();
             if (Time.time - timeSinceLastEnemy > kvp.Value.enemyCooldown)
             {
-                Instantiate(kvp.Value.Enemies[batchIndex], start, Quaternion.identity);
+                GameObject enemy = Instantiate(kvp.Value.Enemies[batchIndex], start, Quaternion.identity);
+                gameManager.AllEnemies.Add(enemy);
                 batchIndex++;
                 timeSinceLastEnemy = Time.time;
             }
