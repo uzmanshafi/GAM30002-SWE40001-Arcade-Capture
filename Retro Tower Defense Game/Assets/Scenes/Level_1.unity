@@ -1800,6 +1800,7 @@ MonoBehaviour:
   stars: 5
   money: 1000
   currentWave: 0
+  health: 10
 --- !u!4 &690477375
 Transform:
   m_ObjectHideFlags: 0
@@ -1831,6 +1832,7 @@ MonoBehaviour:
   - {fileID: 3754044211217079577, guid: 451d06b33bc8b4e42922a46addf5b86f, type: 3}
   - {fileID: 8708052108609951444, guid: 67850651758945643bc913e5ed63ec8b, type: 3}
   - {fileID: 8677206282542315729, guid: 972975a0732eea64aa5a4aa32680c001, type: 3}
+  - {fileID: 3754044211217079577, guid: c152ca6c1b56c094296649909b626478, type: 3}
   - {fileID: 8076282756041783590, guid: f3dc2489d59e90b498534f7758acfe5c, type: 3}
   - {fileID: 8076282756041783590, guid: 790f0c2bd8d56af4ebaaa3df77304c82, type: 3}
   - {fileID: 8076282756041783590, guid: 3d7920eb91745ac489bb809d2ac7177e, type: 3}
@@ -13511,7 +13513,7 @@ GameObject:
   - component: {fileID: 1568969224}
   - component: {fileID: 1568969223}
   m_Layer: 5
-  m_Name: Button (3)
+  m_Name: breakoutTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13580,7 +13582,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1568969224}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 690477376}
+        m_TargetAssemblyTypeName: TowerPlacement, Assembly-CSharp
+        m_MethodName: SpawnTowerOnButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1568969224
 MonoBehaviour:
   m_ObjectHideFlags: 0

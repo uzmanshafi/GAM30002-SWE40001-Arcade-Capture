@@ -25,17 +25,18 @@ public class BreakoutProjectile : Projectile
     public override void move()
     {
         //Go towards destination. Note that we update destination if rollingAlongPath
-        transform.position += (Vector3)(direction * speed) * Time.deltaTime;
+        //transform.position += (Vector3)(direction * speed) * Time.deltaTime;
+        
     }
 
 
-    private Enemy? nearestEnemy(Vector2 position, Enemy[] enemies) {
-        Enemy? closest = null;
-        foreach (Enemy enemy in enemies) {
-            if (closest == null) {
+    private GameObject? nearestEnemy(Vector2 position, GameObject currentTarget ,List<GameObject> enemies) {
+        GameObject? closest = null;
+        foreach (GameObject enemy in enemies) {
+            if (closest == null && enemy != currentTarget) {
                 closest = enemy;
             } else {
-                if ((position - (Vector2)enemy.transform.position).sqrMagnitude < (position - (Vector2)closest.transform.position).sqrMagnitude) {
+                if (enemy != currentTarget && (position - (Vector2)enemy.transform.position).sqrMagnitude < (position - (Vector2)closest.transform.position).sqrMagnitude) {
                     closest = enemy;
                 }
             }
@@ -50,20 +51,28 @@ public class BreakoutProjectile : Projectile
         {
             e.TakeDamage(damage);
             pierce--;
-            if (pierce <= 0)
+            if (pierce < 0)
             {
                 Destroy(gameObject);
             } else {
                 //Go towards nearest enemy with predictive magic
                 //The AllEnemies array must be accessible
-                
-                Enemy? nearest = nearestEnemy(transform.position, AllEnemies);
 
-                if (nearest is Enemy _nearest) {
-                    Vector2? dir = aimPrediction(speed, _nearest);
+                GameObject? nearest = nearestEnemy(transform.position, e.gameObject, GameObject.FindAnyObjectByType<GameManager>().AllEnemies);
+
+                if (nearest is GameObject _nearest) {
+                    Vector2? dir = aimPrediction(speed, _nearest.GetComponent<Enemy>());
                     if (dir is Vector2 _dir) {
                         direction = _dir;
+                        float angle = Mathf.Atan2(_dir.y, _dir.x);
+                        _dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                        gameObject.GetComponent<Rigidbody2D>().velocity = _dir * speed;
+
                     }
+                }
+                else
+                {
+                    Destroy(gameObject);
                 }
             }
         }
