@@ -82,9 +82,10 @@ public class Enemy : MonoBehaviour
             //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
             GameManager GM = GameObject.FindAnyObjectByType<GameManager>();
             GM.AllEnemies.Remove(gameObject);
-            GM.money += 1;
+            GM.money += moneyOnKill;
+            //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
-            GameManager.instance.money += moneyOnKill;
+            
         }
     }
 
