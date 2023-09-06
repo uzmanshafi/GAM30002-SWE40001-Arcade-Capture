@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
         transform.position = waypoints.Points[i];
         i += 1;
         destination = waypoints.getWaypointPosition(i);
+        rotate();
     }
 
     // Update is called once per frame
@@ -74,7 +75,7 @@ public class Enemy : MonoBehaviour
     internal void TakeDamage(float damage)
     {
         health -= damage;
-        if(health <= 0)
+        if (health <= 0)
         {
             GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
             Destroy(gameObject);
@@ -83,6 +84,8 @@ public class Enemy : MonoBehaviour
 
     private void rotate()
     {
+        transform.right = destination - transform.position;
+        /*
         if(destination.x > waypoints.getWaypointPosition(i - 1).x)
         {
             transform.eulerAngles = new Vector3(0,0,0);
@@ -91,6 +94,7 @@ public class Enemy : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(0, 0, 180);
         }
+        */
     }
 
     private void endReached()

@@ -6,21 +6,29 @@ using System.IO;
 
 public class Wave : MonoBehaviour
 {
+    [SerializeField] private string[] waveFileNames;
+
     private SortedDictionary<float, WaveBatch> waveBatches = new SortedDictionary<float, WaveBatch>();
-    
+
     private float timeSinceLastEnemy;
+    private float waveTime;
     private int batchIndex = 0;
+    private int waveIndex = 0;
+
     GameObject[] enemies;
 
     private Vector2 start;
 
-
+    private bool waveLoaded = false;
 
     void Start()
     { //All just for testing
         start = gameObject.GetComponent<Waypoints>().Points[0];
         enemies = GameObject.FindAnyObjectByType<samplePooler>().enemies;
-        GameObject[] Pink3 = { enemies[0], enemies[0], enemies[0]};
+
+
+
+        GameObject[] Pink3 = { enemies[0], enemies[0], enemies[0] };
         WaveBatch batch1 = new WaveBatch(Pink3, 0.8f);
         waveBatches.Add(2f, batch1);
         GameObject[] wave2E = { enemies[0], enemies[0], enemies[1], enemies[1] };
@@ -38,11 +46,19 @@ public class Wave : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        waveTime += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            loadFromFile("ExampleFormat.csv");
+            loadFromFile("WaveFiles/Lvl1-Wave1.csv");
         }
-        if (waveBatches.Count > 0 && Time.time > waveBatches.First().Key)
+        if (!waveLoaded && waveIndex <= waveFileNames.Length - 1)
+        {
+            loadFromFile("WaveFiles/" + waveFileNames[waveIndex]);
+            waveTime = 0;
+            waveLoaded = true;
+            waveIndex++;
+        }
+        if (waveBatches.Count > 0 && waveTime > waveBatches.First().Key)
         {
             KeyValuePair<float, WaveBatch> kvp = waveBatches.First();
             if (Time.time - timeSinceLastEnemy > kvp.Value.enemyCooldown)
@@ -60,6 +76,10 @@ public class Wave : MonoBehaviour
         else
         {
             timeSinceLastEnemy = 0f;
+        }
+        if (waveBatches.Count <= 0)
+        {
+            waveLoaded = false;
         }
     }
 
@@ -97,10 +117,10 @@ public class Wave : MonoBehaviour
                 }
                 else
                 {
-                    enemies2Spawn = new GameObject[]{ enemies[int.Parse(fields[1])] };
+                    enemies2Spawn = new GameObject[] { enemies[int.Parse(fields[1])] };
                 }
                 Debug.Log(fields[0] + '|' + enemies2Spawn + '|' + fields[2]);
-                waveBatches.Add(time,new WaveBatch(enemies2Spawn, float.Parse(fields[2])));
+                waveBatches.Add(time, new WaveBatch(enemies2Spawn, float.Parse(fields[2])));
                 Debug.Log("Adding enemies at T = " + fields[0]);
             }
         }
