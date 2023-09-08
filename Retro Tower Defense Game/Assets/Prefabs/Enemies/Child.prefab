@@ -171,6 +171,7 @@ MonoBehaviour:
   MovementSpeed: 4
   MaxHP: 1
   waypoints: {fileID: 7233254628650745001, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+  moneyOnKill: 1
 --- !u!70 &3165030954458038844
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

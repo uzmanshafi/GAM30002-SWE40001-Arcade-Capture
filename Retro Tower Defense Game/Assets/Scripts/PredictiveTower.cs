@@ -32,6 +32,7 @@ public class PredictiveTower : Tower
                 projectileRB.velocity = _dir * projectile_speed;
             }
             bullet.GetComponent<Projectile>().target = target;
+            Destroy(bullet, 5);
             lastShotTime = Time.time;
         }
 

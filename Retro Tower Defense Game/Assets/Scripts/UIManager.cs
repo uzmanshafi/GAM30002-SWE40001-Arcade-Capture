@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
         upgradeMenu.SetActive(false);
     }
 
+    // Cant get this to work yet
     // public void updateTextUi()
     // {
     //     // starText.text = "Stars: " +  GameManager.instance.stars;

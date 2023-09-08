@@ -75,12 +75,7 @@ public class DonkeyKongProjectile : Projectile
             //pointReached is going to be a globally accessible function. (Yes technically it could be an interface)
             if (pointReached((Vector2)transform.position, (Vector2)destination, 0.1f))
             {
-                // Currently this will just changes the state. Otherwise we could destroy this object and create a barrel object that does the same thing
-                rollingAlongPath = true;
-                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                destination = pathPoints[pathPointIndex];
-                direction = (destination - (Vector2)transform.position).normalized;
-                rotate();
+                pathReached();
             }
         }
 
@@ -105,6 +100,11 @@ public class DonkeyKongProjectile : Projectile
             }
 
         }
+
+        if (collision.tag == "Path")
+        {
+            pathReached();
+        }
     }
 
     private void rotate()
@@ -120,6 +120,16 @@ public class DonkeyKongProjectile : Projectile
             Debug.Log("PointReached!");
         }
         return distanceToNext <= threshold;
+    }
+
+    private void pathReached()
+    {
+        // Currently this will just changes the state. Otherwise we could destroy this object and create a barrel object that does the same thing
+        rollingAlongPath = true;
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        destination = pathPoints[pathPointIndex];
+        direction = (destination - (Vector2)transform.position).normalized;
+        rotate();
     }
 
 }

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int stars = 5;
     public float money = 500;
     public int currentWave = 0;
+    public int health = 10;
 
     private List<GameObject> _allEnemies = new List<GameObject>();
 
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
 void Start()
     {
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Tower"), LayerMask.NameToLayer("Projectile"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Tower"), LayerMask.NameToLayer("DonkeyKongProjectile"));
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("DonkeyKongProjectile"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("Projectile"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Pathing"), LayerMask.NameToLayer("Projectile"));
     }
@@ -27,7 +30,7 @@ void Start()
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     public bool pointReached(Vector2 position, Vector2 destination, float threshold = 0.01f)

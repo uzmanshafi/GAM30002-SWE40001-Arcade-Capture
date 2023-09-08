@@ -8,7 +8,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float MaxHP;
     [SerializeField] private Waypoints waypoints;
+    [SerializeField] private float moneyOnKill;
 
+    GameManager GameManager;
 
     private int i = 0; //index for heading position
     private Vector3 destination;
@@ -78,8 +80,12 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
-            GameObject.FindAnyObjectByType<GameManager>().AllEnemies.Remove(gameObject);
+            GameManager GM = GameObject.FindAnyObjectByType<GameManager>();
+            GM.AllEnemies.Remove(gameObject);
+            GM.money += moneyOnKill;
+            //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
+            
         }
     }
 
@@ -101,10 +107,12 @@ public class Enemy : MonoBehaviour
     private void endReached()
     {
 
-        GameObject.FindAnyObjectByType<Health>().TakeDamage((int)MaxHP);
+        //GameObject.FindAnyObjectByType<Health>().TakeDamage((int)MaxHP);
 
         //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
-        GameObject.FindAnyObjectByType<GameManager>().AllEnemies.Remove(gameObject);
+        GameManager GM = GameObject.FindAnyObjectByType<GameManager>();
+        GM.AllEnemies.Remove(gameObject);
+        GM.health -= 1;
         Destroy(gameObject);
     }
 }
