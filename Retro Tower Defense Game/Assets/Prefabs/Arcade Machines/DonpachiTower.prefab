@@ -166,14 +166,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 10
-  cooldown: 0.5
+  cooldown: 0.4
   target: {fileID: 0}
   towerRadius: 0
-  range: 5
+  range: 3
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
   bulletTypes:
   - {fileID: 2396885586352238776, guid: 221bdd90329558b4492adce3c9f3e450, type: 3}
-  projectileSpeed: 6
-  angleIncrement: 16
+  projectileSpeed: 0.3
+  angleIncrement: 40
