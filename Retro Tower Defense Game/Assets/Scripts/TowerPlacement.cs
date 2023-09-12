@@ -11,6 +11,13 @@ public class TowerPlacement : MonoBehaviour
     private float lastClickTime = 0;
     private float catchTime = 0.25f; // Max time in seconds between double clicks
 
+    GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = GameObject.FindFirstObjectByType<GameManager>();
+    }
+
     void Update()
     {
         Vector3 mouseWorldPos = GetMouseWorldPosition();
@@ -89,9 +96,14 @@ public class TowerPlacement : MonoBehaviour
     {
         Tower shootScript = currentTower.GetComponent<Tower>();
         shootScript.enabled = true;
+        if (!gameManager.AllTowers.Contains(currentTower))
+        {
+            gameManager.AllTowers.Add(currentTower);
+        }
         currentTowerSpriteRenderer.color = Color.white;
         currentTower = null;
         currentTowerSpriteRenderer = null;
+        
     }
 
     private void AttemptPickupTower(Vector3 position)
