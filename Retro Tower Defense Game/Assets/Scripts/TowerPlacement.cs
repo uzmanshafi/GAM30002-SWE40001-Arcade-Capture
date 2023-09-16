@@ -15,7 +15,7 @@ public class TowerPlacement : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameObject.FindFirstObjectByType<GameManager>();
+        gameManager = GameManager.instance;
     }
 
     void Update()
@@ -99,6 +99,7 @@ public class TowerPlacement : MonoBehaviour
         if (!gameManager.AllTowers.Contains(currentTower))
         {
             gameManager.AllTowers.Add(currentTower);
+            gameManager.money -= shootScript.cost;
         }
         currentTowerSpriteRenderer.color = Color.white;
         currentTower = null;

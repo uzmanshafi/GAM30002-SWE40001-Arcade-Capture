@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
 {
-    [SerializeField] public float cost;
+    [SerializeField] public int cost;
     [SerializeField] protected float cooldown = 1;
 
     protected float lastShotTime; //used to determine cooldown

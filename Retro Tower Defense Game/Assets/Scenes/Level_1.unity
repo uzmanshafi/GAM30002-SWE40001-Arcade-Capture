@@ -1798,9 +1798,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stars: 5
-  money: 1000
+  money: 500
   currentWave: 0
-  health: 10
 --- !u!4 &690477375
 Transform:
   m_ObjectHideFlags: 0
@@ -7207,7 +7206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 1989691201}
-  starsText: {fileID: 1725849370}
+  starText: {fileID: 1725849370}
   waveText: {fileID: 1815648423}
   towerMenu: {fileID: 543581716}
   upgradeMenu: {fileID: 1053012118}

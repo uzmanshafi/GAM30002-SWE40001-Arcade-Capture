@@ -8,9 +8,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float MaxHP;
     [SerializeField] private Waypoints waypoints;
-    [SerializeField] private float moneyOnKill;
+    [SerializeField] private int moneyOnKill;
 
-    GameManager GameManager;
+    GameManager GM;
 
     private int i = 0; //index for heading position
     private Vector3 destination;
@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GM = GameManager.instance;
         health = MaxHP;
         gameObject.SetActive(true);
         transform.position = waypoints.Points[i];
@@ -79,8 +80,6 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
-            GameManager GM = GameObject.FindAnyObjectByType<GameManager>();
             GM.AllEnemies.Remove(gameObject);
             GM.money += moneyOnKill;
             //GameManager.instance.money += moneyOnKill;
@@ -92,27 +91,13 @@ public class Enemy : MonoBehaviour
     private void rotate()
     {
         transform.right = destination - transform.position;
-        /*
-        if(destination.x > waypoints.getWaypointPosition(i - 1).x)
-        {
-            transform.eulerAngles = new Vector3(0,0,0);
-        }
-        else
-        {
-            transform.eulerAngles = new Vector3(0, 0, 180);
-        }
-        */
     }
 
     private void endReached()
     {
 
-        //GameObject.FindAnyObjectByType<Health>().TakeDamage((int)MaxHP);
-
-        //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
-        GameManager GM = GameObject.FindAnyObjectByType<GameManager>();
         GM.AllEnemies.Remove(gameObject);
-        GM.health -= 1;
+        GM.stars -= 0.5f;
         Destroy(gameObject);
     }
 }
