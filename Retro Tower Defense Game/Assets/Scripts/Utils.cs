@@ -131,4 +131,9 @@ public static class Utils {
         float distanceToNext = (position - destination).sqrMagnitude;
         return distanceToNext <= threshold;
     }
+
+    public static bool withinRange(Vector2 pos1, Vector2 pos2, float range) {
+        return (pos1 - pos2).sqrMagnitude <= Math.Pow(range, 2);
+    }
+
 }
