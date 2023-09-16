@@ -36,12 +36,5 @@ public class GameManager : MonoBehaviour
     {
        
     }
-
-    public bool pointReached(Vector2 position, Vector2 destination, float threshold = 0.01f)
-    {
-        float distanceToNext = (position - destination).sqrMagnitude;
-        return distanceToNext <= threshold;
-    }
-
 }
 
