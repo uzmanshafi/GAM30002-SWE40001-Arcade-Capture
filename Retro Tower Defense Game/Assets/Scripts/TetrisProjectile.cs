@@ -26,10 +26,6 @@ public class TetrisProjectile : Projectile
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Tower"))
-        {
-            Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.collider);
-        }
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {

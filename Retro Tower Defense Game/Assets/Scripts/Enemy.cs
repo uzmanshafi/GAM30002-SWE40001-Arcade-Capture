@@ -8,7 +8,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float MaxHP;
     [SerializeField] private Waypoints waypoints;
+    [SerializeField] private float moneyOnKill;
 
+    GameManager GameManager;
 
     private int i = 0; //index for heading position
     private Vector3 destination;
@@ -27,6 +29,7 @@ public class Enemy : MonoBehaviour
         transform.position = waypoints.Points[i];
         i += 1;
         destination = waypoints.getWaypointPosition(i);
+        rotate();
     }
 
     // Update is called once per frame
@@ -74,15 +77,22 @@ public class Enemy : MonoBehaviour
     internal void TakeDamage(float damage)
     {
         health -= damage;
-        if(health <= 0)
+        if (health <= 0)
         {
-            GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
+            //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
+            GameManager GM = GameObject.FindAnyObjectByType<GameManager>();
+            GM.AllEnemies.Remove(gameObject);
+            GM.money += moneyOnKill;
+            //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
+            
         }
     }
 
     private void rotate()
     {
+        transform.right = destination - transform.position;
+        /*
         if(destination.x > waypoints.getWaypointPosition(i - 1).x)
         {
             transform.eulerAngles = new Vector3(0,0,0);
@@ -91,19 +101,18 @@ public class Enemy : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(0, 0, 180);
         }
+        */
     }
 
     private void endReached()
     {
-        if (gameObject.name == "Enemy")
-        {
-            GameObject.FindAnyObjectByType<Health>().TakeDamage(1);
-        }
-        else
-        {
-            GameObject.FindAnyObjectByType<Health>().TakeDamage(5);
-        }
-        GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
+
+        //GameObject.FindAnyObjectByType<Health>().TakeDamage((int)MaxHP);
+
+        //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
+        GameManager GM = GameObject.FindAnyObjectByType<GameManager>();
+        GM.AllEnemies.Remove(gameObject);
+        GM.health -= 1;
         Destroy(gameObject);
     }
 }

@@ -1183,11 +1183,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3221700600878956218, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
       propertyPath: points.Array.data[4].x
-      value: -3.0610769
+      value: -2.9547129
       objectReference: {fileID: 0}
     - target: {fileID: 3221700600878956218, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
       propertyPath: points.Array.data[4].y
-      value: -2.7463632
+      value: -2.6399992
       objectReference: {fileID: 0}
     - target: {fileID: 3221700600878956218, guid: 1e9b7eb2145a57540be12a6e85b1577c, type: 3}
       propertyPath: points.Array.data[4].z
@@ -1549,7 +1549,7 @@ GameObject:
   - component: {fileID: 687702001}
   m_Layer: 0
   m_Name: TowerManager
-  m_TagString: Untagged
+  m_TagString: ArcadeTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1567,6 +1567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arcadeTowerPrefab: {fileID: 8076282756041783590, guid: 790f0c2bd8d56af4ebaaa3df77304c82, type: 3}
+  spaceInvadersTowerPrefab: {fileID: 3754044211217079577, guid: 0f8d430fe7a922b49b60d6e8a83a87c1, type: 3}
   groundTilemap: {fileID: 1257400172}
   pathTilemap: {fileID: 1190228619}
 --- !u!4 &687702002
@@ -4555,7 +4556,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -4689,7 +4690,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16

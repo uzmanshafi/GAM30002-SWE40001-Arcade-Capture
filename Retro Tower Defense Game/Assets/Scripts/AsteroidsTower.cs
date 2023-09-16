@@ -8,7 +8,7 @@ public class AsteroidsTower : Tower
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -23,6 +23,7 @@ public class AsteroidsTower : Tower
 
     protected override void tryShoot()
     {
+        /*
         float spawnX = 0;
         float spawnY = 0;
         int choice = Random.Range(0, 3);
@@ -45,12 +46,14 @@ public class AsteroidsTower : Tower
         {
             spawnY = Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.y - Screen.height)).y - 1;
             spawnX = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.x)).x, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.x + Screen.width)).x);
-        }
+        }*/
 
 
-        GameObject asteroid = Instantiate(bulletTypes[2], new Vector2(spawnX, spawnY), Quaternion.identity);
-        Vector2 dir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - asteroid.transform.position).normalized;
+        GameObject asteroid = Instantiate(bulletTypes[0], transform.position, Quaternion.identity);
+        Vector2 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - asteroid.transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x);
+        dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         asteroid.GetComponent<Rigidbody2D>().velocity = dir * asteroidSpeed;
-        Destroy(asteroid,3);
+        Destroy(asteroid, 2);
     }
 }

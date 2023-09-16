@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
 {
-    [SerializeField] protected float cost;
+    [SerializeField] public float cost;
     [SerializeField] protected float cooldown = 1;
 
     protected float lastShotTime; //used to determine cooldown
@@ -11,7 +11,9 @@ public abstract class Tower : MonoBehaviour
 
     [SerializeField] public float towerRadius;
     [SerializeField] public float range = 5;
-
+    [SerializeField] public float radius;
+    [SerializeField] public GameObject radiusDisplay;
+    [SerializeField] public GameObject mesh;
     [SerializeField] protected GameObject[] bulletTypes;
 
     // Start is called before the first frame update
@@ -24,6 +26,12 @@ public abstract class Tower : MonoBehaviour
     void Update()
     {
         tryShoot();
+    }
+     
+    public void selected(bool t)
+    {
+        radiusDisplay.SetActive(t);
+        radiusDisplay.transform.localScale = new Vector2(towerRadius * 2, towerRadius * 2);
     }
 
     protected abstract void tryShoot();
