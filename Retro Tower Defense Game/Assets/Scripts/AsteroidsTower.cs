@@ -14,7 +14,7 @@ public class AsteroidsTower : Tower
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - lastShotTime > cooldown)
+        if (Time.time - lastShotTime > actual_cooldown)
         {
             tryShoot();
             lastShotTime = Time.time;

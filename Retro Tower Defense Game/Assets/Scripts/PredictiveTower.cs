@@ -20,7 +20,7 @@ public class PredictiveTower : Tower
     protected override void tryShoot() //abstract?
     {
         target = furthestTarget();
-        if (Time.time - lastShotTime > cooldown && target != null)
+        if (Time.time - lastShotTime > actual_cooldown && target != null)
         {
             Vector2? dir = aimPrediction(projectile_speed, target, (Vector2)transform.position);
             

@@ -6,11 +6,15 @@ public abstract class Tower : MonoBehaviour
     [SerializeField] public float cost;
     [SerializeField] protected float cooldown = 1;
 
+    protected float actual_cooldown = cooldown; //This gets modified externally so the base cooldown is not changed
+
     protected float lastShotTime; //used to determine cooldown
     [SerializeField] protected Enemy target;
 
     [SerializeField] public float towerRadius;
     [SerializeField] public float range = 5;
+
+    protected float actual_range = range; //This gets modified externally so the base range is not changed
     [SerializeField] public float radius;
     [SerializeField] public GameObject radiusDisplay;
     [SerializeField] public GameObject mesh;
@@ -39,7 +43,7 @@ public abstract class Tower : MonoBehaviour
     protected Enemy? furthestTarget()
     {
 
-        RaycastHit2D[] results = Physics2D.CircleCastAll(transform.position, range, Vector2.up, LayerMask.GetMask("Enemy")); //Raycast and return any objects on layer enemy: Check if raycast is efficient
+        RaycastHit2D[] results = Physics2D.CircleCastAll(transform.position, actual_range, Vector2.up, LayerMask.GetMask("Enemy")); //Raycast and return any objects on layer enemy: Check if raycast is efficient
         if (results.Length == 0)
         {
             target = null;
