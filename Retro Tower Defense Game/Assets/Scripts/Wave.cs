@@ -34,13 +34,9 @@ public class Wave : MonoBehaviour
     void Update()
     {
         waveTime += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Alpha0) && !waveLoaded && waveIndex <= waveFileNames.Length - 1)
+        if (Input.GetKeyDown(KeyCode.Alpha0) ) //for testing purposes, delete before final build
         {
-            loadFromFile(Application.streamingAssetsPath + "/WaveFiles/" + waveFileNames[waveIndex]);
-            waveTime = 0;
-            waveLoaded = true;
-            waveIndex++;
-            gameManager.currentWave += 1;
+            startWave();
         }
         if (waveBatches.Count > 0 && waveTime > waveBatches.First().Key)
         {
@@ -108,6 +104,18 @@ public class Wave : MonoBehaviour
                 waveBatches.Add(time, new WaveBatch(enemies2Spawn, float.Parse(fields[2])));
                 Debug.Log("Adding enemies at T = " + fields[0]);
             }
+        }
+    }
+
+    public void startWave()
+    {
+        if (!waveLoaded && waveIndex <= waveFileNames.Length - 1)
+        {
+            loadFromFile(Application.streamingAssetsPath + "/WaveFiles/" + waveFileNames[waveIndex]);
+            waveTime = 0;
+            waveLoaded = true;
+            waveIndex++;
+            gameManager.currentWave += 1;
         }
     }
 
