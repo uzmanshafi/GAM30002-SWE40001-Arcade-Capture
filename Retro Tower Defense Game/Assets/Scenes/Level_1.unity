@@ -1798,9 +1798,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stars: 5
-  money: 1000
+  money: 500
   currentWave: 0
-  health: 10
 --- !u!4 &690477375
 Transform:
   m_ObjectHideFlags: 0
@@ -1834,8 +1833,8 @@ MonoBehaviour:
   - {fileID: 8677206282542315729, guid: 972975a0732eea64aa5a4aa32680c001, type: 3}
   - {fileID: 3754044211217079577, guid: c152ca6c1b56c094296649909b626478, type: 3}
   - {fileID: 8076282756041783590, guid: f3dc2489d59e90b498534f7758acfe5c, type: 3}
-  - {fileID: 8076282756041783590, guid: 790f0c2bd8d56af4ebaaa3df77304c82, type: 3}
   - {fileID: 8076282756041783590, guid: 3d7920eb91745ac489bb809d2ac7177e, type: 3}
+  - {fileID: 8076282756041783590, guid: 790f0c2bd8d56af4ebaaa3df77304c82, type: 3}
   - {fileID: 8076282756041783590, guid: 5e660e7ae2d8071499d50797b9890c05, type: 3}
   - {fileID: 8076282756041783590, guid: 476d8e28fafb65d4e9d43a15c653d2ba, type: 3}
   groundTilemap: {fileID: 1474541320}
@@ -7207,7 +7206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 1989691201}
-  starsText: {fileID: 1725849370}
+  starText: {fileID: 1725849370}
   waveText: {fileID: 1815648423}
   towerMenu: {fileID: 543581716}
   upgradeMenu: {fileID: 1053012118}
@@ -14805,7 +14804,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1962169755}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 690477376}
+        m_TargetAssemblyTypeName: TowerPlacement, Assembly-CSharp
+        m_MethodName: SpawnTowerOnButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1962169755
 MonoBehaviour:
   m_ObjectHideFlags: 0

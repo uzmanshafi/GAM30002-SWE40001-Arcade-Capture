@@ -3,15 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     
-    public Text moneyText;
-    public Text starsText;
-    public Text waveText;
+    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI starText;
+    public TextMeshProUGUI waveText;
 
     public GameObject towerMenu;
     public GameObject upgradeMenu;
@@ -38,21 +37,21 @@ public class UIManager : MonoBehaviour
         upgradeMenu.SetActive(false);
     }
 
-    // Cant get this to work yet
-    // public void updateTextUi()
-    // {
-    //     // starText.text = "Stars: " +  GameManager.instance.stars;
-    //     moneyText.text = "Money: " +  GameManager.instance.money;
-    //     waveText.text = "Wave: " +  GameManager.instance.currentWave;
-    // }
+    //Should be working
+     public void updateTextUi()
+     {
+         starText.text = "Stars: " +  GameManager.instance.stars;
+         moneyText.text = GameManager.instance.money.ToString();
+         waveText.text = "Wave: "+ GameManager.instance.currentWave;
+     }
 
-    // private void Update()
-    // {
-    //     updateTextUi();
-    // }
+     void Update()
+     {
+         updateTextUi();
+     }
 
     // Initialises variables before the game starts
-    private void Awake()
+    void Awake()
     {
         instance = this;
     }

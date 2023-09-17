@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fef07060d29a143abe268747c4acff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 0
+  cost: 350
   cooldown: 1
   target: {fileID: 0}
   towerRadius: 0

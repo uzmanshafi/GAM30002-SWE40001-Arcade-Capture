@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4462670486568380753}
   - component: {fileID: 2475031915224371012}
   - component: {fileID: 4555808692913621884}
+  - component: {fileID: 8294213705418891615}
   m_Layer: 6
   m_Name: PogTower
   m_TagString: ArcadeTower
@@ -152,3 +153,29 @@ PolygonCollider2D:
       - {x: 0.09060669, y: 0.069744885}
       - {x: 0.08034202, y: 0.071562015}
   m_UseDelaunayMesh: 0
+--- !u!114 &8294213705418891615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076282756041783590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba86a3af4ee52b14d86dbd6e63fb633b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 150
+  cooldown: 1
+  target: {fileID: 0}
+  towerRadius: 0
+  range: 5
+  radius: 0
+  radiusDisplay: {fileID: 0}
+  mesh: {fileID: 0}
+  bulletTypes:
+  - {fileID: 2396885586352238776, guid: 23fb1b0291ea0964185da2176e558032, type: 3}
+  pongShot: {fileID: 0}
+  other: {fileID: 0}
+  shotRB: {fileID: 0}
+  pongOrder: 0

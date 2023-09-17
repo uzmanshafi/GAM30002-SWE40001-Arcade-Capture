@@ -36,7 +36,7 @@ public class Wave : MonoBehaviour
         waveTime += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Alpha0) && !waveLoaded && waveIndex <= waveFileNames.Length - 1)
         {
-            loadFromFile("WaveFiles/" + waveFileNames[waveIndex]);
+            loadFromFile(Application.streamingAssetsPath + "/WaveFiles/" + waveFileNames[waveIndex]);
             waveTime = 0;
             waveLoaded = true;
             waveIndex++;
