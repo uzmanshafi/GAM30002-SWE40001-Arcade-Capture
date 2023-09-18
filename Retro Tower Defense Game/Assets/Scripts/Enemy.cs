@@ -21,8 +21,23 @@ public class Enemy : MonoBehaviour
 
     public float GetMovementSpeed => MovementSpeed; // Getter
     public Waypoints GetWaypoints => waypoints; // Getter (I would prefer the name to not be the same as the type)
+    public Waypoints SetWaypoints
+    {
+        set { waypoints = value; }
+    }
+
     public Vector3 GetDestination => destination; //Getter 
+    public Vector3 SetDestination
+    {
+        set { destination = value; }
+    }
+
     public int getWaypointIndex => i; //Getter
+    public int setWaypointIndex
+    {
+        set { i = value; }
+    }
+
     public bool IsCamo => is_camo; //Getter
 
     // Start is called before the first frame update
