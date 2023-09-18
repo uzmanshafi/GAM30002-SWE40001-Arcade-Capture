@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static Utils;
 
 // Design A
 // This tower will shoot projectiles that send back an onHit event. If they do hit something then they must check if it's the same enemy as lastEnemyHit. If it is increase hitCount and deal damage somehow. Else reset hitCount and update lastEnemyHit
@@ -42,7 +42,7 @@ public class TetrisTower : Tower
 	protected override void tryShoot()
 	{
 		target = furthestTarget();
-		if (Time.time - lastShotTime > cooldown && target != null)
+		if (Time.time - lastShotTime > actual_cooldown && target != null)
 		{
 
 			int bulletType = Random.Range(0,6);
@@ -50,7 +50,7 @@ public class TetrisTower : Tower
 			GameObject bullet = Instantiate(bulletTypes[bulletType], transform.position /*+ dir*/, Quaternion.identity);
 			TetrisProjectile projectile = bullet.GetComponent<TetrisProjectile>();
 			projectile.owner = this;
-			Vector2? dir = aimPrediction(projectile.speed);
+			Vector2? dir = aimPrediction(projectile.speed, target, (Vector2)transform.position);
 			if (dir is Vector2 _dir)
 			{
 				bullet.GetComponent<Rigidbody2D>().velocity = _dir * projectile.speed;

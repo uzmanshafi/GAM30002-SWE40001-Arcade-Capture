@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static Utils;
 public class PredictiveTower : Tower
 {
     [SerializeField] private float projectile_speed;
@@ -20,9 +20,9 @@ public class PredictiveTower : Tower
     protected override void tryShoot() //abstract?
     {
         target = furthestTarget();
-        if (Time.time - lastShotTime > cooldown && target != null)
+        if (Time.time - lastShotTime > actual_cooldown && target != null)
         {
-            Vector2? dir = aimPrediction(projectile_speed);
+            Vector2? dir = aimPrediction(projectile_speed, target, (Vector2)transform.position);
             
             
             GameObject bullet = Instantiate(bulletTypes[0], transform.position /*+ dir*/, Quaternion.identity);

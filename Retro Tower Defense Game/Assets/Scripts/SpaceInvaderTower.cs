@@ -81,7 +81,7 @@ public class SpaceInvadersTower : Tower
             rb.velocity = Vector2.up * 5;
 
 
-            yield return new WaitForSeconds(cooldown);
+            yield return new WaitForSeconds(actual_cooldown);
         }
     }
 

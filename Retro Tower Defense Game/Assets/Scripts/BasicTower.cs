@@ -19,7 +19,7 @@ public class BasicTower : Tower
     protected override void tryShoot() //abstract?
     {
         furthestTarget();
-        if (Time.time - lastShotTime > cooldown && target != null)
+        if (Time.time - lastShotTime > actual_cooldown && target != null)
         {
             Vector3 dir = (target.transform.position - transform.position).normalized;
             

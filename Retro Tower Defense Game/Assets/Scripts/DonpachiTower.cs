@@ -15,7 +15,7 @@ public class DonpachiTower : Tower
 
     protected override void tryShoot()
     {
-        if (Time.time - lastShotTime > cooldown)
+        if (Time.time - lastShotTime > actual_cooldown)
         {
      
             Quaternion rotation1 = Quaternion.Euler(0, 0, currentAngle);
