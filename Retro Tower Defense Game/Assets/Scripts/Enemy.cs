@@ -7,11 +7,12 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float MaxHP;
-    [SerializeField] private Waypoints waypoints;
+    
     [SerializeField] protected int moneyOnKill;
 
     protected GameManager GM;
 
+    private Waypoints waypoints;
     private int i = 0; //index for heading position
     private Vector3 destination;
     protected float health;
@@ -33,6 +34,7 @@ public class Enemy : MonoBehaviour
     protected void init()
     {
         GM = GameManager.instance;
+        waypoints = GM.GetComponent<Waypoints>();
         health = MaxHP;
         gameObject.SetActive(true);
         transform.position = waypoints.Points[i];

@@ -27,8 +27,9 @@ public class Wave : MonoBehaviour
 
     void Start()
     { //All just for testing
-        start = gameObject.GetComponent<Waypoints>().Points[0];
-        gameManager = GameObject.FindAnyObjectByType<GameManager>();
+        
+        gameManager = GameManager.instance;
+        start = gameManager.GetComponent<Waypoints>().Points[0];
     }
 
     // Update is called once per frame
