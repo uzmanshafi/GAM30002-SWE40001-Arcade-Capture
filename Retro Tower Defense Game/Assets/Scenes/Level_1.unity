@@ -15275,7 +15275,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 690477378}
         m_TargetAssemblyTypeName: Wave, Assembly-CSharp
         m_MethodName: startWave
         m_Mode: 1
