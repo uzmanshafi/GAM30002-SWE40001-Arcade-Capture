@@ -96,9 +96,9 @@ public class TowerPlacement : MonoBehaviour
     {
         Tower shootScript = currentTower.GetComponent<Tower>();
         shootScript.enabled = true;
-        if (!gameManager.AllTowers.Contains(currentTower))
+        if (!gameManager.AllTowers.Contains(shootScript))
         {
-            gameManager.AllTowers.Add(currentTower);
+            gameManager.AllTowers.Add(shootScript);
             gameManager.money -= shootScript.cost;
         }
         currentTowerSpriteRenderer.color = Color.white;

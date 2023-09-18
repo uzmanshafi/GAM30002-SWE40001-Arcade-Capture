@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Utils;
 
 // This will go toward the nearest enemy. Once it arrives it starts rolling down the path towards the entrance. If the lifetimer or pierce is exceeded it is destroyed (Or reaches entrance)
 
@@ -110,16 +111,6 @@ public class DonkeyKongProjectile : Projectile
     private void rotate()
     {
         transform.right = direction;
-    }
-
-    private bool pointReached(Vector2 position, Vector2 destination, float threshold = 0.01f) //will delegate to game manager when it exists
-    {
-        float distanceToNext = (position - destination).sqrMagnitude;
-        if (distanceToNext <= threshold)
-        {
-            Debug.Log("PointReached!");
-        }
-        return distanceToNext <= threshold;
     }
 
     private void pathReached()

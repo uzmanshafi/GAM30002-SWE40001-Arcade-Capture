@@ -69,8 +69,8 @@ public class PongTower : Tower
     {
         float bestDistance = 0;
         float tempDistance;
-        GameObject bestTower = null;
-        foreach (GameObject t in gameManager.AllTowers)
+        Tower bestTower = null;
+        foreach (Tower t in gameManager.AllTowers)
         {
             if (t == gameObject)
             {
