@@ -31,19 +31,7 @@ public class BreakoutProjectile : Projectile
     }
 
 
-    private GameObject? nearestEnemy(Vector2 position, GameObject currentTarget ,List<GameObject> enemies) {
-        GameObject? closest = null;
-        foreach (GameObject enemy in enemies) {
-            if (closest == null && enemy != currentTarget) {
-                closest = enemy;
-            } else {
-                if (enemy != currentTarget && (position - (Vector2)enemy.transform.position).sqrMagnitude < (position - (Vector2)closest.transform.position).sqrMagnitude) {
-                    closest = enemy;
-                }
-            }
-        }
-        return closest;
-    }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
