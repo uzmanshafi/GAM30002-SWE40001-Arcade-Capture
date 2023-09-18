@@ -31,9 +31,9 @@ public class BreakoutProjectile : Projectile
     }
 
 
-    private GameObject? nearestEnemy(Vector2 position, GameObject currentTarget ,List<GameObject> enemies) {
-        GameObject? closest = null;
-        foreach (GameObject enemy in enemies) {
+    private Enemy? nearestEnemy(Vector2 position, GameObject currentTarget ,List<Enemy> enemies) {
+        Enemy? closest = null;
+        foreach (Enemy enemy in enemies) {
             if (closest == null && enemy != currentTarget) {
                 closest = enemy;
             } else {
@@ -59,10 +59,10 @@ public class BreakoutProjectile : Projectile
                 //Go towards nearest enemy with predictive magic
                 //The AllEnemies array must be accessible
 
-                GameObject? nearest = nearestEnemy(transform.position, e.gameObject, GameObject.FindAnyObjectByType<GameManager>().AllEnemies);
+                Enemy? nearest = nearestEnemy(transform.position, e.gameObject, GameObject.FindAnyObjectByType<GameManager>().AllEnemies);
 
-                if (nearest is GameObject _nearest) {
-                    Vector2? dir = aimPrediction(speed, _nearest.GetComponent<Enemy>(), (Vector2)transform.position);
+                if (nearest is Enemy _nearest) {
+                    Vector2? dir = aimPrediction(speed, _nearest, (Vector2)transform.position);
                     if (dir is Vector2 _dir) {
                         direction = _dir;
                         float angle = Mathf.Atan2(_dir.y, _dir.x);

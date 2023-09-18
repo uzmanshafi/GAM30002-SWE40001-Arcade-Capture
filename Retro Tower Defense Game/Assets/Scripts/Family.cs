@@ -16,8 +16,17 @@ public class Family : Enemy
         base.move();
     }
 
-    public override void TakeDamage(float damage)
+    internal override void TakeDamage(float damage)
     {
+        health -= damage;
+        if (health <= 0)
+        {
+            GM.AllEnemies.Remove(this);
+            GM.money += moneyOnKill;
+            //GameManager.instance.money += moneyOnKill;
 
+            Destroy(gameObject);
+
+        }
     }
 }

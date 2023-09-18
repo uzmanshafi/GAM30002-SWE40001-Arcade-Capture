@@ -42,7 +42,7 @@ public class TetrisTower : Tower
 	protected override void tryShoot()
 	{
 		target = furthestTarget();
-		if (Time.time - lastShotTime > actual_cooldown && target != null)
+		if (Time.time - lastShotTime > cooldown && target != null)
 		{
 
 			int bulletType = Random.Range(0,6);

@@ -4,9 +4,11 @@ using UnityEngine;
 public abstract class Tower : MonoBehaviour
 {
     [SerializeField] public int cost;
-    [SerializeField] protected float cooldown = 1;
+    [SerializeField] public float cooldown = 1;
+    [SerializeField] public float damage = 1;
 
-    protected float actual_cooldown = cooldown; //This gets modified externally so the base cooldown is not changed
+    public float base_cooldown;
+    public float base_damage;
 
     protected float lastShotTime; //used to determine cooldown
     [SerializeField] protected Enemy target;
@@ -14,7 +16,7 @@ public abstract class Tower : MonoBehaviour
     [SerializeField] public float towerRadius;
     [SerializeField] public float range = 5;
 
-    protected float actual_range = range; //This gets modified externally so the base range is not changed
+    public float base_range;
     [SerializeField] public float radius;
     [SerializeField] public GameObject radiusDisplay;
     [SerializeField] public GameObject mesh;
@@ -23,7 +25,9 @@ public abstract class Tower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        base_cooldown = cooldown;
+        base_range = range;
+        base_damage = damage;
     }
 
     // Update is called once per frame
@@ -43,7 +47,7 @@ public abstract class Tower : MonoBehaviour
     protected Enemy? furthestTarget()
     {
 
-        RaycastHit2D[] results = Physics2D.CircleCastAll(transform.position, actual_range, Vector2.up, LayerMask.GetMask("Enemy")); //Raycast and return any objects on layer enemy: Check if raycast is efficient
+        RaycastHit2D[] results = Physics2D.CircleCastAll(transform.position, range, Vector2.up, LayerMask.GetMask("Enemy")); //Raycast and return any objects on layer enemy: Check if raycast is efficient
         if (results.Length == 0)
         {
             target = null;

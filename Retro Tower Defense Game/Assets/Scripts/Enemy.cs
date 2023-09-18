@@ -8,13 +8,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float MaxHP;
     [SerializeField] private Waypoints waypoints;
-    [SerializeField] private int moneyOnKill;
+    [SerializeField] protected int moneyOnKill;
 
-    GameManager GM;
+    protected GameManager GM;
 
     private int i = 0; //index for heading position
     private Vector3 destination;
-    private float health;
+    protected float health;
 
     private bool is_camo;
 
@@ -26,6 +26,11 @@ public class Enemy : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
+    {
+        init();
+    }
+
+    protected void init()
     {
         GM = GameManager.instance;
         health = MaxHP;
@@ -42,7 +47,7 @@ public class Enemy : MonoBehaviour
         move();
     }
 
-    private void move()
+    protected void move()
     {
         //gameObject.GetComponent<Rigidbody2D>().N
         transform.position = Vector3.MoveTowards(transform.position, destination, MovementSpeed * Time.deltaTime);
@@ -78,12 +83,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    internal void TakeDamage(float damage)
+    internal virtual void TakeDamage(float damage)
     {
         health -= damage;
         if (health <= 0)
         {
-            GM.AllEnemies.Remove(gameObject);
+            GM.AllEnemies.Remove(this);
             GM.money += moneyOnKill;
             //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
@@ -99,7 +104,7 @@ public class Enemy : MonoBehaviour
     private void endReached()
     {
 
-        GM.AllEnemies.Remove(gameObject);
+        GM.AllEnemies.Remove(this);
         GM.stars -= 0.5f;
         Destroy(gameObject);
     }
