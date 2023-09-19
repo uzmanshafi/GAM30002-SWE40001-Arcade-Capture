@@ -7,26 +7,49 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float MaxHP;
-    [SerializeField] private Waypoints waypoints;
-    [SerializeField] private float moneyOnKill;
+    
+    [SerializeField] protected int moneyOnKill;
 
-    GameManager GameManager;
+    protected GameManager GM;
 
+    private Waypoints waypoints;
     private int i = 0; //index for heading position
     private Vector3 destination;
-    private float health;
+    protected float health;
 
     private bool is_camo;
 
     public float GetMovementSpeed => MovementSpeed; // Getter
     public Waypoints GetWaypoints => waypoints; // Getter (I would prefer the name to not be the same as the type)
+    public Waypoints SetWaypoints
+    {
+        set { waypoints = value; }
+    }
+
     public Vector3 GetDestination => destination; //Getter 
+    public Vector3 SetDestination
+    {
+        set { destination = value; }
+    }
+
     public int getWaypointIndex => i; //Getter
+    public int setWaypointIndex
+    {
+        set { i = value; }
+    }
+
     public bool IsCamo => is_camo; //Getter
 
     // Start is called before the first frame update
     void Start()
     {
+        init();
+    }
+
+    protected void init()
+    {
+        GM = GameManager.instance;
+        waypoints = GM.GetComponent<Waypoints>();
         health = MaxHP;
         gameObject.SetActive(true);
         transform.position = waypoints.Points[i];
@@ -41,7 +64,7 @@ public class Enemy : MonoBehaviour
         move();
     }
 
-    private void move()
+    protected void move()
     {
         //gameObject.GetComponent<Rigidbody2D>().N
         transform.position = Vector3.MoveTowards(transform.position, destination, MovementSpeed * Time.deltaTime);
@@ -77,14 +100,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    internal void TakeDamage(float damage)
+    internal virtual void TakeDamage(float damage)
     {
         health -= damage;
         if (health <= 0)
         {
-            //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
-            GameManager GM = GameObject.FindAnyObjectByType<GameManager>();
-            GM.AllEnemies.Remove(gameObject);
+            GM.AllEnemies.Remove(this);
             GM.money += moneyOnKill;
             //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
@@ -95,27 +116,13 @@ public class Enemy : MonoBehaviour
     private void rotate()
     {
         transform.right = destination - transform.position;
-        /*
-        if(destination.x > waypoints.getWaypointPosition(i - 1).x)
-        {
-            transform.eulerAngles = new Vector3(0,0,0);
-        }
-        else
-        {
-            transform.eulerAngles = new Vector3(0, 0, 180);
-        }
-        */
     }
 
     private void endReached()
     {
 
-        //GameObject.FindAnyObjectByType<Health>().TakeDamage((int)MaxHP);
-
-        //GameObject.FindAnyObjectByType<samplePooler>().removeMe(gameObject);
-        GameManager GM = GameObject.FindAnyObjectByType<GameManager>();
-        GM.AllEnemies.Remove(gameObject);
-        GM.health -= 1;
+        GM.AllEnemies.Remove(this);
+        GM.stars -= 0.5f;
         Destroy(gameObject);
     }
 }

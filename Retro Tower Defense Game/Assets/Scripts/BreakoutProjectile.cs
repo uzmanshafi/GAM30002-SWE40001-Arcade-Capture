@@ -31,7 +31,19 @@ public class BreakoutProjectile : Projectile
     }
 
 
-    
+    private Enemy? nearestEnemy(Vector2 position, GameObject currentTarget ,List<Enemy> enemies) {
+        Enemy? closest = null;
+        foreach (Enemy enemy in enemies) {
+            if (closest == null && enemy != currentTarget) {
+                closest = enemy;
+            } else {
+                if (enemy != currentTarget && (position - (Vector2)enemy.transform.position).sqrMagnitude < (position - (Vector2)closest.transform.position).sqrMagnitude) {
+                    closest = enemy;
+                }
+            }
+        }
+        return closest;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -49,8 +61,8 @@ public class BreakoutProjectile : Projectile
 
                 GameObject? nearest = nearestEnemy(transform.position, e.gameObject, GameObject.FindAnyObjectByType<GameManager>().AllEnemies(canSeeCamo));
 
-                if (nearest is GameObject _nearest) {
-                    Vector2? dir = aimPrediction(speed, _nearest.GetComponent<Enemy>(), (Vector2)transform.position);
+                if (nearest is Enemy _nearest) {
+                    Vector2? dir = aimPrediction(speed, _nearest, (Vector2)transform.position);
                     if (dir is Vector2 _dir) {
                         direction = _dir;
                         float angle = Mathf.Atan2(_dir.y, _dir.x);

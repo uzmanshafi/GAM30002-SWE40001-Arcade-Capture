@@ -10,6 +10,7 @@ public class SpaceInvadersTower : Tower
 
     void Start()
     {
+        base.init();
         boundaryCollider = GetComponent<BoxCollider2D>();
         Vector2 boundarySize = boundaryCollider.size;
         Vector2 center = boundaryCollider.offset;
@@ -81,7 +82,7 @@ public class SpaceInvadersTower : Tower
             rb.velocity = Vector2.up * 5;
 
 
-            yield return new WaitForSeconds(actual_cooldown);
+            yield return new WaitForSeconds(cooldown);
         }
     }
 

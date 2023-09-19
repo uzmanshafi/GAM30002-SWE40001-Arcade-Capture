@@ -8,13 +8,13 @@ public class AsteroidsTower : Tower
     // Start is called before the first frame update
     void Start()
     {
-
+        base.init();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - lastShotTime > actual_cooldown)
+        if (Time.time - lastShotTime > cooldown && GameManager.instance.AllEnemies.Count != 0)
         {
             tryShoot();
             lastShotTime = Time.time;

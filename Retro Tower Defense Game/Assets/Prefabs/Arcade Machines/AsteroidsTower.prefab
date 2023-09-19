@@ -163,8 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d04eea259fe847d4982fe23dc5a2f608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 10
+  cost: 200
   cooldown: 1
+  damage: 1
   target: {fileID: 0}
   towerRadius: 0
   range: 5
@@ -173,4 +174,5 @@ MonoBehaviour:
   mesh: {fileID: 0}
   bulletTypes:
   - {fileID: 6310525875718958529, guid: e72588c0033c0714e9506fd876da0b62, type: 3}
+  controlColour: Red
   asteroidSpeed: 10

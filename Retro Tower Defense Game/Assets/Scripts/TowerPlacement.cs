@@ -15,7 +15,7 @@ public class TowerPlacement : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameObject.FindFirstObjectByType<GameManager>();
+        gameManager = GameManager.instance;
     }
 
     void Update()
@@ -96,11 +96,20 @@ public class TowerPlacement : MonoBehaviour
     {
         Tower shootScript = currentTower.GetComponent<Tower>();
         shootScript.enabled = true;
-        if (!gameManager.AllTowers.Contains(currentTower))
-        {
-            gameManager.AllTowers.Add(currentTower);
-        }
         currentTowerSpriteRenderer.color = Color.white;
+        if (gameManager.money - shootScript.cost < 0)
+        {
+            Debug.Log("Cannnot afford");
+            Destroy(currentTower);
+        }
+        else
+        {
+            if (!gameManager.AllTowers.Contains(shootScript))
+            {
+                gameManager.AllTowers.Add(shootScript);
+            }
+            gameManager.money -= shootScript.cost;
+        }
         currentTower = null;
         currentTowerSpriteRenderer = null;
         
@@ -114,6 +123,12 @@ public class TowerPlacement : MonoBehaviour
         {
             if (Time.time - lastClickTime < catchTime)
             {
+                
+                if (hitCollider.gameObject.TryGetComponent<Tower>(out Tower t))
+                {
+                    gameManager.money += (int)(t.cost * 0.75f);
+                    gameManager.AllTowers.Remove(t);
+                }
                 Destroy(hitCollider.gameObject);
             }
             else

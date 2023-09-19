@@ -8,7 +8,7 @@ public class PredictiveTower : Tower
     // Start is called before the first frame update
     void Start()
     {
-        
+        base.init();
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class PredictiveTower : Tower
     protected override void tryShoot() //abstract?
     {
         target = furthestTarget();
-        if (Time.time - lastShotTime > actual_cooldown && target != null)
+        if (Time.time - lastShotTime > cooldown && target != null)
         {
             Vector2? dir = aimPrediction(projectile_speed, target, (Vector2)transform.position);
             

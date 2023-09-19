@@ -29,6 +29,7 @@ public class TetrisTower : Tower
 	// Start is called before the first frame update
 	void Start()
 	{
+		base.init();
 		lastEnemyHit = null;
 		hitCount = 0;
 	}
@@ -42,7 +43,7 @@ public class TetrisTower : Tower
 	protected override void tryShoot()
 	{
 		target = furthestTarget();
-		if (Time.time - lastShotTime > actual_cooldown && target != null)
+		if (Time.time - lastShotTime > cooldown && target != null)
 		{
 
 			int bulletType = Random.Range(0,6);

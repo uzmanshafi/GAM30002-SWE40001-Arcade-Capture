@@ -16,7 +16,8 @@ public class PongTower : Tower
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.FindFirstObjectByType<GameManager>();
+        base.init();
+        gameManager = GameManager.instance;
         matchTowers();
     }
 
@@ -69,17 +70,21 @@ public class PongTower : Tower
     {
         float bestDistance = 0;
         float tempDistance;
-        GameObject bestTower = null;
-        foreach (GameObject t in gameManager.AllTowers)
+        Tower bestTower = null;
+        foreach (Tower t in gameManager.AllTowers)
         {
-            if (t == gameObject)
+            if (!t.TryGetComponent<PongTower>(out PongTower pt) || pt == this)
             {
                 continue;
             }
             if (bestTower == null)
             {
-                bestTower = t;
                 bestDistance = Vector2.Distance(transform.position, t.transform.position);
+                if (bestDistance < range) //will only match if it is in range to do so
+                {
+                    bestTower = t;
+                }
+                
             }
             else
             {
@@ -87,7 +92,10 @@ public class PongTower : Tower
                 if (tempDistance < bestDistance)
                 {
                     bestDistance = tempDistance;
-                    bestTower = t;
+                    if (bestDistance < range) //will only match if it is in range to do so
+                    {
+                        bestTower = t;
+                    }
                 }
             }
         }
