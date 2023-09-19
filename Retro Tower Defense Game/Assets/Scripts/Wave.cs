@@ -25,6 +25,8 @@ public class Wave : MonoBehaviour
 
     private bool waveLoaded = false;
 
+    public bool waveEnded = true;
+
     void Start()
     { //All just for testing
         
@@ -111,7 +113,7 @@ public class Wave : MonoBehaviour
 
     public void startWave()
     {
-        if (!waveLoaded && waveIndex <= waveFileNames.Length - 1)
+        if (!waveLoaded && gameManager.AllEnemies.Count == 0 && waveIndex <= waveFileNames.Length - 1)
         {
             loadFromFile(Application.streamingAssetsPath + "/WaveFiles/" + waveFileNames[waveIndex]);
             waveTime = 0;

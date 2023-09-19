@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
      public void updateTextUi()
      {
          starText.text = "Stars: " +  GameManager.instance.stars;
-         moneyText.text = GameManager.instance.money.ToString();
+        moneyText.text = formatNumber(GameManager.instance.money);
          waveText.text = "Wave: "+ GameManager.instance.currentWave;
      }
 
@@ -55,4 +55,22 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
     }
+
+    private string formatNumber(int num)
+    {
+        if (num >= 100000000)
+            return (num / 1000000).ToString("#,0M");
+
+        if (num >= 10000000)
+            return (num / 1000000).ToString("0.#") + "M";
+
+        if (num >= 100000)
+            return (num / 1000).ToString("#,0K");
+
+        if (num >= 10000)
+            return (num / 1000).ToString("0.#") + "K";
+
+        return num.ToString("#,0");
+    }
+
 }
