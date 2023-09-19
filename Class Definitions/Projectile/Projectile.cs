@@ -3,6 +3,7 @@ public abstract class Projectile {
 	private Vector2 direction;
 	private float speed;
 	private float damage;
+	private bool canSeeCamo; //Initialise this on creation
 
 	public Projectile(Vector2 position, Vector2 direction, float speed, float damage) {
 		this.position = position;

@@ -11,8 +11,6 @@ public class BreakoutProjectile : Projectile
     // This is how many enemies it can hit before it is destroyed
     [SerializeField] private int pierce;
 
-    private bool canSeeCamo; //Initialise this on creation
-
     // Start is called before the first frame update
     void Start()
     {
