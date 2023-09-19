@@ -47,7 +47,7 @@ public class BreakoutProjectile : Projectile
                 //Go towards nearest enemy with predictive magic
                 //The AllEnemies array must be accessible
 
-                GameObject? nearest = nearestEnemy(transform.position, e.gameObject, GameObject.FindAnyObjectByType<GameManager>().AllEnemies);
+                GameObject? nearest = nearestEnemy(transform.position, e.gameObject, GameObject.FindAnyObjectByType<GameManager>().AllEnemies(canSeeCamo));
 
                 if (nearest is GameObject _nearest) {
                     Vector2? dir = aimPrediction(speed, _nearest.GetComponent<Enemy>(), (Vector2)transform.position);

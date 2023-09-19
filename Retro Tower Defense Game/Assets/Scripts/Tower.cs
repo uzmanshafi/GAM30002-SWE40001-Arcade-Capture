@@ -20,6 +20,10 @@ public abstract class Tower : MonoBehaviour
     [SerializeField] public GameObject mesh;
     [SerializeField] protected GameObject[] bulletTypes;
 
+    protected bool canSeeCamo;
+
+    // public int upgrade
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,17 +52,8 @@ public abstract class Tower : MonoBehaviour
         {
             target = null;
         }
-        Enemy[] enemies_in_range = new Enemy[results.Length];
 
-        for (int i = 0; i < results.Length; i++) //Create and populate array of enemies
-        {
-            Enemy e;
-            if (results[i].collider.gameObject.TryGetComponent<Enemy>(out e))
-            {
-                enemies_in_range[i] = e;
-            }
-            //r.collider.gameObject.GetComponent<Enemy>().waypoints.Points[r.collider.gameObject.GetComponent<Enemy>().waypoints.Points.Length];
-        }
+        Enemy[] enemies_in_range = results.Select(e => e.collider.gameObject.TryGetComponent<Enemy>()).ToArray();
 
         float bestDistance = Mathf.Infinity;
         Enemy bestEnemy = null;
@@ -69,6 +64,7 @@ public abstract class Tower : MonoBehaviour
             foreach (Enemy e in enemies_in_range) // find enemy closest to end point (Distance not furthest on path)
             {
                 if (e == null) { continue; }
+                if (e.IsCamo && !canSeeCamo) { continue; }
                 endPoint = e.GetWaypoints.Points[e.GetWaypoints.Points.Length - 1];
                 tempDistance = Vector2.Distance(e.transform.position, endPoint);
                 if (tempDistance < bestDistance)

@@ -11,6 +11,8 @@ public abstract class Projectile : MonoBehaviour
     protected Vector2 direction;
 
     public Enemy target;
+
+    protected bool canSeeCamo;
     //public Vector2 Position => position;
     //public Vector2 Direction => direction;
 
