@@ -7,7 +7,7 @@ public class BasicTower : Tower
     // Start is called before the first frame update
     void Start()
     {
-        
+        base.init();
     }
 
     // Update is called once per frame
