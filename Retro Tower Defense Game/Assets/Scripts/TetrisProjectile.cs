@@ -29,11 +29,12 @@ public class TetrisProjectile : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
+            if (this.canSeeCamo || !e.IsCamo) {
+                float damageMultiplier = owner.enemyHitEvent(e);
 
-            float damageMultiplier = owner.enemyHitEvent(e);
-
-            e.TakeDamage(damage * damageMultiplier);
-            Destroy(gameObject);
+                e.TakeDamage(damage * damageMultiplier);
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -43,7 +44,9 @@ public class TetrisProjectile : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
-            e.TakeDamage(damage);
+            if (this.canSeeCamo || !e.IsCamo) {
+                e.TakeDamage(damage);
+            }
         }
     }
 }

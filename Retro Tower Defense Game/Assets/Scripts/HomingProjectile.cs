@@ -39,7 +39,7 @@ public class HomingProjectile : Projectile
     }
     private void closestTarget()
     {
-        Enemy[] allTargets = GameObject.FindObjectsByType<Enemy>(FindObjectsSortMode.InstanceID); //Find enemies by type
+        Enemy[] allTargets = GameObject.FindAnyObjectByType<GameManager>().AllEnemies(canSeeCamo)
         float bestDist = Mathf.Infinity;
         float tempDist;
         foreach (Enemy e in allTargets)
@@ -58,8 +58,10 @@ public class HomingProjectile : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
-            //e.TakeDamage(1);
-            Destroy(gameObject);
+            if (this.canSeeCamo || !e.IsCamo) {
+                //e.TakeDamage(1);
+                Destroy(gameObject);
+            }
         }
     }
 

@@ -93,13 +93,14 @@ public class DonkeyKongProjectile : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
-            e.TakeDamage(damage);
-            pierce--;
-            if (pierce <= 0)
-            {
-                Destroy(gameObject);
+            if (this.canSeeCamo || !e.IsCamo) {
+                e.TakeDamage(damage);
+                pierce--;
+                if (pierce <= 0)
+                {
+                    Destroy(gameObject);
+                }
             }
-
         }
 
         if (collision.tag == "Path")

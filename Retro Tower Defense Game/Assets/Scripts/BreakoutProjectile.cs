@@ -50,30 +50,32 @@ public class BreakoutProjectile : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
-            e.TakeDamage(damage);
-            pierce--;
-            if (pierce < 0)
-            {
-                Destroy(gameObject);
-            } else {
-                //Go towards nearest enemy with predictive magic
-                //The AllEnemies array must be accessible
-
-                Enemy? nearest = nearestEnemy(transform.position, e.gameObject, GameObject.FindAnyObjectByType<GameManager>().AllEnemies(canSeeCamo));
-
-                if (nearest is Enemy _nearest) {
-                    Vector2? dir = aimPrediction(speed, _nearest, (Vector2)transform.position);
-                    if (dir is Vector2 _dir) {
-                        direction = _dir;
-                        float angle = Mathf.Atan2(_dir.y, _dir.x);
-                        _dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-                        gameObject.GetComponent<Rigidbody2D>().velocity = _dir * speed;
-
-                    }
-                }
-                else
+            if (this.canSeeCamo || !e.IsCamo) {
+                e.TakeDamage(damage);
+                pierce--;
+                if (pierce < 0)
                 {
                     Destroy(gameObject);
+                } else {
+                    //Go towards nearest enemy with predictive magic
+                    //The AllEnemies array must be accessible
+
+                    Enemy? nearest = nearestEnemy(transform.position, e.gameObject, GameObject.FindAnyObjectByType<GameManager>().AllEnemies(canSeeCamo));
+
+                    if (nearest is Enemy _nearest) {
+                        Vector2? dir = aimPrediction(speed, _nearest, (Vector2)transform.position);
+                        if (dir is Vector2 _dir) {
+                            direction = _dir;
+                            float angle = Mathf.Atan2(_dir.y, _dir.x);
+                            _dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                            gameObject.GetComponent<Rigidbody2D>().velocity = _dir * speed;
+
+                        }
+                    }
+                    else
+                    {
+                        Destroy(gameObject);
+                    }
                 }
             }
         }
