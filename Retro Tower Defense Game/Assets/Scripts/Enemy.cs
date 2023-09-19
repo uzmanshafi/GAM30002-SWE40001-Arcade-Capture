@@ -105,7 +105,7 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            GM.AllEnemies.Remove(this);
+            GM.AllEnemies(true).Remove(this);
             GM.money += moneyOnKill;
             //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour
     private void endReached()
     {
 
-        GM.AllEnemies.Remove(this);
+        GM.AllEnemies(true).Remove(this);
         GM.stars -= 0.5f;
         Destroy(gameObject);
     }

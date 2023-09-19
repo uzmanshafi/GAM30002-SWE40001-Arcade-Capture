@@ -48,7 +48,7 @@ public class Wave : MonoBehaviour
             if (Time.time - timeSinceLastEnemy > kvp.Value.enemyCooldown)
             {
                 GameObject enemy = Instantiate(kvp.Value.Enemies[batchIndex], start, Quaternion.identity);
-                gameManager.AllEnemies.Add(enemy.GetComponent<Enemy>());
+                gameManager.AllEnemies(true).Add(enemy.GetComponent<Enemy>());
                 batchIndex++;
                 timeSinceLastEnemy = Time.time;
             }
@@ -113,7 +113,7 @@ public class Wave : MonoBehaviour
 
     public void startWave()
     {
-        if (!waveLoaded && gameManager.AllEnemies.Count == 0 && waveIndex <= waveFileNames.Length - 1)
+        if (!waveLoaded && gameManager.AllEnemies(true).Count == 0 && waveIndex <= waveFileNames.Length - 1)
         {
             loadFromFile(Application.streamingAssetsPath + "/WaveFiles/" + waveFileNames[waveIndex]);
             waveTime = 0;

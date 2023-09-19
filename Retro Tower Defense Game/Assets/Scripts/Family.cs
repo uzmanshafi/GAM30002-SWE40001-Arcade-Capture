@@ -21,7 +21,7 @@ public class Family : Enemy
         health -= damage;
         if (health <= 0)
         {
-            GM.AllEnemies.Remove(this);
+            GM.AllEnemies(true).Remove(this);
             GM.money += moneyOnKill;
             //GameManager.instance.money += moneyOnKill;
             GameObject[] enemyList = GM.GetComponent<Wave>().enemyList;

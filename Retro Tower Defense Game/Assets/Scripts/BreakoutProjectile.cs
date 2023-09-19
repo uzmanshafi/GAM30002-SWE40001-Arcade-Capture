@@ -11,6 +11,8 @@ public class BreakoutProjectile : Projectile
     // This is how many enemies it can hit before it is destroyed
     [SerializeField] private int pierce;
 
+    private bool canSeeCamo; //Initialise this on creation
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +61,7 @@ public class BreakoutProjectile : Projectile
                 //Go towards nearest enemy with predictive magic
                 //The AllEnemies array must be accessible
 
-                GameObject? nearest = nearestEnemy(transform.position, e.gameObject, GameObject.FindAnyObjectByType<GameManager>().AllEnemies(canSeeCamo));
+                Enemy? nearest = nearestEnemy(transform.position, e.gameObject, GameObject.FindAnyObjectByType<GameManager>().AllEnemies(canSeeCamo));
 
                 if (nearest is Enemy _nearest) {
                     Vector2? dir = aimPrediction(speed, _nearest, (Vector2)transform.position);

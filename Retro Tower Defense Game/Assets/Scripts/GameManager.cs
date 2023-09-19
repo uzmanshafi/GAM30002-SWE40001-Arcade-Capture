@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using static Utils;
@@ -16,7 +17,13 @@ public class GameManager : MonoBehaviour
     private List<Enemy> _allEnemies = new List<Enemy>();
     private List<Tower> _allTowers = new List<Tower>();
 
-    public List<Enemy> AllEnemies => _allEnemies;
+    public List<Enemy> AllEnemies(bool canSeeCamo) {
+        if (canSeeCamo == true) {
+            return _allEnemies;
+        } else {
+            return _allEnemies.Where(e => !e.IsCamo).ToList();
+        }
+    }
     public List<Tower> AllTowers => _allTowers;
 
 
