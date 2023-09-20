@@ -7,6 +7,8 @@ using System.IO;
 public class Wave : MonoBehaviour
 {
     [SerializeField] private string[] waveFileNames;
+    [SerializeField] public GameObject[] enemyList;
+
 
     private SortedDictionary<float, WaveBatch> waveBatches = new SortedDictionary<float, WaveBatch>();
 
@@ -15,7 +17,7 @@ public class Wave : MonoBehaviour
     private int batchIndex = 0;
     private int waveIndex = 0;
 
-    private GameObject[] enemies;
+    
 
     private GameManager gameManager;
 
@@ -25,22 +27,18 @@ public class Wave : MonoBehaviour
 
     void Start()
     { //All just for testing
-        start = gameObject.GetComponent<Waypoints>().Points[0];
-        enemies = GameObject.FindAnyObjectByType<samplePooler>().enemies;
-        gameManager = GameObject.FindAnyObjectByType<GameManager>();
+        
+        gameManager = GameManager.instance;
+        start = gameManager.GetComponent<Waypoints>().Points[0];
     }
 
     // Update is called once per frame
     void Update()
     {
         waveTime += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Alpha0) && !waveLoaded && waveIndex <= waveFileNames.Length - 1)
+        if (Input.GetKeyDown(KeyCode.Alpha0) ) //for testing purposes, delete before final build
         {
-            loadFromFile(Application.streamingAssetsPath + "/WaveFiles/" + waveFileNames[waveIndex]);
-            waveTime = 0;
-            waveLoaded = true;
-            waveIndex++;
-            gameManager.currentWave += 1;
+            startWave();
         }
         if (waveBatches.Count > 0 && waveTime > waveBatches.First().Key)
         {
@@ -48,7 +46,7 @@ public class Wave : MonoBehaviour
             if (Time.time - timeSinceLastEnemy > kvp.Value.enemyCooldown)
             {
                 GameObject enemy = Instantiate(kvp.Value.Enemies[batchIndex], start, Quaternion.identity);
-                gameManager.AllEnemies.Add(enemy);
+                gameManager.AllEnemies.Add(enemy.GetComponent<Enemy>());
                 batchIndex++;
                 timeSinceLastEnemy = Time.time;
             }
@@ -97,17 +95,29 @@ public class Wave : MonoBehaviour
                     string[] enemyNums = fields[1].Split('|');
                     for (int i = 0; i < numEnemies; i++)
                     {
-                        enemies2Spawn[i] = enemies[int.Parse(enemyNums[i])];
+                        enemies2Spawn[i] = enemyList[int.Parse(enemyNums[i])];
                     }
                 }
                 else
                 {
-                    enemies2Spawn = new GameObject[] { enemies[int.Parse(fields[1])] };
+                    enemies2Spawn = new GameObject[] { enemyList[int.Parse(fields[1])] };
                 }
                 Debug.Log(fields[0] + '|' + enemies2Spawn + '|' + fields[2]);
                 waveBatches.Add(time, new WaveBatch(enemies2Spawn, float.Parse(fields[2])));
                 Debug.Log("Adding enemies at T = " + fields[0]);
             }
+        }
+    }
+
+    public void startWave()
+    {
+        if (!waveLoaded && waveIndex <= waveFileNames.Length - 1)
+        {
+            loadFromFile(Application.streamingAssetsPath + "/WaveFiles/" + waveFileNames[waveIndex]);
+            waveTime = 0;
+            waveLoaded = true;
+            waveIndex++;
+            gameManager.currentWave += 1;
         }
     }
 
