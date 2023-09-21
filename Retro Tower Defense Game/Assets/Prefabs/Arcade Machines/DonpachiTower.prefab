@@ -167,9 +167,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 350
   cooldown: 0.4
+  damage: 1
+  base_cooldown: 0
+  base_damage: 0
   target: {fileID: 0}
   towerRadius: 0
   range: 3
+  base_range: 0
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
@@ -177,3 +181,6 @@ MonoBehaviour:
   - {fileID: 2396885586352238776, guid: 221bdd90329558b4492adce3c9f3e450, type: 3}
   projectileSpeed: 0.3
   angleIncrement: 40
+  isLevel1: 0
+  isLevel2: 1
+  isLevel3: 0

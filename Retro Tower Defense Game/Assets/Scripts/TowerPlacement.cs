@@ -112,7 +112,9 @@ public class TowerPlacement : MonoBehaviour
 
     private void AttemptPickupTower(Vector3 position)
     {
-        Collider2D hitCollider = Physics2D.OverlapPoint(position);
+        int layerMask = 1 << LayerMask.NameToLayer("Tower");
+        Collider2D hitCollider = Physics2D.OverlapPoint(position, layerMask);
+
 
         if (hitCollider != null && hitCollider.gameObject.CompareTag("ArcadeTower"))
         {
