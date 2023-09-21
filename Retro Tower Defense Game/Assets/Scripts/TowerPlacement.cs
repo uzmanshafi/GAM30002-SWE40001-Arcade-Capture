@@ -80,8 +80,10 @@ public class TowerPlacement : MonoBehaviour
 
     private void DragTower(Vector3 newPosition)
     {
+        // Move the tower first
         currentTower.transform.position = newPosition;
 
+        // Then check for validity
         if (IsValidLocation(newPosition, currentTower.name))
         {
             currentTowerSpriteRenderer.color = new Color(0, 1, 0, 0.8f);
@@ -91,6 +93,7 @@ public class TowerPlacement : MonoBehaviour
             currentTowerSpriteRenderer.color = new Color(1, 0, 0, 0.8f);
         }
     }
+
 
     private void DropTower()
     {
@@ -144,23 +147,30 @@ public class TowerPlacement : MonoBehaviour
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(location);
 
+        Debug.Log("Checking cell: " + cellPosition);
+        Debug.Log("World Location: " + location);
+
         if (!groundTilemap.HasTile(cellPosition))
         {
-            Debug.Log("No ground tile at " + cellPosition);
-            return false;
-        }
-        if (pathTilemap.HasTile(cellPosition))
-        {
-            Debug.Log("Path tile at " + cellPosition);
+            Debug.Log("Invalid: No ground tile at " + cellPosition);
             return false;
         }
 
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(location, 0.35f, 1 << LayerMask.NameToLayer("Tower"));
-        foreach (Collider2D hitCollider in hitColliders)
+        // Gets the tower's collider
+        Collider2D towerCollider = currentTower.GetComponent<Collider2D>();
+
+        // Creates an array to store results. Let's assume no more than 10 for now.
+        Collider2D[] results = new Collider2D[10];
+
+        // Checks for overlaps
+        int numResults = towerCollider.OverlapCollider(new ContactFilter2D(), results);
+
+        // Loops through results to see if any are tagged as "PathTilemap"
+        for (int i = 0; i < numResults; i++)
         {
-            if (hitCollider.gameObject != currentTower)
+            if (results[i].gameObject.CompareTag("PathTilemap"))
             {
-                Debug.Log("Invalid: overlaps with another tower.");
+                Debug.Log("Invalid: Overlaps with path.");
                 return false;
             }
         }
@@ -168,5 +178,4 @@ public class TowerPlacement : MonoBehaviour
         Debug.Log("Valid placement at " + cellPosition);
         return true;
     }
-
 }

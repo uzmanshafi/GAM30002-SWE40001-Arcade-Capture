@@ -8,6 +8,8 @@ public class DonpachiTower : Tower
     private float currentAngle = 0f;  // Initial angle
     [SerializeField] private float angleIncrement = 10f; // Angle increment for the spiral pattern
 
+    public float range = 5f; // The radius within which the tower should shoot
+
     void Update()
     {
         tryShoot();
