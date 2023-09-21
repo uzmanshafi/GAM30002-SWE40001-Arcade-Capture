@@ -13,7 +13,7 @@ public class TowerPlacement : MonoBehaviour
 
     GameManager gameManager;
 
-    private void Start()
+    void Start()
     {
         gameManager = GameManager.instance;
     }
@@ -104,7 +104,7 @@ public class TowerPlacement : MonoBehaviour
         currentTowerSpriteRenderer.color = Color.white;
         currentTower = null;
         currentTowerSpriteRenderer = null;
-        
+
     }
 
     private void AttemptPickupTower(Vector3 position)
@@ -115,14 +115,22 @@ public class TowerPlacement : MonoBehaviour
         {
             if (Time.time - lastClickTime < catchTime)
             {
-                Destroy(hitCollider.gameObject);
+                // Double click detected
+                Tower towerScript = hitCollider.gameObject.GetComponent<Tower>();
+                if (towerScript != null)
+                {
+                    gameManager.RemoveTower(towerScript); // Remove from the GameManager list
+                }
+                Destroy(hitCollider.gameObject); // Destroy the object
             }
             else
             {
+                // Single click detected, update the lastClickTime
                 lastClickTime = Time.time;
             }
         }
     }
+
 
     private void RotateTower()
     {
@@ -136,18 +144,29 @@ public class TowerPlacement : MonoBehaviour
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(location);
 
-        if (!groundTilemap.HasTile(cellPosition)) return false;
-        if (pathTilemap.HasTile(cellPosition)) return false;
+        if (!groundTilemap.HasTile(cellPosition))
+        {
+            Debug.Log("No ground tile at " + cellPosition);
+            return false;
+        }
+        if (pathTilemap.HasTile(cellPosition))
+        {
+            Debug.Log("Path tile at " + cellPosition);
+            return false;
+        }
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(location, 0.35f, 1 << LayerMask.NameToLayer("Tower"));
         foreach (Collider2D hitCollider in hitColliders)
         {
             if (hitCollider.gameObject != currentTower)
             {
+                Debug.Log("Invalid: overlaps with another tower.");
                 return false;
             }
         }
 
+        Debug.Log("Valid placement at " + cellPosition);
         return true;
     }
+
 }

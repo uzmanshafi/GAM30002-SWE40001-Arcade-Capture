@@ -165,9 +165,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 300
   cooldown: 2
+  damage: 1
+  base_cooldown: 0
+  base_damage: 0
   target: {fileID: 0}
   towerRadius: 0
   range: 2
+  base_range: 0
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
