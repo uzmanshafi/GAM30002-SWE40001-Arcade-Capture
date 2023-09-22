@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 200
   cooldown: 1
+  damage: 1
   target: {fileID: 0}
   towerRadius: 3
   range: 2
@@ -114,6 +115,7 @@ MonoBehaviour:
   - {fileID: 2449253969107945116, guid: f1fc612a623c7b648a0f919d2a6eb369, type: 3}
   - {fileID: 2449253969107945116, guid: a4ae82f13d54b75419580e04a33b6bff, type: 3}
   - {fileID: 2449253969107945116, guid: 765898e52f7a50c43a60a96490ea0c90, type: 3}
+  controlColour: Green
   comboMultiplier: 2
 --- !u!60 &5390131242059471247
 PolygonCollider2D:

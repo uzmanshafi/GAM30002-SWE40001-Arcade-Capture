@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 public static class Utils {
 
     //Add the time returned to the elapsed time to get total time
@@ -134,6 +135,20 @@ public static class Utils {
 
     public static bool withinRange(Vector2 pos1, Vector2 pos2, float range) {
         return (pos1 - pos2).sqrMagnitude <= Math.Pow(range, 2);
+    }
+
+    public static GameObject? nearestEnemy(Vector2 position, GameObject currentTarget,List<GameObject> enemies) {
+        GameObject? closest = null;
+        foreach (GameObject enemy in enemies) {
+            if (closest == null && enemy != currentTarget) {
+                closest = enemy;
+            } else {
+                if (enemy != currentTarget && (position - (Vector2)enemy.transform.position).sqrMagnitude < (position - (Vector2)closest.transform.position).sqrMagnitude) {
+                    closest = enemy;
+                }
+            }
+        }
+        return closest;
     }
 
 }

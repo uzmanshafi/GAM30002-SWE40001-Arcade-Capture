@@ -10,6 +10,7 @@ public class SpaceInvadersTower : Tower
 
     void Start()
     {
+        base.init();
         boundaryCollider = GetComponent<BoxCollider2D>();
         Vector2 boundarySize = boundaryCollider.size;
         Vector2 center = boundaryCollider.offset;
