@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d04eea259fe847d4982fe23dc5a2f608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 200
+  cost: 40
   cooldown: 1
   damage: 1
   target: {fileID: 0}

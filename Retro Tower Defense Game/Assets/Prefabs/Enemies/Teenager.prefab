@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 3
   MaxHP: 3
-  moneyOnKill: 2
+  moneyOnKill: 3
   moneyText: {fileID: 5660431514969612783, guid: e2a284bea1015024aaed48df25ac7b95, type: 3}
 --- !u!70 &-2395603997519067798
 CapsuleCollider2D:
