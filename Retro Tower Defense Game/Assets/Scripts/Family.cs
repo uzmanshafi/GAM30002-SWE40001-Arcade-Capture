@@ -37,7 +37,7 @@ public class Family : Enemy
                 e.SetDestination = GetDestination;
             }
             GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
-            Destroy(moneyonKillText, 0.3f);
+            Destroy(moneyonKillText, .9f);
             moneyonKillText.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "+" + moneyOnKill;
             Destroy(gameObject);
 

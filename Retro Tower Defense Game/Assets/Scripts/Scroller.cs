@@ -26,7 +26,7 @@ public class Scroller : Enemy
             GM.AllEnemies(true).Remove(this);
             GM.money += moneyOnKill;
             GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
-            Destroy(moneyonKillText, 0.3f);
+            Destroy(moneyonKillText, .9f);
             moneyonKillText.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "+" + moneyOnKill;
 
             //GameManager.instance.money += moneyOnKill;

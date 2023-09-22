@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour
             GM.AllEnemies(true).Remove(this);
             GM.money += moneyOnKill;
             GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
-            Destroy(moneyonKillText, 0.3f);
+            Destroy(moneyonKillText, .9f);
             moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + moneyOnKill;
 
             //GameManager.instance.money += moneyOnKill;
