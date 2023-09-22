@@ -18,5 +18,20 @@ public class Scroller : Enemy
         base.move();
     }
 
-    
+    internal override void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            GM.AllEnemies(true).Remove(this);
+            GM.money += moneyOnKill;
+            GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
+            Destroy(moneyonKillText, 0.3f);
+            moneyonKillText.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "+" + moneyOnKill;
+
+            //GameManager.instance.money += moneyOnKill;
+            Destroy(gameObject);
+
+        }
+    }
 }

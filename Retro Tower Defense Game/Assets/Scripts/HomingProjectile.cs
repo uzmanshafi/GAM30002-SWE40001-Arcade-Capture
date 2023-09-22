@@ -39,7 +39,7 @@ public class HomingProjectile : Projectile
     }
     private void closestTarget()
     {
-        Enemy[] allTargets = GameObject.FindAnyObjectByType<GameManager>().AllEnemies(canSeeCamo)
+        List<Enemy> allTargets = GameManager.instance.AllEnemies(canSeeCamo);
         float bestDist = Mathf.Infinity;
         float tempDist;
         foreach (Enemy e in allTargets)

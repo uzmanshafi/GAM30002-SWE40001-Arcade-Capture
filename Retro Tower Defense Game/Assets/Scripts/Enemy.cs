@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -9,6 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float MaxHP;
     
     [SerializeField] protected int moneyOnKill;
+    [SerializeField] protected GameObject moneyText;
 
     protected GameManager GM;
 
@@ -107,6 +109,10 @@ public class Enemy : MonoBehaviour
         {
             GM.AllEnemies(true).Remove(this);
             GM.money += moneyOnKill;
+            GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
+            Destroy(moneyonKillText, 0.3f);
+            moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + moneyOnKill;
+
             //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
             

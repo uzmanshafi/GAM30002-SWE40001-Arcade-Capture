@@ -36,6 +36,9 @@ public class Family : Enemy
                 e.setWaypointIndex = getWaypointIndex;
                 e.SetDestination = GetDestination;
             }
+            GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
+            Destroy(moneyonKillText, 0.3f);
+            moneyonKillText.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "+" + moneyOnKill;
             Destroy(gameObject);
 
         }

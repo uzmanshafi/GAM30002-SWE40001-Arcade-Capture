@@ -190,4 +190,5 @@ MonoBehaviour:
   MovementSpeed: 2
   MaxHP: 5
   moneyOnKill: 3
+  moneyText: {fileID: 5660431514969612783, guid: e2a284bea1015024aaed48df25ac7b95, type: 3}
   colour: Green
