@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Math;
 
 public class DonpachiTower : Tower
 {
@@ -8,29 +9,7 @@ public class DonpachiTower : Tower
     private float currentAngle = 0f;
     [SerializeField] private float angleIncrement = 10f;
 
-    public bool isLevel1 = true;
-    public bool isLevel2 = false;
-    public bool isLevel3 = false;
-
-    void OnValidate()
-    {
-        if (isLevel1)
-        {
-            isLevel2 = false;
-            isLevel3 = false;
-        }
-        else if (isLevel2)
-        {
-            isLevel1 = false;
-            isLevel3 = false;
-        }
-        else if (isLevel3)
-        {
-            isLevel1 = false;
-            isLevel2 = false;
-        }
-    }
-
+    public int upgradeLevel = 1;
 
     private void Start()
     {
@@ -50,56 +29,16 @@ public class DonpachiTower : Tower
     {
         if (Time.time - lastShotTime > cooldown)
         {
-            if (isLevel1)
-            {
-                Level1Shoot();
-            }
-            else if (isLevel2)
-            {
-                Level2Shoot();
-            }
-            else if (isLevel3)
-            {
-                Level3Shoot();
-            }
+            Shoot(Math.Pow(2, upgradeLevel));
 
             lastShotTime = Time.time;
         }
     }
 
-    private void Level1Shoot()
-    {
-        Quaternion rotation1 = Quaternion.Euler(0, 0, currentAngle);
-        Vector2 direction1 = rotation1 * Vector2.up;
-
-        Quaternion rotation2 = Quaternion.Euler(0, 0, currentAngle + 180f);
-        Vector2 direction2 = rotation2 * Vector2.up;
-
-        ShootProjectile(direction1);
-        ShootProjectile(direction2);
-
-        currentAngle += angleIncrement;
-        if (currentAngle >= 360f) currentAngle -= 360f;
-    }
-
-    private void Level2Shoot()
-    {
-        for (int i = 0; i < 4; i++)
+    private void Shoot(int projectileCount) {
+        for (int i = 0; i < projectileCount; i++)
         {
-            Quaternion rotation = Quaternion.Euler(0, 0, currentAngle + i * 90f);
-            Vector2 direction = rotation * Vector2.up;
-            ShootProjectile(direction);
-        }
-
-        currentAngle += angleIncrement;
-        if (currentAngle >= 360f) currentAngle -= 360f;
-    }
-
-    private void Level3Shoot()
-    {
-        for (int i = 0; i < 8; i++)
-        {
-            Quaternion rotation = Quaternion.Euler(0, 0, currentAngle + i * 45f);
+            Quaternion rotation = Quaternion.Euler(0, 0, currentAngle + i * (360f / projectileCount));
             Vector2 direction = rotation * Vector2.up;
             ShootProjectile(direction);
         }
