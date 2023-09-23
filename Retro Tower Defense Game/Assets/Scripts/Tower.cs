@@ -28,6 +28,7 @@ public abstract class Tower : MonoBehaviour
     // public int upgrade
     [SerializeField] public string controlColour;
 
+    public int upgradeLevel = 1;
 
     // Start is called before the first frame update
     void Start()

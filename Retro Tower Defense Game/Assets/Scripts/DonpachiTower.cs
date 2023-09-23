@@ -9,8 +9,6 @@ public class DonpachiTower : Tower
     private float currentAngle = 0f;
     [SerializeField] private float angleIncrement = 10f;
 
-    public int upgradeLevel = 1;
-
     private void Start()
     {
         base.init();
