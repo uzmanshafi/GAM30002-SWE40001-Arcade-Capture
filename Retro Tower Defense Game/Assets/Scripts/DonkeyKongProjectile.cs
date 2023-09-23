@@ -17,6 +17,13 @@ public class DonkeyKongProjectile : Projectile
     // Milliseconds, begins once on path (I don't know when this is instantiated because constructors don't seem to be a thing in unity)
     [SerializeField] private float barrelLifetime;
 
+    //This needs to be in constructor
+    [SerializeField] private int upgradeLevel;
+
+    [SerializeField] private float explosionRadius;
+
+    [SerializeField] private float explosionDamage;
+
     // These are the points that the enemy has been to. We copy them here because the enemy could be destroyed
     private Vector3[] pathPoints;
 
@@ -45,6 +52,13 @@ public class DonkeyKongProjectile : Projectile
             barrelLifetime -= Time.deltaTime;
             if (barrelLifetime <= 0)
             {
+                if (upgradeLevel > 1) {
+                    //Explodes
+                    //Create animation
+                    //Does damage to all enemies in radius (what about camo and the other ones?)
+                    //Explosion should be a prefab that has animation attached
+                    
+                }
                 Destroy(gameObject);
             }
 
