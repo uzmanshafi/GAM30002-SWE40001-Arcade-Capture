@@ -13,7 +13,7 @@ public class TowerPlacement : MonoBehaviour
 
     GameManager gameManager;
 
-    private void Start()
+    void Start()
     {
         gameManager = GameManager.instance;
     }
@@ -80,8 +80,10 @@ public class TowerPlacement : MonoBehaviour
 
     private void DragTower(Vector3 newPosition)
     {
+        // Move the tower first
         currentTower.transform.position = newPosition;
 
+        // Then check for validity
         if (IsValidLocation(newPosition, currentTower.name))
         {
             currentTowerSpriteRenderer.color = new Color(0, 1, 0, 0.8f);
@@ -92,51 +94,48 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
+
     private void DropTower()
     {
         Tower shootScript = currentTower.GetComponent<Tower>();
         shootScript.enabled = true;
-        currentTowerSpriteRenderer.color = Color.white;
-        if (gameManager.money - shootScript.cost < 0)
+        if (!gameManager.AllTowers.Contains(shootScript))
         {
-            Debug.Log("Cannnot afford");
-            Destroy(currentTower);
-        }
-        else
-        {
-            if (!gameManager.AllTowers.Contains(shootScript))
-            {
-                gameManager.AllTowers.Add(shootScript);
-            }
+            gameManager.AllTowers.Add(shootScript);
             gameManager.money -= shootScript.cost;
         }
+        currentTowerSpriteRenderer.color = Color.white;
         currentTower = null;
         currentTowerSpriteRenderer = null;
-        
+
     }
 
     private void AttemptPickupTower(Vector3 position)
     {
-        Collider2D hitCollider = Physics2D.OverlapPoint(position);
+        int layerMask = 1 << LayerMask.NameToLayer("Tower");
+        Collider2D hitCollider = Physics2D.OverlapPoint(position, layerMask);
+
 
         if (hitCollider != null && hitCollider.gameObject.CompareTag("ArcadeTower"))
         {
             if (Time.time - lastClickTime < catchTime)
             {
-                
-                if (hitCollider.gameObject.TryGetComponent<Tower>(out Tower t))
+                // Double click detected
+                Tower towerScript = hitCollider.gameObject.GetComponent<Tower>();
+                if (towerScript != null)
                 {
-                    gameManager.money += (int)(t.cost * 0.75f);
-                    gameManager.AllTowers.Remove(t);
+                    gameManager.RemoveTower(towerScript); // Remove from the GameManager list
                 }
-                Destroy(hitCollider.gameObject);
+                Destroy(hitCollider.gameObject); // Destroy the object
             }
             else
             {
+                // Single click detected, update the lastClickTime
                 lastClickTime = Time.time;
             }
         }
     }
+
 
     private void RotateTower()
     {
@@ -150,18 +149,35 @@ public class TowerPlacement : MonoBehaviour
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(location);
 
-        if (!groundTilemap.HasTile(cellPosition)) return false;
-        if (pathTilemap.HasTile(cellPosition)) return false;
+        Debug.Log("Checking cell: " + cellPosition);
+        Debug.Log("World Location: " + location);
 
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(location, 0.35f, 1 << LayerMask.NameToLayer("Tower"));
-        foreach (Collider2D hitCollider in hitColliders)
+        if (!groundTilemap.HasTile(cellPosition))
         {
-            if (hitCollider.gameObject != currentTower)
+            Debug.Log("Invalid: No ground tile at " + cellPosition);
+            return false;
+        }
+
+        // Gets the tower's collider
+        Collider2D towerCollider = currentTower.GetComponent<Collider2D>();
+
+        // Creates an array to store results. Let's assume no more than 10 for now.
+        Collider2D[] results = new Collider2D[10];
+
+        // Checks for overlaps
+        int numResults = towerCollider.OverlapCollider(new ContactFilter2D(), results);
+
+        // Loops through results to see if any are tagged as "PathTilemap"
+        for (int i = 0; i < numResults; i++)
+        {
+            if (results[i].gameObject.CompareTag("PathTilemap"))
             {
+                Debug.Log("Invalid: Overlaps with path.");
                 return false;
             }
         }
 
+        Debug.Log("Valid placement at " + cellPosition);
         return true;
     }
 }

@@ -170,8 +170,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 4
   MaxHP: 1
-  waypoints: {fileID: 7233254628650745001, guid: b831fe55041ad804db6449a233e6406a, type: 3}
-  moneyOnKill: 1
+  moneyOnKill: 2
+  moneyText: {fileID: 5660431514969612783, guid: e2a284bea1015024aaed48df25ac7b95, type: 3}
 --- !u!70 &3165030954458038844
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

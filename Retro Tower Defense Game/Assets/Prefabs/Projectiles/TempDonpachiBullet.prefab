@@ -197,4 +197,4 @@ MonoBehaviour:
   damage: 1
   target: {fileID: 0}
   owner: {fileID: 0}
-  timeToLive: 3
+  timeToLive: 2

@@ -14,9 +14,7 @@ public class DonpachiBullet : Projectile
         Debug.Log("DonpachiBullet Start method called."); 
         Destroy(gameObject, timeToLive);
     }
-
-
-
+    
     void Update()
     {
 

@@ -7,7 +7,7 @@ TagManager:
   - ArcadeTower
   - Tower
   - Projectile
-  - Path
+  - PathTilemap
   layers:
   - Default
   - TransparentFX
