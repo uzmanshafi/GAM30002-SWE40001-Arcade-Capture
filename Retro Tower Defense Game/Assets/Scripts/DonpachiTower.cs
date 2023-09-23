@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Math;
+using System;
 
 public class DonpachiTower : Tower
 {
@@ -27,7 +27,7 @@ public class DonpachiTower : Tower
     {
         if (Time.time - lastShotTime > cooldown)
         {
-            Shoot(Math.Pow(2, upgradeLevel));
+            Shoot((int)Math.Pow(2, upgradeLevel));
 
             lastShotTime = Time.time;
         }
