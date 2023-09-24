@@ -8,7 +8,7 @@ public class PredictiveTower : Tower
     // Start is called before the first frame update
     void Start()
     {
-        
+        base.init();
     }
 
     // Update is called once per frame
@@ -26,12 +26,15 @@ public class PredictiveTower : Tower
             
             
             GameObject bullet = Instantiate(bulletTypes[0], transform.position /*+ dir*/, Quaternion.identity);
+            
             Rigidbody2D projectileRB = bullet.GetComponent<Rigidbody2D>();
             if (dir is Vector2 _dir)
             {
                 projectileRB.velocity = _dir * projectile_speed;
             }
-            bullet.GetComponent<Projectile>().target = target;
+            Projectile shot = bullet.GetComponent<Projectile>();
+            shot.target = target;
+            shot.canSeeCamo = canSeeCamo;
             Destroy(bullet, 5);
             lastShotTime = Time.time;
         }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4462670486568380753}
   - component: {fileID: 2475031915224371012}
   - component: {fileID: 4555808692913621884}
+  - component: {fileID: -4440789723976973285}
   m_Layer: 6
   m_Name: PacmanTower
   m_TagString: ArcadeTower
@@ -152,3 +153,29 @@ PolygonCollider2D:
       - {x: 0.09060669, y: 0.069744885}
       - {x: 0.08034202, y: 0.071562015}
   m_UseDelaunayMesh: 0
+--- !u!114 &-4440789723976973285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076282756041783590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bbd94dcdb2bf7c438c15efd976dade9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  cooldown: 1
+  damage: 1
+  target: {fileID: 0}
+  towerRadius: 0
+  range: 5
+  radius: 0
+  radiusDisplay: {fileID: 0}
+  mesh: {fileID: 0}
+  bulletTypes: []
+  controlColour: 
+  pacmanProjectilePrefab: {fileID: 2396885586352238776, guid: a576b9a66b28b514c8edaef124e51e96, type: 3}
+  waypoints: {fileID: 7233254628650745001, guid: b831fe55041ad804db6449a233e6406a, type: 3}
+  numGhosts: 2

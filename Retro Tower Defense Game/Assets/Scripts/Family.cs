@@ -21,10 +21,24 @@ public class Family : Enemy
         health -= damage;
         if (health <= 0)
         {
-            GM.AllEnemies.Remove(this);
+            GM.AllEnemies(true).Remove(this);
             GM.money += moneyOnKill;
             //GameManager.instance.money += moneyOnKill;
-
+            GameObject[] enemyList = GM.GetComponent<Wave>().enemyList;
+            Enemy[] spawnedEnemies = new Enemy[4];
+            spawnedEnemies[0] = Instantiate(enemyList[0], transform.position, Quaternion.identity).GetComponent<Enemy>();
+            spawnedEnemies[1] = Instantiate(enemyList[1], transform.position, Quaternion.identity).GetComponent<Enemy>();
+            spawnedEnemies[2] = Instantiate(enemyList[2], transform.position, Quaternion.identity).GetComponent<Enemy>();
+            spawnedEnemies[3] = Instantiate(enemyList[2], transform.position, Quaternion.identity).GetComponent<Enemy>();
+            foreach(Enemy e in spawnedEnemies)
+            {
+                e.SetWaypoints = GetWaypoints;
+                e.setWaypointIndex = getWaypointIndex;
+                e.SetDestination = GetDestination;
+            }
+            GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
+            Destroy(moneyonKillText, .9f);
+            moneyonKillText.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "+" + moneyOnKill;
             Destroy(gameObject);
 
         }

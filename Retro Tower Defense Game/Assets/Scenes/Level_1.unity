@@ -340,7 +340,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114367082}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 690477376}
+        m_TargetAssemblyTypeName: TowerPlacement, Assembly-CSharp
+        m_MethodName: SpawnTowerOnButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &114367082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1800,7 +1812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stars: 5
-  money: 500
+  money: 50
   currentWave: 0
 --- !u!4 &690477375
 Transform:
@@ -1907,6 +1919,7 @@ MonoBehaviour:
   - {fileID: 680841621375074119, guid: 8ff8117c851a41444927dd58fd350601, type: 3}
   - {fileID: 680841621375074119, guid: 54d3be7b5786675438e264ea0a1105fe, type: 3}
   - {fileID: 680841621375074119, guid: 8c3945630018fdf438f472fd0489d1c1, type: 3}
+  waveEnded: 1
 --- !u!1 &692808604
 GameObject:
   m_ObjectHideFlags: 0

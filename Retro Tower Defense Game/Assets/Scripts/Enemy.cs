@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -9,6 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float MaxHP;
     
     [SerializeField] protected int moneyOnKill;
+    [SerializeField] protected GameObject moneyText;
 
     protected GameManager GM;
 
@@ -21,8 +23,23 @@ public class Enemy : MonoBehaviour
 
     public float GetMovementSpeed => MovementSpeed; // Getter
     public Waypoints GetWaypoints => waypoints; // Getter (I would prefer the name to not be the same as the type)
+    public Waypoints SetWaypoints
+    {
+        set { waypoints = value; }
+    }
+
     public Vector3 GetDestination => destination; //Getter 
+    public Vector3 SetDestination
+    {
+        set { destination = value; }
+    }
+
     public int getWaypointIndex => i; //Getter
+    public int setWaypointIndex
+    {
+        set { i = value; }
+    }
+
     public bool IsCamo => is_camo; //Getter
 
     // Start is called before the first frame update
@@ -90,8 +107,12 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            GM.AllEnemies.Remove(this);
+            GM.AllEnemies(true).Remove(this);
             GM.money += moneyOnKill;
+            GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
+            Destroy(moneyonKillText, .9f);
+            moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + moneyOnKill;
+
             //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
             
@@ -106,7 +127,7 @@ public class Enemy : MonoBehaviour
     private void endReached()
     {
 
-        GM.AllEnemies.Remove(this);
+        GM.AllEnemies(true).Remove(this);
         GM.stars -= 0.5f;
         Destroy(gameObject);
     }

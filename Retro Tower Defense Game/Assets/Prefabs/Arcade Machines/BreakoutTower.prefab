@@ -163,11 +163,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fef07060d29a143abe268747c4acff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 300
+  cost: 50
   cooldown: 2
   damage: 1
+<<<<<<< HEAD
   base_cooldown: 0
   base_damage: 0
+=======
+>>>>>>> main
   target: {fileID: 0}
   towerRadius: 0
   range: 2
@@ -177,4 +180,5 @@ MonoBehaviour:
   mesh: {fileID: 0}
   bulletTypes:
   - {fileID: 5907040895649438893, guid: 6485190899f935a4eb33f703cb3ee6e2, type: 3}
+  controlColour: Blue
   projectile_speed: 8

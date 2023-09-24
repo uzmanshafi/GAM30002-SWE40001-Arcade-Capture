@@ -30,8 +30,10 @@ public class DonpachiBullet : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
-            e.TakeDamage(damage);
-            Destroy(gameObject);
+            if (this.canSeeCamo || !e.IsCamo) {
+                e.TakeDamage(damage);
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -41,8 +43,10 @@ public class DonpachiBullet : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
-            e.TakeDamage(damage);
-            Destroy(gameObject);
+            if (this.canSeeCamo || !e.IsCamo) {
+                e.TakeDamage(damage);
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public abstract class Projectile : MonoBehaviour
     protected Vector2 direction;
 
     public Enemy target;
+    
+    [NonSerialized] public bool canSeeCamo;
     //public Vector2 Position => position;
     //public Vector2 Direction => direction;
 
