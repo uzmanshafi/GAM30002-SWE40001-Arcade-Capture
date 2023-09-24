@@ -8,6 +8,7 @@ TagManager:
   - Tower
   - Projectile
   - PathTilemap
+  - GameManager
   layers:
   - Default
   - TransparentFX

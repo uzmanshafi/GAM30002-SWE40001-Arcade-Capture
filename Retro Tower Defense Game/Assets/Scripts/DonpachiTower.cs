@@ -1,16 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DonpachiTower : Tower
 {
-    [SerializeField] private float projectileSpeed = 5f;
-    private float currentAngle = 0f;
-    [SerializeField] private float angleIncrement = 10f;
+    [Header("Level 1 Configuration")]
+    [SerializeField] private float level1ProjectileSpeed = 5f;
+    [SerializeField] private float level1AngleIncrement = 10f;
 
+    [Header("Level 2 Configuration")]
+    [SerializeField] private float level2ProjectileSpeed = 7f;
+    [SerializeField] private float level2AngleIncrement = 15f;
+
+    [Header("Level 3 Configuration")]
+    [SerializeField] private float level3ProjectileSpeed = 10f;
+    [SerializeField] private float level3AngleIncrement = 20f;
+
+    [Header("Temp Levels Configuration")]
     public bool isLevel1 = true;
     public bool isLevel2 = false;
     public bool isLevel3 = false;
+
+    private float currentAngle = 0f;
+    private float projectileSpeed;
+    private float angleIncrement;
+    private Wave wave;
 
     void OnValidate()
     {
@@ -31,18 +43,41 @@ public class DonpachiTower : Tower
         }
     }
 
-
-    private void Start()
+    void Start()
     {
         base.init();
+        wave = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Wave>();
+        ConfigureTower();
+    }
+
+    void ConfigureTower()
+    {
+        if (isLevel1)
+        {
+            projectileSpeed = level1ProjectileSpeed;
+            angleIncrement = level1AngleIncrement;
+        }
+        else if (isLevel2)
+        {
+            projectileSpeed = level2ProjectileSpeed;
+            angleIncrement = level2AngleIncrement;
+        }
+        else if (isLevel3)
+        {
+            projectileSpeed = level3ProjectileSpeed;
+            angleIncrement = level3AngleIncrement;
+        }
     }
 
     void Update()
     {
-        Enemy possibleEnemy = furthestTarget();
-        if (possibleEnemy != null)
+        if (wave.waveInProgress)
         {
-            tryShoot();
+            Enemy possibleEnemy = furthestTarget();
+            if (possibleEnemy != null)
+            {
+                tryShoot();
+            }
         }
     }
 
