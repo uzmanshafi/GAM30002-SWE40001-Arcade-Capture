@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 114367082}
   - component: {fileID: 114367081}
   m_Layer: 5
-  m_Name: Button (6)
+  m_Name: pacmanTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4828142b62eebd941987f12557ead3fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd05a62ca1d62944ea98db921162b04b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15440,7 +15440,7 @@ GameObject:
   - component: {fileID: 1962169755}
   - component: {fileID: 1962169754}
   m_Layer: 5
-  m_Name: Button (5)
+  m_Name: pongTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15542,7 +15542,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4828142b62eebd941987f12557ead3fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9e4ed3918047887409207d8c6a23ab01, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
