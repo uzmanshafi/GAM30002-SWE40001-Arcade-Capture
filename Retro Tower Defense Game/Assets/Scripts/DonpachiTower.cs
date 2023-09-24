@@ -30,15 +30,6 @@ public class DonpachiTower : Tower
             isLevel2 = false;
         }
     }
-<<<<<<< HEAD
-=======
-
-
-    private void Start()
-    {
-        base.init();
-    }
->>>>>>> main
 
     void Update()
     {

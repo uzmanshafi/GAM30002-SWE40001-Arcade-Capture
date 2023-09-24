@@ -1,48 +1,43 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PacmanTower : Tower
 {
-    [SerializeField] private GameObject pacmanProjectilePrefab; // Reference to the Pac-Man Projectile Prefab
-    [SerializeField] private Waypoints waypoints; // Reference to the Waypoints script
-    private Vector3 exitPoint; // The exit point where projectiles are spawned
-    private Vector3 startPoint; // The start point for returning
+    private GameManager gameManager;
+    private Waypoints waypoints;
+    private Vector3 exitPoint;
 
-    [SerializeField] private int numGhosts = 2; // Number of ghosts at level 1
-
-    void Start()
+    private void Start()
     {
-        init(); // Call parent class initialization if required
+        // Retrieve the GameManager and Waypoints
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        waypoints = gameManager.GetComponent<Waypoints>();
 
-        // Initialize start and exit points from waypoints
-        exitPoint = waypoints.Points[waypoints.Points.Length - 1]; // Last point is the exit
-        startPoint = waypoints.Points[0]; // First point is the start
-    }
-
-    void Update()
-    {
-        Enemy possibleEnemy = furthestTarget();
-        if (possibleEnemy != null)
-        {
-            tryShoot();
-        }
+        exitPoint = waypoints.Points[waypoints.Points.Length - 1]; // Assuming the last point is the exit
+        
+        // Set default cooldown to 6 seconds
+        cooldown = 6;
     }
 
     protected override void tryShoot()
     {
         if (Time.time - lastShotTime > cooldown)
         {
-            for (int i = 0; i < numGhosts; i++)
-            {
-                // Instantiate a new projectile at the exit point and pass the start and exit points
-                GameObject projectileObj = Instantiate(pacmanProjectilePrefab, exitPoint, Quaternion.identity);
-                PacmanProjectiles projectile = projectileObj.GetComponent<PacmanProjectiles>();
-                projectile.SetExitPoint(exitPoint);
-                projectile.SetStartPoint(startPoint);
-            }
+            SpawnGhost(); // Spawn the first ghost
+            SpawnGhost(); // Spawn the second ghost
 
             lastShotTime = Time.time;
         }
+    }
+
+    private void SpawnGhost()
+    {
+        // Randomly select one of the bullet types (which are actually ghosts)
+        GameObject ghostPrefab = bulletTypes[Random.Range(0, bulletTypes.Length)];
+        GameObject ghost = Instantiate(ghostPrefab, transform.position, Quaternion.identity);
+
+        GhostProjectiles ghostScript = ghost.GetComponent<GhostProjectiles>();
+        ghostScript.SetExitPoint(exitPoint);
+        ghostScript.SetWaypoints(waypoints.Points);
     }
 }
