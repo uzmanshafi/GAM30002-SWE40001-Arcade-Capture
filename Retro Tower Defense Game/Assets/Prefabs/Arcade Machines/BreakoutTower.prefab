@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4462670486568380753}
   - component: {fileID: 2475031915224371012}
   - component: {fileID: 4555808692913621884}
+  - component: {fileID: -1670316427314792694}
   m_Layer: 6
   m_Name: BreakoutTower
   m_TagString: ArcadeTower
@@ -152,3 +153,28 @@ PolygonCollider2D:
       - {x: 0.09060669, y: 0.069744885}
       - {x: 0.08034202, y: 0.071562015}
   m_UseDelaunayMesh: 0
+--- !u!114 &-1670316427314792694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076282756041783590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fef07060d29a143abe268747c4acff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 50
+  cooldown: 2
+  damage: 1
+  target: {fileID: 0}
+  towerRadius: 0
+  range: 2
+  radius: 0
+  radiusDisplay: {fileID: 0}
+  mesh: {fileID: 0}
+  bulletTypes:
+  - {fileID: 0}
+  controlColour: Blue
+  projectile_speed: 8
