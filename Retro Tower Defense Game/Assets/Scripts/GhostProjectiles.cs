@@ -9,6 +9,9 @@ public class GhostProjectiles : Projectile
     private Vector3 exitPoint;
     private bool hasReachedExit;
 
+    private float ghostSpeed = 1.0f;
+    private float ghostDamage = 1.0f;
+
     private Rigidbody2D rb;
 
     private void Awake()
@@ -64,6 +67,12 @@ public class GhostProjectiles : Projectile
         }
 
         move();
+    }
+
+    public void SetStats(float speed, float damage)
+    {
+        ghostSpeed = speed;
+        ghostDamage = damage;
     }
 
 

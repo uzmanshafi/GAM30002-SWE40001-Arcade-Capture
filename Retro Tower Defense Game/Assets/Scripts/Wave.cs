@@ -9,7 +9,6 @@ public class Wave : MonoBehaviour
     [SerializeField] private string[] waveFileNames;
     [SerializeField] public GameObject[] enemyList;
 
-
     private SortedDictionary<float, WaveBatch> waveBatches = new SortedDictionary<float, WaveBatch>();
 
     private float timeSinceLastEnemy;
@@ -17,10 +16,9 @@ public class Wave : MonoBehaviour
     private int batchIndex = 0;
     private int waveIndex = 0;
 
-    
+    public bool waveInProgress = false;  // New flag to indicate if wave is in progress
 
     private GameManager gameManager;
-
     private Vector2 start;
 
     private bool waveLoaded = false;
@@ -29,7 +27,7 @@ public class Wave : MonoBehaviour
 
     void Start()
     { //All just for testing
-        
+
         gameManager = GameManager.instance;
         start = gameManager.GetComponent<Waypoints>().Points[0];
     }
@@ -37,34 +35,44 @@ public class Wave : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        waveTime += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Alpha0) ) //for testing purposes, delete before final build
+        if (waveInProgress)
         {
-            startWave();
-        }
-        if (waveBatches.Count > 0 && waveTime > waveBatches.First().Key)
-        {
-            KeyValuePair<float, WaveBatch> kvp = waveBatches.First();
-            if (Time.time - timeSinceLastEnemy > kvp.Value.enemyCooldown)
+            waveTime += Time.deltaTime;
+
+            if (waveBatches.Count > 0 && waveTime > waveBatches.First().Key)
             {
-                GameObject enemy = Instantiate(kvp.Value.Enemies[batchIndex], start, Quaternion.identity);
-                gameManager.AllEnemies(true).Add(enemy.GetComponent<Enemy>());
-                batchIndex++;
-                timeSinceLastEnemy = Time.time;
+
+                waveEnded = false;
+
+                if (Input.GetKeyDown(KeyCode.Alpha0)) //for testing purposes, delete before final build
+                {
+                    startWave();
+                }
+                KeyValuePair<float, WaveBatch> kvp = waveBatches.First();
+                if (Time.time - timeSinceLastEnemy > kvp.Value.enemyCooldown)
+                {
+                    GameObject enemy = Instantiate(kvp.Value.Enemies[batchIndex], start, Quaternion.identity);
+                    gameManager.AllEnemies(true).Add(enemy.GetComponent<Enemy>());
+                    batchIndex++;
+                    timeSinceLastEnemy = Time.time;
+                }
+                if (batchIndex >= kvp.Value.Enemies.Length)
+                {
+                    waveBatches.Remove(kvp.Key);
+                    batchIndex = 0;
+                }
             }
-            if (batchIndex >= kvp.Value.Enemies.Length)
+            else
             {
-                waveBatches.Remove(kvp.Key);
-                batchIndex = 0;
+                timeSinceLastEnemy = 0f;
             }
-        }
-        else
-        {
-            timeSinceLastEnemy = 0f;
-        }
-        if (waveBatches.Count <= 0)
-        {
-            waveLoaded = false;
+
+            if (waveBatches.Count <= 0)
+            {
+                waveLoaded = false;
+                waveInProgress = false;
+                waveEnded = true;
+            }
         }
     }
 
@@ -120,6 +128,7 @@ public class Wave : MonoBehaviour
             waveLoaded = true;
             waveIndex++;
             gameManager.currentWave += 1;
+            waveInProgress = true;
         }
     }
 
