@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static Utils;
 
 public class Enemy : MonoBehaviour
 {
@@ -71,20 +72,11 @@ public class Enemy : MonoBehaviour
         //gameObject.GetComponent<Rigidbody2D>().N
         transform.position = Vector3.MoveTowards(transform.position, destination, MovementSpeed * Time.deltaTime);
 
-        if (pointReached())
+        if (pointReached(transform.position, destination, 0.001f))
         {
+            transform.position = Vector3.MoveTowards(transform.position, destination, MovementSpeed * Time.deltaTime);
             updateWaypoint();
         }
-    }
-
-    private bool pointReached()
-    {
-        float distanceToNext = (transform.position - destination).magnitude;
-        if (distanceToNext < 0.1f)
-        {
-            return true;
-        }
-        return false;
     }
 
     private void updateWaypoint()
