@@ -175,6 +175,6 @@ MonoBehaviour:
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
   bulletTypes:
-  - {fileID: 0}
+  - {fileID: 6310525875718958529, guid: e72588c0033c0714e9506fd876da0b62, type: 3}
   controlColour: Red
   asteroidSpeed: 10
