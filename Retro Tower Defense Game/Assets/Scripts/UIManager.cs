@@ -49,10 +49,10 @@ public class UIManager : MonoBehaviour
      {
         updateTextUi();
 
-        if (Input.GetKeyDown(KeyCode.0)) {
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
             bool selectSomething = false;
-            foreach (var Tower in GameManager.instance.allTowers) {
-                if ((Tower.transform.position - MousePositionVector).sqrMagnitude <= Math.Pow(Tower.radius, 2)) {
+            foreach (var Tower in GameManager.instance.AllTowers) {
+                if ((Tower.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).sqrMagnitude <= Math.Pow(Tower.radius, 2)) {
                     selectedTower = Tower;
                     selectSomething = true;
                 }
