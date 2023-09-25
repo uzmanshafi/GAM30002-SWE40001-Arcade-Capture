@@ -71,6 +71,10 @@ public class TowerPlacement : MonoBehaviour
 
     private void SpawnTower(GameObject towerPrefab, Vector3 position)
     {
+        if (gameManager.money - towerPrefab.GetComponent<Tower>().cost < 0)
+        {
+            return;
+        }
         currentTower = Instantiate(towerPrefab);
         currentTower.transform.position = position + new Vector3(1.5f, 1.5f, 0);
         currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
@@ -126,6 +130,7 @@ public class TowerPlacement : MonoBehaviour
                 {
                     gameManager.RemoveTower(towerScript); // Remove from the GameManager list
                 }
+                gameManager.money += (int)(towerScript.cost * 0.80f);
                 Destroy(hitCollider.gameObject); // Destroy the object
             }
             else

@@ -45,6 +45,8 @@ public class PacmanTower : Tower
         waypoints = gameManager.GetComponent<Waypoints>();
         exitPoint = waypoints.Points[waypoints.Points.Length - 1];
 
+        base.init();
+
         if (isLevel1)
         {
             ConfigureLevel1();

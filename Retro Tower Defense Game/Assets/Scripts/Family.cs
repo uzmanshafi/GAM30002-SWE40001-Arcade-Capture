@@ -35,6 +35,7 @@ public class Family : Enemy
                 e.SetWaypoints = GetWaypoints;
                 e.setWaypointIndex = getWaypointIndex;
                 e.SetDestination = GetDestination;
+                e.spawnAtStart = false;
             }
             GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
             Destroy(moneyonKillText, .9f);

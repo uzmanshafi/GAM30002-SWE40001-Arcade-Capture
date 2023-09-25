@@ -7,6 +7,7 @@ public abstract class Tower : MonoBehaviour
     [SerializeField] public int cost;
     [SerializeField] public float cooldown = 1;
     [SerializeField] public float damage = 1;
+    [SerializeField] public float bulletLifetime;
 
     [NonSerialized] public float base_cooldown;
     [NonSerialized] public float base_damage;
