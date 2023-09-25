@@ -52,7 +52,7 @@ public abstract class Tower : MonoBehaviour
     public void selected(bool t)
     {
         radiusDisplay.SetActive(t);
-        radiusDisplay.transform.localScale = new Vector2(towerRadius * 2, towerRadius * 2);
+        radiusDisplay.transform.localScale = new Vector2(range * 2, range * 2);
     }
 
     protected abstract void tryShoot();

@@ -58,8 +58,10 @@ public class UIManager : MonoBehaviour
                 }
             }
             if (selectSomething == false) {
+
                 selectedTower = null;
             }
+            Debug.Log(selectedTower);
         }
 
      }
