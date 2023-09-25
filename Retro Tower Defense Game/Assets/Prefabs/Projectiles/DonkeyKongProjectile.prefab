@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6978393940308056044}
   - component: {fileID: 2552712277473976744}
   - component: {fileID: 6001816930670599746}
+  - component: {fileID: -9222792503117999480}
   m_Layer: 9
   m_Name: DonkeyKongProjectile
   m_TagString: Projectile
@@ -136,6 +137,27 @@ MonoBehaviour:
   target: {fileID: 0}
   pierce: 2
   barrelLifetime: 4
+--- !u!95 &-9222792503117999480
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187973415504143877}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 738bb4f937461364cb63a2d9ecae75df, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2820492955389695638
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +231,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5266583d5455ded4fbfb7343d99567d8, type: 3}
+  m_Sprite: {fileID: 2046484648, guid: ea45c79a28631ec479180518f92ed82f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
