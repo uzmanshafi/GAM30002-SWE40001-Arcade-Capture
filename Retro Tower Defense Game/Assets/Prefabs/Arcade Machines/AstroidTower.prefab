@@ -171,7 +171,7 @@ MonoBehaviour:
   bulletLifetime: 2
   target: {fileID: 0}
   towerRadius: 0
-  range: 5
+  range: 1
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}

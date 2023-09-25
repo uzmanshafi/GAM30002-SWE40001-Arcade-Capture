@@ -6,11 +6,12 @@ public class TowerPlacement : MonoBehaviour
     public GameObject[] towerPrefabs;
     public Tilemap groundTilemap;
     public Tilemap pathTilemap;
+    public GameObject radiusPrefab;
     private GameObject currentTower;
+    private GameObject currentRadius;
     private SpriteRenderer currentTowerSpriteRenderer;
     private float lastClickTime = 0;
-    private float catchTime = 0.25f; // Max time in seconds between double clicks
-
+    private float catchTime = 0.25f;
     GameManager gameManager;
 
     void Start()
@@ -21,22 +22,19 @@ public class TowerPlacement : MonoBehaviour
     void Update()
     {
         Vector3 mouseWorldPos = GetMouseWorldPosition();
-
-        // Destroy the tower when the ESC key is pressed
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (currentTower != null)
             {
                 Destroy(currentTower);
+                Destroy(currentRadius);
                 currentTower = null;
                 currentTowerSpriteRenderer = null;
             }
         }
-
         if (currentTower != null)
         {
             DragTower(mouseWorldPos);
-
             if (Input.GetMouseButtonDown(0))
             {
                 if (IsValidLocation(mouseWorldPos, currentTower.name))
@@ -44,10 +42,9 @@ public class TowerPlacement : MonoBehaviour
                     DropTower();
                 }
             }
-
             if (Input.GetKeyDown(KeyCode.R))
             {
-                RotateTower();
+                currentTower.transform.Rotate(0, 0, -45);
             }
         }
         else if (Input.GetMouseButtonDown(0))
@@ -80,14 +77,13 @@ public class TowerPlacement : MonoBehaviour
         currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
         Tower shootScript = currentTower.GetComponent<Tower>();
         shootScript.enabled = false;
+        currentRadius = Instantiate(radiusPrefab, currentTower.transform);
+        UpdateRadiusDisplay(shootScript.range);
     }
 
     private void DragTower(Vector3 newPosition)
     {
-        // Move the tower first
         currentTower.transform.position = newPosition;
-
-        // Then check for validity
         if (IsValidLocation(newPosition, currentTower.name))
         {
             currentTowerSpriteRenderer.color = new Color(0, 1, 0, 0.8f);
@@ -96,8 +92,11 @@ public class TowerPlacement : MonoBehaviour
         {
             currentTowerSpriteRenderer.color = new Color(1, 0, 0, 0.8f);
         }
+        if (currentRadius)
+        {
+            currentRadius.transform.position = newPosition;
+        }
     }
-
 
     private void DropTower()
     {
@@ -111,78 +110,65 @@ public class TowerPlacement : MonoBehaviour
         currentTowerSpriteRenderer.color = Color.white;
         currentTower = null;
         currentTowerSpriteRenderer = null;
-
+        if (currentRadius)
+        {
+            currentRadius.SetActive(false);
+        }
     }
 
     private void AttemptPickupTower(Vector3 position)
     {
         int layerMask = 1 << LayerMask.NameToLayer("Tower");
         Collider2D hitCollider = Physics2D.OverlapPoint(position, layerMask);
-
-
         if (hitCollider != null && hitCollider.gameObject.CompareTag("ArcadeTower"))
         {
             if (Time.time - lastClickTime < catchTime)
             {
-                // Double click detected
                 Tower towerScript = hitCollider.gameObject.GetComponent<Tower>();
                 if (towerScript != null)
                 {
-                    gameManager.RemoveTower(towerScript); // Remove from the GameManager list
+                    gameManager.RemoveTower(towerScript);
                 }
                 gameManager.money += (int)(towerScript.cost * 0.80f);
-                Destroy(hitCollider.gameObject); // Destroy the object
+                Destroy(hitCollider.gameObject);
             }
             else
             {
-                // Single click detected, update the lastClickTime
                 lastClickTime = Time.time;
             }
         }
     }
 
-
-    private void RotateTower()
+    private void UpdateRadiusDisplay(float newRadius)
+{
+    if (currentRadius)
     {
-        if (currentTower != null)
+        Transform childCircle = currentRadius.transform.Find("radiuscircle");
+        if (childCircle)
         {
-            currentTower.transform.Rotate(0, 0, -45);
+            childCircle.localScale = new Vector3(newRadius * 2, newRadius * 2, 1);
         }
     }
+}
+
 
     private bool IsValidLocation(Vector3 location, string towerName)
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(location);
-
-        Debug.Log("Checking cell: " + cellPosition);
-        Debug.Log("World Location: " + location);
-
         if (!groundTilemap.HasTile(cellPosition))
         {
-            Debug.Log("Invalid: No ground tile at " + cellPosition);
             return false;
         }
-
-        // Gets the tower's collider
         Collider2D towerCollider = currentTower.GetComponent<Collider2D>();
-
-        // Creates an array to store results. Let's assume no more than 10 for now.
         Collider2D[] results = new Collider2D[10];
-
-        // Checks for overlaps
         int numResults = towerCollider.OverlapCollider(new ContactFilter2D(), results);
-
-        // Loops through results to see if any are tagged as "PathTilemap"
         for (int i = 0; i < numResults; i++)
         {
             if (results[i].gameObject.CompareTag("PathTilemap"))
             {
-                Debug.Log("Invalid: Overlaps with path.");
                 return false;
             }
         }
-
-        Debug.Log("Valid placement at " + cellPosition);
         return true;
     }
 }
