@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     public GameObject towerMenu;
     public GameObject upgradeMenu;
 
-    private Tower selectedTower;
+    private Tower? selectedTower;
     
     public void sellSelectedTower()
     {
@@ -47,7 +47,21 @@ public class UIManager : MonoBehaviour
 
      void Update()
      {
-         updateTextUi();
+        updateTextUi();
+
+        if (Input.GetKeyDown(KeyCode.0)) {
+            bool selectSomething = false;
+            foreach (var Tower in GameManager.instance.allTowers) {
+                if ((Tower.transform.position - MousePositionVector).sqrMagnitude <= Math.Pow(Tower.radius, 2)) {
+                    selectedTower = Tower;
+                    selectSomething = true;
+                }
+            }
+            if (selectSomething == false) {
+                selectedTower = null;
+            }
+        }
+
      }
 
     // Initialises variables before the game starts
