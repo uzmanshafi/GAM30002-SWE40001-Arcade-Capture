@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
 
     public void deselectTower()
     {
+        selectedTower = null;
         towerMenu.SetActive(true);
         upgradeMenu.SetActive(false);
     }
@@ -53,12 +54,11 @@ public class UIManager : MonoBehaviour
             bool selectSomething = false;
             foreach (var Tower in GameManager.instance.AllTowers) {
                 if ((Tower.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).sqrMagnitude <= Math.Pow(Tower.radius, 2)) {
-                    selectedTower = Tower;
+                    selectTower(Tower);
                     selectSomething = true;
+                } else {
+                    deselectTower(Tower);
                 }
-            }
-            if (selectSomething == false) {
-                selectedTower = null;
             }
         }
 
