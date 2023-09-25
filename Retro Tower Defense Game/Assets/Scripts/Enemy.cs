@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
 
     private bool is_camo;
 
+    [NonSerialized] public bool spawnAtStart = true;
+
     public float GetMovementSpeed => MovementSpeed; // Getter
     public Waypoints GetWaypoints => waypoints; // Getter (I would prefer the name to not be the same as the type)
     public Waypoints SetWaypoints
@@ -55,8 +57,11 @@ public class Enemy : MonoBehaviour
         waypoints = GM.GetComponent<Waypoints>();
         health = MaxHP;
         gameObject.SetActive(true);
-        transform.position = waypoints.Points[i];
-        i += 1;
+        if (spawnAtStart)
+        {
+            transform.position = waypoints.Points[i];
+            i += 1;
+        }
         destination = waypoints.getWaypointPosition(i);
         rotate();
     }

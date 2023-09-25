@@ -149,8 +149,10 @@ public class DonpachiTower : Tower
         Rigidbody2D projectileRB = bullet.GetComponent<Rigidbody2D>();
         projectileRB.velocity = direction * projectileSpeed;
 
-        bullet.GetComponent<Projectile>().target = null;
+        Projectile proj = bullet.GetComponent<Projectile>();
+        proj.target = null;
+        proj.damage = damage;
 
-        Destroy(bullet, 5f);
+        Destroy(bullet, bulletLifetime);
     }
 }
