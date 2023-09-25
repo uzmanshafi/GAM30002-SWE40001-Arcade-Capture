@@ -35,7 +35,8 @@ public class PredictiveTower : Tower
             Projectile shot = bullet.GetComponent<Projectile>();
             shot.target = target;
             shot.canSeeCamo = canSeeCamo;
-            Destroy(bullet, 5);
+            shot.damage = damage;
+            Destroy(bullet, bulletLifetime);
             lastShotTime = Time.time;
         }
 

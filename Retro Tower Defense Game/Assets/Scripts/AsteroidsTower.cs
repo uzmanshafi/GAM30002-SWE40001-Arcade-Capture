@@ -54,6 +54,7 @@ public class AsteroidsTower : Tower
         float angle = Mathf.Atan2(dir.y, dir.x);
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         asteroid.GetComponent<Rigidbody2D>().velocity = dir * asteroidSpeed;
-        Destroy(asteroid, 2);
+        asteroid.GetComponent<Projectile>().damage = damage;
+        Destroy(asteroid, bulletLifetime);
     }
 }

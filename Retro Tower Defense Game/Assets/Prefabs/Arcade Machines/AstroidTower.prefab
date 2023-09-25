@@ -168,6 +168,7 @@ MonoBehaviour:
   cost: 40
   cooldown: 1
   damage: 1
+  bulletLifetime: 2
   target: {fileID: 0}
   towerRadius: 0
   range: 5
