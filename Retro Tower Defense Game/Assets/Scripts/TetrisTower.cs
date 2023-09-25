@@ -32,6 +32,31 @@ public class TetrisTower : Tower
 		base.init();
 		lastEnemyHit = null;
 		hitCount = 0;
+		loadUpgrades();
+		
+	}
+
+	private void loadUpgrades()
+    {
+		TowerUpgrade upgrade1 = new TowerUpgrade();
+		TowerUpgrade upgrade2 = new TowerUpgrade();
+		TowerUpgrade upgrade3 = new TowerUpgrade();
+
+		upgrade1.upgradeLevel = UpgradeLevel.Lvl1;
+		upgrade1.cost = cost;
+		upgrade1.description = "An arcade that builds a combo on Players that are hit consecutivley";
+
+		upgrade2.upgradeLevel = UpgradeLevel.Lvl2;
+		upgrade2.cost = cost;
+		upgrade2.description = "The arcade's cooldown is reduced and can build combos quicker";
+
+		upgrade3.upgradeLevel = UpgradeLevel.Lvl3;
+		upgrade3.cost = cost * 2;
+		upgrade3.description = "The arcade's cooldown is reduced futher leading to lightning fast combos";
+
+		upgrades[0] = upgrade1;
+		upgrades[1] = upgrade2;
+		upgrades[2] = upgrade3;
 	}
 
 	// Update is called once per frame

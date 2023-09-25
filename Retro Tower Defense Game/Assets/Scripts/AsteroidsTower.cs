@@ -9,6 +9,30 @@ public class AsteroidsTower : Tower
     void Start()
     {
         base.init();
+        loadUpgrades();
+    }
+
+    private void loadUpgrades()
+    {
+        TowerUpgrade upgrade1 = new TowerUpgrade();
+        TowerUpgrade upgrade2 = new TowerUpgrade();
+        TowerUpgrade upgrade3 = new TowerUpgrade();
+
+        upgrade1.upgradeLevel = UpgradeLevel.Lvl1;
+        upgrade1.cost = cost;
+        upgrade1.description = "An arcade that calls in an astroid from off space to strike your target";
+
+        upgrade2.upgradeLevel = UpgradeLevel.Lvl2;
+        upgrade2.cost = cost;
+        upgrade2.description = "Calls in 2 asteroids to coverge on your target";
+
+        upgrade3.upgradeLevel = UpgradeLevel.Lvl3;
+        upgrade3.cost = cost * 2;
+        upgrade3.description = "Calls in 3 asteroids to coverge on your target";
+
+        upgrades[0] = upgrade1;
+        upgrades[1] = upgrade2;
+        upgrades[2] = upgrade3;
     }
 
     // Update is called once per frame
