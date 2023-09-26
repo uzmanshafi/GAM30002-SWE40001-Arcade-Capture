@@ -60,9 +60,8 @@ public class Enemy : MonoBehaviour
         if (spawnAtStart)
         {
             transform.position = waypoints.Points[i];
-            i += 1;
+            updateWaypoint();
         }
-        destination = waypoints.getWaypointPosition(i);
         rotate();
     }
 
@@ -89,8 +88,20 @@ public class Enemy : MonoBehaviour
         int finalWaypointIndex = waypoints.Points.Length - 1;
         if (i < finalWaypointIndex)
         {
+
             i++;
-            destination = waypoints.getWaypointPosition(i);
+            if (waypoints.getWaypointPosition(i - 1).x == waypoints.getWaypointPosition(i).x) //if current position and next position are vertial, aim slightly left to avoid veering off path
+            {
+                destination = new Vector3(waypoints.getWaypointPosition(i).x + .1f, waypoints.getWaypointPosition(i).y);
+            }
+            else if(waypoints.getWaypointPosition(i).x == waypoints.getWaypointPosition(i + 1).x) // if destination and waypoint after that are equal in x, head a little further to avoid turning early
+            {
+                destination = new Vector3(waypoints.getWaypointPosition(i).x + .1f, waypoints.getWaypointPosition(i).y);
+            }
+            else
+            {
+                destination = waypoints.getWaypointPosition(i);
+            }
             rotate();
         }
         else
