@@ -32,6 +32,7 @@ public class TetrisTower : Tower
 		base.init();
 		lastEnemyHit = null;
 		hitCount = 0;
+		
 	}
 
 	// Update is called once per frame

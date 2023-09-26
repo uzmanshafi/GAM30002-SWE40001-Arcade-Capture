@@ -14,9 +14,9 @@ public class BreakoutProjectile : Projectile
     // Start is called before the first frame update
     void Start()
     {
-        // destination = target.transform.position;
+        
     }
-
+    
     // Update is called once per frame. (Does this call move?)
     void Update()
     {

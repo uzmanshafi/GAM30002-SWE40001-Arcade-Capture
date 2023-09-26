@@ -178,4 +178,15 @@ MonoBehaviour:
   bulletTypes:
   - {fileID: 5907040895649438893, guid: 6485190899f935a4eb33f703cb3ee6e2, type: 3}
   controlColour: Blue
+  upgrades:
+  - upgradeLevel: 0
+    cost: 0
+    description: An arcade that builds a combo on Players that are hit consecutivley
+  - upgradeLevel: 1
+    cost: 40
+    description: The arcade's cooldown is reduced and can build combos quicker
+  - upgradeLevel: 2
+    cost: 60
+    description: The arcade's cooldown is reduced futher leading to lightning fast
+      combos
   projectile_speed: 8
