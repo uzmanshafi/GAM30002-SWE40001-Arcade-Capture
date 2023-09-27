@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,19 +7,21 @@ public class PongTower : Tower
 {
     private GameManager gameManager;
 
+    private bool matched = false;
+
     public Projectile pongShot;
     public PongTower other;
     public Rigidbody2D shotRB;
 
     [SerializeField] private int pongOrder = 0; //Will assign this in tower placement, denotes which starts the pong shot
     
+    public int TowerOrder { get { return pongOrder; } set { pongOrder = value; } }
 
     // Start is called before the first frame update
     void Start()
     {
         base.init();
         gameManager = GameManager.instance;
-        matchTowers();
     }
 
     // Update is called once per frame
@@ -30,11 +33,22 @@ public class PongTower : Tower
         }
         if (other != null)
         {
-            if (pongShot == null && pongOrder == 0)
+            if (!matched)
+            {
+                face();
+            }
+            if (pongShot == null && matched && pongOrder == 0 && other.TowerOrder == 1)
             {
                 tryShoot();
             }
         }
+    }
+    
+    private void face()
+    {
+        transform.right = other.transform.position - transform.position;
+        other.transform.right = transform.position - other.transform.position;
+        matched = true;
     }
 
     protected override void tryShoot()

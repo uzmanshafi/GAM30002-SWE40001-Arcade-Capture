@@ -101,18 +101,57 @@ public class TowerPlacement : MonoBehaviour
     private void DropTower()
     {
         Tower shootScript = currentTower.GetComponent<Tower>();
-        shootScript.enabled = true;
-        if (!gameManager.AllTowers.Contains(shootScript))
+        if (currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other == null) //If placing pong tower, instansiate new pong tower to attach, only charge money for first tower
         {
-            gameManager.AllTowers.Add(shootScript);
-            gameManager.money -= shootScript.cost;
+            if (!gameManager.AllTowers.Contains(shootScript)) //only pong tower 1 costs
+            {
+                gameManager.AllTowers.Add(shootScript);
+                gameManager.money -= shootScript.cost;
+            }
+            shootScript.enabled = true;
+            currentTowerSpriteRenderer.color = Color.white;
+
+            currentTower = Instantiate(towerPrefabs[5]); //Instansiate new pong tower and grab important components
+            currentTower.transform.position = GetMouseWorldPosition() + new Vector3(1.5f, 1.5f, 0);
+            currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
+
+            pt.other = currentTower.GetComponent<PongTower>(); // Tie pong tower 1 to pong tower 2
+            pt.TowerOrder = 0;
+            pt.other.other = pt;
+
+
+            currentTower.GetComponent<Tower>().enabled = false;     //disable tower script to stop shooting, does not disable radius to show where this tower can be placed
         }
-        currentTowerSpriteRenderer.color = Color.white;
-        currentTower = null;
-        currentTowerSpriteRenderer = null;
-        if (currentRadius)
+        else if (currentTower.TryGetComponent<PongTower>(out PongTower pt2) && pt2.other != null) //If placing second pong tower and is in range
         {
-            currentRadius.SetActive(false);
+            if (Vector2.Distance(pt2.transform.position, pt2.other.transform.position) <= pt2.other.range)
+            {
+                shootScript.enabled = true;
+                pt2.TowerOrder = 1;
+                currentTowerSpriteRenderer.color = Color.white;
+                currentTower = null;
+                currentTowerSpriteRenderer = null;
+                if (currentRadius)
+                {
+                    currentRadius.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            if (!gameManager.AllTowers.Contains(shootScript))
+            {
+                gameManager.AllTowers.Add(shootScript);
+                gameManager.money -= shootScript.cost;
+            }
+            shootScript.enabled = true;
+            currentTowerSpriteRenderer.color = Color.white;
+            currentTower = null;
+            currentTowerSpriteRenderer = null;
+            if (currentRadius)
+            {
+                currentRadius.SetActive(false);
+            }
         }
     }
 

@@ -165,18 +165,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba86a3af4ee52b14d86dbd6e63fb633b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 150
+  cost: 30
   cooldown: 1
   damage: 1
+  bulletLifetime: 0
   target: {fileID: 0}
   towerRadius: 0
-  range: 5
+  range: 4
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
   bulletTypes:
   - {fileID: 2396885586352238776, guid: 23fb1b0291ea0964185da2176e558032, type: 3}
   controlColour: Blue
+  upgrades: []
   pongShot: {fileID: 0}
   other: {fileID: 0}
   shotRB: {fileID: 0}
