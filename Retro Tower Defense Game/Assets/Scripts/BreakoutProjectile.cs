@@ -63,7 +63,7 @@ public class BreakoutProjectile : Projectile
                     Enemy? nearest = nearestEnemy(transform.position, e.gameObject, GameManager.instance.AllEnemies(canSeeCamo));
 
                     if (nearest is Enemy _nearest) {
-                        Vector2? dir = aimPrediction(speed, _nearest, (Vector2)transform.position);
+                        Vector2? dir = aimPrediction(speed, _nearest, (Vector2)transform.position, Mathf.Infinity);
                         if (dir is Vector2 _dir) {
                             direction = _dir;
                             float angle = Mathf.Atan2(_dir.y, _dir.x);

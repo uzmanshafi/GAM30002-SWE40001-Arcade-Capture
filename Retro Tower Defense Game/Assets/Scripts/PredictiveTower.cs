@@ -22,7 +22,7 @@ public class PredictiveTower : Tower
         target = furthestTarget();
         if (Time.time - lastShotTime > cooldown && target != null)
         {
-            Vector2? dir = aimPrediction(projectile_speed, target, (Vector2)transform.position);
+            Vector2? dir = aimPrediction(projectile_speed, target, (Vector2)transform.position, range);
             
             
             GameObject bullet = Instantiate(bulletTypes[0], transform.position /*+ dir*/, Quaternion.identity);
