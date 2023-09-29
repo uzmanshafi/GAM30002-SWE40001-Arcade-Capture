@@ -48,17 +48,18 @@ public class TetrisTower : Tower
 		{
 
 			int bulletType = Random.Range(0,6);
-
-			GameObject bullet = Instantiate(bulletTypes[bulletType], transform.position /*+ dir*/, Quaternion.identity);
-			TetrisProjectile projectile = bullet.GetComponent<TetrisProjectile>();
-			projectile.owner = this;
-			Vector2? dir = aimPrediction(projectile.speed, target, (Vector2)transform.position);
+			TetrisProjectile projectile = bulletTypes[bulletType].GetComponent<TetrisProjectile>();
+			Vector2? dir = aimPrediction(projectile.speed, target, (Vector2)transform.position, range);
 			if (dir is Vector2 _dir)
 			{
+				GameObject bullet = Instantiate(bulletTypes[bulletType], transform.position /*+ dir*/, Quaternion.identity);
+				projectile = bullet.GetComponent<TetrisProjectile>();
+				projectile.owner = this;
 				bullet.GetComponent<Rigidbody2D>().velocity = _dir * projectile.speed;
+				Destroy(bullet, bulletLifetime);
+				lastShotTime = Time.time;
 			}
-			Destroy(bullet, bulletLifetime);
-			lastShotTime = Time.time;
+			
 		}
 
 	}

@@ -9,6 +9,7 @@ public class DonkeyKongProjectile : Projectile
 {
 
     private bool rollingAlongPath;
+    private bool targetDown;
     private Vector2 destination;
 
     // This is how many enemies it can hit before it is destroyed
@@ -27,12 +28,13 @@ public class DonkeyKongProjectile : Projectile
     void Start()
     {
         rollingAlongPath = false;
+        targetDown = false;
         destination = target.transform.position;
 
         // Save the path that the barrel will follow once it hits the path
         // Copy the waypoints that the enemy has gone through
-        pathPoints = new Vector3[target.getWaypointIndex];
-        System.Array.Copy(target.GetWaypoints.Points, 0, pathPoints, 0, target.getWaypointIndex);
+        pathPoints = new Vector3[target.GetWaypoints.Points.Length];
+        System.Array.Copy(target.GetWaypoints.Points, 0, pathPoints, 0, target.GetWaypoints.Points.Length);
 
         pathPointIndex = target.getWaypointIndex - 1;
     }
@@ -49,17 +51,21 @@ public class DonkeyKongProjectile : Projectile
             }
 
             //Check if at point
-            if (pointReached((Vector2)transform.position, (Vector2)pathPoints[pathPointIndex], 0.1f))
+            if (pointReached((Vector2)transform.position, (Vector2)pathPoints[pathPointIndex], 0.01f))
             {
                 pathPointIndex--;
-                if (pathPointIndex <= 0)
+                if (pathPointIndex < 0)
                 {
-                    Debug.Log("End Reached!");
+                    Debug.Log("End Reached!: " + pathPointIndex);
                     Destroy(gameObject);
                 }
-                destination = pathPoints[pathPointIndex];
-                direction = (destination - (Vector2)transform.position).normalized;
-                rotate();
+                else
+                {
+                    destination = pathPoints[pathPointIndex];
+                    direction = (destination - (Vector2)transform.position).normalized;
+                    rotate();
+                }
+                
             }
             else
             {
@@ -72,6 +78,11 @@ public class DonkeyKongProjectile : Projectile
             if (target != null)
             {
                 destination = target.transform.position;
+                pathPointIndex = target.getWaypointIndex - 1;
+            }
+            else
+            {
+                targetDown = true;
             }
             //pointReached is going to be a globally accessible function. (Yes technically it could be an interface)
             if (pointReached((Vector2)transform.position, (Vector2)destination, 0.1f))
@@ -93,6 +104,7 @@ public class DonkeyKongProjectile : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
+            pathPointIndex = e.getWaypointIndex - 1;
             if (this.canSeeCamo || !e.IsCamo) {
                 e.TakeDamage(damage);
                 pierce--;
@@ -101,9 +113,10 @@ public class DonkeyKongProjectile : Projectile
                     Destroy(gameObject);
                 }
             }
+            pathReached();
         }
 
-        if (collision.tag == "Path")
+        if (collision.tag == "PathTilemap" && targetDown)
         {
             pathReached();
         }
