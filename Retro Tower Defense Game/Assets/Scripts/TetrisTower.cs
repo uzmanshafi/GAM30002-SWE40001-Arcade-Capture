@@ -51,7 +51,7 @@ public class TetrisTower : Tower
 			GameObject bullet = Instantiate(bulletTypes[bulletType], transform.position /*+ dir*/, Quaternion.identity);
 			TetrisProjectile projectile = bullet.GetComponent<TetrisProjectile>();
 			projectile.owner = this;
-			Vector2? dir = aimPrediction(projectile.speed, target, (Vector2)transform.position);
+			Vector2? dir = aimPrediction(projectile.speed, target, (Vector2)transform.position, range);
 			if (dir is Vector2 _dir)
 			{
 				bullet.GetComponent<Rigidbody2D>().velocity = _dir * projectile.speed;

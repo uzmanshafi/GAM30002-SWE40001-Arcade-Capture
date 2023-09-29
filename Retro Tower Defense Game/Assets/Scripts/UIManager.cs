@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
                     selectTower(Tower);
                     selectSomething = true;
                 } else {
-                    deselectTower(Tower);
+                    deselectTower();
                 }
             }
         }

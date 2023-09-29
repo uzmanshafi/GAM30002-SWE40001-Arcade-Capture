@@ -91,7 +91,7 @@ public static class Utils {
         return (null, time_to_destination);
     }
 
-    public static Vector2? aimPrediction(float projectile_speed, Enemy target, Vector2 current_position)
+    public static Vector2? aimPrediction(float projectile_speed, Enemy target, Vector2 current_position, float tower_range)
     {
 
         //It takes in the current enemy position and then goes from there
@@ -107,7 +107,7 @@ public static class Utils {
         (Vector2? direction, float time) attempt = AttemptToFire(target.transform.position, target.GetDestination, target.GetMovementSpeed, current_position, projectile_speed, total_time);
 
 
-        if (attempt.direction is Vector2 dir && attempt.time * projectile_speed <= tower_radius)
+        if (attempt.direction is Vector2 dir && attempt.time * projectile_speed <= tower_range)
         {
             return dir;
         } else {
@@ -117,7 +117,7 @@ public static class Utils {
 
                 attempt = AttemptToFire(target.GetWaypoints.getWaypointPosition(index), target.GetWaypoints.getWaypointPosition(index + 1), target.GetMovementSpeed, current_position, projectile_speed, total_time);
 
-                if (attempt.direction is Vector2 dir2 && total_time * projectile_speed <= tower_radius)
+                if (attempt.direction is Vector2 dir2 && total_time * projectile_speed <= tower_range)
                 {
                     return dir2;
                 }
