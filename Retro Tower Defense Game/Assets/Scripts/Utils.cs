@@ -107,7 +107,7 @@ public static class Utils {
         (Vector2? direction, float time) attempt = AttemptToFire(target.transform.position, target.GetDestination, target.GetMovementSpeed, current_position, projectile_speed, total_time);
 
 
-        if (attempt.direction is Vector2 dir)
+        if (attempt.direction is Vector2 dir && attempt.time * projectile_speed <= tower_radius)
         {
             return dir;
         } else {
@@ -117,7 +117,7 @@ public static class Utils {
 
                 attempt = AttemptToFire(target.GetWaypoints.getWaypointPosition(index), target.GetWaypoints.getWaypointPosition(index + 1), target.GetMovementSpeed, current_position, projectile_speed, total_time);
 
-                if (attempt.direction is Vector2 dir2)
+                if (attempt.direction is Vector2 dir2 && total_time * projectile_speed <= tower_radius)
                 {
                     return dir2;
                 }
