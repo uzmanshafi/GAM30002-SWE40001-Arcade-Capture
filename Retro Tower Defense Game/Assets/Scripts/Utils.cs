@@ -68,7 +68,7 @@ public static class Utils {
         return (collision_point, time);
     }
 
-    private static float TimeToDestination(Vector2 current_position, Vector2 destination_position, float speed)
+    public static float TimeToDestination(Vector2 current_position, Vector2 destination_position, float speed)
     {
         return (destination_position - current_position).magnitude / speed;
     }

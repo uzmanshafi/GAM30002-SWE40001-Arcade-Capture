@@ -23,6 +23,11 @@ public class DonkeyKongProjectile : Projectile
     // This index starts at the end and goes towards 0.
     private int pathPointIndex;
 
+    // This is used to calculate when to change direction
+    private float moveTime;
+
+    private float timeToNextPoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +40,7 @@ public class DonkeyKongProjectile : Projectile
         System.Array.Copy(target.GetWaypoints.Points, 0, pathPoints, 0, target.getWaypointIndex);
 
         pathPointIndex = target.getWaypointIndex - 1;
+        moveTime = 0;
     }
 
     // Update is called once per frame. (Does this call move?)
@@ -49,8 +55,8 @@ public class DonkeyKongProjectile : Projectile
             }
 
             //Check if at point
-            if (pointReached((Vector2)transform.position, (Vector2)pathPoints[pathPointIndex], 0.1f))
-            {
+            //Using time instead so can't overshoot
+            if (moveTime >= timeToNextPoint) {
                 pathPointIndex--;
                 if (pathPointIndex <= 0)
                 {
@@ -60,9 +66,14 @@ public class DonkeyKongProjectile : Projectile
                 destination = pathPoints[pathPointIndex];
                 direction = (destination - (Vector2)transform.position).normalized;
                 rotate();
+
+                moveTime = 0;
+                timeToNextPoint = TimeToDestination((Vector2)transform.position, (Vector2)destination, speed);
+
             }
             else
             {
+                moveTime += Time.deltaTime;
                 move();
             }
 
@@ -121,6 +132,7 @@ public class DonkeyKongProjectile : Projectile
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         destination = pathPoints[pathPointIndex];
         direction = (destination - (Vector2)transform.position).normalized;
+        timeToNextPoint = TimeToDestination((Vector2)transform.position, (Vector2)destination, speed);
         rotate();
     }
 
