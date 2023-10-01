@@ -201,25 +201,38 @@ public class TowerPlacement : MonoBehaviour
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(location);
 
-        // Check for ground tile
+
         if (!groundTilemap.HasTile(cellPosition))
         {
             return false;
         }
 
-        // Check if there's a path tile at the desired location
+
         if (pathTilemap.HasTile(cellPosition))
         {
             return false;
         }
 
-        // Use an OverlapBox to check if the tower's current position would overlap with the wall collider
+
         Collider2D[] overlaps = Physics2D.OverlapBoxAll(location, currentTowerSpriteRenderer.bounds.size, 0);
         foreach (var overlap in overlaps)
         {
             if (overlap.gameObject.CompareTag("Wall"))
             {
                 return false;
+            }
+        }
+
+        // Additional check for SpaceInvadersTower due to its larger BoxCollider2D
+        if (towerName.Equals("SpaceInvadersTower"))
+        {
+            Collider2D[] towerOverlaps = Physics2D.OverlapBoxAll(location, currentTower.GetComponent<BoxCollider2D>().size, 0);
+            foreach (var overlap in towerOverlaps)
+            {
+                if (overlap.gameObject.CompareTag("Wall") || overlap.gameObject.CompareTag("Path"))
+                {
+                    return false;
+                }
             }
         }
 

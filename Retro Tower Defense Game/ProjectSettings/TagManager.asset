@@ -10,6 +10,8 @@ TagManager:
   - PathTilemap
   - GameManager
   - Wall
+  - SPship
+  - SPbullet
   layers:
   - Default
   - TransparentFX

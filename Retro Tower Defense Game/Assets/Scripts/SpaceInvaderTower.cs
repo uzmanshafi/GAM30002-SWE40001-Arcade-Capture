@@ -3,95 +3,132 @@ using UnityEngine;
 
 public class SpaceInvadersTower : Tower
 {
-    [SerializeField] private float movementSpeed = 1.0f;
-    private BoxCollider2D boundaryCollider;
+    [SerializeField] private GameObject shipPrefab;
+    [SerializeField] private GameObject bulletPrefab;
+    private GameObject spawnedShip;
+    private float movementSpeed = 1.0f;
     private Vector2 leftBoundary;
     private Vector2 rightBoundary;
+    private bool shipActive = false;
+    private bool isShooting = false;
+    private Wave waveScript;
 
-    void Start()
+    Vector2 towerDirection;
+
+    void Awake()
     {
-        base.init();
-        boundaryCollider = GetComponent<BoxCollider2D>();
-        Vector2 boundarySize = boundaryCollider.size;
-        Vector2 center = boundaryCollider.offset;
-        Debug.Log("SpaceInvadersTower initialized at: " + transform.position);
-        leftBoundary = (Vector2)transform.position + center - new Vector2(boundarySize.x / 2, 0);
-        rightBoundary = (Vector2)transform.position + center + new Vector2(boundarySize.x / 2, 0);
-
-        InitializeBoundaries();
-        StartCoroutine(MoveLeftAndRight());
-        StartCoroutine(ShootStraight());
+        waveScript = FindObjectOfType<Wave>();
+        towerDirection = transform.up;
     }
 
     void Update()
     {
-        Debug.Log("SpaceInvadersTower current position: " + transform.position);
-    }
+        if (waveScript && !waveScript.waveInProgress && shipActive)
+        {
 
+            StopCoroutine(MoveShipLeftAndRight());
+            StopCoroutine(ShipShootStraight());
+            isShooting = false;
+        }
+        else if (waveScript && waveScript.waveInProgress && !shipActive)
+        {
+
+            SpawnShip();
+            shipActive = true;
+            StartCoroutine(MoveShipLeftAndRight());
+        }
+
+        tryShoot();
+    }
 
     protected override void tryShoot()
     {
-
-    }
-
-    public void InitializeBoundaries()
-    {
-        boundaryCollider = GetComponent<BoxCollider2D>();
-        Vector2 boundarySize = boundaryCollider.size;
-        Vector2 center = boundaryCollider.offset;
-        float angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad; // Convert angle to radians
-        Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-
-        leftBoundary = (Vector2)transform.position + center - direction * (boundarySize.x / 2);
-        rightBoundary = (Vector2)transform.position + center + direction * (boundarySize.x / 2);
-    }
-
-    IEnumerator MoveLeftAndRight()
-    {
-        while (true)
+        if (AnyEnemyInRange())
         {
-
-            while (Vector2.Distance(transform.position, rightBoundary) > 0.1f)
+            if (!shipActive)
             {
-                transform.position = Vector2.MoveTowards(transform.position, rightBoundary, movementSpeed * Time.deltaTime);
-                yield return null;
+                SpawnShip();
+                shipActive = true;
+                StartCoroutine(MoveShipLeftAndRight());
             }
-
-
-            InitializeBoundaries();
-
-
-            while (Vector2.Distance(transform.position, leftBoundary) > 0.1f)
+            if (!isShooting)
             {
-                transform.position = Vector2.MoveTowards(transform.position, leftBoundary, movementSpeed * Time.deltaTime);
-                yield return null;
+                StartCoroutine(ShipShootStraight());
+                isShooting = true;
             }
-
-
-            InitializeBoundaries();
+        }
+        else
+        {
+            isShooting = false;
         }
     }
 
-    IEnumerator ShootStraight()
+    private bool AnyEnemyInRange()
     {
-        while (true)
+        Enemy? enemy = furthestTarget();
+        if (enemy != null)
         {
+            Debug.Log("Enemy detected in range: " + enemy.name);
+            return true;
+        }
+        return false;
+    }
 
-            GameObject bullet = Instantiate(bulletTypes[0], transform.position, Quaternion.identity);
+
+    private void SpawnShip()
+    {
+        Quaternion adjustedRotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 180);
+        spawnedShip = Instantiate(shipPrefab, transform.position, adjustedRotation);
+
+        // Determine local boundaries
+        BoxCollider2D boundaryCollider = GetComponent<BoxCollider2D>();
+        Vector2 boundarySize = boundaryCollider.size;
+
+        Vector2 localLeftBoundary = -Vector2.right * boundarySize.x / 2;   // Left boundary in local coordinates
+        Vector2 localRightBoundary = Vector2.right * boundarySize.x / 2;   // Right boundary in local coordinates
+
+        // Convert local coordinates to world coordinates
+        leftBoundary = transform.TransformPoint(localLeftBoundary);
+        rightBoundary = transform.TransformPoint(localRightBoundary);
+    }
+
+    IEnumerator MoveShipLeftAndRight()
+    {
+        bool movingRight = true;
+
+        while (shipActive)
+        {
+            if (movingRight)
+            {
+                while (Vector2.Distance(spawnedShip.transform.position, rightBoundary) > 0.1f)
+                {
+                    spawnedShip.transform.position = Vector2.MoveTowards(spawnedShip.transform.position, rightBoundary, movementSpeed * Time.deltaTime);
+                    yield return null;
+                }
+                movingRight = false;
+            }
+            else
+            {
+                while (Vector2.Distance(spawnedShip.transform.position, leftBoundary) > 0.1f)
+                {
+                    spawnedShip.transform.position = Vector2.MoveTowards(spawnedShip.transform.position, leftBoundary, movementSpeed * Time.deltaTime);
+                    yield return null;
+                }
+                movingRight = true;
+            }
+        }
+    }
+
+    IEnumerator ShipShootStraight()
+    {
+        Debug.Log("Bullet firing initiated.");
+        while (isShooting)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, spawnedShip.transform.position, Quaternion.identity);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.velocity = Vector2.up * 5;
-
-
             yield return new WaitForSeconds(cooldown);
         }
-    }
-
-    public void SetBoundaries()
-    {
-        Vector2 boundarySize = boundaryCollider.size;
-        Vector2 center = boundaryCollider.offset;
-        leftBoundary = (Vector2)transform.position + center - new Vector2(boundarySize.x / 2, 0);
-        rightBoundary = (Vector2)transform.position + center + new Vector2(boundarySize.x / 2, 0);
     }
 
 }

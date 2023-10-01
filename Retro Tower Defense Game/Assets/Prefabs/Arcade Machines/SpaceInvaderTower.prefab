@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4462670486568380753}
   - component: {fileID: 2475031915224371012}
-  - component: {fileID: 4555808692913621884}
   - component: {fileID: -449445157570712276}
+  - component: {fileID: 9070834913492343801}
   m_Layer: 6
   m_Name: SpaceInvaderTower
   m_TagString: ArcadeTower
@@ -86,8 +86,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &4555808692913621884
-PolygonCollider2D:
+--- !u!114 &-449445157570712276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076282756041783590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 426fa7578bce8464b8d27f38c13ddfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  cooldown: 1
+  damage: 1
+  bulletLifetime: 0
+  target: {fileID: 0}
+  towerRadius: 0
+  range: 3
+  radius: 0
+  radiusDisplay: {fileID: 0}
+  mesh: {fileID: 0}
+  bulletTypes: []
+  controlColour: 
+  upgrades: []
+  shipPrefab: {fileID: 5185414893317502098, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+  bulletPrefab: {fileID: 4005175662800323705, guid: b7da219df0b5cc54bb3a8ca6c8ae6fcd, type: 3}
+--- !u!61 &9070834913492343801
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,7 +145,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.00085156783}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -128,54 +155,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.07912931, y: 0.08110672}
-      - {x: -0.0031480193, y: 0.08077747}
-      - {x: -0.081525, y: 0.080516994}
-      - {x: -0.080863744, y: 0.07106179}
-      - {x: -0.09131702, y: 0.07024499}
-      - {x: -0.09098345, y: -0.020157337}
-      - {x: -0.08117291, y: -0.02061069}
-      - {x: -0.081222266, y: -0.05017519}
-      - {x: -0.070319265, y: -0.05050516}
-      - {x: -0.07068401, y: -0.061465047}
-      - {x: -0.060708076, y: -0.061643183}
-      - {x: -0.06022501, y: -0.07084036}
-      - {x: -0.0005158782, y: -0.0704509}
-      - {x: 0.059739262, y: -0.07048869}
-      - {x: 0.060351044, y: -0.06096083}
-      - {x: 0.068927996, y: -0.061026}
-      - {x: 0.07028699, y: -0.050677657}
-      - {x: 0.08037606, y: -0.051352262}
-      - {x: 0.08061293, y: -0.020220995}
-      - {x: 0.09043914, y: -0.020141661}
-      - {x: 0.09060669, y: 0.069744885}
-      - {x: 0.08034202, y: 0.071562015}
-  m_UseDelaunayMesh: 0
---- !u!114 &-449445157570712276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8076282756041783590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 426fa7578bce8464b8d27f38c13ddfed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cost: 0
-  cooldown: 1
-  damage: 1
-  bulletLifetime: 0
-  target: {fileID: 0}
-  towerRadius: 0
-  range: 5
-  radius: 0
-  radiusDisplay: {fileID: 0}
-  mesh: {fileID: 0}
-  bulletTypes: []
-  controlColour: 
-  upgrades: []
-  movementSpeed: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.1665048}
+  m_EdgeRadius: 0
