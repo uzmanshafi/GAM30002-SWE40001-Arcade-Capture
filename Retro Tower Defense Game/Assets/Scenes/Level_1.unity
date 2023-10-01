@@ -2352,7 +2352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stars: 5
-  money: 50
+  money: 1000
   currentWave: 0
 --- !u!4 &690477375
 Transform:
@@ -2394,6 +2394,7 @@ MonoBehaviour:
   groundTilemap: {fileID: 1474541320}
   pathTilemap: {fileID: 1032469544}
   radiusPrefab: {fileID: 2122240868449220821, guid: 26f16191b8ce0234f8d084345a4b6750, type: 3}
+  keepTowerRadiusOn: 0
 --- !u!114 &690477377
 MonoBehaviour:
   m_ObjectHideFlags: 0

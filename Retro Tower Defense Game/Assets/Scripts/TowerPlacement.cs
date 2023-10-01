@@ -13,6 +13,9 @@ public class TowerPlacement : MonoBehaviour
     private float lastClickTime = 0;
     private float catchTime = 0.25f;
     GameManager gameManager;
+    private float scaleFactor = 0.5f;
+
+    [SerializeField] private bool keepTowerRadiusOn = false; //used to keep radius on when placing (just for testing remove in final build)
 
     void Start()
     {
@@ -72,11 +75,13 @@ public class TowerPlacement : MonoBehaviour
         {
             return;
         }
+
         currentTower = Instantiate(towerPrefab);
         currentTower.transform.position = position + new Vector3(1.5f, 1.5f, 0);
         currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
         Tower shootScript = currentTower.GetComponent<Tower>();
         shootScript.enabled = false;
+
         currentRadius = Instantiate(radiusPrefab, currentTower.transform);
         UpdateRadiusDisplay(shootScript.range);
     }
@@ -84,6 +89,7 @@ public class TowerPlacement : MonoBehaviour
     private void DragTower(Vector3 newPosition)
     {
         currentTower.transform.position = newPosition;
+
         if (IsValidLocation(newPosition, currentTower.name))
         {
             currentTowerSpriteRenderer.color = new Color(0, 1, 0, 0.8f);
@@ -92,6 +98,7 @@ public class TowerPlacement : MonoBehaviour
         {
             currentTowerSpriteRenderer.color = new Color(1, 0, 0, 0.8f);
         }
+
         if (currentRadius)
         {
             currentRadius.transform.position = newPosition;
@@ -99,61 +106,63 @@ public class TowerPlacement : MonoBehaviour
     }
 
     private void DropTower()
+{
+    Tower shootScript = currentTower.GetComponent<Tower>();
+    if (currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other == null)
     {
-        Tower shootScript = currentTower.GetComponent<Tower>();
-        if (currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other == null) //If placing pong tower, instansiate new pong tower to attach, only charge money for first tower
+        if (!gameManager.AllTowers.Contains(shootScript))
         {
-            if (!gameManager.AllTowers.Contains(shootScript)) //only pong tower 1 costs
-            {
-                gameManager.AllTowers.Add(shootScript);
-                gameManager.money -= shootScript.cost;
-            }
-            shootScript.enabled = true;
-            currentTowerSpriteRenderer.color = Color.white;
-
-            currentTower = Instantiate(towerPrefabs[5]); //Instansiate new pong tower and grab important components
-            currentTower.transform.position = GetMouseWorldPosition() + new Vector3(1.5f, 1.5f, 0);
-            currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
-
-            pt.other = currentTower.GetComponent<PongTower>(); // Tie pong tower 1 to pong tower 2
-            pt.TowerOrder = 0;
-            pt.other.other = pt;
-
-
-            currentTower.GetComponent<Tower>().enabled = false;     //disable tower script to stop shooting, does not disable radius to show where this tower can be placed
+            gameManager.AllTowers.Add(shootScript);
+            gameManager.money -= shootScript.cost;
         }
-        else if (currentTower.TryGetComponent<PongTower>(out PongTower pt2) && pt2.other != null) //If placing second pong tower and is in range
+        shootScript.enabled = true;
+        currentTowerSpriteRenderer.color = Color.white;
+
+        currentTower = Instantiate(towerPrefabs[5]);
+        currentTower.transform.position = GetMouseWorldPosition() + new Vector3(1.5f, 1.5f, 0);
+        currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
+
+        pt.other = currentTower.GetComponent<PongTower>();
+        pt.TowerOrder = 0;
+        pt.other.other = pt;
+
+        currentTower.GetComponent<Tower>().enabled = false;     
+    }
+    else if (currentTower.TryGetComponent<PongTower>(out PongTower pt2) && pt2.other != null)
+    {
+        if (Vector2.Distance(pt2.transform.position, pt2.other.transform.position) <= pt2.other.range)
         {
-            if (Vector2.Distance(pt2.transform.position, pt2.other.transform.position) <= pt2.other.range)
-            {
-                shootScript.enabled = true;
-                pt2.TowerOrder = 1;
-                currentTowerSpriteRenderer.color = Color.white;
-                currentTower = null;
-                currentTowerSpriteRenderer = null;
-                if (currentRadius)
-                {
-                    currentRadius.SetActive(false);
-                }
-            }
-        }
-        else
-        {
-            if (!gameManager.AllTowers.Contains(shootScript))
-            {
-                gameManager.AllTowers.Add(shootScript);
-                gameManager.money -= shootScript.cost;
-            }
             shootScript.enabled = true;
+            pt2.TowerOrder = 1;
             currentTowerSpriteRenderer.color = Color.white;
             currentTower = null;
             currentTowerSpriteRenderer = null;
-            if (currentRadius)
+            if (!keepTowerRadiusOn && currentRadius)
             {
-                currentRadius.SetActive(false);
+                Destroy(currentRadius);
+                currentRadius = null;
             }
         }
     }
+    else
+    {
+        if (!gameManager.AllTowers.Contains(shootScript))
+        {
+            gameManager.AllTowers.Add(shootScript);
+            gameManager.money -= shootScript.cost;
+        }
+        shootScript.enabled = true;
+        currentTowerSpriteRenderer.color = Color.white;
+        currentTower = null;
+        currentTowerSpriteRenderer = null;
+        if (!keepTowerRadiusOn && currentRadius)
+        {
+            Destroy(currentRadius);
+            currentRadius = null;
+        }
+    }
+}
+
 
     private void AttemptPickupTower(Vector3 position)
     {
@@ -178,17 +187,11 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-    private void UpdateRadiusDisplay(float newRadius)
-{
-    if (currentRadius)
+    private void UpdateRadiusDisplay(float range)
     {
-        Transform childCircle = currentRadius.transform.Find("radiuscircle");
-        if (childCircle)
-        {
-            childCircle.localScale = new Vector3(newRadius * 2, newRadius * 2, 1);
-        }
+        float desiredRadius = range * scaleFactor;
+        currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
     }
-}
 
 
     private bool IsValidLocation(Vector3 location, string towerName)
