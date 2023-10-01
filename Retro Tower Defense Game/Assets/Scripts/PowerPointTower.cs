@@ -12,7 +12,6 @@ public class PowerPointTower : Tower
     void Start()
     {
         base.init();
-        GameManager.instance.AllTowers.Add(this);
     }
 
     // Update is called once per frame

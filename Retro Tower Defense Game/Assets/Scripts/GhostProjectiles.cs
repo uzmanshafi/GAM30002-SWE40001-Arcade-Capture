@@ -57,6 +57,8 @@ public class GhostProjectiles : Projectile
         }
         else
         {
+            //Teleport to exit point*
+            transform.position = exitPoint;
             // Move towards the exit point
             if (Vector3.Distance(transform.position, exitPoint) < 0.1f)
             {
