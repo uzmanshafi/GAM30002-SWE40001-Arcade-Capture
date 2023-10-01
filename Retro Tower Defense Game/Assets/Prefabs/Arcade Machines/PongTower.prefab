@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4555808692913621884}
   - component: {fileID: 8294213705418891615}
   m_Layer: 6
-  m_Name: PogTower
+  m_Name: PongTower
   m_TagString: ArcadeTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

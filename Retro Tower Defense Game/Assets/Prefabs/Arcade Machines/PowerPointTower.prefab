@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4462670486568380753}
   - component: {fileID: 2475031915224371012}
   - component: {fileID: 4555808692913621884}
-  - component: {fileID: -449445157570712276}
+  - component: {fileID: -3977336461587623106}
   m_Layer: 6
-  m_Name: SpaceInvaderTower
+  m_Name: PowerPointTower
   m_TagString: ArcadeTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e39912fbff2469545a2b0a43647a7486, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 862f1726a5fc15f45a735653460f582b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,30 +130,21 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.07912931, y: 0.08110672}
-      - {x: -0.0031480193, y: 0.08077747}
-      - {x: -0.081525, y: 0.080516994}
-      - {x: -0.080863744, y: 0.07106179}
-      - {x: -0.09131702, y: 0.07024499}
-      - {x: -0.09098345, y: -0.020157337}
-      - {x: -0.08117291, y: -0.02061069}
-      - {x: -0.081222266, y: -0.05017519}
-      - {x: -0.070319265, y: -0.05050516}
-      - {x: -0.07068401, y: -0.061465047}
-      - {x: -0.060708076, y: -0.061643183}
-      - {x: -0.06022501, y: -0.07084036}
-      - {x: -0.0005158782, y: -0.0704509}
-      - {x: 0.059739262, y: -0.07048869}
-      - {x: 0.060351044, y: -0.06096083}
-      - {x: 0.068927996, y: -0.061026}
-      - {x: 0.07028699, y: -0.050677657}
-      - {x: 0.08037606, y: -0.051352262}
-      - {x: 0.08061293, y: -0.020220995}
-      - {x: 0.09043914, y: -0.020141661}
-      - {x: 0.09060669, y: 0.069744885}
-      - {x: 0.08034202, y: 0.071562015}
+    - - {x: 0.08979026, y: -0.08030997}
+      - {x: 0.090137735, y: 0.079902224}
+      - {x: 0.08017599, y: 0.079684}
+      - {x: 0.08003783, y: 0.090575196}
+      - {x: -0.00073875673, y: 0.09026614}
+      - {x: -0.080677085, y: 0.08974998}
+      - {x: -0.079760134, y: 0.0801666}
+      - {x: -0.08993751, y: 0.080177516}
+      - {x: -0.09015788, y: -0.08056673}
+      - {x: -0.08034735, y: -0.08031351}
+      - {x: -0.08024298, y: -0.09013011}
+      - {x: 0.07951167, y: -0.09006837}
+      - {x: 0.080016285, y: -0.08003383}
   m_UseDelaunayMesh: 0
---- !u!114 &-449445157570712276
+--- !u!114 &-3977336461587623106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,20 +153,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 8076282756041783590}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 426fa7578bce8464b8d27f38c13ddfed, type: 3}
+  m_Script: {fileID: 11500000, guid: add001ca95d9b57479d4ba147f123877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 0
+  cost: 40
   cooldown: 1
   damage: 1
   bulletLifetime: 0
   target: {fileID: 0}
   towerRadius: 0
-  range: 5
+  range: 3
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
   bulletTypes: []
   controlColour: 
   upgrades: []
-  movementSpeed: 1
+  damage_multiplier: 1.15
+  cooldown_multipler: 0.85
+  range_multipler: 1.15
