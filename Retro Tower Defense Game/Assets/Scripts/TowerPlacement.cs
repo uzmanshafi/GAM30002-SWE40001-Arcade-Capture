@@ -6,6 +6,9 @@ public class TowerPlacement : MonoBehaviour
     public GameObject[] towerPrefabs;
     public Tilemap groundTilemap;
     public Tilemap pathTilemap;
+    public Tilemap wallTilemap;
+    public Collider2D wallCollider;
+
     public GameObject radiusPrefab;
     private GameObject currentTower;
     private GameObject currentRadius;
@@ -106,34 +109,52 @@ public class TowerPlacement : MonoBehaviour
     }
 
     private void DropTower()
-{
-    Tower shootScript = currentTower.GetComponent<Tower>();
-    if (currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other == null)
     {
-        if (!gameManager.AllTowers.Contains(shootScript))
+        Tower shootScript = currentTower.GetComponent<Tower>();
+        if (currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other == null)
         {
-            gameManager.AllTowers.Add(shootScript);
-            gameManager.money -= shootScript.cost;
-        }
-        shootScript.enabled = true;
-        currentTowerSpriteRenderer.color = Color.white;
-
-        currentTower = Instantiate(towerPrefabs[5]);
-        currentTower.transform.position = GetMouseWorldPosition() + new Vector3(1.5f, 1.5f, 0);
-        currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
-
-        pt.other = currentTower.GetComponent<PongTower>();
-        pt.TowerOrder = 0;
-        pt.other.other = pt;
-
-        currentTower.GetComponent<Tower>().enabled = false;     
-    }
-    else if (currentTower.TryGetComponent<PongTower>(out PongTower pt2) && pt2.other != null)
-    {
-        if (Vector2.Distance(pt2.transform.position, pt2.other.transform.position) <= pt2.other.range)
-        {
+            if (!gameManager.AllTowers.Contains(shootScript))
+            {
+                gameManager.AllTowers.Add(shootScript);
+                gameManager.money -= shootScript.cost;
+            }
             shootScript.enabled = true;
-            pt2.TowerOrder = 1;
+            currentTowerSpriteRenderer.color = Color.white;
+
+            currentTower = Instantiate(towerPrefabs[5]);
+            currentTower.transform.position = GetMouseWorldPosition() + new Vector3(1.5f, 1.5f, 0);
+            currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
+
+            pt.other = currentTower.GetComponent<PongTower>();
+            pt.TowerOrder = 0;
+            pt.other.other = pt;
+
+            currentTower.GetComponent<Tower>().enabled = false;
+        }
+        else if (currentTower.TryGetComponent<PongTower>(out PongTower pt2) && pt2.other != null)
+        {
+            if (Vector2.Distance(pt2.transform.position, pt2.other.transform.position) <= pt2.other.range)
+            {
+                shootScript.enabled = true;
+                pt2.TowerOrder = 1;
+                currentTowerSpriteRenderer.color = Color.white;
+                currentTower = null;
+                currentTowerSpriteRenderer = null;
+                if (!keepTowerRadiusOn && currentRadius)
+                {
+                    Destroy(currentRadius);
+                    currentRadius = null;
+                }
+            }
+        }
+        else
+        {
+            if (!gameManager.AllTowers.Contains(shootScript))
+            {
+                gameManager.AllTowers.Add(shootScript);
+                gameManager.money -= shootScript.cost;
+            }
+            shootScript.enabled = true;
             currentTowerSpriteRenderer.color = Color.white;
             currentTower = null;
             currentTowerSpriteRenderer = null;
@@ -144,24 +165,6 @@ public class TowerPlacement : MonoBehaviour
             }
         }
     }
-    else
-    {
-        if (!gameManager.AllTowers.Contains(shootScript))
-        {
-            gameManager.AllTowers.Add(shootScript);
-            gameManager.money -= shootScript.cost;
-        }
-        shootScript.enabled = true;
-        currentTowerSpriteRenderer.color = Color.white;
-        currentTower = null;
-        currentTowerSpriteRenderer = null;
-        if (!keepTowerRadiusOn && currentRadius)
-        {
-            Destroy(currentRadius);
-            currentRadius = null;
-        }
-    }
-}
 
 
     private void AttemptPickupTower(Vector3 position)
@@ -197,13 +200,39 @@ public class TowerPlacement : MonoBehaviour
     private bool IsValidLocation(Vector3 location, string towerName)
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(location);
+
+        // Check for ground tile
         if (!groundTilemap.HasTile(cellPosition))
         {
             return false;
         }
+
+        // Check if there's a path tile at the desired location
+        if (pathTilemap.HasTile(cellPosition))
+        {
+            return false;
+        }
+
+        // Use an OverlapBox to check if the tower's current position would overlap with the wall collider
+        Collider2D[] overlaps = Physics2D.OverlapBoxAll(location, currentTowerSpriteRenderer.bounds.size, 0);
+        foreach (var overlap in overlaps)
+        {
+            if (overlap.gameObject.CompareTag("Wall"))
+            {
+                return false;
+            }
+        }
+
+        // Gets the tower's collider
         Collider2D towerCollider = currentTower.GetComponent<Collider2D>();
+
+        // Creates an array to store results
         Collider2D[] results = new Collider2D[10];
+
+        // Checks for overlaps
         int numResults = towerCollider.OverlapCollider(new ContactFilter2D(), results);
+
+        // Loops through results to see if any are tagged as "PathTilemap"
         for (int i = 0; i < numResults; i++)
         {
             if (results[i].gameObject.CompareTag("PathTilemap"))
@@ -211,6 +240,9 @@ public class TowerPlacement : MonoBehaviour
                 return false;
             }
         }
+
         return true;
     }
+
+
 }
