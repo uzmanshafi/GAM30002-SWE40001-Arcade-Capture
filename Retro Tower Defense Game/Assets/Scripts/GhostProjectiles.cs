@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GhostProjectiles : Projectile
 {
+    [SerializeField] private Sprite[] sprites;
+
     private int currentWaypointIndex;
     private Vector3[] waypoints;
     private Vector3 exitPoint;
@@ -54,6 +56,39 @@ public class GhostProjectiles : Projectile
 
             // Update direction to the next waypoint
             direction = ((Vector2)(waypoints[currentWaypointIndex] - transform.position)).normalized;
+            SpriteRenderer render = GetComponentInChildren<SpriteRenderer>();
+            if (direction.x > 0.4 && direction.y > 0.4) // Second 
+            {
+                render.sprite = sprites[1];
+            } 
+            else if (direction.x < -0.4 && direction.y > 0.4) // Fourth 
+            {
+                render.sprite = sprites[3];
+            }
+            else if (direction.x < -0.4 && direction.y < -0.4) // Sixth 
+            {
+                render.sprite = sprites[5];
+            }
+            else if (direction.x > 0.4 && direction.y < -0.4) // Eighth 
+            {
+                render.sprite = sprites[7];
+            }
+            else if (direction.x > 0.9) // First 
+            {
+                render.sprite = sprites[0];
+            }
+            else if (direction.y > 0.9) // Third 
+            {
+                render.sprite = sprites[2];
+            }
+            else if (direction.x < -0.9) // Fifth 
+            {
+                render.sprite = sprites[4];
+            }
+            else if (direction.y < -0.9) // Seventh 
+            {
+                render.sprite = sprites[6];
+            }
         }
         else
         {
