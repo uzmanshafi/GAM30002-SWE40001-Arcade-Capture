@@ -93,16 +93,22 @@ public class TowerPlacement : MonoBehaviour
     {
         currentTower.transform.position = newPosition;
 
-        if (IsValidLocation(newPosition, currentTower.name))
-        {
-            currentTowerSpriteRenderer.color = new Color(0, 1, 0, 0.8f);
-        }
-        else
+        PongTower pt;
+        if (!IsValidLocation(newPosition, currentTower.name)) //swapped to add extra check for pong tower, is now implicitly red else its green
         {
             currentTowerSpriteRenderer.color = new Color(1, 0, 0, 0.8f);
         }
+        else if(currentTower.TryGetComponent<PongTower>(out pt) && Vector3.Distance(currentTower.transform.position, currentRadius.transform.position) > pt.range)
+        {
+            currentTowerSpriteRenderer.color = new Color(1, 0, 0, 0.8f);
+        }
+        else
+        {
+            currentTowerSpriteRenderer.color = new Color(0, 1, 0, 0.8f);
+            
+        }
 
-        if (currentRadius)
+        if (currentRadius && (currentTower.TryGetComponent<PongTower>(out pt) && pt.other == null))
         {
             currentRadius.transform.position = newPosition;
         }
