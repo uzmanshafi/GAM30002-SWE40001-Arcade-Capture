@@ -97,5 +97,7 @@ public class PacmanTower : Tower
         ghostScript.SetExitPoint(exitPoint);
         ghostScript.SetWaypoints(waypoints.Points);
         ghostScript.SetStats(speed, damage);
+        ghost.SetActive(false);
+        gameManager.AddGhost(ghost);
     }
 }
