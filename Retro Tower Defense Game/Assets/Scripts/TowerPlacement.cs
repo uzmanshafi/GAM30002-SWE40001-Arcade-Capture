@@ -108,9 +108,16 @@ public class TowerPlacement : MonoBehaviour
             
         }
 
-        if (currentRadius && (currentTower.TryGetComponent<PongTower>(out pt) && pt.other == null))
+        if (currentRadius)
         {
-            currentRadius.transform.position = newPosition;
+            if (currentTower.TryGetComponent<PongTower>(out pt) && pt.other != null)
+            {
+
+            }
+            else
+            {
+                currentRadius.transform.position = newPosition;
+            }
         }
     }
 
