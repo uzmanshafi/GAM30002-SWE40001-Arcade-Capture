@@ -74,7 +74,7 @@ public class PacmanTower : Tower
 
     protected override void tryShoot()
     {
-        if (Time.time - lastShotTime > Random.Range(cooldown - 0.5f, cooldown + 0.5f ) && GameManager.instance.AllEnemies(true).Count != 0)
+        if (Time.time - lastShotTime > cooldown && GameManager.instance.AllEnemies(true).Count != 0)
         {
             if (isLevel1)
             {
@@ -97,5 +97,7 @@ public class PacmanTower : Tower
         ghostScript.SetExitPoint(exitPoint);
         ghostScript.SetWaypoints(waypoints.Points);
         ghostScript.SetStats(speed, damage);
+        ghost.SetActive(false);
+        gameManager.AddGhost(ghost);
     }
 }

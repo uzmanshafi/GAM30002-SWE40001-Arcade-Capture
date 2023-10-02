@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject towerMenu;
     public GameObject upgradeMenu;
+
+    public Slider starBar;
 
     private Tower selectedTower;
     
@@ -40,7 +43,7 @@ public class UIManager : MonoBehaviour
     //Should be working
      public void updateTextUi()
      {
-         starText.text = "Stars: " +  GameManager.instance.stars;
+         //starText.text = "Stars: " +  GameManager.instance.stars;
         moneyText.text = formatNumber(GameManager.instance.money);
          waveText.text = "Wave: "+ GameManager.instance.currentWave;
      }
@@ -48,7 +51,13 @@ public class UIManager : MonoBehaviour
      void Update()
      {
          updateTextUi();
+        updateStars();
      }
+
+    private void updateStars()
+    {
+        starBar.value = GameManager.instance.stars;
+    }
 
     // Initialises variables before the game starts
     void Awake()

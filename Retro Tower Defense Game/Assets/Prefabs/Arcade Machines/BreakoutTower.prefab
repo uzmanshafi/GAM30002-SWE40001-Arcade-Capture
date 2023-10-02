@@ -171,7 +171,7 @@ MonoBehaviour:
   bulletLifetime: 2
   target: {fileID: 0}
   towerRadius: 0
-  range: 2
+  range: 2.5
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
@@ -190,3 +190,4 @@ MonoBehaviour:
     description: The arcade's cooldown is reduced futher leading to lightning fast
       combos
   projectile_speed: 8
+  shoot: {fileID: 8300000, guid: 9a217e7c71553ad439f026d510863cd4, type: 3}

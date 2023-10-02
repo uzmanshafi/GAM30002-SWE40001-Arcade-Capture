@@ -171,7 +171,7 @@ MonoBehaviour:
   bulletLifetime: 2
   target: {fileID: 0}
   towerRadius: 0
-  range: 1
+  range: 0.5
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
@@ -189,3 +189,4 @@ MonoBehaviour:
     cost: 50
     description: Calls in 3 asteroids to coverge on your target
   asteroidSpeed: 10
+  shoot: {fileID: 8300000, guid: 8153d434cd808d74994ee42843973c73, type: 3}

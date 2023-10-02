@@ -171,13 +171,14 @@ MonoBehaviour:
   bulletLifetime: 2
   target: {fileID: 0}
   towerRadius: 0
-  range: 3
+  range: 1.5
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
   bulletTypes:
   - {fileID: 2396885586352238776, guid: 221bdd90329558b4492adce3c9f3e450, type: 3}
   controlColour: 
+  upgrades: []
   level1ProjectileSpeed: 0.4
   level1AngleIncrement: 40
   level2ProjectileSpeed: 7
@@ -187,3 +188,4 @@ MonoBehaviour:
   isLevel1: 1
   isLevel2: 0
   isLevel3: 0
+  shoot: {fileID: 8300000, guid: 2350e5c25ef81ee4795ba56215d8a538, type: 3}

@@ -10,6 +10,7 @@ public class BreakoutProjectile : Projectile
 {
     // This is how many enemies it can hit before it is destroyed
     [SerializeField] private int pierce;
+    [SerializeField] private AudioClip rebound;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +54,7 @@ public class BreakoutProjectile : Projectile
             if (this.canSeeCamo || !e.IsCamo) {
                 e.TakeDamage(damage);
                 pierce--;
+                AudioSource.PlayClipAtPoint(rebound, transform.position);
                 if (pierce < 0)
                 {
                     Destroy(gameObject);
