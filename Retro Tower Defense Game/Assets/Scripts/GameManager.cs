@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public float stars = 5;
+    public float stars = 10;
     public int money = 500;
     public int currentWave = 0;
 
