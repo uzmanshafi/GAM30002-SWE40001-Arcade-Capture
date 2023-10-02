@@ -70,6 +70,7 @@ MonoBehaviour:
     cost: 0
     description: 
   projectile_speed: 4
+  shoot: {fileID: 8300000, guid: eae028ee04e25814eb6c4b9774d5363c, type: 3}
 --- !u!60 &264820729999802671
 PolygonCollider2D:
   m_ObjectHideFlags: 0

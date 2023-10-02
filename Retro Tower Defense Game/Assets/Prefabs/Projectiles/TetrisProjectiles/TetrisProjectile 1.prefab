@@ -51,6 +51,7 @@ MonoBehaviour:
   damage: 1
   target: {fileID: 0}
   owner: {fileID: 0}
+  hit: {fileID: 8300000, guid: 9e09c77e8cc6e3642aa2764f3096dca2, type: 3}
 --- !u!50 &4450941752590524299
 Rigidbody2D:
   serializedVersion: 4

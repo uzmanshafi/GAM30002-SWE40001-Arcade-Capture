@@ -23,6 +23,7 @@ public class DonpachiTower : Tower
     private float projectileSpeed;
     private float angleIncrement;
     private Wave wave;
+    [SerializeField] private AudioClip shoot;
 
     void OnValidate()
     {
@@ -85,6 +86,7 @@ public class DonpachiTower : Tower
     {
         if (Time.time - lastShotTime > cooldown)
         {
+            AudioSource.PlayClipAtPoint(shoot, transform.position);
             if (isLevel1)
             {
                 Level1Shoot();

@@ -15,6 +15,7 @@ public class GhostProjectiles : Projectile
     private float ghostDamage = 1.0f;
 
     private Rigidbody2D rb;
+    [SerializeField] private AudioClip die;
 
     private void Awake()
     {
@@ -126,6 +127,7 @@ public class GhostProjectiles : Projectile
             if (this.canSeeCamo || !e.IsCamo)
             {
                 e.TakeDamage(damage);
+                AudioSource.PlayClipAtPoint(die, transform.position);
                 Destroy(gameObject);  // Destroy the ghost upon collision
             }
         }
