@@ -971,7 +971,7 @@ GameObject:
   - component: {fileID: 244910403}
   - component: {fileID: 244910402}
   m_Layer: 5
-  m_Name: Button (7)
+  m_Name: spaceinvadersTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4828142b62eebd941987f12557ead3fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ebaa34b0c4f2c1949983b08e6be002f8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1570,7 +1570,7 @@ GameObject:
   - component: {fileID: 308633319}
   - component: {fileID: 308633318}
   m_Layer: 5
-  m_Name: Button (10)
+  m_Name: staffTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1660,7 +1660,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4828142b62eebd941987f12557ead3fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb98ad7e7129d1e42a31504613c475b4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1825,7 +1825,7 @@ GameObject:
   - component: {fileID: 485177797}
   - component: {fileID: 485177796}
   m_Layer: 5
-  m_Name: Text (TMP) (7)
+  m_Name: SpaceInvaders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1848,7 +1848,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 81, y: -204.19995}
+  m_AnchoredPosition: {x: 81, y: -201}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &485177796
@@ -1871,7 +1871,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ??
+  m_text: 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
   m_sharedMaterial: {fileID: -5202902379756829420, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
@@ -5923,7 +5923,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ??
+  m_text: 80
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
   m_sharedMaterial: {fileID: -5202902379756829420, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
@@ -6012,7 +6012,7 @@ GameObject:
   - component: {fileID: 969801621}
   - component: {fileID: 969801620}
   m_Layer: 5
-  m_Name: Text (TMP) (8)
+  m_Name: SF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6058,7 +6058,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ??
+  m_text: 20
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
   m_sharedMaterial: {fileID: -5202902379756829420, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
@@ -8338,7 +8338,7 @@ GameObject:
   - component: {fileID: 1109211005}
   - component: {fileID: 1109211004}
   m_Layer: 5
-  m_Name: Button (8)
+  m_Name: streetfighterTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8428,7 +8428,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4828142b62eebd941987f12557ead3fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 714ee2f93378c944fbbb8405cd318bb4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8458,7 +8458,7 @@ GameObject:
   - component: {fileID: 1117018430}
   - component: {fileID: 1117018429}
   m_Layer: 5
-  m_Name: Text (TMP) (9)
+  m_Name: Power
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8504,7 +8504,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ??
+  m_text: 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
   m_sharedMaterial: {fileID: -5202902379756829420, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
@@ -8759,7 +8759,7 @@ GameObject:
   - component: {fileID: 1235245466}
   - component: {fileID: 1235245465}
   m_Layer: 5
-  m_Name: Text (TMP) (10)
+  m_Name: Staff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8805,7 +8805,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ??
+  m_text: 30
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
   m_sharedMaterial: {fileID: -5202902379756829420, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
@@ -9017,7 +9017,7 @@ GameObject:
   - component: {fileID: 1407491689}
   - component: {fileID: 1407491688}
   m_Layer: 5
-  m_Name: Button (9)
+  m_Name: powerpointTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9107,7 +9107,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4828142b62eebd941987f12557ead3fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 53565eda7a111964f807f16169dece14, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9486,7 +9486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -47.6, y: -204.19995}
+  m_AnchoredPosition: {x: -47.6, y: -201}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1464645419
@@ -9509,7 +9509,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ??
+  m_text: 90
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
   m_sharedMaterial: {fileID: -5202902379756829420, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}

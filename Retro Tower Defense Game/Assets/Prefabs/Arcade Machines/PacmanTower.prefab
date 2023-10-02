@@ -165,13 +165,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bbd94dcdb2bf7c438c15efd976dade9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 10
+  cost: 90
   cooldown: 1
   damage: 1
   bulletLifetime: 0
   target: {fileID: 0}
   towerRadius: 0
-  range: 5
+  range: 3
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}

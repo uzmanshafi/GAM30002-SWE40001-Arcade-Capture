@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add001ca95d9b57479d4ba147f123877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 40
+  cost: 50
   cooldown: 1
   damage: 1
   bulletLifetime: 0
