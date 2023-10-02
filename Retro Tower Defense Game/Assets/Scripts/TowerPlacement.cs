@@ -12,6 +12,8 @@ public class TowerPlacement : MonoBehaviour
     public GameObject radiusPrefab;
     private GameObject currentTower;
     private GameObject currentRadius;
+
+    UIManager uiManager;
     private SpriteRenderer currentTowerSpriteRenderer;
     private float lastClickTime = 0;
     private float catchTime = 0.25f;
@@ -23,6 +25,7 @@ public class TowerPlacement : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.instance;
+        uiManager = UIManager.instance;
     }
 
     void Update()
@@ -53,10 +56,13 @@ public class TowerPlacement : MonoBehaviour
                 currentTower.transform.Rotate(0, 0, -45);
             }
         }
-        else if (Input.GetMouseButtonDown(0))
+        
+        if (Input.GetMouseButtonDown(0))
         {
-            AttemptPickupTower(mouseWorldPos);
+            AttemptSelectTower(mouseWorldPos);
+
         }
+
     }
 
     private Vector3 GetMouseWorldPosition()
@@ -179,28 +185,33 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-
-    private void AttemptPickupTower(Vector3 position)
+    private void AttemptSelectTower(Vector3 position)
     {
         int layerMask = 1 << LayerMask.NameToLayer("Tower");
         Collider2D hitCollider = Physics2D.OverlapPoint(position, layerMask);
         if (hitCollider != null && hitCollider.gameObject.CompareTag("ArcadeTower"))
         {
-            if (Time.time - lastClickTime < catchTime)
+
+            Tower towerScript = hitCollider.gameObject.GetComponent<Tower>();
+            Debug.Log("TowerScript: " + towerScript);
+            if (towerScript != null)
             {
-                Tower towerScript = hitCollider.gameObject.GetComponent<Tower>();
-                if (towerScript != null)
-                {
-                    gameManager.RemoveTower(towerScript);
-                }
-                gameManager.money += (int)(towerScript.cost * 0.80f);
-                Destroy(hitCollider.gameObject);
+                uiManager.selectTower(towerScript);
+                Tower shootScript = currentTower.GetComponent<Tower>();
+                shootScript.enabled = false;
+
+                currentRadius = Instantiate(radiusPrefab, currentTower.transform);
+                UpdateRadiusDisplay(shootScript.range);
             }
             else
             {
-                lastClickTime = Time.time;
+                uiManager.deselectTower();
+                keepTowerRadiusOn = false;
+                Destroy(currentRadius);
+                currentRadius = null;
             }
         }
+
     }
 
     private void UpdateRadiusDisplay(float range)
