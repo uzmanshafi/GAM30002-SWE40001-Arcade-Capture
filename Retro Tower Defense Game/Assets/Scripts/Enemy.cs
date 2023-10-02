@@ -139,7 +139,7 @@ public class Enemy : MonoBehaviour
     {
 
         GM.AllEnemies(true).Remove(this);
-        GM.stars -= 0.5f;
+        GM.stars -= 1f;
         Destroy(gameObject);
     }
 }
