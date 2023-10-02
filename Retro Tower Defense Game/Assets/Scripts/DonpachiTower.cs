@@ -74,11 +74,7 @@ public class DonpachiTower : Tower
     {
         if (wave.waveInProgress)
         {
-            Enemy possibleEnemy = furthestTarget();
-            if (possibleEnemy != null)
-            {
                 tryShoot();
-            }
         }
     }
 

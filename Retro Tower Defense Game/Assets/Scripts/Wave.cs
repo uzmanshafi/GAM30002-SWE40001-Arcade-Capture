@@ -8,31 +8,28 @@ public class Wave : MonoBehaviour
 {
     [SerializeField] private string[] waveFileNames;
     [SerializeField] public GameObject[] enemyList;
-
     private SortedDictionary<float, WaveBatch> waveBatches = new SortedDictionary<float, WaveBatch>();
-
     private float timeSinceLastEnemy;
     private float waveTime;
     private int batchIndex = 0;
     private int waveIndex = 0;
-
     public bool waveInProgress = false;  // New flag to indicate if wave is in progress
-
     private GameManager gameManager;
     private Vector2 start;
-
     private bool waveLoaded = false;
-
     public bool waveEnded = true;
+
+    private List<GameObject> spawnedEnemiesThisWave = new List<GameObject>();
+
 
     void Start()
     { //All just for testing
 
         gameManager = GameManager.instance;
         start = gameManager.GetComponent<Waypoints>().Points[0];
+
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (waveInProgress)
@@ -41,21 +38,24 @@ public class Wave : MonoBehaviour
 
             if (waveBatches.Count > 0 && waveTime > waveBatches.First().Key)
             {
-
                 waveEnded = false;
 
                 if (Input.GetKeyDown(KeyCode.Alpha0)) //for testing purposes, delete before final build
                 {
                     startWave();
                 }
+
                 KeyValuePair<float, WaveBatch> kvp = waveBatches.First();
+
                 if (Time.time - timeSinceLastEnemy > kvp.Value.enemyCooldown)
                 {
                     GameObject enemy = Instantiate(kvp.Value.Enemies[batchIndex], start, Quaternion.identity);
                     gameManager.AllEnemies(true).Add(enemy.GetComponent<Enemy>());
+                    spawnedEnemiesThisWave.Add(enemy); 
                     batchIndex++;
                     timeSinceLastEnemy = Time.time;
                 }
+
                 if (batchIndex >= kvp.Value.Enemies.Length)
                 {
                     waveBatches.Remove(kvp.Key);
@@ -67,13 +67,20 @@ public class Wave : MonoBehaviour
                 timeSinceLastEnemy = 0f;
             }
 
-            if (waveBatches.Count <= 0)
+            if (waveBatches.Count <= 0 && AllEnemiesDestroyed())
             {
                 waveLoaded = false;
                 waveInProgress = false;
                 waveEnded = true;
+                spawnedEnemiesThisWave.Clear();
             }
         }
+    }
+
+
+    private bool AllEnemiesDestroyed()
+    {
+        return spawnedEnemiesThisWave.All(e => e == null);
     }
 
     public void loadFromFile(string fileName)
@@ -131,6 +138,4 @@ public class Wave : MonoBehaviour
             waveInProgress = true;
         }
     }
-
-
 }
