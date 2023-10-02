@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.PlayerLoop;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class UIManager : MonoBehaviour
     public GameObject towerMenu;
     public GameObject upgradeMenu;
 
+    private GameObject currentRadius;
+    public GameObject radiusPrefab;
+
+    private float scaleFactor = 0.5f;
     private Tower selectedTower;
     
     public void sellSelectedTower()
@@ -29,6 +34,10 @@ public class UIManager : MonoBehaviour
         selectedTower = t;
         towerMenu.SetActive(false);
         upgradeMenu.SetActive(true);
+
+        //show radius here
+        t.range = Instantiate(radiusPrefab, t.transform).GetComponent<CircleCollider2D>().radius;
+        UpdateRadiusDisplay(t.range);
     }
 
     public void deselectTower()
@@ -48,6 +57,24 @@ public class UIManager : MonoBehaviour
      void Update()
      {
          updateTextUi();
+
+        bool selected = false;
+
+         foreach (var tower in GameManager.instance.AllTowers)
+         {
+            Vector2 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
+            if (Math.Pow(tower.radius, 2) <= (mousepos - (Vector2)tower.transform.position).sqrMagnitude) {
+                //Collision
+                selected = true;
+                selectTower(tower);
+                break;
+            } 
+         }
+
+         if (!selected) {
+            deselectTower();
+         }
      }
 
     // Initialises variables before the game starts
@@ -71,6 +98,12 @@ public class UIManager : MonoBehaviour
             return (num / 1000).ToString("0.#") + "K";
 
         return num.ToString("#,0");
+    }
+
+    private void UpdateRadiusDisplay(float range)
+    {
+        float desiredRadius = range * scaleFactor;
+        currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
     }
 
 }
