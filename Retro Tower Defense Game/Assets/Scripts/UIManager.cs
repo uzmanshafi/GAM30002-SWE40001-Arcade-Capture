@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,10 +18,6 @@ public class UIManager : MonoBehaviour
 
     public Slider starBar;
 
-    private GameObject currentRadius;
-    public GameObject radiusPrefab;
-
-    private float scaleFactor = 0.5f;
     private Tower selectedTower;
     
     public void sellSelectedTower()
@@ -35,10 +32,6 @@ public class UIManager : MonoBehaviour
         selectedTower = t;
         towerMenu.SetActive(false);
         upgradeMenu.SetActive(true);
-
-        //show radius here
-        t.range = Instantiate(radiusPrefab, t.transform).GetComponent<CircleCollider2D>().radius;
-        UpdateRadiusDisplay(t.range);
     }
 
     public void deselectTower()
@@ -52,7 +45,7 @@ public class UIManager : MonoBehaviour
      {
          //starText.text = "Stars: " +  GameManager.instance.stars;
         moneyText.text = formatNumber(GameManager.instance.money);
-         waveText.text = "Wave: "+ GameManager.instance.currentWave;
+        waveText.text = "Wave: "+ GameManager.instance.currentWave;
      }
 
      void Update()
@@ -83,10 +76,5 @@ public class UIManager : MonoBehaviour
         return num.ToString("#,0");
     }
 
-    private void UpdateRadiusDisplay(float range)
-    {
-        float desiredRadius = range * scaleFactor;
-        currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
-    }
 
 }

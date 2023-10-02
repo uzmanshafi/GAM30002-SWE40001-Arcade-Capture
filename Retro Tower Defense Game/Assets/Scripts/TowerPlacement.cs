@@ -8,19 +8,14 @@ public class TowerPlacement : MonoBehaviour
     public Tilemap pathTilemap;
     public Tilemap wallTilemap;
     public Collider2D wallCollider;
-
     public GameObject radiusPrefab;
     private GameObject currentTower;
     private GameObject currentRadius;
-
     UIManager uiManager;
     private SpriteRenderer currentTowerSpriteRenderer;
-    private float lastClickTime = 0;
-    private float catchTime = 0.25f;
     GameManager gameManager;
     private float scaleFactor = 0.5f;
 
-    [SerializeField] private bool keepTowerRadiusOn = false; //used to keep radius on when placing (just for testing remove in final build)
 
     void Start()
     {
@@ -56,7 +51,7 @@ public class TowerPlacement : MonoBehaviour
                 currentTower.transform.Rotate(0, 0, -45);
             }
         }
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             AttemptSelectTower(mouseWorldPos);
@@ -104,14 +99,14 @@ public class TowerPlacement : MonoBehaviour
         {
             currentTowerSpriteRenderer.color = new Color(1, 0, 0, 0.8f);
         }
-        else if(currentTower.TryGetComponent<PongTower>(out pt) && Vector3.Distance(currentTower.transform.position, currentRadius.transform.position) > pt.range)
+        else if (currentTower.TryGetComponent<PongTower>(out pt) && Vector3.Distance(currentTower.transform.position, currentRadius.transform.position) > pt.range)
         {
             currentTowerSpriteRenderer.color = new Color(1, 0, 0, 0.8f);
         }
         else
         {
             currentTowerSpriteRenderer.color = new Color(0, 1, 0, 0.8f);
-            
+
         }
 
         if (currentRadius)
@@ -126,10 +121,10 @@ public class TowerPlacement : MonoBehaviour
             }
         }
     }
-
     private void DropTower()
     {
         Tower shootScript = currentTower.GetComponent<Tower>();
+
         if (currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other == null)
         {
             if (!gameManager.AllTowers.Contains(shootScript))
@@ -159,11 +154,7 @@ public class TowerPlacement : MonoBehaviour
                 currentTowerSpriteRenderer.color = Color.white;
                 currentTower = null;
                 currentTowerSpriteRenderer = null;
-                if (!keepTowerRadiusOn && currentRadius)
-                {
-                    Destroy(currentRadius);
-                    currentRadius = null;
-                }
+                DestroyCurrentRadius();
             }
         }
         else
@@ -177,42 +168,46 @@ public class TowerPlacement : MonoBehaviour
             currentTowerSpriteRenderer.color = Color.white;
             currentTower = null;
             currentTowerSpriteRenderer = null;
-            if (!keepTowerRadiusOn && currentRadius)
-            {
-                Destroy(currentRadius);
-                currentRadius = null;
-            }
+            DestroyCurrentRadius();
         }
     }
+
 
     private void AttemptSelectTower(Vector3 position)
     {
         int layerMask = 1 << LayerMask.NameToLayer("Tower");
         Collider2D hitCollider = Physics2D.OverlapPoint(position, layerMask);
+
         if (hitCollider != null && hitCollider.gameObject.CompareTag("ArcadeTower"))
         {
-
             Tower towerScript = hitCollider.gameObject.GetComponent<Tower>();
-            Debug.Log("TowerScript: " + towerScript);
             if (towerScript != null)
             {
                 uiManager.selectTower(towerScript);
-                Tower shootScript = currentTower.GetComponent<Tower>();
-                shootScript.enabled = false;
-
-                currentRadius = Instantiate(radiusPrefab, currentTower.transform);
-                UpdateRadiusDisplay(shootScript.range);
-            }
-            else
-            {
-                uiManager.deselectTower();
-                keepTowerRadiusOn = false;
-                Destroy(currentRadius);
-                currentRadius = null;
+                ShowRadiusForSelectedTower(towerScript);
             }
         }
-
+        else
+        {
+            uiManager.deselectTower();
+            DestroyCurrentRadius();
+        }
     }
+
+
+    private void ShowRadiusForSelectedTower(Tower tower)
+    {
+        if (currentRadius) // Checks if a radius is already being displayed
+        {
+            Destroy(currentRadius);
+        }
+
+        currentRadius = Instantiate(radiusPrefab, tower.transform.position, Quaternion.identity);
+        currentRadius.transform.SetParent(tower.transform); // Set the tower as the parent of the radius
+        float desiredRadius = tower.range * scaleFactor;
+        currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
+    }
+
 
     private void UpdateRadiusDisplay(float range)
     {
@@ -220,23 +215,28 @@ public class TowerPlacement : MonoBehaviour
         currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
     }
 
+    private void DestroyCurrentRadius()
+    {
+        if (currentRadius)
+        {
+            Destroy(currentRadius);
+            currentRadius = null;
+        }
+    }
 
     private bool IsValidLocation(Vector3 location, string towerName)
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(location);
-
 
         if (!groundTilemap.HasTile(cellPosition))
         {
             return false;
         }
 
-
         if (pathTilemap.HasTile(cellPosition))
         {
             return false;
         }
-
 
         Collider2D[] overlaps = Physics2D.OverlapBoxAll(location, currentTowerSpriteRenderer.bounds.size, 0);
         foreach (var overlap in overlaps)
@@ -247,7 +247,6 @@ public class TowerPlacement : MonoBehaviour
             }
         }
 
-        // Additional check for SpaceInvadersTower due to its larger BoxCollider2D
         if (towerName.Equals("SpaceInvadersTower"))
         {
             Collider2D[] towerOverlaps = Physics2D.OverlapBoxAll(location, currentTower.GetComponent<BoxCollider2D>().size, 0);
@@ -260,16 +259,12 @@ public class TowerPlacement : MonoBehaviour
             }
         }
 
-        // Gets the tower's collider
         Collider2D towerCollider = currentTower.GetComponent<Collider2D>();
 
-        // Creates an array to store results
         Collider2D[] results = new Collider2D[10];
 
-        // Checks for overlaps
         int numResults = towerCollider.OverlapCollider(new ContactFilter2D(), results);
 
-        // Loops through results to see if any are tagged as "PathTilemap"
         for (int i = 0; i < numResults; i++)
         {
             if (results[i].gameObject.CompareTag("PathTilemap"))
