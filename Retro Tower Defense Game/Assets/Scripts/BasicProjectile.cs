@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BasicProjectile : Projectile
 {
+    [SerializeField] private AudioClip? hit;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,10 @@ public class BasicProjectile : Projectile
         {
             if (this.canSeeCamo || !e.IsCamo) {
                 e.TakeDamage(damage);
+                if (hit != null)
+                {
+                    AudioSource.PlayClipAtPoint(hit, transform.position);
+                }
                 Destroy(gameObject);
             }
         }

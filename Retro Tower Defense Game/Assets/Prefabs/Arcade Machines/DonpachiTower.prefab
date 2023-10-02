@@ -188,3 +188,4 @@ MonoBehaviour:
   isLevel1: 1
   isLevel2: 0
   isLevel3: 0
+  shoot: {fileID: 8300000, guid: 2350e5c25ef81ee4795ba56215d8a538, type: 3}

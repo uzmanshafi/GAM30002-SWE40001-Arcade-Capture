@@ -190,3 +190,4 @@ MonoBehaviour:
     description: The arcade's cooldown is reduced futher leading to lightning fast
       combos
   projectile_speed: 8
+  shoot: {fileID: 8300000, guid: 9a217e7c71553ad439f026d510863cd4, type: 3}

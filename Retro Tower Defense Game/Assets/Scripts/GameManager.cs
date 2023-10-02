@@ -10,12 +10,18 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public float stars = 5;
+    public float stars = 10;
     public int money = 500;
     public int currentWave = 0;
 
+    [SerializeField] private AudioSource ghostAmbient;
+    [SerializeField] private AudioSource wakaWaka;
+
     private List<Enemy> _allEnemies = new List<Enemy>();
     private List<Tower> _allTowers = new List<Tower>();
+    private List<GameObject> _allGhosts = new List<GameObject>();
+
+    private float timeSinceLastGhost = 0;
 
     public List<Enemy> AllEnemies(bool canSeeCamo) {
         if (canSeeCamo == true) {
@@ -25,6 +31,11 @@ public class GameManager : MonoBehaviour
         }
     }
     public List<Tower> AllTowers => _allTowers;
+
+    public void AddGhost(GameObject ghost)
+    {
+        _allGhosts.Add(ghost);
+    }
 
 
     private void Awake()
@@ -50,6 +61,22 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         applyBuffs();
+        timeSinceLastGhost -= Time.deltaTime;
+        if (_allGhosts.Count > 0 && timeSinceLastGhost <= 0)
+        {
+            _allGhosts[0].SetActive(true);
+            _allGhosts.RemoveAt(0);
+            timeSinceLastGhost = 0.15f;
+        }
+        GhostProjectiles[] ghosts = FindObjectsOfType(typeof(GhostProjectiles)) as GhostProjectiles[];
+        if (ghosts.Length > 0)
+        {
+            ghostAmbient.mute = false;
+        }
+        else
+        {
+            ghostAmbient.mute = true;
+        }
     }
 
     public void RemoveTower(Tower tower)

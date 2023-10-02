@@ -5,6 +5,7 @@ using static Utils;
 public class PredictiveTower : Tower
 {
     [SerializeField] private float projectile_speed;
+    [SerializeField] private AudioClip shoot;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,8 +24,8 @@ public class PredictiveTower : Tower
         if (Time.time - lastShotTime > cooldown && target != null)
         {
             Vector2? dir = aimPrediction(projectile_speed, target, (Vector2)transform.position, range);
-            
-            
+
+            AudioSource.PlayClipAtPoint(shoot, transform.position);
             GameObject bullet = Instantiate(bulletTypes[0], transform.position /*+ dir*/, Quaternion.identity);
             
             Rigidbody2D projectileRB = bullet.GetComponent<Rigidbody2D>();

@@ -6,6 +6,7 @@ public class TetrisProjectile : Projectile
 {
 
     public TetrisTower owner; // This is instantiated on creation
+    [SerializeField] private AudioClip hit;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,7 @@ public class TetrisProjectile : Projectile
         {
             if (this.canSeeCamo || !e.IsCamo) {
                 float damageMultiplier = owner.enemyHitEvent(e);
-
+                AudioSource.PlayClipAtPoint(hit, transform.position);
                 e.TakeDamage(damage * damageMultiplier);
                 Destroy(gameObject);
             }

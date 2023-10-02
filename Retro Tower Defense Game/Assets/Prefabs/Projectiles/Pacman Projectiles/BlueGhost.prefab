@@ -196,3 +196,13 @@ MonoBehaviour:
   speed: 2
   damage: 1
   target: {fileID: 0}
+  sprites:
+  - {fileID: 1691102756, guid: 55fa3ace591a5ec489179d320e481e0d, type: 3}
+  - {fileID: -944776436, guid: 55fa3ace591a5ec489179d320e481e0d, type: 3}
+  - {fileID: 1207868485, guid: 55fa3ace591a5ec489179d320e481e0d, type: 3}
+  - {fileID: -1627683406, guid: 55fa3ace591a5ec489179d320e481e0d, type: 3}
+  - {fileID: 1130040247, guid: 55fa3ace591a5ec489179d320e481e0d, type: 3}
+  - {fileID: 1208829853, guid: 55fa3ace591a5ec489179d320e481e0d, type: 3}
+  - {fileID: -1594264756, guid: 55fa3ace591a5ec489179d320e481e0d, type: 3}
+  - {fileID: -2103847571, guid: 55fa3ace591a5ec489179d320e481e0d, type: 3}
+  die: {fileID: 8300000, guid: 20d599099aa8de0439985291b8cf7991, type: 3}

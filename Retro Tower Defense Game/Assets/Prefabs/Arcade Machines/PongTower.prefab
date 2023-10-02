@@ -183,3 +183,5 @@ MonoBehaviour:
   other: {fileID: 0}
   shotRB: {fileID: 0}
   pongOrder: 0
+  pongPaddlePrefab: {fileID: 6084772739986610346, guid: 3296c32ad7ead3642a36d7ad24ec9fe6, type: 3}
+  shoot: {fileID: 8300000, guid: 90d160172f515774aa95bc4f4906fa10, type: 3}
