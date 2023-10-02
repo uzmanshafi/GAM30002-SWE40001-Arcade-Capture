@@ -205,3 +205,4 @@ MonoBehaviour:
   - {fileID: 1398022929, guid: 998d04a9ac2ab434daf52f0764c21398, type: 3}
   - {fileID: 286000852, guid: 998d04a9ac2ab434daf52f0764c21398, type: 3}
   - {fileID: -1563768718, guid: 998d04a9ac2ab434daf52f0764c21398, type: 3}
+  die: {fileID: 8300000, guid: 20d599099aa8de0439985291b8cf7991, type: 3}

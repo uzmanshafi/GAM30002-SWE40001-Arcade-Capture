@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         {
             _allGhosts[0].SetActive(true);
             _allGhosts.RemoveAt(0);
-            timeSinceLastGhost = 0.25f;
+            timeSinceLastGhost = 0.15f;
         }
         GhostProjectiles[] ghosts = FindObjectsOfType(typeof(GhostProjectiles)) as GhostProjectiles[];
         if (ghosts.Length > 0)

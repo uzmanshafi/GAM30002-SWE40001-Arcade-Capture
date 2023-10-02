@@ -5,6 +5,7 @@ public class SpaceInvadersTower : Tower
 {
     [SerializeField] private GameObject shipPrefab;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private AudioClip shoot;
     private GameObject spawnedShip;
     private float movementSpeed = 1.0f;
     private Vector2 leftBoundary;
@@ -124,6 +125,7 @@ public class SpaceInvadersTower : Tower
         Debug.Log("Bullet firing initiated.");
         while (isShooting)
         {
+            AudioSource.PlayClipAtPoint(shoot, transform.position);
             GameObject bullet = Instantiate(bulletPrefab, spawnedShip.transform.position, Quaternion.identity);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.velocity = Vector2.up * 5;

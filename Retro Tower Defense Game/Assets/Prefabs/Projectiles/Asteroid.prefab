@@ -196,3 +196,4 @@ MonoBehaviour:
   speed: 8
   damage: 1
   target: {fileID: 0}
+  hit: {fileID: 8300000, guid: daac3e7e1a022ef4689cecf1f9ea4e9a, type: 3}

@@ -15,6 +15,7 @@ public class TetrisTower : Tower
 
 	private Enemy? lastEnemyHit;
 	private int hitCount;
+	[SerializeField] private AudioClip shoot;
 
 	/*
 	Hits 	|	Damage Multiplier:
@@ -52,6 +53,7 @@ public class TetrisTower : Tower
 			Vector2? dir = aimPrediction(projectile.speed, target, (Vector2)transform.position, range);
 			if (dir is Vector2 _dir)
 			{
+				AudioSource.PlayClipAtPoint(shoot, transform.position);
 				GameObject bullet = Instantiate(bulletTypes[bulletType], transform.position /*+ dir*/, Quaternion.identity);
 				projectile = bullet.GetComponent<TetrisProjectile>();
 				projectile.owner = this;

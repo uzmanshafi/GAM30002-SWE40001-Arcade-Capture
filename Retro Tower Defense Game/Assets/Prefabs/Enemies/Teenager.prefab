@@ -154,6 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 3
   MaxHP: 3
+  die: {fileID: 8300000, guid: 2ac730ce33b355c40b3f85e4c8a53fc6, type: 3}
+  coinplosion: {fileID: 4880057614578870547, guid: 310ae38ca4812ba4e927e5f35bdce2be, type: 3}
   moneyOnKill: 3
   moneyText: {fileID: 5660431514969612783, guid: e2a284bea1015024aaed48df25ac7b95, type: 3}
 --- !u!70 &-2395603997519067798

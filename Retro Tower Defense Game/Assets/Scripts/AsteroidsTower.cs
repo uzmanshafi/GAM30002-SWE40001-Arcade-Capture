@@ -5,6 +5,7 @@ using UnityEngine;
 public class AsteroidsTower : Tower
 {
     [SerializeField] private float asteroidSpeed;
+    [SerializeField] private AudioClip shoot;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +50,7 @@ public class AsteroidsTower : Tower
             spawnX = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.x)).x, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.x + Screen.width)).x);
         }*/
 
-
+        AudioSource.PlayClipAtPoint(shoot, transform.position);
         GameObject asteroid = Instantiate(bulletTypes[0], transform.position, Quaternion.identity);
         Vector2 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - asteroid.transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x);
