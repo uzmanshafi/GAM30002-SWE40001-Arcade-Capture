@@ -179,19 +179,12 @@ MonoBehaviour:
   controlColour: 
   upgradeLevel: 0
   upgrades: []
-  projectileSpeed: 5
-  angleIncrement: 10
-  level1ProjectileSpeed: 0.4
-  level1AngleIncrement: 40
-  level2ProjectileSpeed: 7
-  level2AngleIncrement: 15
-  level3ProjectileSpeed: 10
-  level3AngleIncrement: 20
   ProjectileSpeedUpgrades:
   - 0.4
-  - 7
-  - 10
+  - 0.8
+  - 1.2
   AngleIncrementUpgrades:
-  - 40
+  - 10
   - 15
   - 20
+  shootAudioClip: {fileID: 0}
