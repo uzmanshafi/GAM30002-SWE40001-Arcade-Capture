@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4462670486568380753}
   - component: {fileID: 2475031915224371012}
   - component: {fileID: 4555808692913621884}
-  - component: {fileID: -3146415686745795541}
+  - component: {fileID: -4935823843716317557}
   m_Layer: 6
-  m_Name: DonpachiTower
+  m_Name: Astroids
   m_TagString: ArcadeTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8e6faed9564793448bf6fd0287d38be7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d45c2e5c042eb6a458f94de0265fa47c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -153,7 +153,7 @@ PolygonCollider2D:
       - {x: 0.09060669, y: 0.069744885}
       - {x: 0.08034202, y: 0.071562015}
   m_UseDelaunayMesh: 0
---- !u!114 &-3146415686745795541
+--- !u!114 &-4935823843716317557
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,30 +162,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 8076282756041783590}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd0cd23d559cf6645acbdc61eaa3eded, type: 3}
+  m_Script: {fileID: 11500000, guid: d04eea259fe847d4982fe23dc5a2f608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 80
-  cooldown: 0.3
-  damage: 0.5
+  cost: 40
+  cooldown: 1
+  damage: 1
   bulletLifetime: 2
   target: {fileID: 0}
   towerRadius: 0
-  range: 1.5
+  range: 0.5
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
   bulletTypes:
-  - {fileID: 2396885586352238776, guid: 221bdd90329558b4492adce3c9f3e450, type: 3}
-  controlColour: 
-  upgrades: []
-  level1ProjectileSpeed: 0.4
-  level1AngleIncrement: 40
-  level2ProjectileSpeed: 7
-  level2AngleIncrement: 15
-  level3ProjectileSpeed: 10
-  level3AngleIncrement: 20
-  isLevel1: 1
-  isLevel2: 0
-  isLevel3: 0
-  shoot: {fileID: 8300000, guid: 2350e5c25ef81ee4795ba56215d8a538, type: 3}
+  - {fileID: 6310525875718958529, guid: e72588c0033c0714e9506fd876da0b62, type: 3}
+  controlColour: Red
+  upgradeLevel: 0
+  upgrades:
+  - upgradeLevel: 0
+    cost: 0
+    description: An arcade that calls in an astroid from space to strike your target
+  - upgradeLevel: 0
+    cost: 40
+    description: Calls in 2 asteroids to coverge on your target
+  - upgradeLevel: 0
+    cost: 50
+    description: Calls in 3 asteroids to coverge on your target
+  asteroidSpeed: 10
+  shoot: {fileID: 8300000, guid: 8153d434cd808d74994ee42843973c73, type: 3}

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4462670486568380753}
   - component: {fileID: 2475031915224371012}
   - component: {fileID: 4555808692913621884}
-  - component: {fileID: -4935823843716317557}
+  - component: {fileID: -4440789723976973285}
   m_Layer: 6
-  m_Name: AstroidTower
+  m_Name: Pacman
   m_TagString: ArcadeTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d45c2e5c042eb6a458f94de0265fa47c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0158f3919f22a5547a429fcdf3d7e464, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -153,7 +153,7 @@ PolygonCollider2D:
       - {x: 0.09060669, y: 0.069744885}
       - {x: 0.08034202, y: 0.071562015}
   m_UseDelaunayMesh: 0
---- !u!114 &-4935823843716317557
+--- !u!114 &-4440789723976973285
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,31 +162,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 8076282756041783590}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d04eea259fe847d4982fe23dc5a2f608, type: 3}
+  m_Script: {fileID: 11500000, guid: 9bbd94dcdb2bf7c438c15efd976dade9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 40
+  cost: 90
   cooldown: 1
   damage: 1
-  bulletLifetime: 2
+  bulletLifetime: 0
   target: {fileID: 0}
   towerRadius: 0
-  range: 0.5
+  range: 3
   radius: 0
   radiusDisplay: {fileID: 0}
   mesh: {fileID: 0}
   bulletTypes:
-  - {fileID: 6310525875718958529, guid: e72588c0033c0714e9506fd876da0b62, type: 3}
-  controlColour: Red
-  upgrades:
-  - upgradeLevel: 0
-    cost: 0
-    description: An arcade that calls in an astroid from space to strike your target
-  - upgradeLevel: 0
-    cost: 40
-    description: Calls in 2 asteroids to coverge on your target
-  - upgradeLevel: 0
-    cost: 50
-    description: Calls in 3 asteroids to coverge on your target
-  asteroidSpeed: 10
-  shoot: {fileID: 8300000, guid: 8153d434cd808d74994ee42843973c73, type: 3}
+  - {fileID: 2396885586352238776, guid: 2e21e847aaf9b354b81c98883c334afd, type: 3}
+  - {fileID: 2396885586352238776, guid: e9479e44b3ce8004b9811e49cc1ffd7c, type: 3}
+  - {fileID: 2396885586352238776, guid: a576b9a66b28b514c8edaef124e51e96, type: 3}
+  - {fileID: 2396885586352238776, guid: 3acda4692977082459eb847f7b8d7942, type: 3}
+  controlColour: 
+  upgrades: []
+  level1GhostSpeed: 1
+  level1GhostDamage: 1
+  level2GhostSpeed: 2
+  level2GhostDamage: 2
+  isLevel1: 1
+  isLevel2: 0
+  isLevel3: 0

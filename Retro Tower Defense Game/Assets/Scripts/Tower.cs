@@ -2,19 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public enum UpgradeLevel //is zero based but starts with "Lvl1"
-{
-    Lvl1, //0
-    Lvl2, //1
-    Lvl3 //2
-}
-
 [System.Serializable]
 public struct TowerUpgrade
 {
-    
-    public UpgradeLevel upgradeLevel;
     public int cost;
     public string description;
 }
@@ -45,6 +35,7 @@ public abstract class Tower : MonoBehaviour
     // public int upgrade
     [SerializeField] public string controlColour;
 
+    [SerializeField] public int upgradeLevel = 0;
     [SerializeField] public TowerUpgrade[] upgrades;
 
     // Start is called before the first frame update
@@ -58,7 +49,6 @@ public abstract class Tower : MonoBehaviour
         base_cooldown = cooldown;
         base_range = range;
         base_damage = damage;
-        upgrades = new TowerUpgrade[3];
 
     }
 

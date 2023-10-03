@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4555808692913621884}
   - component: {fileID: -1670316427314792694}
   m_Layer: 6
-  m_Name: BreakoutTower
+  m_Name: Breakout
   m_TagString: ArcadeTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
