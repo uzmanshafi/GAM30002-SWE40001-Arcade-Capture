@@ -4,8 +4,8 @@ using UnityEngine;
 using static Utils;
 public class PredictiveTower : Tower
 {
-    [SerializeField] private float projectile_speed;
-    [SerializeField] private AudioClip shoot;
+    [SerializeField] protected float projectile_speed;
+    [SerializeField] protected AudioClip shoot;
     // Start is called before the first frame update
     void Start()
     {

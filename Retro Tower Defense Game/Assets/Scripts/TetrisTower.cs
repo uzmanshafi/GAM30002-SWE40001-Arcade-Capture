@@ -77,6 +77,7 @@ public class TetrisTower : Tower
 				GameObject bullet = Instantiate(bulletTypes[bulletType], transform.position /*+ dir*/, Quaternion.identity);
 				projectile = bullet.GetComponent<TetrisProjectile>();
 				projectile.owner = this;
+				projectile.damage = damage;
 				bullet.GetComponent<Rigidbody2D>().velocity = _dir * projectile.speed;
 				Destroy(bullet, bulletLifetime);
 				lastShotTime = Time.time;

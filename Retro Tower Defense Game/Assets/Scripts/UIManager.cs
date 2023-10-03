@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     
     public void sellSelectedTower()
     {
-        GameManager.instance.money += selectedTower.cost / 2;
+        GameManager.instance.money += (int)(selectedTower.cost * 0.75f);
         Destroy(selectedTower.gameObject);
         deselectTower();
     }

@@ -32,7 +32,7 @@ public class BreakoutProjectile : Projectile
     }
 
 
-    private Enemy? nearestEnemy(Vector2 position, GameObject currentTarget ,List<Enemy> enemies) {
+    private Enemy? nearestEnemy(Vector2 position, Enemy currentTarget ,List<Enemy> enemies) {
         Enemy? closest = null;
         foreach (Enemy enemy in enemies) {
             if (closest == null && enemy != currentTarget) {
@@ -62,7 +62,7 @@ public class BreakoutProjectile : Projectile
                     //Go towards nearest enemy with predictive magic
                     //The AllEnemies array must be accessible
 
-                    Enemy? nearest = nearestEnemy(transform.position, e.gameObject, GameManager.instance.AllEnemies(canSeeCamo));
+                    Enemy? nearest = nearestEnemy(transform.position, e, GameManager.instance.AllEnemies(canSeeCamo));
 
                     if (nearest is Enemy _nearest) {
                         Vector2? dir = aimPrediction(speed, _nearest, (Vector2)transform.position, Mathf.Infinity);
