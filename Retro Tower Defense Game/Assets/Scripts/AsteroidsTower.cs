@@ -28,8 +28,8 @@ public class AsteroidsTower : Tower
 
     protected override void tryShoot()
     {
-        /*AudioSource.PlayClipAtPoint(shoot, transform.position);
-        GameObject asteroid = Instantiate(bulletTypes[0], transform.position, Quaternion.identity);
+        AudioSource.PlayClipAtPoint(shoot, transform.position);
+        /*GameObject asteroid = Instantiate(bulletTypes[0], transform.position, Quaternion.identity);
         Vector2 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - asteroid.transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x);
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
@@ -42,7 +42,9 @@ public class AsteroidsTower : Tower
         Debug.Log(leftRatio);
         for (int i = 0; i <= upgradeLevel; ++i) {
 
-            Vector2 bulletOrigin = (Vector2)transform.position + /*Vector2.Perpendicular(Input.mousePosition - transform.position).normalized*/ Vector2.up * (leftRatio + i) * spreadDistance;
+            Vector2 perpendicular = new Vector2(transform.position.y - Input.mousePosition.y, Input.mousePosition.x - transform.position.x);
+            Vector2 bulletOrigin = (Vector2)transform.position + perpendicular.normalized * (leftRatio + i) * spreadDistance;
+
 
             Vector2 dir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - bulletOrigin).normalized; //If they want a wall of shots instead of shots that all go toward the mouse then replace bulletOrigin with transform.position
 

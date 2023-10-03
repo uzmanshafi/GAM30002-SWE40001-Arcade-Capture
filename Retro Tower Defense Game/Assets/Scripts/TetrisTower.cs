@@ -27,14 +27,16 @@ public class TetrisTower : Tower
 	*/
 	[SerializeField] private float comboMultiplier;
 
+	private int currentLevel;
+
 	// Start is called before the first frame update
 	void Start()
 	{
 		base.init();
 		lastEnemyHit = null;
 		hitCount = 0;
-		
-	}
+		currentLevel = upgradeLevel;
+}
 
 	// Update is called once per frame
 	void Update()
@@ -45,14 +47,18 @@ public class TetrisTower : Tower
 
     private void checkUpgrades()
     {
-        if(upgradeLevel == 1)
-        {
-			cooldown = base_cooldown * 0.85f;
-        }
-		if (upgradeLevel == 2)
+		if (currentLevel != upgradeLevel)
 		{
-			cooldown = base_cooldown * 0.65f;
-			range = base_range * 2;
+			if (upgradeLevel == 1)
+			{
+				base_cooldown = base_cooldown * 0.85f;
+			}
+			if (upgradeLevel == 2)
+			{
+				base_cooldown = base_cooldown * 0.65f;
+				base_range = base_range * 2;
+			}
+			currentLevel = upgradeLevel;
 		}
 	}
 
