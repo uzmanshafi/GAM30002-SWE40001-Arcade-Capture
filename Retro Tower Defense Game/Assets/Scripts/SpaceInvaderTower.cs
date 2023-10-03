@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpaceInvadersTower : Tower
@@ -14,6 +15,8 @@ public class SpaceInvadersTower : Tower
     private bool isShooting = false;
     private Wave waveScript;
 
+    private List<GameObject> spawnedBullets = new List<GameObject>(); // List to track bullets
+
     Vector2 towerDirection;
 
     void Awake()
@@ -26,69 +29,45 @@ public class SpaceInvadersTower : Tower
     {
         if (waveScript && !waveScript.waveInProgress && shipActive)
         {
-
+            shipActive = false;
             StopCoroutine(MoveShipLeftAndRight());
             StopCoroutine(ShipShootStraight());
             isShooting = false;
         }
-        else if (waveScript && waveScript.waveInProgress && !shipActive)
+        else if
+            (waveScript && waveScript.waveInProgress && !shipActive)
         {
-
             SpawnShip();
             shipActive = true;
             StartCoroutine(MoveShipLeftAndRight());
+            StartCoroutine(ShipShootStraight());
         }
 
-        tryShoot();
+        if (waveScript && waveScript.waveInProgress && !isShooting)
+        {
+            isShooting = true;
+            StartCoroutine(ShipShootStraight());
+        }
     }
 
     protected override void tryShoot()
     {
-        if (AnyEnemyInRange())
-        {
-            if (!shipActive)
-            {
-                SpawnShip();
-                shipActive = true;
-                StartCoroutine(MoveShipLeftAndRight());
-            }
-            if (!isShooting)
-            {
-                StartCoroutine(ShipShootStraight());
-                isShooting = true;
-            }
-        }
-        else
-        {
-            isShooting = false;
-        }
-    }
 
-    private bool AnyEnemyInRange()
-    {
-        Enemy? enemy = furthestTarget();
-        if (enemy != null)
-        {
-            Debug.Log("Enemy detected in range: " + enemy.name);
-            return true;
-        }
-        return false;
     }
-
 
     private void SpawnShip()
     {
         Quaternion adjustedRotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 180);
         spawnedShip = Instantiate(shipPrefab, transform.position, adjustedRotation);
 
-        // Determine local boundaries
+        towerDirection = adjustedRotation * Vector2.up;
+
         BoxCollider2D boundaryCollider = GetComponent<BoxCollider2D>();
         Vector2 boundarySize = boundaryCollider.size;
 
-        Vector2 localLeftBoundary = -Vector2.right * boundarySize.x / 2;   // Left boundary in local coordinates
-        Vector2 localRightBoundary = Vector2.right * boundarySize.x / 2;   // Right boundary in local coordinates
+        Vector2 localLeftBoundary = -Vector2.right * boundarySize.x / 2;
+        Vector2 localRightBoundary = Vector2.right * boundarySize.x / 2;
 
-        // Convert local coordinates to world coordinates
         leftBoundary = transform.TransformPoint(localLeftBoundary);
         rightBoundary = transform.TransformPoint(localRightBoundary);
     }
@@ -127,10 +106,27 @@ public class SpaceInvadersTower : Tower
         {
             AudioSource.PlayClipAtPoint(shoot, transform.position);
             GameObject bullet = Instantiate(bulletPrefab, spawnedShip.transform.position, Quaternion.identity);
+            spawnedBullets.Add(bullet);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            rb.velocity = Vector2.up * 5;
+            rb.velocity = towerDirection * 5;
             yield return new WaitForSeconds(cooldown);
         }
     }
 
+
+    private void OnDestroy()
+    {
+        if (spawnedShip != null)
+        {
+            Destroy(spawnedShip);
+        }
+
+        foreach (var bullet in spawnedBullets)
+        {
+            if (bullet != null)
+            {
+                Destroy(bullet);
+            }
+        }
+    }
 }

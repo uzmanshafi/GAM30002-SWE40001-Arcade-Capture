@@ -14,6 +14,19 @@ public class SpaceInvaderProjectile : Projectile
         transform.Translate(Vector2.up * speed * Time.deltaTime);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Enemy e;
+        if (collision.gameObject.TryGetComponent<Enemy>(out e))
+        {
+            if (this.canSeeCamo || !e.IsCamo) {
+                e.TakeDamage(damage);
+                Destroy(gameObject);
+                Debug.Log("SpaceInvader Bullet collided with enemy.");
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy e;
@@ -22,7 +35,7 @@ public class SpaceInvaderProjectile : Projectile
             if (this.canSeeCamo || !e.IsCamo) 
             {
                 e.TakeDamage(damage);
-                Destroy(gameObject); // Destroy the projectile after hitting an enemy.
+                Destroy(gameObject); 
             }
         }
     }
