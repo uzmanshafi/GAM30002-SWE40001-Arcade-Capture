@@ -12,6 +12,11 @@ public class PredictiveTower : Tower
         base.init();
     }
 
+    protected void initialise()
+    {
+        base.init();
+    }
+
     // Update is called once per frame
     void Update()
     {

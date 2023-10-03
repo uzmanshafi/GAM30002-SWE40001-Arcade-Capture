@@ -30,13 +30,11 @@ public class UIManager : MonoBehaviour
     public void selectTower(Tower t)
     {
         selectedTower = t;
-        towerMenu.SetActive(false);
         upgradeMenu.SetActive(true);
     }
 
     public void deselectTower()
     {
-        towerMenu.SetActive(true);
         upgradeMenu.SetActive(false);
     }
 
@@ -56,7 +54,31 @@ public class UIManager : MonoBehaviour
                     {
                         string towerName = selectedTower.name;
                         string[] towerNameSplit = towerName.Split("("); // Used to remove (Clone) appearing after name
+
                         tmp.text = towerNameSplit[0];
+                    }
+                }
+                if(g.name == "currentUpgradeLevel")
+                {
+                    if (g.TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI tmp))
+                    {
+                        tmp.text = "Level: " + (selectedTower.upgradeLevel + 1);
+                    }
+                }
+                if(g.name == "sellTower")
+                {
+                    TextMeshProUGUI tmp = g.GetComponentInChildren<TextMeshProUGUI>();
+                    if (tmp != null)
+                    {
+                        tmp.text = "Sell $" + selectedTower.cost * 0.75f;
+                    }
+                }
+                if (g.name == "buyUpgrade")
+                {
+                    TextMeshProUGUI tmp = g.GetComponentInChildren<TextMeshProUGUI>();
+                    if (tmp != null)
+                    {
+                        tmp.text = "UPGRADE $" + selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
                     }
                 }
             }
@@ -72,6 +94,14 @@ public class UIManager : MonoBehaviour
     private void updateStars()
     {
         starBar.value = GameManager.instance.stars;
+    }
+
+    public void upgradeSelectedTower()
+    {
+        if (selectedTower.upgradeLevel < 2)
+        {
+            selectedTower.upgradeLevel += 1;
+        }
     }
 
 

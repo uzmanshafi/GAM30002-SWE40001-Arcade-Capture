@@ -40,9 +40,22 @@ public class TetrisTower : Tower
 	void Update()
 	{
 		tryShoot();
+		checkUpgrades();
 	}
 
-	protected override void tryShoot()
+    private void checkUpgrades()
+    {
+        if(upgradeLevel == 1)
+        {
+			cooldown = base_cooldown * 0.85f;
+        }
+		if (upgradeLevel == 2)
+		{
+			cooldown = base_cooldown * 0.65f;
+		}
+	}
+
+    protected override void tryShoot()
 	{
 		target = furthestTarget();
 		if (Time.time - lastShotTime > cooldown && target != null)

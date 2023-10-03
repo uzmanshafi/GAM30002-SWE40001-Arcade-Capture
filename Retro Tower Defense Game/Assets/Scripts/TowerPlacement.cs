@@ -178,6 +178,8 @@ public class TowerPlacement : MonoBehaviour
         int layerMask = 1 << LayerMask.NameToLayer("Tower");
         Collider2D hitCollider = Physics2D.OverlapPoint(position, layerMask);
 
+        Rect uiRect = uiManager.GetComponent<RectTransform>().rect;
+
         if (hitCollider != null && hitCollider.gameObject.CompareTag("ArcadeTower"))
         {
             Tower towerScript = hitCollider.gameObject.GetComponent<Tower>();
@@ -186,6 +188,10 @@ public class TowerPlacement : MonoBehaviour
                 uiManager.selectTower(towerScript);
                 ShowRadiusForSelectedTower(towerScript);
             }
+        }
+        else if (uiRect.Contains(position))
+        {
+            
         }
         else
         {
@@ -215,7 +221,7 @@ public class TowerPlacement : MonoBehaviour
         currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
     }
 
-    private void DestroyCurrentRadius()
+    public void DestroyCurrentRadius()
     {
         if (currentRadius)
         {

@@ -22,7 +22,7 @@ public class PacmanTower : Tower
 
     void OnValidate()
     {
-        if (isLevel1)
+        /*if (isLevel1)
         {
             isLevel2 = false;
             isLevel3 = false;
@@ -36,7 +36,7 @@ public class PacmanTower : Tower
         {
             isLevel1 = false;
             isLevel2 = false;
-        }
+        }*/
     }
 
     void Start()
@@ -47,29 +47,35 @@ public class PacmanTower : Tower
 
         base.init();
 
-        if (isLevel1)
-        {
-            ConfigureLevel1();
-        }
-        else if (isLevel2)
-        {
-            ConfigureLevel2();
-        }
     }
 
     void Update()
     {
+        if (upgradeLevel == 0)
+        {
+            ConfigureLevel1();
+        }
+        else if (upgradeLevel == 1)
+        {
+            ConfigureLevel2();
+        }
         tryShoot();
     }
 
     void ConfigureLevel1()
     {
         cooldown = 6.0f;
+        isLevel1 = true;
+        isLevel2 = false;
+        isLevel3 = false;
     }
 
     void ConfigureLevel2()
     {
         cooldown = 3.0f;
+        isLevel1 = false;
+        isLevel2 = true;
+        isLevel3 = false;
     }
 
     protected override void tryShoot()
