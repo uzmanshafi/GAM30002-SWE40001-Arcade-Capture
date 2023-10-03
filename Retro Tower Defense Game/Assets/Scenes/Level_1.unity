@@ -2580,7 +2580,6 @@ MonoBehaviour:
   wallTilemap: {fileID: 738809115}
   wallCollider: {fileID: 738809118}
   radiusPrefab: {fileID: 2122240868449220821, guid: 26f16191b8ce0234f8d084345a4b6750, type: 3}
-  keepTowerRadiusOn: 0
 --- !u!114 &690477377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2856,7 +2855,7 @@ AudioSource:
   m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128

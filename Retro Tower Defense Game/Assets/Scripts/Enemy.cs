@@ -47,18 +47,17 @@ public class Enemy : MonoBehaviour
 
     public bool IsCamo => is_camo; //Getter
 
-    // Start is called before the first frame update
     void Start()
     {
         init();
     }
-
     protected void init()
     {
         GM = GameManager.instance;
         waypoints = GM.GetComponent<Waypoints>();
         health = MaxHP;
         gameObject.SetActive(true);
+        
         if (spawnAtStart)
         {
             transform.position = waypoints.Points[i];

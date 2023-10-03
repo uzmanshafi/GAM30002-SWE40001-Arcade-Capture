@@ -37,12 +37,10 @@ public class GameManager : MonoBehaviour
         _allGhosts.Add(ghost);
     }
 
-
     private void Awake()
     {
         instance = this;
     }
-
 
     // Start is called before the first frame update
     void Start()
@@ -86,8 +84,6 @@ public class GameManager : MonoBehaviour
             _allTowers.Remove(tower);
         }
     }
-
-
     void applyBuffs()
     {
         foreach (var tower in AllTowers)
