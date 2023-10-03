@@ -19,6 +19,12 @@ public class SpaceInvadersTower : Tower
 
     Vector2 towerDirection;
 
+    void Start()
+    {
+        base.init();
+        SpawnShip();
+    }
+
     void Awake()
     {
         waveScript = FindObjectOfType<Wave>();
@@ -37,7 +43,7 @@ public class SpaceInvadersTower : Tower
         else if
             (waveScript && waveScript.waveInProgress && !shipActive)
         {
-            SpawnShip();
+            
             shipActive = true;
             StartCoroutine(MoveShipLeftAndRight());
             StartCoroutine(ShipShootStraight());
