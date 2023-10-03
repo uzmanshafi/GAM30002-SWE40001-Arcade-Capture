@@ -52,7 +52,7 @@ public class TowerPlacement : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && currentTower == null)
         {
             AttemptSelectTower(mouseWorldPos);
 

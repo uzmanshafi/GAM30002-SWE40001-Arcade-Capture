@@ -50,8 +50,15 @@ public class UIManager : MonoBehaviour
 
      void Update()
      {
-         updateTextUi();
+        updateTextUi();
+        updateStars();
      }
+
+    private void updateStars()
+    {
+        starBar.value = GameManager.instance.stars;
+    }
+
 
     // Initialises variables before the game starts
     void Awake()
