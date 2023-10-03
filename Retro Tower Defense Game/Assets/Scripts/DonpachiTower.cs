@@ -5,30 +5,36 @@ using static System.Math;
 
 public class DonpachiTower : Tower
 {
-    [SerializeField] private float projectileSpeed = 5f;
     private float currentAngle = 0f;
-    [SerializeField] private float angleIncrement = 10f;
 
+    private Wave wave;
+    
+    [Header("Level Values Configuration")]
+    [SerializeField] private float[] ProjectileSpeedUpgrades;
+    [SerializeField] private float[] AngleIncrementUpgrades;
 
+    [SerializeField] private AudioClip shootAudioClip;
     private void Start()
     {
         base.init();
+        wave = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Wave>();
     }
 
     void Update()
     {
-        Enemy possibleEnemy = furthestTarget();
-        if (possibleEnemy != null)
+        if (wave.waveInProgress)
         {
-            tryShoot();
+                tryShoot();
         }
     }
 
     protected override void tryShoot()
     {
+        Debug.Log("Trying to shoot");
         if (Time.time - lastShotTime > cooldown)
         {
-            Shoot(1 << upgradeLevel);
+            //AudioSource.PlayClipAtPoint(shootAudioClip, transform.position);
+            Shoot(1 << (1 + upgradeLevel));
 
             lastShotTime = Time.time;
         }
@@ -43,7 +49,7 @@ public class DonpachiTower : Tower
             ShootProjectile(direction);
         }
 
-        currentAngle += angleIncrement;
+        currentAngle += AngleIncrementUpgrades[upgradeLevel];
         if (currentAngle >= 360f) currentAngle -= 360f;
     }
 
@@ -51,10 +57,12 @@ public class DonpachiTower : Tower
     {
         GameObject bullet = Instantiate(bulletTypes[0], transform.position, Quaternion.identity);
         Rigidbody2D projectileRB = bullet.GetComponent<Rigidbody2D>();
-        projectileRB.velocity = direction * projectileSpeed;
+        projectileRB.velocity = direction * ProjectileSpeedUpgrades[upgradeLevel];
 
-        bullet.GetComponent<Projectile>().target = null;
+        Projectile proj = bullet.GetComponent<Projectile>();
+        proj.target = null;
+        proj.damage = damage;
 
-        Destroy(bullet, 5f);
+        Destroy(bullet, bulletLifetime);
     }
 }

@@ -6,6 +6,9 @@ public class AsteroidsTower : Tower
 {
     [SerializeField] private float asteroidSpeed;
     [SerializeField] private AudioClip shoot;
+
+    [SerializeField] private float spreadDistance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,38 +28,38 @@ public class AsteroidsTower : Tower
 
     protected override void tryShoot()
     {
-        /*
-        float spawnX = 0;
-        float spawnY = 0;
-        int choice = Random.Range(0, 3);
-        if (choice == 0) // spawn quadrant for asteroid: 0 = left, 1 = right, 2 = up, 3 = down
-        {
-            spawnY = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.y - Screen.height)).y, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.y)).y);
-            spawnX = Camera.main.ScreenToWorldPoint(new Vector2(Screen.mainWindowPosition.x, 0)).x - 1;
-        }
-        else if (choice == 1)
-        {
-            spawnY = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.y - Screen.height)).y, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.y)).y);
-            spawnX = Camera.main.ScreenToWorldPoint(new Vector2(Screen.mainWindowPosition.x + Screen.width, 0)).x + 1;
-        }
-        else if (choice == 2)
-        {
-            spawnY = Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.y)).y + 1;
-            spawnX = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.x)).x, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.x + Screen.width)).x);
-        }
-        else if (choice == 3)
-        {
-            spawnY = Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.y - Screen.height)).y - 1;
-            spawnX = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.x)).x, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.mainWindowPosition.x + Screen.width)).x);
-        }*/
-
-        AudioSource.PlayClipAtPoint(shoot, transform.position);
+        /*AudioSource.PlayClipAtPoint(shoot, transform.position);
         GameObject asteroid = Instantiate(bulletTypes[0], transform.position, Quaternion.identity);
         Vector2 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - asteroid.transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x);
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         asteroid.GetComponent<Rigidbody2D>().velocity = dir * asteroidSpeed;
         asteroid.GetComponent<Projectile>().damage = damage;
-        Destroy(asteroid, bulletLifetime);
+        Destroy(asteroid, bulletLifetime);*/
+
+        // This is the ratio that the first shot is from the origin
+        float leftRatio = -((upgradeLevel + 1) % 2)/2.0f - ((upgradeLevel - 1) / 2.0f);
+        Debug.Log(leftRatio);
+        for (int i = 0; i <= upgradeLevel; ++i) {
+
+            Vector2 bulletOrigin = (Vector2)transform.position + /*Vector2.Perpendicular(Input.mousePosition - transform.position).normalized*/ Vector2.up * (leftRatio + i) * spreadDistance;
+
+            Vector2 dir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - bulletOrigin).normalized; //If they want a wall of shots instead of shots that all go toward the mouse then replace bulletOrigin with transform.position
+
+            GameObject asteroid = Instantiate(bulletTypes[0], bulletOrigin, Quaternion.identity);
+
+            // Pretty sure these lines are redundant
+            // float angle = Mathf.Atan2(dir.y, dir.x);
+            // dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+
+            // Can we put this in the Instantiate function?
+            asteroid.GetComponent<Rigidbody2D>().velocity = dir * asteroidSpeed;
+            Debug.Log(bulletOrigin);
+
+            Destroy(asteroid, bulletLifetime); //What does this line do?
+
+        }
     }
+
+    
 }
