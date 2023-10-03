@@ -38,7 +38,6 @@ public abstract class Tower : MonoBehaviour
     [NonSerialized] public float base_range;
     [SerializeField] public float radius;
     [SerializeField] public GameObject radiusDisplay;
-    [SerializeField] public GameObject mesh;
     [SerializeField] protected GameObject[] bulletTypes;
 
     protected bool canSeeCamo;

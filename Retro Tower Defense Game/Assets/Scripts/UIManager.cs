@@ -46,6 +46,21 @@ public class UIManager : MonoBehaviour
          //starText.text = "Stars: " +  GameManager.instance.stars;
         moneyText.text = formatNumber(GameManager.instance.money);
         waveText.text = "Wave: "+ GameManager.instance.currentWave;
+        if (selectedTower)
+        {
+            foreach(Transform g in upgradeMenu.transform)
+            {
+                if(g.name == "towerName")
+                {
+                    if (g.TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI tmp))
+                    {
+                        string towerName = selectedTower.name;
+                        string[] towerNameSplit = towerName.Split("("); // Used to remove (Clone) appearing after name
+                        tmp.text = towerNameSplit[0];
+                    }
+                }
+            }
+        }
      }
 
      void Update()
