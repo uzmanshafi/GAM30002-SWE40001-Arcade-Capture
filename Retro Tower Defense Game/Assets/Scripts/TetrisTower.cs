@@ -52,6 +52,7 @@ public class TetrisTower : Tower
 		if (upgradeLevel == 2)
 		{
 			cooldown = base_cooldown * 0.65f;
+			range = base_range * 2;
 		}
 	}
 
@@ -60,7 +61,7 @@ public class TetrisTower : Tower
 		target = furthestTarget();
 		if (Time.time - lastShotTime > cooldown && target != null)
 		{
-
+			Debug.Log("Shooting");
 			int bulletType = Random.Range(0,6);
 			TetrisProjectile projectile = bulletTypes[bulletType].GetComponent<TetrisProjectile>();
 			Vector2? dir = aimPrediction(projectile.speed, target, (Vector2)transform.position, range);

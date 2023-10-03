@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426fa7578bce8464b8d27f38c13ddfed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 50
+  cost: 100
   cooldown: 0.5
   damage: 1
   bulletLifetime: 1
@@ -107,9 +107,9 @@ MonoBehaviour:
   range: 3
   radius: 0
   radiusDisplay: {fileID: 0}
-  mesh: {fileID: 0}
   bulletTypes: []
   controlColour: 
+  upgradeLevel: 0
   upgrades: []
   shipPrefab: {fileID: 5185414893317502098, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
   bulletPrefab: {fileID: 4005175662800323705, guid: b7da219df0b5cc54bb3a8ca6c8ae6fcd, type: 3}

@@ -78,7 +78,8 @@ public class UIManager : MonoBehaviour
                     TextMeshProUGUI tmp = g.GetComponentInChildren<TextMeshProUGUI>();
                     if (tmp != null)
                     {
-                        tmp.text = "UPGRADE $" + selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
+                        Debug.Log(selectedTower.upgradeLevel + " " + selectedTower.upgrades.Length);
+                        tmp.text = "UPGRADE $" + selectedTower.upgrades[selectedTower.upgradeLevel].cost;
                     }
                 }
             }
