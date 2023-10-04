@@ -314,6 +314,13 @@ public class TowerPlacement : MonoBehaviour
             }
         }
 
+        //checking for UI elements in the way
+        int uiLayerMask = 1 << LayerMask.NameToLayer("UI");
+        if (Physics2D.Raycast(location, Vector2.zero, Mathf.Infinity, uiLayerMask))
+        {
+            return false; // if the mouse is over UI, so the location is not valid.
+        }
+
         return true;
     }
 
