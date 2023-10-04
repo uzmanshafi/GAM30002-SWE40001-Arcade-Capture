@@ -181,9 +181,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: 
-  - cost: 0
+  - cost: 60
     description: 
-  - cost: 0
+  - cost: 100
     description: 
   ProjectileSpeedUpgrades:
   - 0.4

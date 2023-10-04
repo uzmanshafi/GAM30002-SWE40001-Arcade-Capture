@@ -183,10 +183,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: An arcade that builds a combo on Players that are hit consecutivley
-  - cost: 40
-    description: The arcade's cooldown is reduced and can build combos quicker
   - cost: 60
-    description: The arcade's cooldown is reduced futher leading to lightning fast
-      combos
+    description: More bounces!
+  - cost: 80
+    description: Even more bounces!
   projectile_speed: 8
   shoot: {fileID: 8300000, guid: 9a217e7c71553ad439f026d510863cd4, type: 3}

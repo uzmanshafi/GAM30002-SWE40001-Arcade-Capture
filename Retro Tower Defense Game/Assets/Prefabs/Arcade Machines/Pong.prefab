@@ -174,11 +174,17 @@ MonoBehaviour:
   range: 4
   radius: 0
   radiusDisplay: {fileID: 0}
-  mesh: {fileID: 0}
   bulletTypes:
   - {fileID: 2396885586352238776, guid: 23fb1b0291ea0964185da2176e558032, type: 3}
   controlColour: Blue
-  upgrades: []
+  upgradeLevel: 0
+  upgrades:
+  - cost: 0
+    description: 
+  - cost: 40
+    description: Pong Ball speed increases
+  - cost: 50
+    description: Pong ball bounces super fast
   pongShot: {fileID: 0}
   other: {fileID: 0}
   shotRB: {fileID: 0}
