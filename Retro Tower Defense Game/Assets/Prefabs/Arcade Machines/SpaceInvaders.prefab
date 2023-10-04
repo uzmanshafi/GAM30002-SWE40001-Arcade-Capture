@@ -111,7 +111,13 @@ MonoBehaviour:
   controlColour: 
   inspectSprite: {fileID: 21300000, guid: 0b5eec608edd06742ac97b71a9c52160, type: 3}
   upgradeLevel: 0
-  upgrades: []
+  upgrades:
+  - cost: 0
+    description: 
+  - cost: 0
+    description: 
+  - cost: 0
+    description: 
   shipPrefab: {fileID: 5185414893317502098, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
   bulletPrefab: {fileID: 4005175662800323705, guid: b7da219df0b5cc54bb3a8ca6c8ae6fcd, type: 3}
   shoot: {fileID: 8300000, guid: ad10ec842d593734893eb7ccef0dec81, type: 3}
