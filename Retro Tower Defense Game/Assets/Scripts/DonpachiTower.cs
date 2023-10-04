@@ -30,7 +30,7 @@ public class DonpachiTower : Tower
 
     protected override void tryShoot()
     {
-        Debug.Log("Trying to shoot");
+        //Debug.Log("Trying to shoot");
         if (Time.time - lastShotTime > cooldown)
         {
             //AudioSource.PlayClipAtPoint(shootAudioClip, transform.position);

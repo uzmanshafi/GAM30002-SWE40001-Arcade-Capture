@@ -27,6 +27,10 @@ public class UIManager : MonoBehaviour
             Destroy(pt.other.gameObject);
         }
         GameManager.instance.money += (int)(selectedTower.cost * 0.75f);
+        if (GameManager.instance.AllTowers.Contains(selectedTower))
+        {
+            GameManager.instance.AllTowers.Remove(selectedTower);
+        }
         Destroy(selectedTower.gameObject);
         deselectTower();
     }
@@ -86,7 +90,7 @@ public class UIManager : MonoBehaviour
                     TextMeshProUGUI tmp = g.GetComponentInChildren<TextMeshProUGUI>();
                     if (tmp != null)
                     {
-                        Debug.Log(selectedTower.upgradeLevel + " " + selectedTower.upgrades.Length);
+                        //Debug.Log(selectedTower.upgradeLevel + " " + selectedTower.upgrades.Length);
                         if (selectedTower.upgradeLevel < 2)
                         {
                             tmp.text = "UPGRADE $" + selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
