@@ -165,13 +165,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0cd23d559cf6645acbdc61eaa3eded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 80
-  cooldown: 0.3
+  cost: 70
+  cooldown: 0.2
   damage: 0.5
   bulletLifetime: 2
   target: {fileID: 0}
   towerRadius: 0
-  range: 1.5
+  range: 1
   radius: 0
   radiusDisplay: {fileID: 0}
   bulletTypes:
@@ -182,16 +182,16 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: 
-  - cost: 60
-    description: 
   - cost: 100
+    description: 
+  - cost: 200
     description: 
   ProjectileSpeedUpgrades:
   - 0.4
-  - 0.8
-  - 1.2
+  - 0.4
+  - 0.4
   AngleIncrementUpgrades:
-  - 10
+  - 30
   - 15
-  - 20
+  - 10
   shootAudioClip: {fileID: 0}

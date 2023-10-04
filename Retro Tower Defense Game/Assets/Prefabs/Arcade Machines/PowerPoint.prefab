@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add001ca95d9b57479d4ba147f123877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 50
+  cost: 150
   cooldown: 1
   damage: 1
   bulletLifetime: 0
@@ -171,5 +171,5 @@ MonoBehaviour:
   upgradeLevel: 0
   upgrades: []
   damage_multiplier: 1.15
-  cooldown_multipler: 0.85
-  range_multipler: 1.15
+  cooldown_multipler: 0.9
+  range_multipler: 1

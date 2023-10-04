@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 100
-  cooldown: 0.5
+  cooldown: 0.4
   damage: 1
   bulletLifetime: 1
   target: {fileID: 0}
