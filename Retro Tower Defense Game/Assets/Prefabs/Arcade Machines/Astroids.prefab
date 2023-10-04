@@ -174,20 +174,17 @@ MonoBehaviour:
   range: 0.5
   radius: 0
   radiusDisplay: {fileID: 0}
-  mesh: {fileID: 0}
   bulletTypes:
   - {fileID: 6310525875718958529, guid: e72588c0033c0714e9506fd876da0b62, type: 3}
   controlColour: Red
   upgradeLevel: 0
   upgrades:
-  - upgradeLevel: 0
-    cost: 0
+  - cost: 0
     description: An arcade that calls in an astroid from space to strike your target
-  - upgradeLevel: 0
-    cost: 40
+  - cost: 40
     description: Calls in 2 asteroids to coverge on your target
-  - upgradeLevel: 0
-    cost: 50
+  - cost: 50
     description: Calls in 3 asteroids to coverge on your target
   asteroidSpeed: 10
   shoot: {fileID: 8300000, guid: 8153d434cd808d74994ee42843973c73, type: 3}
+  spreadDistance: 0.1

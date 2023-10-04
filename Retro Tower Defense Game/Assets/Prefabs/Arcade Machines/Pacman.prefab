@@ -174,14 +174,20 @@ MonoBehaviour:
   range: 3
   radius: 0
   radiusDisplay: {fileID: 0}
-  mesh: {fileID: 0}
   bulletTypes:
   - {fileID: 2396885586352238776, guid: 2e21e847aaf9b354b81c98883c334afd, type: 3}
   - {fileID: 2396885586352238776, guid: e9479e44b3ce8004b9811e49cc1ffd7c, type: 3}
   - {fileID: 2396885586352238776, guid: a576b9a66b28b514c8edaef124e51e96, type: 3}
   - {fileID: 2396885586352238776, guid: 3acda4692977082459eb847f7b8d7942, type: 3}
   controlColour: 
-  upgrades: []
+  upgradeLevel: 0
+  upgrades:
+  - cost: 0
+    description: 
+  - cost: 80
+    description: 
+  - cost: 0
+    description: 
   level1GhostSpeed: 1
   level1GhostDamage: 1
   level2GhostSpeed: 2

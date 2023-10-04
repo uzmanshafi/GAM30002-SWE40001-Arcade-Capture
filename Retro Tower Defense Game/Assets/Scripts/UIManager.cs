@@ -22,7 +22,11 @@ public class UIManager : MonoBehaviour
     
     public void sellSelectedTower()
     {
-        GameManager.instance.money += selectedTower.cost / 2;
+        if (selectedTower.TryGetComponent<PongTower>(out PongTower pt))
+        {
+            Destroy(pt.other.gameObject);
+        }
+        GameManager.instance.money += (int)(selectedTower.cost * 0.75f);
         Destroy(selectedTower.gameObject);
         deselectTower();
     }
@@ -46,6 +50,10 @@ public class UIManager : MonoBehaviour
         waveText.text = "Wave: "+ GameManager.instance.currentWave;
         if (selectedTower)
         {
+            if (selectedTower.TryGetComponent<PongTower>(out PongTower pt) && pt.TowerOrder == 1)
+            {
+                selectedTower = pt.other;
+            }
             foreach(Transform g in upgradeMenu.transform)
             {
                 if(g.name == "towerName")
@@ -78,7 +86,16 @@ public class UIManager : MonoBehaviour
                     TextMeshProUGUI tmp = g.GetComponentInChildren<TextMeshProUGUI>();
                     if (tmp != null)
                     {
-                        tmp.text = "UPGRADE $" + selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
+                        Debug.Log(selectedTower.upgradeLevel + " " + selectedTower.upgrades.Length);
+                        if (selectedTower.upgradeLevel < 2)
+                        {
+                            tmp.text = "UPGRADE $" + selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
+                        }
+                        else
+                        {
+                            tmp.text = "MAXED";
+                        }
+                        
                     }
                 }
             }
@@ -100,7 +117,11 @@ public class UIManager : MonoBehaviour
     {
         if (selectedTower.upgradeLevel < 2)
         {
-            selectedTower.upgradeLevel += 1;
+            if (GameManager.instance.money - selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost > 0)
+            {
+                GameManager.instance.money -= selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
+                selectedTower.upgradeLevel += 1;
+            }
         }
     }
 
