@@ -6,16 +6,15 @@ public class TowerPlacement : MonoBehaviour
     public GameObject[] towerPrefabs;
     public Tilemap groundTilemap;
     public Tilemap pathTilemap;
-    public Tilemap wallTilemap;
-    public Collider2D wallCollider;
     public GameObject radiusPrefab;
     private GameObject currentTower;
     private GameObject currentRadius;
-    UIManager uiManager;
-    private SpriteRenderer currentTowerSpriteRenderer;
-    GameManager gameManager;
-    private float scaleFactor = 0.5f;
 
+    private UIManager uiManager;
+    private SpriteRenderer currentTowerSpriteRenderer;
+    private GameManager gameManager;
+    private float scaleFactor = 0.5f;
+    private float towerPlacedCooldown = 0.5f;
 
     void Start()
     {
@@ -26,38 +25,73 @@ public class TowerPlacement : MonoBehaviour
     void Update()
     {
         Vector3 mouseWorldPos = GetMouseWorldPosition();
-        if (Input.GetKeyDown(KeyCode.Q))
+
+        PlacementCooldown();
+        CancelTowerPlacement();
+        TowerDragging(mouseWorldPos);
+        TowerRotation();
+        RunTowerPlacement(mouseWorldPos);
+        TowerSelection(mouseWorldPos);
+    }
+
+    private void PlacementCooldown()
+    {
+        if (towerPlacedCooldown > 0)
         {
-            if (currentTower != null)
-            {
-                Destroy(currentTower);
-                Destroy(currentRadius);
-                currentTower = null;
-                currentTowerSpriteRenderer = null;
-            }
+            towerPlacedCooldown -= Time.deltaTime;
         }
-        if (currentTower != null)
+    }
+
+    private void CancelTowerPlacement()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetMouseButtonDown(1))
+        {
+            DestroyCurrentTower();
+        }
+    }
+
+    private void TowerDragging(Vector3 mouseWorldPos)
+    {
+        if (currentTower != null && towerPlacedCooldown <= 0)
         {
             DragTower(mouseWorldPos);
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (IsValidLocation(mouseWorldPos, currentTower.name))
-                {
-                    DropTower();
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                currentTower.transform.Rotate(0, 0, -45);
-            }
         }
+    }
 
-        if (Input.GetMouseButtonDown(0) && currentTower == null)
+    private void TowerRotation()
+    {
+        if (currentTower != null && (Input.GetKeyDown(KeyCode.R) || Input.mouseScrollDelta.y != 0))
+        {
+            currentTower.transform.Rotate(0, 0, -45);
+        }
+    }
+
+    private void RunTowerPlacement(Vector3 mouseWorldPos)
+    {
+        if (currentTower != null && Input.GetMouseButtonDown(0) && IsValidLocation(mouseWorldPos, currentTower.name))
+        {
+            DropTower();
+            towerPlacedCooldown = 0.5f; // Reset cooldown after placing a tower
+        }
+    }
+
+    private void TowerSelection(Vector3 mouseWorldPos)
+    {
+        if (Input.GetMouseButtonDown(0) && currentTower == null && towerPlacedCooldown <= 0)
         {
             AttemptSelectTower(mouseWorldPos);
-
         }
+    }
 
+    private void DestroyCurrentTower()
+    {
+        if (currentTower != null)
+        {
+            Destroy(currentTower);
+            Destroy(currentRadius);
+            currentTower = null;
+            currentTowerSpriteRenderer = null;
+        }
     }
 
     private Vector3 GetMouseWorldPosition()
@@ -79,9 +113,11 @@ public class TowerPlacement : MonoBehaviour
         {
             return;
         }
+
+
         uiManager.deselectTower();
         DestroyCurrentRadius();
-        
+
         currentTower = Instantiate(towerPrefab);
         currentTower.transform.position = position + new Vector3(1.5f, 1.5f, 0);
         currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
@@ -177,6 +213,7 @@ public class TowerPlacement : MonoBehaviour
 
     private void AttemptSelectTower(Vector3 position)
     {
+
         int layerMask = 1 << LayerMask.NameToLayer("Tower");
         Collider2D hitCollider = Physics2D.OverlapPoint(position, layerMask);
 
@@ -193,27 +230,23 @@ public class TowerPlacement : MonoBehaviour
         }
         else if (uiRect.Contains(position))
         {
-            
+
         }
         else
         {
             uiManager.deselectTower();
             DestroyCurrentRadius();
         }
-    }
 
+    }
 
     private void ShowRadiusForSelectedTower(Tower tower)
     {
-        if (currentRadius) // Checks if a radius is already being displayed
-        {
-            Destroy(currentRadius);
-        }
+        DestroyCurrentRadius();
 
         currentRadius = Instantiate(radiusPrefab, tower.transform.position, Quaternion.identity);
         currentRadius.transform.SetParent(tower.transform); // Set the tower as the parent of the radius
-        float desiredRadius = tower.range * scaleFactor;
-        currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
+        UpdateRadiusDisplay(tower.range);
     }
 
 
