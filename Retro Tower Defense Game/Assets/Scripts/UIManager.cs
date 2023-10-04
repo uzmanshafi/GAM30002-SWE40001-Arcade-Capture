@@ -98,6 +98,13 @@ public class UIManager : MonoBehaviour
                         
                     }
                 }
+                if(g.name == "towerSprite")
+                {
+                    if (selectedTower.inspectSprite != null)
+                    {
+                        g.GetComponent<Image>().sprite = selectedTower.inspectSprite;
+                    }
+                }
             }
         }
      }
