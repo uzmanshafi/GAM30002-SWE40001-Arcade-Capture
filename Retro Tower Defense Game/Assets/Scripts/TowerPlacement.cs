@@ -24,6 +24,9 @@ public class TowerPlacement : MonoBehaviour
     private bool starRatingIsUp = false;
     private bool isMovingStarRating = false;
 
+    //control indicators
+    [SerializeField] private GameObject Controlindicator;
+
     void Start()
     {
         gameManager = GameManager.instance;
@@ -110,6 +113,8 @@ public class TowerPlacement : MonoBehaviour
             currentTower = null;
             currentTowerSpriteRenderer = null;
         }
+
+        Controlindicator.SetActive(false);
     }
 
     private Vector3 GetMouseWorldPosition()
@@ -190,6 +195,7 @@ public class TowerPlacement : MonoBehaviour
             MoveStarRatingToOriginalPos();
         }
 
+        Controlindicator.SetActive(true); // displays the control indicator
     }
     private void DropTower()
     {
@@ -241,6 +247,8 @@ public class TowerPlacement : MonoBehaviour
             currentTowerSpriteRenderer = null;
             DestroyCurrentRadius();
         }
+
+        Controlindicator.SetActive(false);
     }
 
 
@@ -296,6 +304,8 @@ public class TowerPlacement : MonoBehaviour
             Destroy(currentRadius);
             currentRadius = null;
         }
+
+        
     }
 
     //star rating related function are here
