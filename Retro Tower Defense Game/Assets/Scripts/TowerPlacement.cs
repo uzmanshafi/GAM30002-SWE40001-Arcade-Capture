@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -16,10 +17,27 @@ public class TowerPlacement : MonoBehaviour
     private float scaleFactor = 0.5f;
     private float towerPlacedCooldown = 0.5f;
 
+    //using these variables for star rating ui expection and animation
+    private GameObject starRatingUI;
+    private Vector3 originalStarRatingPos;
+    private float moveDuration = 1.5f;
+    private bool starRatingIsUp = false;
+    private bool isMovingStarRating = false;
+
     void Start()
     {
         gameManager = GameManager.instance;
         uiManager = UIManager.instance;
+
+        starRatingUI = GameObject.FindGameObjectWithTag("starRating");
+        Debug.Log("found" + " " + starRatingUI);
+
+        if (starRatingUI != null)
+        {
+            originalStarRatingPos = starRatingUI.transform.position;
+        }
+
+
     }
 
     void Update()
@@ -158,9 +176,24 @@ public class TowerPlacement : MonoBehaviour
                 currentRadius.transform.position = newPosition;
             }
         }
+
+        // Checks the distance to the starRatingUI
+        float distanceToStarRating = Vector3.Distance(currentTower.transform.position, starRatingUI.transform.position);
+        float moveThreshold = 2f;
+
+        if (distanceToStarRating < moveThreshold && !starRatingIsUp)
+        {
+            MoveStarRatingUp();
+        }
+        else if (distanceToStarRating >= moveThreshold && starRatingIsUp)
+        {
+            MoveStarRatingToOriginalPos();
+        }
+
     }
     private void DropTower()
     {
+        MoveStarRatingToOriginalPos();
         Tower shootScript = currentTower.GetComponent<Tower>();
 
         if (currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other == null)
@@ -265,6 +298,52 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
+    //star rating related function are here
+    private void MoveStarRatingUp()
+    {
+        if (!starRatingIsUp && !isMovingStarRating) // Check if coroutine is not already running
+        {
+            StopAllCoroutines(); // Stops any existing move coroutines
+            StartCoroutine(MoveStarRating(originalStarRatingPos, new Vector3(originalStarRatingPos.x, originalStarRatingPos.y + 1, originalStarRatingPos.z)));
+            starRatingIsUp = true;
+        }
+    }
+
+    private void MoveStarRatingToOriginalPos()
+    {
+        if (starRatingIsUp && !isMovingStarRating) // Checks if coroutine is not already running
+        {
+            StopAllCoroutines(); // Stops any existing move coroutines
+            StartCoroutine(MoveStarRating(starRatingUI.transform.position, originalStarRatingPos));
+            starRatingIsUp = false;
+        }
+    }
+
+
+    private IEnumerator MoveStarRating(Vector3 startPos, Vector3 endPos)
+    {
+        if (isMovingStarRating) yield break; // Checks if coroutine is already running
+        isMovingStarRating = true;
+
+        float journeyLength = Vector3.Distance(startPos, endPos);
+        float startTime = Time.time;
+        float distanceCovered;
+
+        do
+        {
+            distanceCovered = (Time.time - startTime) * moveDuration;
+            float fractionOfJourney = distanceCovered / journeyLength;
+            starRatingUI.transform.position = Vector3.Lerp(startPos, endPos, fractionOfJourney);
+
+            yield return null; // Waits for next frame
+        }
+        while (distanceCovered < journeyLength);
+
+        starRatingUI.transform.position = endPos; // Ensures the final position is set correctly
+        isMovingStarRating = false;
+    }
+
+
     private bool IsValidLocation(Vector3 location, string towerName)
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(location);
@@ -314,11 +393,23 @@ public class TowerPlacement : MonoBehaviour
             }
         }
 
-        //checking for UI elements in the way
         int uiLayerMask = 1 << LayerMask.NameToLayer("UI");
-        if (Physics2D.Raycast(location, Vector2.zero, Mathf.Infinity, uiLayerMask))
+        Collider2D hitCollider = Physics2D.OverlapPoint(location, uiLayerMask);
+
+        if (hitCollider != null)
         {
-            return false; // if the mouse is over UI, so the location is not valid.
+            // Checks if the hit UI element is a child of starRatingUI
+            if (hitCollider.transform.IsChildOf(starRatingUI.transform))
+            {
+                // if we are close to Star Rating UI, it will move up
+                Debug.Log("Detected proximity to StarBar. Moving it up.");
+                MoveStarRatingUp();
+            }
+            else
+            {
+                // if mouse is over some other UI element, so the location is not valid.
+                return false;
+            }
         }
 
         return true;

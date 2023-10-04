@@ -12,6 +12,7 @@ TagManager:
   - Wall
   - SPship
   - SPbullet
+  - starRating
   layers:
   - Default
   - TransparentFX
