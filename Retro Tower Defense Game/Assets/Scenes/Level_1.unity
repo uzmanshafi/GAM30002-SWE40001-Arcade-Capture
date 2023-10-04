@@ -2177,23 +2177,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveFileNames:
-  - Wave1.csv
-  - Wave2.csv
-  - Wave3.csv
-  - Wave4.csv
-  - Wave5.csv
-  - Wave6.csv
-  - Wave7.csv
-  - Wave8.csv
-  - Wave9.csv
-  - Wave10.csv
-  - Wave11.csv
-  - Wave12.csv
-  - Wave13.csv
-  - Wave14.csv
-  - Wave15.csv
-  - Wave16.csv
-  - Wave17.csv
+  - PAX-Wave1.csv
+  - PAX-Wave2.csv
+  - PAX-Wave3.csv
+  - PAX-Wave4.csv
+  - PAX-Wave5.csv
+  - PAX-Wave6.csv
+  - PAX-Wave7.csv
+  - PAX-Wave8.csv
+  - PAX-Wave9.csv
+  - PAX-Wave10.csv
   enemyList:
   - {fileID: 680841621375074119, guid: e957804c95313324eace0f505471f99e, type: 3}
   - {fileID: 680841621375074119, guid: 79e8c5ace7756244e933ed183d8380f1, type: 3}
