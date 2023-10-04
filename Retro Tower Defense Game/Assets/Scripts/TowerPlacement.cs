@@ -79,7 +79,9 @@ public class TowerPlacement : MonoBehaviour
         {
             return;
         }
-
+        uiManager.deselectTower();
+        DestroyCurrentRadius();
+        
         currentTower = Instantiate(towerPrefab);
         currentTower.transform.position = position + new Vector3(1.5f, 1.5f, 0);
         currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();

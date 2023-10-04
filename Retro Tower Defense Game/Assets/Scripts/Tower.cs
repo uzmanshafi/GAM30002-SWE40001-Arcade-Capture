@@ -35,6 +35,8 @@ public abstract class Tower : MonoBehaviour
     // public int upgrade
     [SerializeField] public string controlColour;
 
+
+    [SerializeField] public Sprite inspectSprite;
     [SerializeField] public int upgradeLevel = 0;
     [SerializeField] public TowerUpgrade[] upgrades;
 
