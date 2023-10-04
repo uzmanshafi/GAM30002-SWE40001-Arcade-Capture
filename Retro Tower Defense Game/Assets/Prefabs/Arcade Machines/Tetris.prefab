@@ -116,6 +116,7 @@ MonoBehaviour:
   - {fileID: 2449253969107945116, guid: a4ae82f13d54b75419580e04a33b6bff, type: 3}
   - {fileID: 2449253969107945116, guid: 765898e52f7a50c43a60a96490ea0c90, type: 3}
   controlColour: Green
+  inspectSprite: {fileID: 21300000, guid: 0668c80e48844ba4bb6bdf197c50a3f6, type: 3}
   upgradeLevel: 0
   upgrades:
   - cost: 0

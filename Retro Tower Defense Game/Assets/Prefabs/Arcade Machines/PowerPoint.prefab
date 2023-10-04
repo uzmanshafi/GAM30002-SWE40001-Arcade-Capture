@@ -165,9 +165,10 @@ MonoBehaviour:
   range: 3
   radius: 0
   radiusDisplay: {fileID: 0}
-  mesh: {fileID: 0}
   bulletTypes: []
   controlColour: 
+  inspectSprite: {fileID: 21300000, guid: 34603b229bdbc0d4991fac0a93391174, type: 3}
+  upgradeLevel: 0
   upgrades: []
   damage_multiplier: 1.15
   cooldown_multipler: 0.85

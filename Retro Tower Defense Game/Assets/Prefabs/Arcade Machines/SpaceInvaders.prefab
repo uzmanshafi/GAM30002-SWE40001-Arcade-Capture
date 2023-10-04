@@ -109,6 +109,7 @@ MonoBehaviour:
   radiusDisplay: {fileID: 0}
   bulletTypes: []
   controlColour: 
+  inspectSprite: {fileID: 21300000, guid: 0b5eec608edd06742ac97b71a9c52160, type: 3}
   upgradeLevel: 0
   upgrades: []
   shipPrefab: {fileID: 5185414893317502098, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}

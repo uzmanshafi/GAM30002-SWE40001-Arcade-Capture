@@ -177,6 +177,7 @@ MonoBehaviour:
   bulletTypes:
   - {fileID: 6310525875718958529, guid: e72588c0033c0714e9506fd876da0b62, type: 3}
   controlColour: Red
+  inspectSprite: {fileID: 21300000, guid: 8c99f9d95a5afcc41b579f9679acbecd, type: 3}
   upgradeLevel: 0
   upgrades:
   - cost: 0
