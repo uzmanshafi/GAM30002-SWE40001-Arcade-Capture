@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4462670486568380753}
   - component: {fileID: 2475031915224371012}
   - component: {fileID: 4555808692913621884}
+  - component: {fileID: 6803772929694645899}
   m_Layer: 6
   m_Name: StreetFighter
   m_TagString: ArcadeTower
@@ -152,3 +153,38 @@ PolygonCollider2D:
       - {x: 0.09060669, y: 0.069744885}
       - {x: 0.08034202, y: 0.071562015}
   m_UseDelaunayMesh: 0
+--- !u!114 &6803772929694645899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076282756041783590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea03cf7fe1ff15e49aef6a01c3c85466, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 20
+  cooldown: 1
+  damage: 1
+  bulletLifetime: 0.7
+  target: {fileID: 0}
+  towerRadius: 0
+  range: 1
+  radius: 0
+  radiusDisplay: {fileID: 0}
+  bulletTypes:
+  - {fileID: 2242987770185333342, guid: 84bb3b7fb9f71174fab4f8a270333ea0, type: 3}
+  - {fileID: 1159079333413320313, guid: 591bee3f65e05c042935e4dfd9ae6016, type: 3}
+  controlColour: Blue
+  inspectSprite: {fileID: 21300000, guid: 84a697dd70674fe48989a5e4377de530, type: 3}
+  upgradeLevel: 0
+  upgrades:
+  - cost: 0
+    description: 
+  - cost: 40
+    description: 
+  - cost: 50
+    description: 
+  shoot: {fileID: 8300000, guid: b9cced4f71a6e704b97b77f5b9461df8, type: 3}

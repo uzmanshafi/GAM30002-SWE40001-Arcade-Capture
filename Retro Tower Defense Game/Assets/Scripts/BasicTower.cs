@@ -26,9 +26,10 @@ public class BasicTower : Tower
             
             
             
-            GameObject bullet = Instantiate(bulletTypes[0], transform.position /*+ dir*/, Quaternion.identity);
+            GameObject bullet = Instantiate(bulletTypes[0], transform.position + dir, Quaternion.identity);
             Projectile projectile = bullet.GetComponent<Projectile>();
             projectile.target = target;
+            Destroy(projectile.gameObject, bulletLifetime);
             lastShotTime = Time.time;
         }
 
