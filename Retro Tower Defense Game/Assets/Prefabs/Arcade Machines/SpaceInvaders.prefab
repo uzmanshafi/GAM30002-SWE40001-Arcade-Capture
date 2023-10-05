@@ -123,7 +123,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4005175662800323705, guid: b7da219df0b5cc54bb3a8ca6c8ae6fcd, type: 3}
   shootSound: {fileID: 8300000, guid: ad10ec842d593734893eb7ccef0dec81, type: 3}
   MovementSpeed: 1
-  sightDistance: 2
+  sightDistance: 10
   shipTransform: {fileID: 8928510976217991125}
   lineOfSight: {fileID: 7069760945098292685, guid: 5e68605147d1241428a0191a07c79453, type: 3}
   bulletLinesPerLevel: 010000000200000003000000

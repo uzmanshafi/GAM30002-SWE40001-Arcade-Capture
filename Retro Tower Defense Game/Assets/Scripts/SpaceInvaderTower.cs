@@ -60,7 +60,6 @@ public class SpaceInvaderTower : Tower
         }
     }
 
-
     private void DrawLineOfSight()
     {
         Vector3 endPosition = shipTransform.position - transform.up * sightDistance;
@@ -124,7 +123,6 @@ public class SpaceInvaderTower : Tower
         rightBoundary = new Vector2(size.x / 2, shipTransform.localPosition.y);
     }
 
-
     IEnumerator AnimateLiftOff()
     {
         Vector3 targetScale = shipTransform.localScale;
@@ -171,8 +169,6 @@ public class SpaceInvaderTower : Tower
             yield return new WaitForSeconds(cooldown);
         }
     }
-
-
 
     IEnumerator ReturnToOriginalPosition()
     {
