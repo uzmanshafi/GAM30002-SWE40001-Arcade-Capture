@@ -63,9 +63,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: 
-  - cost: 0
+  - cost: 50
     description: 50
-  - cost: 0
+  - cost: 75
     description: 75
   projectile_speed: 5
   shoot: {fileID: 8300000, guid: eae028ee04e25814eb6c4b9774d5363c, type: 3}

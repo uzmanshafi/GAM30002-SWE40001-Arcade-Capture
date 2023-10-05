@@ -169,7 +169,13 @@ MonoBehaviour:
   controlColour: 
   inspectSprite: {fileID: 21300000, guid: 34603b229bdbc0d4991fac0a93391174, type: 3}
   upgradeLevel: 0
-  upgrades: []
+  upgrades:
+  - cost: 0
+    description: 
+  - cost: 200
+    description: 
+  - cost: 400
+    description: 
   damage_multiplier: 1.15
   cooldown_multipler: 0.9
   range_multipler: 1

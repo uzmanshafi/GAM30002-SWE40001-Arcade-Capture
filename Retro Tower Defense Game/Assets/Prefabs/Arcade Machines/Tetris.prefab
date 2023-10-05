@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 20
   cooldown: 0.7
-  damage: 1
+  damage: 0.5
   bulletLifetime: 2
   target: {fileID: 0}
   towerRadius: 3
@@ -121,9 +121,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: 
-  - cost: 10
+  - cost: 30
     description: 
-  - cost: 20
+  - cost: 90
     description: 
   shoot: {fileID: 8300000, guid: 6ff5ce9feee6be84ca5b17ff21632c24, type: 3}
   comboMultiplier: 2

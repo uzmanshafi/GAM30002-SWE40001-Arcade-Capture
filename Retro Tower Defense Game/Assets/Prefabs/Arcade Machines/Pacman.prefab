@@ -187,7 +187,7 @@ MonoBehaviour:
     description: 
   - cost: 80
     description: 
-  - cost: 0
+  - cost: 150
     description: 
   baseGhostSpeed: 1
   baseGhostDamage: 1
