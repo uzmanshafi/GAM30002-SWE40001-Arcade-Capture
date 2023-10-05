@@ -108,6 +108,10 @@ public class TowerPlacement : MonoBehaviour
     {
         if (currentTower != null)
         {
+            if(currentTower.TryGetComponent<PongTower>(out PongTower pt))
+            {
+                Destroy(pt.other.gameObject);
+            }
             Destroy(currentTower);
             Destroy(currentRadius);
             currentTower = null;
@@ -204,16 +208,11 @@ public class TowerPlacement : MonoBehaviour
 
         if (currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other == null)
         {
-            if (!gameManager.AllTowers.Contains(shootScript))
-            {
-                gameManager.AllTowers.Add(shootScript);
-                gameManager.money -= shootScript.cost;
-            }
-            shootScript.enabled = true;
+            
             currentTowerSpriteRenderer.color = Color.white;
 
             currentTower = Instantiate(towerPrefabs[5]);
-            currentTower.transform.position = GetMouseWorldPosition() + new Vector3(1.5f, 1.5f, 0);
+            currentTower.transform.position = GetMouseWorldPosition(); //+ new Vector3(1.5f, 1.5f, 0); idk what this is supposed to do but is causing bugs
             currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
 
             pt.other = currentTower.GetComponent<PongTower>();
@@ -221,12 +220,19 @@ public class TowerPlacement : MonoBehaviour
             pt.other.other = pt;
 
             currentTower.GetComponent<Tower>().enabled = false;
+            shootScript.enabled = true;
         }
         else if (currentTower.TryGetComponent<PongTower>(out PongTower pt2) && pt2.other != null)
         {
             if (Vector2.Distance(pt2.transform.position, pt2.other.transform.position) <= pt2.other.range)
             {
+                
                 shootScript.enabled = true;
+                if (!gameManager.AllTowers.Contains(shootScript))
+                {
+                    gameManager.AllTowers.Add(shootScript);
+                    gameManager.money -= shootScript.cost;
+                }
                 pt2.TowerOrder = 1;
                 currentTowerSpriteRenderer.color = Color.white;
                 currentTower = null;

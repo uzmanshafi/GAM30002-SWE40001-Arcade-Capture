@@ -24,6 +24,10 @@ public class UIManager : MonoBehaviour
     {
         if (selectedTower.TryGetComponent<PongTower>(out PongTower pt))
         {
+            if (GameManager.instance.AllTowers.Contains(pt))
+            {
+                GameManager.instance.AllTowers.Remove(pt);
+            }
             Destroy(pt.other.gameObject);
         }
         GameManager.instance.money += (int)(selectedTower.cost * 0.75f);
@@ -128,7 +132,7 @@ public class UIManager : MonoBehaviour
     {
         if (selectedTower.upgradeLevel < 2)
         {
-            if (GameManager.instance.money - selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost > 0)
+            if (GameManager.instance.money - selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost >= 0)
             {
                 GameManager.instance.money -= selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
                 selectedTower.upgradeLevel += 1;
