@@ -5613,7 +5613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stars: 10
   money: 10000
-  currentWave: 9
+  currentWave: 0
   ghostAmbient: {fileID: 690477380}
   wakaWaka: {fileID: 690477379}
   PAXGameOver: {fileID: 1945338817}
