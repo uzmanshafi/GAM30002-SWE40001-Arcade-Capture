@@ -117,7 +117,7 @@ public static class Utils {
 
                 attempt = AttemptToFire(target.GetWaypoints.getWaypointPosition(index), target.GetWaypoints.getWaypointPosition(index + 1), target.GetMovementSpeed, current_position, projectile_speed, total_time);
 
-                if (attempt.direction is Vector2 dir2 && projectile_speed * total_time <= tower_range)
+                if (attempt.direction is Vector2 dir2)
                 {
                     return dir2;
                 }
