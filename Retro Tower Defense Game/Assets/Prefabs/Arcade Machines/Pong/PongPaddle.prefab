@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 302266626651390}
   - component: {fileID: -5066774644315820559}
   - component: {fileID: 137615753096539834}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PongPaddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,3 +175,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546ad6cca25f2554abaf1eb91f95742a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 0}

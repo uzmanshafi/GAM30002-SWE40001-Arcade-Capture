@@ -4,10 +4,15 @@ using UnityEngine;
 using static Utils;
 public class PredictiveTower : Tower
 {
-    [SerializeField] private float projectile_speed;
-    [SerializeField] private AudioClip shoot;
+    [SerializeField] protected float projectile_speed;
+    [SerializeField] protected AudioClip shoot;
     // Start is called before the first frame update
     void Start()
+    {
+        base.init();
+    }
+
+    protected void initialise()
     {
         base.init();
     }
@@ -25,20 +30,23 @@ public class PredictiveTower : Tower
         {
             Vector2? dir = aimPrediction(projectile_speed, target, (Vector2)transform.position, range);
 
-            AudioSource.PlayClipAtPoint(shoot, transform.position);
-            GameObject bullet = Instantiate(bulletTypes[0], transform.position /*+ dir*/, Quaternion.identity);
             
-            Rigidbody2D projectileRB = bullet.GetComponent<Rigidbody2D>();
             if (dir is Vector2 _dir)
             {
+                AudioSource.PlayClipAtPoint(shoot, transform.position);
+                GameObject bullet = Instantiate(bulletTypes[0], transform.position /*+ dir*/, Quaternion.identity);
+
+                Rigidbody2D projectileRB = bullet.GetComponent<Rigidbody2D>();
                 projectileRB.velocity = _dir * projectile_speed;
+
+                Projectile shot = bullet.GetComponent<Projectile>();
+                shot.target = target;
+                shot.canSeeCamo = canSeeCamo;
+                shot.damage = damage;
+                Destroy(bullet, bulletLifetime);
+                lastShotTime = Time.time;
             }
-            Projectile shot = bullet.GetComponent<Projectile>();
-            shot.target = target;
-            shot.canSeeCamo = canSeeCamo;
-            shot.damage = damage;
-            Destroy(bullet, bulletLifetime);
-            lastShotTime = Time.time;
+            
         }
 
     }

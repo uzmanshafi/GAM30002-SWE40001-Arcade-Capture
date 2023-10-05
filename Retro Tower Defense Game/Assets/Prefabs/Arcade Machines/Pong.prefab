@@ -1,0 +1,194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8076282756041783590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4462670486568380753}
+  - component: {fileID: 2475031915224371012}
+  - component: {fileID: 4555808692913621884}
+  - component: {fileID: 8294213705418891615}
+  m_Layer: 6
+  m_Name: Pong
+  m_TagString: ArcadeTower
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4462670486568380753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076282756041783590}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &2475031915224371012
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076282756041783590}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 995e25f99850dd54c908982a2ac301b0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.18, y: 0.18}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!60 &4555808692913621884
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076282756041783590}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.18, y: 0.18}
+    newSize: {x: 0.18, y: 0.18}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.07912931, y: 0.08110672}
+      - {x: -0.0031480193, y: 0.08077747}
+      - {x: -0.081525, y: 0.080516994}
+      - {x: -0.080863744, y: 0.07106179}
+      - {x: -0.09131702, y: 0.07024499}
+      - {x: -0.09098345, y: -0.020157337}
+      - {x: -0.08117291, y: -0.02061069}
+      - {x: -0.081222266, y: -0.05017519}
+      - {x: -0.070319265, y: -0.05050516}
+      - {x: -0.07068401, y: -0.061465047}
+      - {x: -0.060708076, y: -0.061643183}
+      - {x: -0.06022501, y: -0.07084036}
+      - {x: -0.0005158782, y: -0.0704509}
+      - {x: 0.059739262, y: -0.07048869}
+      - {x: 0.060351044, y: -0.06096083}
+      - {x: 0.068927996, y: -0.061026}
+      - {x: 0.07028699, y: -0.050677657}
+      - {x: 0.08037606, y: -0.051352262}
+      - {x: 0.08061293, y: -0.020220995}
+      - {x: 0.09043914, y: -0.020141661}
+      - {x: 0.09060669, y: 0.069744885}
+      - {x: 0.08034202, y: 0.071562015}
+  m_UseDelaunayMesh: 0
+--- !u!114 &8294213705418891615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8076282756041783590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba86a3af4ee52b14d86dbd6e63fb633b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 80
+  cooldown: 1
+  damage: 1
+  bulletLifetime: 0
+  target: {fileID: 0}
+  towerRadius: 0
+  range: 4
+  radius: 0
+  radiusDisplay: {fileID: 0}
+  bulletTypes:
+  - {fileID: 2396885586352238776, guid: 23fb1b0291ea0964185da2176e558032, type: 3}
+  controlColour: Blue
+  inspectSprite: {fileID: 21300000, guid: 4145268d453ff7a45b293be5044fb861, type: 3}
+  upgradeLevel: 0
+  upgrades:
+  - cost: 0
+    description: 
+  - cost: 40
+    description: Pong Ball speed increases
+  - cost: 50
+    description: Pong ball bounces super fast
+  pongShot: {fileID: 0}
+  other: {fileID: 0}
+  shotRB: {fileID: 0}
+  pongOrder: 0
+  pongPaddlePrefab: {fileID: 6084772739986610346, guid: 3296c32ad7ead3642a36d7ad24ec9fe6, type: 3}
+  shoot: {fileID: 8300000, guid: 90d160172f515774aa95bc4f4906fa10, type: 3}

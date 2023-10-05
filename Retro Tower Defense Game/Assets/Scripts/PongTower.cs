@@ -32,6 +32,13 @@ public class PongTower : Tower
     // Update is called once per frame
     void Update()
     {
+        if (upgradeLevel != other.upgradeLevel)
+        {
+            if (pongOrder == 0)
+            {
+                other.upgradeLevel = upgradeLevel;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             matchTowers();
@@ -87,7 +94,21 @@ public class PongTower : Tower
         Vector2 dir = other.transform.position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x);
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-        shotRB.velocity = dir * pongShot.speed;
+        switch (upgradeLevel)
+        {
+            case 0:
+                shotRB.velocity = dir * pongShot.speed;
+                break;
+            case 1:
+                shotRB.velocity = dir * (pongShot.speed * 1.5f);
+                break;
+            case 2:
+                shotRB.velocity = dir * (pongShot.speed * 2f);
+                break;
+            default:
+                shotRB.velocity = dir * pongShot.speed;
+                break;
+        }
         AudioSource.PlayClipAtPoint(shoot, transform.position);
     }
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,58 +7,118 @@ public class TowerPlacement : MonoBehaviour
     public GameObject[] towerPrefabs;
     public Tilemap groundTilemap;
     public Tilemap pathTilemap;
-    public Tilemap wallTilemap;
-    public Collider2D wallCollider;
     public GameObject radiusPrefab;
     private GameObject currentTower;
     private GameObject currentRadius;
-    UIManager uiManager;
-    private SpriteRenderer currentTowerSpriteRenderer;
-    GameManager gameManager;
-    private float scaleFactor = 0.5f;
 
+    private UIManager uiManager;
+    private SpriteRenderer currentTowerSpriteRenderer;
+    private GameManager gameManager;
+    private float scaleFactor = 0.5f;
+    private float towerPlacedCooldown = 0.5f;
+
+    //using these variables for star rating ui expection and animation
+    private GameObject starRatingUI;
+    private Vector3 originalStarRatingPos;
+    private float moveDuration = 1.5f;
+    private bool starRatingIsUp = false;
+    private bool isMovingStarRating = false;
+
+    //control indicators
+    [SerializeField] private GameObject Controlindicator;
 
     void Start()
     {
         gameManager = GameManager.instance;
         uiManager = UIManager.instance;
+
+        starRatingUI = GameObject.FindGameObjectWithTag("starRating");
+        Debug.Log("found" + " " + starRatingUI);
+
+        if (starRatingUI != null)
+        {
+            originalStarRatingPos = starRatingUI.transform.position;
+        }
+
+
     }
 
     void Update()
     {
         Vector3 mouseWorldPos = GetMouseWorldPosition();
-        if (Input.GetKeyDown(KeyCode.Q))
+
+        PlacementCooldown();
+        CancelTowerPlacement();
+        TowerDragging(mouseWorldPos);
+        TowerRotation();
+        RunTowerPlacement(mouseWorldPos);
+        TowerSelection(mouseWorldPos);
+    }
+
+    private void PlacementCooldown()
+    {
+        if (towerPlacedCooldown > 0)
         {
-            if (currentTower != null)
-            {
-                Destroy(currentTower);
-                Destroy(currentRadius);
-                currentTower = null;
-                currentTowerSpriteRenderer = null;
-            }
+            towerPlacedCooldown -= Time.deltaTime;
         }
-        if (currentTower != null)
+    }
+
+    private void CancelTowerPlacement()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetMouseButtonDown(1))
+        {
+            DestroyCurrentTower();
+        }
+    }
+
+    private void TowerDragging(Vector3 mouseWorldPos)
+    {
+        if (currentTower != null && towerPlacedCooldown <= 0)
         {
             DragTower(mouseWorldPos);
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (IsValidLocation(mouseWorldPos, currentTower.name))
-                {
-                    DropTower();
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                currentTower.transform.Rotate(0, 0, -45);
-            }
         }
+    }
 
-        if (Input.GetMouseButtonDown(0))
+    private void TowerRotation()
+    {
+        if (currentTower != null && (Input.GetKeyDown(KeyCode.R) || Input.mouseScrollDelta.y != 0))
+        {
+            currentTower.transform.Rotate(0, 0, -45);
+        }
+    }
+
+    private void RunTowerPlacement(Vector3 mouseWorldPos)
+    {
+        if (currentTower != null && Input.GetMouseButtonDown(0) && IsValidLocation(mouseWorldPos, currentTower.name))
+        {
+            DropTower();
+            towerPlacedCooldown = 0.5f; // Reset cooldown after placing a tower
+        }
+    }
+
+    private void TowerSelection(Vector3 mouseWorldPos)
+    {
+        if (Input.GetMouseButtonDown(0) && currentTower == null && towerPlacedCooldown <= 0)
         {
             AttemptSelectTower(mouseWorldPos);
+        }
+    }
 
+    private void DestroyCurrentTower()
+    {
+        if (currentTower != null)
+        {
+            if(currentTower.TryGetComponent<PongTower>(out PongTower pt))
+            {
+                Destroy(pt.other.gameObject);
+            }
+            Destroy(currentTower);
+            Destroy(currentRadius);
+            currentTower = null;
+            currentTowerSpriteRenderer = null;
         }
 
+        Controlindicator.SetActive(false);
     }
 
     private Vector3 GetMouseWorldPosition()
@@ -79,6 +140,10 @@ public class TowerPlacement : MonoBehaviour
         {
             return;
         }
+
+
+        uiManager.deselectTower();
+        DestroyCurrentRadius();
 
         currentTower = Instantiate(towerPrefab);
         currentTower.transform.position = position + new Vector3(1.5f, 1.5f, 0);
@@ -120,23 +185,34 @@ public class TowerPlacement : MonoBehaviour
                 currentRadius.transform.position = newPosition;
             }
         }
+
+        // Checks the distance to the starRatingUI
+        float distanceToStarRating = Vector3.Distance(currentTower.transform.position, starRatingUI.transform.position);
+        float moveThreshold = 2f;
+
+        if (distanceToStarRating < moveThreshold && !starRatingIsUp)
+        {
+            MoveStarRatingUp();
+        }
+        else if (distanceToStarRating >= moveThreshold && starRatingIsUp)
+        {
+            MoveStarRatingToOriginalPos();
+        }
+
+        Controlindicator.SetActive(true); // displays the control indicator
     }
     private void DropTower()
     {
+        MoveStarRatingToOriginalPos();
         Tower shootScript = currentTower.GetComponent<Tower>();
 
         if (currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other == null)
         {
-            if (!gameManager.AllTowers.Contains(shootScript))
-            {
-                gameManager.AllTowers.Add(shootScript);
-                gameManager.money -= shootScript.cost;
-            }
-            shootScript.enabled = true;
+            
             currentTowerSpriteRenderer.color = Color.white;
 
             currentTower = Instantiate(towerPrefabs[5]);
-            currentTower.transform.position = GetMouseWorldPosition() + new Vector3(1.5f, 1.5f, 0);
+            currentTower.transform.position = GetMouseWorldPosition(); //+ new Vector3(1.5f, 1.5f, 0); idk what this is supposed to do but is causing bugs
             currentTowerSpriteRenderer = currentTower.GetComponent<SpriteRenderer>();
 
             pt.other = currentTower.GetComponent<PongTower>();
@@ -144,12 +220,19 @@ public class TowerPlacement : MonoBehaviour
             pt.other.other = pt;
 
             currentTower.GetComponent<Tower>().enabled = false;
+            shootScript.enabled = true;
         }
         else if (currentTower.TryGetComponent<PongTower>(out PongTower pt2) && pt2.other != null)
         {
             if (Vector2.Distance(pt2.transform.position, pt2.other.transform.position) <= pt2.other.range)
             {
+                
                 shootScript.enabled = true;
+                if (!gameManager.AllTowers.Contains(shootScript))
+                {
+                    gameManager.AllTowers.Add(shootScript);
+                    gameManager.money -= shootScript.cost;
+                }
                 pt2.TowerOrder = 1;
                 currentTowerSpriteRenderer.color = Color.white;
                 currentTower = null;
@@ -170,13 +253,18 @@ public class TowerPlacement : MonoBehaviour
             currentTowerSpriteRenderer = null;
             DestroyCurrentRadius();
         }
+
+        Controlindicator.SetActive(false);
     }
 
 
     private void AttemptSelectTower(Vector3 position)
     {
+
         int layerMask = 1 << LayerMask.NameToLayer("Tower");
         Collider2D hitCollider = Physics2D.OverlapPoint(position, layerMask);
+
+        Rect uiRect = uiManager.GetComponent<RectTransform>().rect;
 
         if (hitCollider != null && hitCollider.gameObject.CompareTag("ArcadeTower"))
         {
@@ -187,25 +275,25 @@ public class TowerPlacement : MonoBehaviour
                 ShowRadiusForSelectedTower(towerScript);
             }
         }
+        else if (uiRect.Contains(position))
+        {
+
+        }
         else
         {
             uiManager.deselectTower();
             DestroyCurrentRadius();
         }
-    }
 
+    }
 
     private void ShowRadiusForSelectedTower(Tower tower)
     {
-        if (currentRadius) // Checks if a radius is already being displayed
-        {
-            Destroy(currentRadius);
-        }
+        DestroyCurrentRadius();
 
         currentRadius = Instantiate(radiusPrefab, tower.transform.position, Quaternion.identity);
         currentRadius.transform.SetParent(tower.transform); // Set the tower as the parent of the radius
-        float desiredRadius = tower.range * scaleFactor;
-        currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
+        UpdateRadiusDisplay(tower.range);
     }
 
 
@@ -215,14 +303,62 @@ public class TowerPlacement : MonoBehaviour
         currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
     }
 
-    private void DestroyCurrentRadius()
+    public void DestroyCurrentRadius()
     {
         if (currentRadius)
         {
             Destroy(currentRadius);
             currentRadius = null;
         }
+
+        
     }
+
+    //star rating related function are here
+    private void MoveStarRatingUp()
+    {
+        if (!starRatingIsUp && !isMovingStarRating) // Check if coroutine is not already running
+        {
+            StopAllCoroutines(); // Stops any existing move coroutines
+            StartCoroutine(MoveStarRating(originalStarRatingPos, new Vector3(originalStarRatingPos.x, originalStarRatingPos.y + 1, originalStarRatingPos.z)));
+            starRatingIsUp = true;
+        }
+    }
+
+    private void MoveStarRatingToOriginalPos()
+    {
+        if (starRatingIsUp && !isMovingStarRating) // Checks if coroutine is not already running
+        {
+            StopAllCoroutines(); // Stops any existing move coroutines
+            StartCoroutine(MoveStarRating(starRatingUI.transform.position, originalStarRatingPos));
+            starRatingIsUp = false;
+        }
+    }
+
+
+    private IEnumerator MoveStarRating(Vector3 startPos, Vector3 endPos)
+    {
+        if (isMovingStarRating) yield break; // Checks if coroutine is already running
+        isMovingStarRating = true;
+
+        float journeyLength = Vector3.Distance(startPos, endPos);
+        float startTime = Time.time;
+        float distanceCovered;
+
+        do
+        {
+            distanceCovered = (Time.time - startTime) * moveDuration;
+            float fractionOfJourney = distanceCovered / journeyLength;
+            starRatingUI.transform.position = Vector3.Lerp(startPos, endPos, fractionOfJourney);
+
+            yield return null; // Waits for next frame
+        }
+        while (distanceCovered < journeyLength);
+
+        starRatingUI.transform.position = endPos; // Ensures the final position is set correctly
+        isMovingStarRating = false;
+    }
+
 
     private bool IsValidLocation(Vector3 location, string towerName)
     {
@@ -269,6 +405,25 @@ public class TowerPlacement : MonoBehaviour
         {
             if (results[i].gameObject.CompareTag("PathTilemap"))
             {
+                return false;
+            }
+        }
+
+        int uiLayerMask = 1 << LayerMask.NameToLayer("UI");
+        Collider2D hitCollider = Physics2D.OverlapPoint(location, uiLayerMask);
+
+        if (hitCollider != null)
+        {
+            // Checks if the hit UI element is a child of starRatingUI
+            if (hitCollider.transform.IsChildOf(starRatingUI.transform))
+            {
+                // if we are close to Star Rating UI, it will move up
+                Debug.Log("Detected proximity to StarBar. Moving it up.");
+                MoveStarRatingUp();
+            }
+            else
+            {
+                // if mouse is over some other UI element, so the location is not valid.
                 return false;
             }
         }
