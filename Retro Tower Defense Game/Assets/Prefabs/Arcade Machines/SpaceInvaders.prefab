@@ -30,7 +30,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8928510976217991125}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 100
-  cooldown: 0.4
+  cooldown: 0.35
   damage: 1
   bulletLifetime: 1
   target: {fileID: 0}
@@ -113,14 +114,17 @@ MonoBehaviour:
   upgradeLevel: 0
   upgrades:
   - cost: 0
-    description: 
-  - cost: 0
-    description: 
-  - cost: 0
-    description: 
-  shipPrefab: {fileID: 5185414893317502098, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+    description: spawn 1 line of bullets
+  - cost: 10
+    description: spawns 2 lines of bullets
+  - cost: 20
+    description: spawns 3 lines of bullet
   bulletPrefab: {fileID: 4005175662800323705, guid: b7da219df0b5cc54bb3a8ca6c8ae6fcd, type: 3}
-  shoot: {fileID: 8300000, guid: ad10ec842d593734893eb7ccef0dec81, type: 3}
+  shootSound: {fileID: 8300000, guid: ad10ec842d593734893eb7ccef0dec81, type: 3}
+  MovementSpeed: 1
+  sightDistance: 20
+  shipTransform: {fileID: 8928510976217991125}
+  lineOfSight: {fileID: 7069760945098292685, guid: 5e68605147d1241428a0191a07c79453, type: 3}
 --- !u!61 &9070834913492343801
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -166,3 +170,85 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.1665048}
   m_EdgeRadius: 0
+--- !u!1001 &5782677981485540840
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4462670486568380753}
+    m_Modifications:
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5185414893317502098, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+      propertyPath: m_Name
+      value: Space Invaders Ship
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+--- !u!4 &8928510976217991125 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3145838630007562813, guid: 54b3d48782dac184da1bd08942028aa7, type: 3}
+  m_PrefabInstance: {fileID: 5782677981485540840}
+  m_PrefabAsset: {fileID: 0}

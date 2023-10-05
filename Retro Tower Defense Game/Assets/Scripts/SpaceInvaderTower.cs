@@ -1,138 +1,183 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceInvadersTower : Tower
+public class SpaceInvaderTower : Tower
 {
-    [SerializeField] private GameObject shipPrefab;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private AudioClip shoot;
-    private GameObject spawnedShip;
-    private float movementSpeed = 1.0f;
+    [SerializeField] private AudioClip shootSound;
+    [SerializeField] private float MovementSpeed = 1.0f;
+    [SerializeField] private float sightDistance = 5.0f;
+    [SerializeField] private Transform shipTransform;
+    [SerializeField] private LineRenderer lineOfSight;
+
     private Vector2 leftBoundary;
     private Vector2 rightBoundary;
-    private bool shipActive = false;
-    private bool isShooting = false;
+
     private Wave waveScript;
+    private Vector2 originalShipPosition;
 
-    private List<GameObject> spawnedBullets = new List<GameObject>(); // List to track bullets
+    private bool enemyInSight = false;
 
-    Vector2 towerDirection;
+    [Header("Level Values Configuration")]
+    [SerializeField] private int[] bulletLinesPerLevel = { 1, 2, 3 };
 
-    void Start()
-    {
-        base.init();
-        SpawnShip();
-    }
+    private int currentUpgradeLevel = 0;
 
-    void Awake()
+    private void Awake()
     {
         waveScript = FindObjectOfType<Wave>();
-        towerDirection = transform.up;
+        originalShipPosition = shipTransform.localPosition;
+        shipTransform.gameObject.SetActive(false);
+        SetBoundaries();
     }
 
-    void Update()
+    private void Update()
     {
-        if (waveScript && !waveScript.waveInProgress && shipActive)
-        {
-            shipActive = false;
-            StopCoroutine(MoveShipLeftAndRight());
-            StopCoroutine(ShipShootStraight());
-            isShooting = false;
-        }
-        else if
-            (waveScript && waveScript.waveInProgress && !shipActive)
-        {
-            
-            shipActive = true;
-            StartCoroutine(MoveShipLeftAndRight());
-            StartCoroutine(ShipShootStraight());
-        }
+        CheckUpgrades();
 
-        if (waveScript && waveScript.waveInProgress && !isShooting)
+        if (waveScript.waveInProgress)
         {
-            isShooting = true;
-            StartCoroutine(ShipShootStraight());
+            if (!shipTransform.gameObject.activeSelf)
+            {
+                shipTransform.gameObject.SetActive(true);
+                StartCoroutine(AnimateLiftOff());
+            }
+
+            if (EnemyInSight() && !enemyInSight)
+            {
+                enemyInSight = true;
+                StartCoroutine(MoveShipLeftAndRight());
+                StartCoroutine(ShootAtEnemies());
+            }
         }
+        else if (shipTransform.gameObject.activeSelf && enemyInSight)
+        {
+            enemyInSight = false;
+            StopAllCoroutines();
+            StartCoroutine(ReturnToOriginalPosition());
+        }
+    }
+
+
+    private void DrawLineOfSight()
+    {
+        Vector3 endPosition = shipTransform.position - transform.up * sightDistance;
+        lineOfSight.SetPosition(0, shipTransform.position);
+        lineOfSight.SetPosition(1, endPosition);
+    }
+
+    private bool EnemyInSight()
+    {
+        int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
+        RaycastHit2D hit = Physics2D.Raycast(shipTransform.position, -transform.up, sightDistance, enemyLayerMask);
+        return hit.collider != null;
     }
 
     protected override void tryShoot()
     {
+        if (waveScript.waveInProgress && enemyInSight)
+        {
+            int bulletCount = bulletLinesPerLevel[currentUpgradeLevel];
+            float spacing = 0.2f;
 
+            float startOffset = -spacing * (bulletCount - 1) / 2;
+
+            for (int i = 0; i < bulletCount; i++)
+            {
+                float xOffset = startOffset + i * spacing;
+                FireBullet(xOffset);
+            }
+        }
     }
 
-    private void SpawnShip()
+    void FireBullet(float xOffset)
     {
-        Quaternion adjustedRotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 180);
-        spawnedShip = Instantiate(shipPrefab, transform.position, adjustedRotation);
+        GameObject bullet = Instantiate(bulletPrefab, shipTransform.position + new Vector3(xOffset, 0, 0), Quaternion.identity);
+        bullet.GetComponent<Rigidbody2D>().velocity = -transform.up * 5;
+        AudioSource.PlayClipAtPoint(shootSound, transform.position);
+    }
 
-        towerDirection = adjustedRotation * Vector2.up;
+    private void CheckUpgrades()
+    {
+        if (currentUpgradeLevel != upgradeLevel)
+        {
+            currentUpgradeLevel = upgradeLevel;
+        }
+    }
 
-        BoxCollider2D boundaryCollider = GetComponent<BoxCollider2D>();
-        Vector2 boundarySize = boundaryCollider.size;
+    private void FireBullet()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, shipTransform.position, Quaternion.identity);
+        bullet.GetComponent<Rigidbody2D>().velocity = -transform.up * 5;
+        AudioSource.PlayClipAtPoint(shootSound, transform.position);
+    }
 
-        Vector2 localLeftBoundary = -Vector2.right * boundarySize.x / 2;
-        Vector2 localRightBoundary = Vector2.right * boundarySize.x / 2;
+    private void SetBoundaries()
+    {
+        BoxCollider2D collider = GetComponent<BoxCollider2D>();
+        Vector2 size = collider.size;
 
-        leftBoundary = transform.TransformPoint(localLeftBoundary);
-        rightBoundary = transform.TransformPoint(localRightBoundary);
+        // Define the left and right boundaries in local coordinates
+        leftBoundary = new Vector2(-size.x / 2, shipTransform.localPosition.y);
+        rightBoundary = new Vector2(size.x / 2, shipTransform.localPosition.y);
+    }
+
+
+    IEnumerator AnimateLiftOff()
+    {
+        Vector3 targetScale = shipTransform.localScale;
+        shipTransform.localScale = Vector3.zero;
+
+        float duration = 1.0f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            shipTransform.localScale = Vector3.Lerp(Vector3.zero, targetScale, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        shipTransform.localScale = targetScale;
     }
 
     IEnumerator MoveShipLeftAndRight()
     {
         bool movingRight = true;
 
-        while (shipActive)
+        while (enemyInSight)
         {
-            if (movingRight)
+
+            Vector2 targetPosition = movingRight ? transform.TransformPoint(rightBoundary) : transform.TransformPoint(leftBoundary);
+
+            while (Vector2.Distance(shipTransform.position, targetPosition) > 0.1f)
             {
-                while (Vector2.Distance(spawnedShip.transform.position, rightBoundary) > 0.1f)
-                {
-                    spawnedShip.transform.position = Vector2.MoveTowards(spawnedShip.transform.position, rightBoundary, movementSpeed * Time.deltaTime);
-                    yield return null;
-                }
-                movingRight = false;
+                shipTransform.position = Vector2.MoveTowards(shipTransform.position, targetPosition, MovementSpeed * Time.deltaTime);
+                yield return null;
             }
-            else
-            {
-                while (Vector2.Distance(spawnedShip.transform.position, leftBoundary) > 0.1f)
-                {
-                    spawnedShip.transform.position = Vector2.MoveTowards(spawnedShip.transform.position, leftBoundary, movementSpeed * Time.deltaTime);
-                    yield return null;
-                }
-                movingRight = true;
-            }
+
+            movingRight = !movingRight;
+            yield return null;
         }
     }
 
-    IEnumerator ShipShootStraight()
+    IEnumerator ShootAtEnemies()
     {
-        Debug.Log("Bullet firing initiated.");
-        while (isShooting)
+        while (enemyInSight)
         {
-            AudioSource.PlayClipAtPoint(shoot, transform.position);
-            GameObject bullet = Instantiate(bulletPrefab, spawnedShip.transform.position, Quaternion.identity);
-            spawnedBullets.Add(bullet);
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            rb.velocity = towerDirection * 5;
+            tryShoot();
             yield return new WaitForSeconds(cooldown);
         }
     }
 
 
-    private void OnDestroy()
-    {
-        if (spawnedShip != null)
-        {
-            Destroy(spawnedShip);
-        }
 
-        foreach (var bullet in spawnedBullets)
+    IEnumerator ReturnToOriginalPosition()
+    {
+        while (Vector2.Distance(shipTransform.localPosition, originalShipPosition) > 0.1f)
         {
-            if (bullet != null)
-            {
-                Destroy(bullet);
-            }
+            shipTransform.localPosition = Vector2.MoveTowards(shipTransform.localPosition, originalShipPosition, MovementSpeed * Time.deltaTime);
+            yield return null;
         }
     }
 }
