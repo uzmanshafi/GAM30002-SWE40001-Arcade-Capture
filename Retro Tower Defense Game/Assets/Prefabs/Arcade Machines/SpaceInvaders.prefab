@@ -106,7 +106,7 @@ MonoBehaviour:
   bulletLifetime: 1
   target: {fileID: 0}
   towerRadius: 0
-  range: 3
+  range: 100
   radius: 0
   radiusDisplay: {fileID: 0}
   bulletTypes: []
