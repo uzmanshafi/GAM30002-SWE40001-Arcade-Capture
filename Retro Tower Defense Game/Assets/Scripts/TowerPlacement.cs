@@ -111,7 +111,7 @@ public class TowerPlacement : MonoBehaviour
     {
         if (currentTower != null)
         {
-            if(currentTower.TryGetComponent<PongTower>(out PongTower pt))
+            if(currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other != null)
             {
                 Destroy(pt.other.gameObject);
             }
