@@ -5004,7 +5004,7 @@ MonoBehaviour:
   - {fileID: 8076282756041783590, guid: 722be9c2feb621940946e9f9e591b1a1, type: 3}
   groundTilemap: {fileID: 1474541320}
   pathTilemap: {fileID: 1032469544}
-  radiusPrefab: {fileID: 2122240868449220821, guid: 26f16191b8ce0234f8d084345a4b6750, type: 3}
+  RadiusPrefab: {fileID: 2122240868449220821, guid: 26f16191b8ce0234f8d084345a4b6750, type: 3}
   Controlindicator: {fileID: 1550139977}
 --- !u!114 &690477377
 MonoBehaviour:
@@ -9010,7 +9010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &892573665
 RectTransform:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class TowerPlacement : MonoBehaviour
     public GameObject[] towerPrefabs;
     public Tilemap groundTilemap;
     public Tilemap pathTilemap;
-    public GameObject radiusPrefab;
+    public GameObject RadiusPrefab;
     private GameObject currentTower;
     private GameObject currentRadius;
 
@@ -23,6 +23,8 @@ public class TowerPlacement : MonoBehaviour
     private float moveDuration = 1.5f;
     private bool starRatingIsUp = false;
     private bool isMovingStarRating = false;
+
+
 
     //control indicators
     [SerializeField] private GameObject Controlindicator;
@@ -70,6 +72,7 @@ public class TowerPlacement : MonoBehaviour
             DestroyCurrentTower();
         }
     }
+
 
     private void TowerDragging(Vector3 mouseWorldPos)
     {
@@ -141,7 +144,6 @@ public class TowerPlacement : MonoBehaviour
             return;
         }
 
-
         uiManager.deselectTower();
         DestroyCurrentRadius();
 
@@ -151,9 +153,30 @@ public class TowerPlacement : MonoBehaviour
         Tower shootScript = currentTower.GetComponent<Tower>();
         shootScript.enabled = false;
 
-        currentRadius = Instantiate(radiusPrefab, currentTower.transform);
-        UpdateRadiusDisplay(shootScript.range);
+        if (towerPrefab.name.StartsWith("SpaceInvaders"))
+        {
+            Transform lineRadius = currentTower.transform.Find("LineRadiusPrefab");
+            if (lineRadius)
+            {
+                lineRadius.gameObject.SetActive(true); // Turn on the child LineRadius
+            }
+        }
+
+        SpawnIndicatorForTower(shootScript);
+        UpdateRadiusDisplay(shootScript.range, towerPrefab.name == "SpaceInvaders");
     }
+
+    private void SetLineScale(GameObject line, GameObject tower)
+    {
+        SpaceInvaderTower spaceInvader = tower.GetComponent<SpaceInvaderTower>();
+        if (spaceInvader != null)
+        {
+            float sightDistance = spaceInvader.SightDistance;
+            line.transform.localScale = new Vector2(0.8f, sightDistance);
+        }
+    }
+
+
 
     private void DragTower(Vector3 newPosition)
     {
@@ -260,7 +283,6 @@ public class TowerPlacement : MonoBehaviour
 
     private void AttemptSelectTower(Vector3 position)
     {
-
         int layerMask = 1 << LayerMask.NameToLayer("Tower");
         Collider2D hitCollider = Physics2D.OverlapPoint(position, layerMask);
 
@@ -272,46 +294,110 @@ public class TowerPlacement : MonoBehaviour
             if (towerScript != null)
             {
                 uiManager.selectTower(towerScript);
-                ShowRadiusForSelectedTower(towerScript);
+
+                SpawnIndicatorForTower(towerScript);
+
+
             }
         }
-        else if (uiRect.Contains(position))
-        {
-
-        }
+        else if (uiRect.Contains(position)) { }
         else
         {
             uiManager.deselectTower();
             DestroyCurrentRadius();
         }
-
     }
 
-    private void ShowRadiusForSelectedTower(Tower tower)
+    private void SpawnIndicatorForTower(Tower tower)
     {
         DestroyCurrentRadius();
 
-        currentRadius = Instantiate(radiusPrefab, tower.transform.position, Quaternion.identity);
-        currentRadius.transform.SetParent(tower.transform); // Set the tower as the parent of the radius
-        UpdateRadiusDisplay(tower.range);
+        if (tower.gameObject.name.StartsWith("SpaceInvaders"))
+        {
+            Transform lineRadius = tower.transform.Find("LineRadiusPrefab");
+            if (lineRadius)
+            {
+                currentRadius = lineRadius.gameObject;
+                currentRadius.SetActive(true); // Ensures it's set active
+            }
+        }
+        else
+        {
+            currentRadius = Instantiate(RadiusPrefab, tower.transform.position, Quaternion.identity);
+            currentRadius.transform.SetParent(tower.transform);
+        }
+
+        UpdateIndicatorDisplay(tower);
     }
 
 
-    private void UpdateRadiusDisplay(float range)
+
+
+
+    private void UpdateIndicatorDisplay(Tower tower)
+    {
+        if (tower.gameObject.name.StartsWith("SpaceInvaders"))
+        {
+            // Updates Line display based on tower properties
+            SpaceInvaderTower spaceInvader = tower.GetComponent<SpaceInvaderTower>();
+            if (spaceInvader != null)
+            {
+                float sightDistance = spaceInvader.SightDistance;
+
+                // Calculates the new Y-scale based on sight distance
+                float oldScaleY = currentRadius.transform.localScale.y;
+                float baseScale = 0.15f;
+                float baseDistance = 1f;
+                float newScaleY = baseScale * (sightDistance / baseDistance);
+
+
+                currentRadius.transform.localScale = new Vector2(0.18f, newScaleY);
+
+
+                float deltaY = newScaleY - oldScaleY;
+                Vector3 newPosition = currentRadius.transform.position + new Vector3(0, deltaY / 2, 0);
+                currentRadius.transform.position = newPosition;
+            }
+        }
+        else
+        {
+            // Updates Radius display
+            float desiredRadius = tower.range * scaleFactor;
+            currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
+        }
+    }
+
+
+
+    private void UpdateRadiusDisplay(float range, bool isSpaceInvadersTower = false)
     {
         float desiredRadius = range * scaleFactor;
-        currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
-    }
 
+        if (isSpaceInvadersTower)
+        {
+            SpaceInvaderTower spaceInvader = currentTower.GetComponent<SpaceInvaderTower>();
+            float sightDistance = (spaceInvader != null) ? spaceInvader.SightDistance : 0;
+            currentRadius.transform.localScale = new Vector2(0.8f, sightDistance);
+        }
+        else
+        {
+            currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
+        }
+    }
     public void DestroyCurrentRadius()
     {
         if (currentRadius)
         {
-            Destroy(currentRadius);
+            if (currentRadius.name.StartsWith("LineRadiusPrefab"))
+            {
+                currentRadius.SetActive(false);
+            }
+            else
+            {
+                Destroy(currentRadius);
+            }
             currentRadius = null;
         }
-
-        
     }
 
     //star rating related function are here
@@ -327,7 +413,7 @@ public class TowerPlacement : MonoBehaviour
 
     private void MoveStarRatingToOriginalPos()
     {
-        if (starRatingIsUp && !isMovingStarRating) // Checks if coroutine is not already running
+        if (!isMovingStarRating) // Checks if coroutine is not already running
         {
             StopAllCoroutines(); // Stops any existing move coroutines
             StartCoroutine(MoveStarRating(starRatingUI.transform.position, originalStarRatingPos));
@@ -335,9 +421,9 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-
     private IEnumerator MoveStarRating(Vector3 startPos, Vector3 endPos)
     {
+        if (startPos == endPos) yield break;
         if (isMovingStarRating) yield break; // Checks if coroutine is already running
         isMovingStarRating = true;
 
@@ -359,7 +445,6 @@ public class TowerPlacement : MonoBehaviour
         isMovingStarRating = false;
     }
 
-
     private bool IsValidLocation(Vector3 location, string towerName)
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(location);
@@ -378,6 +463,12 @@ public class TowerPlacement : MonoBehaviour
         foreach (var overlap in overlaps)
         {
             if (overlap.gameObject.CompareTag("Wall"))
+            {
+                return false;
+            }
+
+
+            if (overlap.gameObject.CompareTag("ArcadeTower") && overlap.gameObject != currentTower)
             {
                 return false;
             }
@@ -414,16 +505,12 @@ public class TowerPlacement : MonoBehaviour
 
         if (hitCollider != null)
         {
-            // Checks if the hit UI element is a child of starRatingUI
             if (hitCollider.transform.IsChildOf(starRatingUI.transform))
             {
-                // if we are close to Star Rating UI, it will move up
-                Debug.Log("Detected proximity to StarBar. Moving it up.");
                 MoveStarRatingUp();
             }
             else
             {
-                // if mouse is over some other UI element, so the location is not valid.
                 return false;
             }
         }
