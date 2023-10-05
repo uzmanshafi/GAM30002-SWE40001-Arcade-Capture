@@ -2221,7 +2221,8 @@ MonoBehaviour:
   - {fileID: 8076282756041783590, guid: 476d8e28fafb65d4e9d43a15c653d2ba, type: 3}
   groundTilemap: {fileID: 1474541320}
   pathTilemap: {fileID: 1032469544}
-  radiusPrefab: {fileID: 2122240868449220821, guid: 26f16191b8ce0234f8d084345a4b6750, type: 3}
+  RadiusPrefab: {fileID: 2122240868449220821, guid: 26f16191b8ce0234f8d084345a4b6750, type: 3}
+  LineRadiusPrefab: {fileID: 7758431802714671222, guid: 7c3cc2b13af7f9944b63b0dcc23c75fe, type: 3}
   Controlindicator: {fileID: 1550139977}
 --- !u!114 &690477377
 MonoBehaviour:

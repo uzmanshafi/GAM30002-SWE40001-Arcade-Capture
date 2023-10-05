@@ -10,6 +10,8 @@ public class SpaceInvaderTower : Tower
     [SerializeField] private Transform shipTransform;
     [SerializeField] private LineRenderer lineOfSight;
 
+    public float SightDistance => sightDistance;
+
     private Vector2 leftBoundary;
     private Vector2 rightBoundary;
 
