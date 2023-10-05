@@ -1,102 +1,95 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PacmanTower : Tower
 {
-    [Header("Level 1 Configuration")]
-    [SerializeField] private float level1GhostSpeed = 1.0f;
-    [SerializeField] private float level1GhostDamage = 1.0f;
-
-    [Header("Level 2 Configuration")]
-    [SerializeField] private float level2GhostSpeed = 2.0f;
-    [SerializeField] private float level2GhostDamage = 2.0f;
-
-    [Header("Temp Levels Configuration")]
-    public bool isLevel1 = true;
-    public bool isLevel2 = false;
-
-    public bool isLevel3 = false;
+    [Header("Base Configuration")]
+    [SerializeField] private float baseGhostSpeed = 1.0f;
+    [SerializeField] private float baseGhostDamage = 1.0f;
 
     private GameManager gameManager;
     private Waypoints waypoints;
     private Vector3 exitPoint;
 
-    void OnValidate()
-    {
-        /*if (isLevel1)
-        {
-            isLevel2 = false;
-            isLevel3 = false;
-        }
-        else if (isLevel2)
-        {
-            isLevel1 = false;
-            isLevel3 = false;
-        }
-        else if (isLevel3)
-        {
-            isLevel1 = false;
-            isLevel2 = false;
-        }*/
-    }
+    private Wave waveScript;
 
-    void Start()
+    private void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        waveScript = gameManager.GetComponent<Wave>();
         waypoints = gameManager.GetComponent<Waypoints>();
         exitPoint = waypoints.Points[waypoints.Points.Length - 1];
-
         base.init();
-
     }
 
-    void Update()
+    private void Update()
     {
-        if (upgradeLevel == 0)
-        {
-            ConfigureLevel1();
-        }
-        else if (upgradeLevel == 1)
-        {
-            ConfigureLevel2();
-        }
+        ConfigureBasedOnUpgrade();
         tryShoot();
-    }
-
-    void ConfigureLevel1()
-    {
-        cooldown = 6.0f;
-        isLevel1 = true;
-        isLevel2 = false;
-        isLevel3 = false;
-    }
-
-    void ConfigureLevel2()
-    {
-        cooldown = 3.0f;
-        isLevel1 = false;
-        isLevel2 = true;
-        isLevel3 = false;
     }
 
     protected override void tryShoot()
     {
-        if (Time.time - lastShotTime > cooldown && GameManager.instance.AllEnemies(true).Count != 0)
+        // Checks if the wave is not in progress. If it isn't, doesn't spawn ghosts.
+        if (!waveScript.waveInProgress)
         {
-            if (isLevel1)
+            return;
+        }
+
+        if (Time.time - lastShotTime > cooldown)
+        {
+            switch (upgradeLevel)
             {
-                SpawnGhost(level1GhostSpeed, level1GhostDamage);
-            }
-            else if (isLevel2)
-            {
-                SpawnGhost(level2GhostSpeed, level2GhostDamage);
+                case 0:
+                    StartCoroutine(ShootGhostsLevel1());
+                    break;
+                case 1:
+                    StartCoroutine(ShootGhostsLevel2());
+                    break;
+                case 2:
+                    SpawnGhostForCurrentLevel();  // Spawns all at once but faster and with more damage
+                    break;
             }
             lastShotTime = Time.time;
         }
     }
 
-    void SpawnGhost(float speed, float damage)
+    private IEnumerator ShootGhostsLevel1()
     {
-        GameObject ghostPrefab = bulletTypes[Random.Range(0, bulletTypes.Length)];
+        SpawnGhost(baseGhostSpeed, baseGhostDamage, bulletTypes[0]); // Red Ghost
+        yield return new WaitForSeconds(1);
+        SpawnGhost(baseGhostSpeed, baseGhostDamage, bulletTypes[1]); // Blue Ghost
+    }
+
+    private IEnumerator ShootGhostsLevel2()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            SpawnGhost(baseGhostSpeed * 1.25f, baseGhostDamage, bulletTypes[i]);
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    void SpawnGhostForCurrentLevel()
+    {
+        float speedMultiplier = upgradeLevel == 2 ? 1.75f : 1f;
+        float damageMultiplier = upgradeLevel == 2 ? 1.75f : 1f;
+
+        foreach (var ghostPrefab in bulletTypes)
+        {
+            SpawnGhost(baseGhostSpeed * speedMultiplier, baseGhostDamage * damageMultiplier, ghostPrefab);
+        }
+    }
+
+
+    void ConfigureBasedOnUpgrade()
+    {
+        cooldown = 6.0f;
+    }
+
+    void SpawnGhost(float speed, float damage, GameObject ghostPrefab)
+    {
         GameObject ghost = Instantiate(ghostPrefab, transform.position, Quaternion.identity);
 
         GhostProjectiles ghostScript = ghost.GetComponent<GhostProjectiles>();
