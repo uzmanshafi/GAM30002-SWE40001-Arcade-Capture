@@ -248,6 +248,8 @@ public class TowerPlacement : MonoBehaviour
             DestroyCurrentRadius();
         }
 
+        
+
         Controlindicator.SetActive(false);
     }
 
@@ -305,7 +307,7 @@ public class TowerPlacement : MonoBehaviour
             currentRadius = null;
         }
 
-        
+
     }
 
     //star rating related function are here
@@ -321,7 +323,7 @@ public class TowerPlacement : MonoBehaviour
 
     private void MoveStarRatingToOriginalPos()
     {
-        if (starRatingIsUp && !isMovingStarRating) // Checks if coroutine is not already running
+        if (!isMovingStarRating) // Checks if coroutine is not already running
         {
             StopAllCoroutines(); // Stops any existing move coroutines
             StartCoroutine(MoveStarRating(starRatingUI.transform.position, originalStarRatingPos));
@@ -332,6 +334,7 @@ public class TowerPlacement : MonoBehaviour
 
     private IEnumerator MoveStarRating(Vector3 startPos, Vector3 endPos)
     {
+        if (startPos == endPos) yield break;
         if (isMovingStarRating) yield break; // Checks if coroutine is already running
         isMovingStarRating = true;
 
