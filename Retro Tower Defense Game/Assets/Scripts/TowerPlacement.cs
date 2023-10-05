@@ -24,8 +24,6 @@ public class TowerPlacement : MonoBehaviour
     private bool starRatingIsUp = false;
     private bool isMovingStarRating = false;
 
-
-
     //control indicators
     [SerializeField] private GameObject Controlindicator;
 
@@ -41,7 +39,6 @@ public class TowerPlacement : MonoBehaviour
         {
             originalStarRatingPos = starRatingUI.transform.position;
         }
-
 
     }
 
@@ -72,7 +69,6 @@ public class TowerPlacement : MonoBehaviour
             DestroyCurrentTower();
         }
     }
-
 
     private void TowerDragging(Vector3 mouseWorldPos)
     {
@@ -111,7 +107,7 @@ public class TowerPlacement : MonoBehaviour
     {
         if (currentTower != null)
         {
-            if(currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other != null)
+            if (currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other != null)
             {
                 Destroy(pt.other.gameObject);
             }
@@ -158,25 +154,18 @@ public class TowerPlacement : MonoBehaviour
             Transform lineRadius = currentTower.transform.Find("LineRadiusPrefab");
             if (lineRadius)
             {
-                lineRadius.gameObject.SetActive(true); // Turn on the child LineRadius
+                lineRadius.gameObject.SetActive(true);
+                SetSpaceInvaderScale(lineRadius, currentTower.GetComponent<SpaceInvaderTower>());
             }
+        }
+        else
+        {
+            SpawnIndicatorForTower(currentTower.GetComponent<Tower>());
         }
 
         SpawnIndicatorForTower(shootScript);
         UpdateRadiusDisplay(shootScript.range, towerPrefab.name == "SpaceInvaders");
     }
-
-    private void SetLineScale(GameObject line, GameObject tower)
-    {
-        SpaceInvaderTower spaceInvader = tower.GetComponent<SpaceInvaderTower>();
-        if (spaceInvader != null)
-        {
-            float sightDistance = spaceInvader.SightDistance;
-            line.transform.localScale = new Vector2(0.8f, sightDistance);
-        }
-    }
-
-
 
     private void DragTower(Vector3 newPosition)
     {
@@ -224,6 +213,7 @@ public class TowerPlacement : MonoBehaviour
 
         Controlindicator.SetActive(true); // displays the control indicator
     }
+    
     private void DropTower()
     {
         MoveStarRatingToOriginalPos();
@@ -231,7 +221,7 @@ public class TowerPlacement : MonoBehaviour
 
         if (currentTower.TryGetComponent<PongTower>(out PongTower pt) && pt.other == null)
         {
-            
+
             currentTowerSpriteRenderer.color = Color.white;
 
             currentTower = Instantiate(towerPrefabs[5]);
@@ -249,7 +239,7 @@ public class TowerPlacement : MonoBehaviour
         {
             if (Vector2.Distance(pt2.transform.position, pt2.other.transform.position) <= pt2.other.range)
             {
-                
+
                 shootScript.enabled = true;
                 if (!gameManager.AllTowers.Contains(shootScript))
                 {
@@ -279,7 +269,6 @@ public class TowerPlacement : MonoBehaviour
 
         Controlindicator.SetActive(false);
     }
-
 
     private void AttemptSelectTower(Vector3 position)
     {
@@ -314,60 +303,40 @@ public class TowerPlacement : MonoBehaviour
 
         if (tower.gameObject.name.StartsWith("SpaceInvaders"))
         {
-            Transform lineRadius = tower.transform.Find("LineRadiusPrefab");
-            if (lineRadius)
+            currentRadius = tower.transform.Find("LineRadiusPrefab").gameObject;
+            if (currentRadius)
             {
-                currentRadius = lineRadius.gameObject;
-                currentRadius.SetActive(true); // Ensures it's set active
+                currentRadius.SetActive(true); // Ensure this line is executed
+                SpaceInvaderTower spaceInvader = tower.GetComponent<SpaceInvaderTower>();
+                if (spaceInvader != null)
+                {
+                    SetSpaceInvaderScale(currentRadius.transform, spaceInvader);
+                }
             }
         }
         else
         {
             currentRadius = Instantiate(RadiusPrefab, tower.transform.position, Quaternion.identity);
+            UpdateRadiusDisplay(tower.range);
             currentRadius.transform.SetParent(tower.transform);
         }
-
-        UpdateIndicatorDisplay(tower);
     }
 
-
-
-
-
-    private void UpdateIndicatorDisplay(Tower tower)
+    private void SetSpaceInvaderScale(Transform lineRadius, SpaceInvaderTower spaceInvader)
     {
-        if (tower.gameObject.name.StartsWith("SpaceInvaders"))
-        {
-            // Updates Line display based on tower properties
-            SpaceInvaderTower spaceInvader = tower.GetComponent<SpaceInvaderTower>();
-            if (spaceInvader != null)
-            {
-                float sightDistance = spaceInvader.SightDistance;
-
-                // Calculates the new Y-scale based on sight distance
-                float oldScaleY = currentRadius.transform.localScale.y;
-                float baseScale = 0.15f;
-                float baseDistance = 1f;
-                float newScaleY = baseScale * (sightDistance / baseDistance);
-
-
-                currentRadius.transform.localScale = new Vector2(0.18f, newScaleY);
-
-
-                float deltaY = newScaleY - oldScaleY;
-                Vector3 newPosition = currentRadius.transform.position + new Vector3(0, deltaY / 2, 0);
-                currentRadius.transform.position = newPosition;
-            }
-        }
-        else
-        {
-            // Updates Radius display
-            float desiredRadius = tower.range * scaleFactor;
-            currentRadius.transform.localScale = new Vector2(desiredRadius, desiredRadius);
-        }
+        Vector2 calculatedScale = CalculateSpaceInvaderScale(spaceInvader);
+        lineRadius.localScale = calculatedScale;
     }
 
-
+    private Vector2 CalculateSpaceInvaderScale(SpaceInvaderTower spaceInvader)
+    {
+        float sightDistance = spaceInvader.SightDistance;
+        float defaultXScale = 0.18f;
+        float defaultYScale = 0.15f;
+        float baseDistance = 1f;
+        float newScaleY = defaultYScale * (sightDistance / baseDistance);
+        return new Vector2(defaultXScale, newScaleY);
+    }
 
     private void UpdateRadiusDisplay(float range, bool isSpaceInvadersTower = false)
     {
@@ -390,7 +359,7 @@ public class TowerPlacement : MonoBehaviour
         {
             if (currentRadius.name.StartsWith("LineRadiusPrefab"))
             {
-                currentRadius.SetActive(false);
+                currentRadius.SetActive(false); // Deactivate the LineRadiusPrefab instead of destroying it
             }
             else
             {
