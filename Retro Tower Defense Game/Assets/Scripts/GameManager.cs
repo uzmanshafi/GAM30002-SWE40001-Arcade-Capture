@@ -83,13 +83,11 @@ public class GameManager : MonoBehaviour
         if (stars <= 0)
         {
             PAXGameOver.SetActive(true);
-            Time.timeScale = 0f;
         }
 
         if (currentWave == 11)
         {
             PAXGameWon.SetActive(true);
-            Time.timeScale = 0f;
         }
 
     }
