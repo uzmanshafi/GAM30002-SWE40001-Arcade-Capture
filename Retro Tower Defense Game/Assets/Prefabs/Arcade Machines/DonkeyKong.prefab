@@ -52,7 +52,7 @@ MonoBehaviour:
   bulletLifetime: 10
   target: {fileID: 0}
   towerRadius: 0
-  range: 2
+  range: 3
   radius: 0
   radiusDisplay: {fileID: 0}
   bulletTypes:
@@ -67,7 +67,7 @@ MonoBehaviour:
     description: 50
   - cost: 0
     description: 75
-  projectile_speed: 4
+  projectile_speed: 5
   shoot: {fileID: 8300000, guid: eae028ee04e25814eb6c4b9774d5363c, type: 3}
 --- !u!60 &264820729999802671
 PolygonCollider2D:

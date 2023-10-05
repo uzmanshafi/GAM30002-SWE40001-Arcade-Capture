@@ -38,6 +38,7 @@ public class PredictiveTower : Tower
 
                 Rigidbody2D projectileRB = bullet.GetComponent<Rigidbody2D>();
                 projectileRB.velocity = _dir * projectile_speed;
+
                 Projectile shot = bullet.GetComponent<Projectile>();
                 shot.target = target;
                 shot.canSeeCamo = canSeeCamo;
