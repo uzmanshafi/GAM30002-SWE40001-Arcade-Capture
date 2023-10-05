@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class DonkeyKongTower : PredictiveTower
 {
+	private int currentLevel;
+
     // Start is called before the first frame update
     void Start()
     {
         base.initialise();
-    }
+		currentLevel = upgradeLevel;
+	}
 
 
     // Update is called once per frame
@@ -18,13 +21,21 @@ public class DonkeyKongTower : PredictiveTower
         checkUpgrades();
     }
 
-    private void checkUpgrades()
-    {
-        if (upgradeLevel == 1) 
-        { 
-
-        }
-    }
+	private void checkUpgrades()
+	{
+		if (currentLevel != upgradeLevel)
+		{
+			if (upgradeLevel == 1)
+			{
+				base_cooldown = base_cooldown * 0.85f;
+			}
+			if (upgradeLevel == 2)
+			{
+				base_cooldown = base_cooldown * 0.65f;
+			}
+			currentLevel = upgradeLevel;
+		}
+	}
 
 
 }

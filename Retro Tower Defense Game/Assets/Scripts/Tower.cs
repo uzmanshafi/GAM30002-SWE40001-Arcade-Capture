@@ -85,6 +85,7 @@ public abstract class Tower : MonoBehaviour
             Scroller s;
             if (results[i].collider.gameObject.TryGetComponent<Enemy>(out e))
             {
+                /*Debug.Log(Vector2.Distance(e.transform.position, transform.position) < range);  This was returning false most of the time
                 if (e.TryGetComponent<Scroller>(out s))
                 {
                     if (s.colour == controlColour)
@@ -93,6 +94,10 @@ public abstract class Tower : MonoBehaviour
                     }
                 }
                 else
+                {
+                    enemies_in_range.Add(e);
+                }*/
+                if (Vector2.Distance(e.transform.position, transform.position) < range)
                 {
                     enemies_in_range.Add(e);
                 }
