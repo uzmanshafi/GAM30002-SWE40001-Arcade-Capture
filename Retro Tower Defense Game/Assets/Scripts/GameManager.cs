@@ -8,7 +8,7 @@ using static Utils;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance; 
 
     public float stars = 10;
     public int money = 500;
@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     private List<GameObject> _allGhosts = new List<GameObject>();
 
     private float timeSinceLastGhost = 0;
+
+    public GameObject PAXGameOver;
+    public GameObject PAXGameWon;
+
 
     public List<Enemy> AllEnemies(bool canSeeCamo) {
         if (canSeeCamo == true) {
@@ -75,6 +79,19 @@ public class GameManager : MonoBehaviour
         {
             ghostAmbient.mute = true;
         }
+
+        if (stars <= 0)
+        {
+            PAXGameOver.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
+        if (currentWave == 11)
+        {
+            PAXGameWon.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
     }
 
     public void RemoveTower(Tower tower)
