@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -181,6 +182,11 @@ public class TowerPlacement : MonoBehaviour
         {
             SpawnIndicatorForTower(currentTower.GetComponent<Tower>());
             UpdateRadiusDisplay(currentTower.GetComponent<Tower>().range);
+        }
+        TextMeshProUGUI towerDescriptionTMP = Controlindicator.GetComponentInChildren<TextMeshProUGUI>(true);
+        if (towerDescriptionTMP != null)
+        {
+            towerDescriptionTMP.text = currentTower.GetComponent<Tower>().towerDescription;
         }
     }
 

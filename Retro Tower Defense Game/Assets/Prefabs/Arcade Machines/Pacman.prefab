@@ -189,5 +189,7 @@ MonoBehaviour:
     description: 
   - cost: 150
     description: 
+  towerDescription: A Summoning Tower that spawns allies at the furthest point on
+    the path
   baseGhostSpeed: 1
   baseGhostDamage: 1

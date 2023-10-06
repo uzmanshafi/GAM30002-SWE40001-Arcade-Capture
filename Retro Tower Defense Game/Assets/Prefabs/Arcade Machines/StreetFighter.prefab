@@ -187,4 +187,5 @@ MonoBehaviour:
     description: 
   - cost: 50
     description: 
+  towerDescription: Punches enemies in close proximity to itself
   shoot: {fileID: 8300000, guid: b9cced4f71a6e704b97b77f5b9461df8, type: 3}

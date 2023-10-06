@@ -176,6 +176,7 @@ MonoBehaviour:
     description: 
   - cost: 400
     description: 
+  towerDescription: Empowers nearby arcade machines with a variety of different buffs
   damage_multiplier: 1.15
   cooldown_multipler: 0.9
   range_multipler: 1

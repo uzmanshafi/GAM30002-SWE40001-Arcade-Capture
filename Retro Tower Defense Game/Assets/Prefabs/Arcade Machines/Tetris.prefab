@@ -125,6 +125,7 @@ MonoBehaviour:
     description: 
   - cost: 90
     description: 
+  towerDescription: A basic tower that shoots a direct projectile.
   shoot: {fileID: 8300000, guid: 6ff5ce9feee6be84ca5b17ff21632c24, type: 3}
   comboMultiplier: 2
 --- !u!60 &5390131242059471247

@@ -188,5 +188,6 @@ MonoBehaviour:
     description: More bounces!
   - cost: 80
     description: Even more bounces!
+  towerDescription: Shoots a projectile at enemies that bounces between enemies
   projectile_speed: 8
   shoot: {fileID: 8300000, guid: 9a217e7c71553ad439f026d510863cd4, type: 3}

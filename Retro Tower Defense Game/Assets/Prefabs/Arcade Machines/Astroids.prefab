@@ -186,6 +186,7 @@ MonoBehaviour:
     description: Calls in 2 asteroids to coverge on your target
   - cost: 50
     description: Calls in 3 asteroids to coverge on your target
+  towerDescription: A tower that aims at your cursor sniping enemies
   asteroidSpeed: 10
   shoot: {fileID: 8300000, guid: 8153d434cd808d74994ee42843973c73, type: 3}
   spreadDistance: 0.1

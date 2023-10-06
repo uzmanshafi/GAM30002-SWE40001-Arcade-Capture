@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2436715522243555131
@@ -165,7 +165,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &4864359305303806487
@@ -284,7 +284,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &5454149510698140209
@@ -368,7 +368,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8076282756041783590
@@ -492,6 +492,7 @@ MonoBehaviour:
     description: spawns 2 lines of bullets
   - cost: 20
     description: spawns 3 lines of bullet
+  towerDescription: A sliding tower that shoots in a line, moving between 2 points
   bulletPrefab: {fileID: 4005175662800323705, guid: b7da219df0b5cc54bb3a8ca6c8ae6fcd, type: 3}
   shootSound: {fileID: 8300000, guid: ad10ec842d593734893eb7ccef0dec81, type: 3}
   MovementSpeed: 1

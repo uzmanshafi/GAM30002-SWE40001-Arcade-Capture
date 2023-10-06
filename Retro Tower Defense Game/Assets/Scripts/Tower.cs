@@ -40,6 +40,9 @@ public abstract class Tower : MonoBehaviour
     [SerializeField] public int upgradeLevel = 0;
     [SerializeField] public TowerUpgrade[] upgrades;
 
+    // For description to display when placing
+    [SerializeField] public string towerDescription;
+
     // Start is called before the first frame update
     void Start()
     {
