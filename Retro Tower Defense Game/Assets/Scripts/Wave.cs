@@ -134,8 +134,8 @@ public class Wave : MonoBehaviour
             waveTime = 0;
             waveLoaded = true;
             waveIndex++;
-            gameManager.currentWave += 1;
             waveInProgress = true;
+            gameManager.currentWave += 1;
         }
     }
 }

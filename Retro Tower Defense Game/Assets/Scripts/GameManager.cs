@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
             PAXGameOver.SetActive(true);
         }
 
-        if (currentWave == 11)
+        if (currentWave == 10 && !gameObject.GetComponent<Wave>().waveInProgress)
         {
             PAXGameWon.SetActive(true);
         }
