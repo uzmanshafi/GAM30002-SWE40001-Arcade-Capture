@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426fa7578bce8464b8d27f38c13ddfed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 100
+  cost: 80
   cooldown: 0.35
   damage: 1
   bulletLifetime: 1
@@ -488,9 +488,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: spawn 1 line of bullets
-  - cost: 10
+  - cost: 160
     description: spawns 2 lines of bullets
-  - cost: 20
+  - cost: 250
     description: spawns 3 lines of bullet
   towerDescription: A sliding tower that shoots in a line, moving between 2 points
   bulletPrefab: {fileID: 4005175662800323705, guid: b7da219df0b5cc54bb3a8ca6c8ae6fcd, type: 3}

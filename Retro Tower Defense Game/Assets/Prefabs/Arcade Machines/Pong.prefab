@@ -165,9 +165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba86a3af4ee52b14d86dbd6e63fb633b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 80
+  cost: 120
   cooldown: 1
-  damage: 1
+  damage: 0.5
   bulletLifetime: 0
   target: {fileID: 0}
   towerRadius: 0
@@ -182,9 +182,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: 
-  - cost: 40
+  - cost: 150
     description: Pong Ball speed increases
-  - cost: 50
+  - cost: 300
     description: Pong ball bounces super fast
   towerDescription: 2 separate towers that shoot a projectile between them
   pongShot: {fileID: 0}

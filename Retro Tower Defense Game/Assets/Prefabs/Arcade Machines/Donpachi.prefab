@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0cd23d559cf6645acbdc61eaa3eded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 70
+  cost: 110
   cooldown: 0.2
   damage: 0.5
   bulletLifetime: 2
@@ -182,9 +182,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: 
-  - cost: 100
-    description: 
   - cost: 200
+    description: 
+  - cost: 500
     description: 
   towerDescription: A tower that spins, spraying weak bullets in all directions
   ProjectileSpeedUpgrades:

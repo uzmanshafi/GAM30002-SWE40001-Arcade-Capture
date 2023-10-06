@@ -46,10 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31954dd4c74b0e847913029c6a617f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 30
+  cost: 60
   cooldown: 1
   damage: 1
-  bulletLifetime: 10
+  bulletLifetime: 2
   target: {fileID: 0}
   towerRadius: 0
   range: 3
@@ -63,9 +63,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: 
-  - cost: 50
+  - cost: 80
     description: 50
-  - cost: 75
+  - cost: 100
     description: 75
   towerDescription: Throws barrels at enemies in the range that roll through groups
     of enemies

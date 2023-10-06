@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c450161ba3ccdb240911ed349fe472ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 50
+  cost: 80
   cooldown: 2
   damage: 1
   bulletLifetime: 3
@@ -184,9 +184,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: An arcade that builds a combo on Players that are hit consecutivley
-  - cost: 60
+  - cost: 100
     description: More bounces!
-  - cost: 80
+  - cost: 150
     description: Even more bounces!
   towerDescription: Shoots a projectile at enemies that bounces between enemies
   projectile_speed: 8

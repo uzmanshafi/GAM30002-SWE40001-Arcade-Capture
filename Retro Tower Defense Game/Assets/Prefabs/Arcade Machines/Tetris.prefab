@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595b2405414139d4fb86ba141f0871e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 20
+  cost: 50
   cooldown: 0.7
   damage: 0.5
   bulletLifetime: 2
@@ -121,9 +121,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: 
-  - cost: 30
+  - cost: 70
     description: 
-  - cost: 90
+  - cost: 100
     description: 
   towerDescription: A basic tower that shoots a direct projectile.
   shoot: {fileID: 8300000, guid: 6ff5ce9feee6be84ca5b17ff21632c24, type: 3}
