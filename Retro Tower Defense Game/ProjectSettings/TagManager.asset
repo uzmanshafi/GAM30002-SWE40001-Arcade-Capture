@@ -15,6 +15,8 @@ TagManager:
   - starRating
   - controlIndicator
   - Enemy
+  - LineRadius
+  - PlacementIndicators
   layers:
   - Default
   - TransparentFX
