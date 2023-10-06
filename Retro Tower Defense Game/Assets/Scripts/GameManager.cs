@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using static Utils;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -88,6 +89,11 @@ public class GameManager : MonoBehaviour
         if (currentWave == 11)
         {
             PAXGameWon.SetActive(true);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.P))
+        {
+            SceneManager.LoadScene("PAXSplash");
         }
 
     }
