@@ -39,14 +39,16 @@ public class AsteroidsTower : Tower
 
         // This is the ratio that the first shot is from the origin
         float leftRatio = -((upgradeLevel + 1) % 2)/2.0f - ((upgradeLevel - 1) / 2.0f);
-        Debug.Log(leftRatio);
+        
         for (int i = 0; i <= upgradeLevel; ++i) {
 
-            Vector2 perpendicular = new Vector2(transform.position.y - Input.mousePosition.y, Input.mousePosition.x - transform.position.x);
+            Vector2 mouseWorldPosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector2 perpendicular = new Vector2(transform.position.y - mouseWorldPosition.y, mouseWorldPosition.x - transform.position.x);
+            
             Vector2 bulletOrigin = (Vector2)transform.position + perpendicular.normalized * (leftRatio + i) * spreadDistance;
 
-
-            Vector2 dir = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - bulletOrigin).normalized; //If they want a wall of shots instead of shots that all go toward the mouse then replace bulletOrigin with transform.position
+            Vector2 dir = (mouseWorldPosition - bulletOrigin).normalized; //If they want a wall of shots instead of shots that all go toward the mouse then replace bulletOrigin with transform.position
 
             GameObject asteroid = Instantiate(bulletTypes[0], bulletOrigin, Quaternion.identity);
 
@@ -57,7 +59,6 @@ public class AsteroidsTower : Tower
             // Can we put this in the Instantiate function?
             asteroid.GetComponent<Rigidbody2D>().velocity = dir * asteroidSpeed;
             asteroid.GetComponent<Projectile>().damage = damage;
-            Debug.Log(bulletOrigin);
 
             Destroy(asteroid, bulletLifetime); //What does this line do?
 
