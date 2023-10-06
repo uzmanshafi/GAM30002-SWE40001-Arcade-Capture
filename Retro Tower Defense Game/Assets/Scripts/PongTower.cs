@@ -82,6 +82,7 @@ public class PongTower : Tower
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         AudioSource.PlayClipAtPoint(shoot, transform.position);
         pongShot = Instantiate(bulletTypes[0], gameObject.transform).GetComponent<Projectile>();
+        pongShot.damage = damage;
         shotRB = pongShot.GetComponent<Rigidbody2D>();
         other.pongShot = pongShot;
         other.shotRB = shotRB;

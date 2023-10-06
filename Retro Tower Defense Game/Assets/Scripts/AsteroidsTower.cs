@@ -56,6 +56,7 @@ public class AsteroidsTower : Tower
 
             // Can we put this in the Instantiate function?
             asteroid.GetComponent<Rigidbody2D>().velocity = dir * asteroidSpeed;
+            asteroid.GetComponent<Projectile>().damage = damage;
             Debug.Log(bulletOrigin);
 
             Destroy(asteroid, bulletLifetime); //What does this line do?

@@ -95,7 +95,7 @@ public class SpaceInvaderTower : Tower
     {
         Vector3 spawnPosition = shipTransform.position + transform.right * xOffset;
         GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
-
+        bullet.GetComponent<Projectile>().damage = damage;
         
         bullet.GetComponent<Rigidbody2D>().velocity = -transform.up * 5;
         AudioSource.PlayClipAtPoint(shootSound, transform.position);
