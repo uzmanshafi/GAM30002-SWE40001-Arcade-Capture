@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 public class TowerPlacement : MonoBehaviour
@@ -10,7 +12,7 @@ public class TowerPlacement : MonoBehaviour
     public GameObject RadiusPrefab;
     private GameObject currentTower;
     private GameObject currentRadius;
-
+    private Tower currentlySelectedTower = null;
     private UIManager uiManager;
     private SpriteRenderer currentTowerSpriteRenderer;
     private GameManager gameManager;
@@ -88,6 +90,8 @@ public class TowerPlacement : MonoBehaviour
 
     private void RunTowerPlacement(Vector3 mouseWorldPos)
     {
+        if (IsMouseOverUI()) return;
+
         if (currentTower != null && Input.GetMouseButtonDown(0) && IsValidLocation(mouseWorldPos, currentTower.name))
         {
             DropTower();
@@ -97,6 +101,8 @@ public class TowerPlacement : MonoBehaviour
 
     private void TowerSelection(Vector3 mouseWorldPos)
     {
+        if (IsMouseOverUI()) return;
+
         if (Input.GetMouseButtonDown(0) && currentTower == null && towerPlacedCooldown <= 0)
         {
             AttemptSelectTower(mouseWorldPos);
@@ -310,47 +316,51 @@ public class TowerPlacement : MonoBehaviour
             Tower towerScript = hitCollider.gameObject.GetComponent<Tower>();
             if (towerScript != null)
             {
-                uiManager.selectTower(towerScript);
-
-                if (towerScript.gameObject.name.StartsWith("SpaceInvaders"))
+                if (currentlySelectedTower == towerScript)
                 {
-                    Transform lineRadius = towerScript.transform.Find("LineRadiusPrefab");
-                    if (lineRadius)
-                    {
-                        Debug.Log("line radius found");
-                        lineRadius.gameObject.SetActive(true); 
-                        Debug.Log("line radius set true");
-                        SpaceInvaderTower spaceInvader = towerScript.GetComponent<SpaceInvaderTower>();
-                        if (spaceInvader != null)
-                        {
-                            SetSpaceInvaderScale(lineRadius, spaceInvader);
-                        }
-                    }
+                    uiManager.deselectTower();
+                    DestroyCurrentRadius();
+                    ToggleSpaceInvaderRadius(towerScript, false);  // Deactivates LineRadiusPrefab for the deselected tower
+                    currentlySelectedTower = null;
                 }
                 else
                 {
-                    SpawnIndicatorForTower(towerScript);
-                    UpdateRadiusDisplay(towerScript.range);
-                }
-            }
-        }
-        else
-        {
-            uiManager.deselectTower();
-            DestroyCurrentRadius();
-
-            // Deactivates LineRadiusPrefab for all SpaceInvaders towers in the scene when a tower is deselected
-            foreach (var tower in GameObject.FindGameObjectsWithTag("ArcadeTower"))
-            {
-                if (tower.name.StartsWith("SpaceInvaders"))
-                {
-                    Transform lineRadius = tower.transform.Find("LineRadiusPrefab");
-                    if (lineRadius)
+                    if (currentlySelectedTower)
                     {
-                        lineRadius.gameObject.SetActive(false);
+                        uiManager.deselectTower();
+                        DestroyCurrentRadius();
+                        ToggleSpaceInvaderRadius(currentlySelectedTower, false);  // Deactivates LineRadiusPrefab for the previously selected tower
+                    }
+                    currentlySelectedTower = towerScript;
+                    uiManager.selectTower(towerScript);
+                    ToggleSpaceInvaderRadius(currentlySelectedTower, true);  // Activates LineRadiusPrefab for the newly selected tower
+
+                    if (towerScript.gameObject.name.StartsWith("SpaceInvaders"))
+                    {
+                        Transform lineRadius = towerScript.transform.Find("LineRadiusPrefab");
+                        if (lineRadius)
+                        {
+                            SpaceInvaderTower spaceInvader = towerScript.GetComponent<SpaceInvaderTower>();
+                            if (spaceInvader != null)
+                            {
+                                SetSpaceInvaderScale(lineRadius, spaceInvader);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        SpawnIndicatorForTower(towerScript);
+                        UpdateRadiusDisplay(towerScript.range);
                     }
                 }
             }
+        }
+        else if (currentlySelectedTower)
+        {
+            uiManager.deselectTower();
+            DestroyCurrentRadius();
+            ToggleSpaceInvaderRadius(currentlySelectedTower, false);  // Deactivates LineRadiusPrefab for the deselected tower
+            currentlySelectedTower = null;
         }
     }
 
@@ -396,6 +406,19 @@ public class TowerPlacement : MonoBehaviour
         return new Vector2(defaultXScale, newScaleY);
     }
 
+    private bool IsMouseOverUI()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        return results.Count > 0;
+    }
+
 
     private void UpdateRadiusDisplay(float range, bool isSpaceInvadersTower = false)
     {
@@ -436,6 +459,32 @@ public class TowerPlacement : MonoBehaviour
             }
         }
     }
+
+    private void ToggleSpaceInvaderRadius(Tower tower, bool setActive)
+    {
+        if (tower.gameObject.name.StartsWith("SpaceInvaders"))
+        {
+            Transform lineRadius = tower.transform.Find("LineRadiusPrefab");
+            if (lineRadius)
+            {
+                lineRadius.gameObject.SetActive(setActive);
+            }
+        }
+    }
+
+    public void DeactivateSpaceInvaderRadius(GameObject tower)
+    {
+        if (tower && tower.name.StartsWith("SpaceInvaders"))
+        {
+            Transform lineRadius = tower.transform.Find("LineRadiusPrefab");
+            if (lineRadius)
+            {
+                lineRadius.gameObject.SetActive(false);
+            }
+        }
+    }
+
+
 
     //star rating related function are here
     private void MoveStarRatingUp()
