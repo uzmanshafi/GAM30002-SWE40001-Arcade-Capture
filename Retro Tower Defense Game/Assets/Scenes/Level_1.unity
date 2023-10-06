@@ -5747,7 +5747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stars: 10
-  money: 200
+  money: 500
   currentWave: 0
   ghostAmbient: {fileID: 690477380}
   wakaWaka: {fileID: 690477379}

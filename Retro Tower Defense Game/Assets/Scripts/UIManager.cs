@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-    
+
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI starText;
     public TextMeshProUGUI waveText;
@@ -19,7 +21,7 @@ public class UIManager : MonoBehaviour
     public Slider starBar;
 
     private Tower selectedTower;
-    
+
     public void sellSelectedTower()
     {
         if (selectedTower.TryGetComponent<PongTower>(out PongTower pt))
@@ -38,9 +40,14 @@ public class UIManager : MonoBehaviour
         Destroy(selectedTower.gameObject);
         deselectTower();
     }
-    
+
     public void selectTower(Tower t)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         selectedTower = t;
         upgradeMenu.SetActive(true);
     }
@@ -48,23 +55,38 @@ public class UIManager : MonoBehaviour
     public void deselectTower()
     {
         upgradeMenu.SetActive(false);
+
+        TowerPlacement towerPlacement = FindObjectOfType<TowerPlacement>();
+        if (towerPlacement != null)
+        {
+            towerPlacement.DestroyCurrentRadius();
+
+            // Additional code to deactivate LineRadiusPrefab for the SpaceInvaders tower
+            if (selectedTower != null && selectedTower.gameObject.name.StartsWith("SpaceInvaders"))
+            {
+                towerPlacement.DeactivateSpaceInvaderRadius(selectedTower.gameObject);
+            }
+        }
+        selectedTower = null;  // Ensure to set the selectedTower to null after deselecting
     }
 
+
+
     //Should be working
-     public void updateTextUi()
-     {
-         //starText.text = "Stars: " +  GameManager.instance.stars;
+    public void updateTextUi()
+    {
+        //starText.text = "Stars: " +  GameManager.instance.stars;
         moneyText.text = formatNumber(GameManager.instance.money);
-        waveText.text = "Wave: "+ GameManager.instance.currentWave;
+        waveText.text = "Wave: " + GameManager.instance.currentWave;
         if (selectedTower)
         {
             if (selectedTower.TryGetComponent<PongTower>(out PongTower pt) && pt.TowerOrder == 1)
             {
                 selectedTower = pt.other;
             }
-            foreach(Transform g in upgradeMenu.transform)
+            foreach (Transform g in upgradeMenu.transform)
             {
-                if(g.name == "towerName")
+                if (g.name == "towerName")
                 {
                     if (g.TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI tmp))
                     {
@@ -74,14 +96,14 @@ public class UIManager : MonoBehaviour
                         tmp.text = towerNameSplit[0];
                     }
                 }
-                if(g.name == "currentUpgradeLevel")
+                if (g.name == "currentUpgradeLevel")
                 {
                     if (g.TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI tmp))
                     {
                         tmp.text = "Level: " + (selectedTower.upgradeLevel + 1);
                     }
                 }
-                if(g.name == "sellTower")
+                if (g.name == "sellTower")
                 {
                     TextMeshProUGUI tmp = g.GetComponentInChildren<TextMeshProUGUI>();
                     if (tmp != null)
@@ -103,10 +125,10 @@ public class UIManager : MonoBehaviour
                         {
                             tmp.text = "MAXED";
                         }
-                        
+
                     }
                 }
-                if(g.name == "towerSprite")
+                if (g.name == "towerSprite")
                 {
                     if (selectedTower.inspectSprite != null)
                     {
@@ -115,13 +137,13 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-     }
+    }
 
-     void Update()
-     {
+    void Update()
+    {
         updateTextUi();
         updateStars();
-     }
+    }
 
     private void updateStars()
     {

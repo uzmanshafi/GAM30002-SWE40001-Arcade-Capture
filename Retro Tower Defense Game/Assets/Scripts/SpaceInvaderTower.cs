@@ -93,7 +93,10 @@ public class SpaceInvaderTower : Tower
 
     void FireBullet(float xOffset)
     {
-        GameObject bullet = Instantiate(bulletPrefab, shipTransform.position + new Vector3(xOffset, 0, 0), Quaternion.identity);
+        Vector3 spawnPosition = shipTransform.position + transform.right * xOffset;
+        GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+
+        
         bullet.GetComponent<Rigidbody2D>().velocity = -transform.up * 5;
         AudioSource.PlayClipAtPoint(shootSound, transform.position);
     }
