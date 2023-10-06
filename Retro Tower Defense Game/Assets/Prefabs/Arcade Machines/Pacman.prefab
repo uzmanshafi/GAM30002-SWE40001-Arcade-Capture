@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 150
   cooldown: 1
-  damage: 1
+  damage: 5
   bulletLifetime: 0
   target: {fileID: 0}
   towerRadius: 0
