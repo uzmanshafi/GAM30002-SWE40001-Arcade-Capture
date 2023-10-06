@@ -414,14 +414,21 @@ public class TowerPlacement : MonoBehaviour
 
     private bool IsMouseOverUI()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        /*if (EventSystem.current.IsPointerOverGameObject())
         {
             return true;
-        }
+        }*/ //removed as need to check whether its over the tower description specifically as well
         PointerEventData eventData = new PointerEventData(EventSystem.current);
         eventData.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
+        foreach(RaycastResult r in results)
+        {
+            if(r.gameObject.name == "towerDescription")
+            {
+                return false;
+            }
+        }
         return results.Count > 0;
     }
 
