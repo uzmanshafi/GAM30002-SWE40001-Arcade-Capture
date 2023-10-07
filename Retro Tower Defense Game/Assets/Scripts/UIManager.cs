@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
             }
             Destroy(pt.other.gameObject);
         }
-        GameManager.instance.money += (int)(selectedTower.cost * 0.75f);
+        GameManager.instance.money += (int)(selectedTower.cost * 1f);
         if (GameManager.instance.AllTowers.Contains(selectedTower))
         {
             GameManager.instance.AllTowers.Remove(selectedTower);
@@ -108,7 +108,7 @@ public class UIManager : MonoBehaviour
                     TextMeshProUGUI tmp = g.GetComponentInChildren<TextMeshProUGUI>();
                     if (tmp != null)
                     {
-                        tmp.text = "Sell $" + selectedTower.cost * 0.75f;
+                        tmp.text = "Sell $" + selectedTower.cost * 1f;
                     }
                 }
                 if (g.name == "buyUpgrade")

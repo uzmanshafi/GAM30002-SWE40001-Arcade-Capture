@@ -67,8 +67,8 @@ MonoBehaviour:
     description: 50
   - cost: 100
     description: 75
-  towerDescription: Throws barrels at enemies in the range that roll through groups
-    of enemies
+  towerDescription: Throws barrels at enemies that will roll down the path hitting
+    multiple customers
   projectile_speed: 5
   shoot: {fileID: 8300000, guid: eae028ee04e25814eb6c4b9774d5363c, type: 3}
 --- !u!60 &264820729999802671

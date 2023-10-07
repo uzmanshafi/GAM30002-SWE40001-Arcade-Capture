@@ -165,9 +165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bbd94dcdb2bf7c438c15efd976dade9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 150
+  cost: 100
   cooldown: 1
-  damage: 5
+  damage: 10
   bulletLifetime: 0
   target: {fileID: 0}
   towerRadius: 0
@@ -185,11 +185,11 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: 
+  - cost: 150
+    description: 
   - cost: 250
     description: 
-  - cost: 350
-    description: 
-  towerDescription: A Summoning Tower that spawns allies at the furthest point on
-    the path
+  towerDescription: A Summoning arcade macine that spawns ghosts at the end on the
+    path
   baseGhostSpeed: 1
   baseGhostDamage: 1

@@ -165,10 +165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea03cf7fe1ff15e49aef6a01c3c85466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 40
+  cost: 50
   cooldown: 1
-  damage: 10
-  bulletLifetime: 0.7
+  damage: 7
+  bulletLifetime: 0.4
   target: {fileID: 0}
   towerRadius: 0
   range: 1
@@ -183,9 +183,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: 
-  - cost: 60
+  - cost: 70
     description: 
   - cost: 100
     description: 
-  towerDescription: Punches enemies in close proximity to itself
+  towerDescription: Slowly punches customers in close proximity to itself
   shoot: {fileID: 8300000, guid: b9cced4f71a6e704b97b77f5b9461df8, type: 3}
