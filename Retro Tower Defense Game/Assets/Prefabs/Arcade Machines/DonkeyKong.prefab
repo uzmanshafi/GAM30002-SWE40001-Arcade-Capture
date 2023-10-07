@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 60
-  cooldown: 1
+  cooldown: 2
   damage: 10
   bulletLifetime: 2
   target: {fileID: 0}

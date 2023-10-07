@@ -1245,7 +1245,7 @@ MonoBehaviour:
     customers
 
 
-    Press next to continue The tutorial'
+    Press next to start The tutorial'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
   m_sharedMaterial: {fileID: -5202902379756829420, guid: 3a02c00e15ca068499a8b637c8394229, type: 2}
@@ -10081,7 +10081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &892573665
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24312,12 +24312,12 @@ GameObject:
   - component: {fileID: 1836533982}
   - component: {fileID: 1836533981}
   m_Layer: 5
-  m_Name: Back
+  m_Name: towerDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1836533980
 RectTransform:
   m_ObjectHideFlags: 0
