@@ -151,4 +151,18 @@ public static class Utils {
         return closest;
     }
 
+    //https://forum.unity.com/threads/how-do-i-find-the-closest-point-on-a-line.340058/
+    public static Vector2 NearestPointOnLine(Vector2 linePnt, Vector2 lineDir, Vector2 pnt)
+    {
+        lineDir.Normalize();//this needs to be a unit vector
+        var v = pnt - linePnt;
+        var d = Vector2.Dot(v, lineDir);
+        return linePnt + lineDir * d;
+    }
+
+    public static Vector2 nearestPointOnSegment(Vector2 source, Vector2 seg_start, Vector2 seg_end) {
+        
+    }
+
+
 }
