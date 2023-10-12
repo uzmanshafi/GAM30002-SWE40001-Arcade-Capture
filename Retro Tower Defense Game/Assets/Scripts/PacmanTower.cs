@@ -82,7 +82,6 @@ public class PacmanTower : Tower
         }
     }
 
-
     void ConfigureBasedOnUpgrade()
     {
         cooldown = 6.0f;
@@ -90,13 +89,46 @@ public class PacmanTower : Tower
 
     void SpawnGhost(float speed, float damage, GameObject ghostPrefab)
     {
-        GameObject ghost = Instantiate(ghostPrefab, transform.position, Quaternion.identity);
+        Vector3 spawnPoint = GetLastWaypointInRange();
+        GameObject ghost = Instantiate(ghostPrefab, spawnPoint, Quaternion.identity);
 
         GhostProjectiles ghostScript = ghost.GetComponent<GhostProjectiles>();
-        ghostScript.SetExitPoint(exitPoint);
+        ghostScript.SetExitPoint(spawnPoint);  // Set the spawn point as the exit point
         ghostScript.SetWaypoints(waypoints.Points);
+        ghostScript.SetStartWaypoint(waypoints.Points.Length - 1);
         ghostScript.SetStats(speed, damage);
         ghost.SetActive(false);
         gameManager.AddGhost(ghost);
     }
+
+    private Vector3 GetLastWaypointInRange()
+    {
+        Vector3? lastWaypointInRange = null;
+        foreach (Vector3 waypoint in waypoints.Points)
+        {
+            if (Vector2.Distance(transform.position, waypoint) <= range)
+            {
+                lastWaypointInRange = waypoint;
+                Debug.Log($"Waypoint {waypoint} is within range.");
+            }
+            else
+            {
+                Debug.Log($"Waypoint {waypoint} is out of range. Breaking...");
+                break;
+            }
+        }
+
+        if (lastWaypointInRange.HasValue)
+        {
+            Debug.Log($"Last waypoint in range: {lastWaypointInRange.Value}");
+            return lastWaypointInRange.Value;
+        }
+        else
+        {
+            Debug.Log("No waypoint in range. Defaulting to exit point.");
+            return waypoints.Points[waypoints.Points.Length - 1];
+        }
+    }
+
+
 }

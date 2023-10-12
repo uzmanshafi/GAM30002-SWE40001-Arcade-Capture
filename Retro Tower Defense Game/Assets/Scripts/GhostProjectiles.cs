@@ -38,6 +38,10 @@ public class GhostProjectiles : Projectile
         direction = ((Vector2)exitPoint - (Vector2)transform.position).normalized;
     }
 
+    public void SetStartWaypoint(int index)
+    {
+        currentWaypointIndex = index;
+    }
 
     void Update()
     {
@@ -61,7 +65,7 @@ public class GhostProjectiles : Projectile
             if (direction.x > 0.4 && direction.y > 0.4) // Second 
             {
                 render.sprite = sprites[1];
-            } 
+            }
             else if (direction.x < -0.4 && direction.y > 0.4) // Fourth 
             {
                 render.sprite = sprites[3];
