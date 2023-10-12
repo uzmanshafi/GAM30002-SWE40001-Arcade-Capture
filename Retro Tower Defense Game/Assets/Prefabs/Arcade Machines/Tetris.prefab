@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3754044211217079559}
   - component: {fileID: 3754044211217079558}
+  - component: {fileID: 9068828113580855349}
   - component: {fileID: 9018168070805958319}
-  - component: {fileID: 5390131242059471247}
   m_Layer: 6
   m_Name: Tetris
   m_TagString: ArcadeTower
@@ -86,49 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9018168070805958319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3754044211217079577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 595b2405414139d4fb86ba141f0871e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cost: 50
-  cooldown: 0.7
-  damage: 5
-  bulletLifetime: 2
-  target: {fileID: 0}
-  towerRadius: 3
-  range: 3
-  radius: 0
-  radiusDisplay: {fileID: 0}
-  bulletTypes:
-  - {fileID: 2449253969107945116, guid: a87e96cb28b977f40908336c6ee3cb42, type: 3}
-  - {fileID: 2449253969107945116, guid: 054edc90316f2b747ade4ef4dab38fc8, type: 3}
-  - {fileID: 2449253969107945116, guid: 92017051ae7f4cc4d92f043ed170a2c3, type: 3}
-  - {fileID: 2449253969107945116, guid: 86092e11ed5def14685653be028bb34a, type: 3}
-  - {fileID: 2449253969107945116, guid: f1fc612a623c7b648a0f919d2a6eb369, type: 3}
-  - {fileID: 2449253969107945116, guid: a4ae82f13d54b75419580e04a33b6bff, type: 3}
-  - {fileID: 2449253969107945116, guid: 765898e52f7a50c43a60a96490ea0c90, type: 3}
-  controlColour: Green
-  inspectSprite: {fileID: 21300000, guid: 0668c80e48844ba4bb6bdf197c50a3f6, type: 3}
-  upgradeLevel: 0
-  upgrades:
-  - cost: 0
-    description: 
-  - cost: 70
-    description: 
-  - cost: 100
-    description: 
-  towerDescription: A basic tower that shoots a direct projectile.
-  shoot: {fileID: 8300000, guid: 6ff5ce9feee6be84ca5b17ff21632c24, type: 3}
-  comboMultiplier: 2
---- !u!60 &5390131242059471247
+--- !u!60 &9068828113580855349
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,24 +130,68 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.08023912, y: 0.08054405}
-      - {x: -0.08001831, y: 0.07000103}
-      - {x: -0.089977466, y: 0.06994347}
-      - {x: -0.090170585, y: -0.020536274}
-      - {x: -0.080617756, y: -0.020239351}
-      - {x: -0.080687776, y: -0.050108373}
-      - {x: -0.07034442, y: -0.050106317}
-      - {x: -0.07034442, y: -0.06023822}
-      - {x: -0.060446218, y: -0.060240604}
-      - {x: -0.060169566, y: -0.06999184}
-      - {x: 0.06045331, y: -0.06969556}
-      - {x: 0.060217787, y: -0.060270455}
-      - {x: 0.07010922, y: -0.060526945}
-      - {x: 0.069880664, y: -0.050078444}
-      - {x: 0.08024948, y: -0.050344545}
-      - {x: 0.08030892, y: -0.020656122}
-      - {x: 0.0903569, y: -0.020424508}
-      - {x: 0.09039252, y: 0.07006338}
-      - {x: 0.079961784, y: 0.07014685}
-      - {x: 0.08054406, y: 0.0799335}
+    - - {x: 0.08021806, y: 0.08018725}
+      - {x: -0.0031480193, y: 0.0801674}
+      - {x: -0.08016002, y: 0.08014953}
+      - {x: -0.08016176, y: 0.07012581}
+      - {x: -0.09026404, y: 0.07008899}
+      - {x: -0.090182364, y: -0.020157337}
+      - {x: -0.080104806, y: -0.020165645}
+      - {x: -0.08015416, y: -0.050041676}
+      - {x: -0.070096746, y: -0.05010462}
+      - {x: -0.07012535, y: -0.060093798}
+      - {x: -0.060149416, y: -0.060170356}
+      - {x: -0.060118865, y: -0.07025656}
+      - {x: -0.0005158782, y: -0.0704509}
+      - {x: 0.06016384, y: -0.07017025}
+      - {x: 0.06019183, y: -0.060058594}
+      - {x: 0.07004252, y: -0.060229912}
+      - {x: 0.070176065, y: -0.05017851}
+      - {x: 0.08015421, y: -0.050132126}
+      - {x: 0.0802247, y: -0.020054612}
+      - {x: 0.09016184, y: -0.020030739}
+      - {x: 0.09009986, y: 0.07021542}
+      - {x: 0.08023494, y: 0.07019643}
   m_UseDelaunayMesh: 0
+--- !u!114 &9018168070805958319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3754044211217079577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 595b2405414139d4fb86ba141f0871e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 50
+  cooldown: 0.7
+  damage: 5
+  bulletLifetime: 2
+  target: {fileID: 0}
+  towerRadius: 3
+  range: 3
+  radius: 0
+  radiusDisplay: {fileID: 0}
+  bulletTypes:
+  - {fileID: 2449253969107945116, guid: a87e96cb28b977f40908336c6ee3cb42, type: 3}
+  - {fileID: 2449253969107945116, guid: 054edc90316f2b747ade4ef4dab38fc8, type: 3}
+  - {fileID: 2449253969107945116, guid: 92017051ae7f4cc4d92f043ed170a2c3, type: 3}
+  - {fileID: 2449253969107945116, guid: 86092e11ed5def14685653be028bb34a, type: 3}
+  - {fileID: 2449253969107945116, guid: f1fc612a623c7b648a0f919d2a6eb369, type: 3}
+  - {fileID: 2449253969107945116, guid: a4ae82f13d54b75419580e04a33b6bff, type: 3}
+  - {fileID: 2449253969107945116, guid: 765898e52f7a50c43a60a96490ea0c90, type: 3}
+  controlColour: Green
+  inspectSprite: {fileID: 21300000, guid: 0668c80e48844ba4bb6bdf197c50a3f6, type: 3}
+  upgradeLevel: 0
+  upgrades:
+  - cost: 0
+    description: 
+  - cost: 70
+    description: 
+  - cost: 100
+    description: 
+  towerDescription: A basic tower that shoots a direct projectile.
+  shoot: {fileID: 8300000, guid: 6ff5ce9feee6be84ca5b17ff21632c24, type: 3}
+  comboMultiplier: 2

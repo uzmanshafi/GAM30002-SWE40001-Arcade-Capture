@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance; 
+    public static GameManager instance;
 
     public float stars = 10;
     public int money = 500;
@@ -28,10 +28,14 @@ public class GameManager : MonoBehaviour
     public GameObject PAXGameWon;
 
 
-    public List<Enemy> AllEnemies(bool canSeeCamo) {
-        if (canSeeCamo == true) {
+    public List<Enemy> AllEnemies(bool canSeeCamo)
+    {
+        if (canSeeCamo == true)
+        {
             return _allEnemies;
-        } else {
+        }
+        else
+        {
             return _allEnemies.Where(e => !e.IsCamo).ToList();
         }
     }

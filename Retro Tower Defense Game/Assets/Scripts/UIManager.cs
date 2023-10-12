@@ -6,7 +6,6 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
@@ -69,8 +68,6 @@ public class UIManager : MonoBehaviour
         }
         selectedTower = null;  // Ensure to set the selectedTower to null after deselecting
     }
-
-
 
     //Should be working
     public void updateTextUi()
@@ -161,7 +158,6 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-
 
     // Initialises variables before the game starts
     void Awake()

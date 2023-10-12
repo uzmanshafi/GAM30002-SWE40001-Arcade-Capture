@@ -27,8 +27,9 @@ public class Wave : MonoBehaviour
 
         gameManager = GameManager.instance;
         start = gameManager.GetComponent<Waypoints>().Points[0];
-
     }
+
+
 
     void Update()
     {
@@ -51,7 +52,7 @@ public class Wave : MonoBehaviour
                 {
                     GameObject enemy = Instantiate(kvp.Value.Enemies[batchIndex], start, Quaternion.identity);
                     gameManager.AllEnemies(true).Add(enemy.GetComponent<Enemy>());
-                    spawnedEnemiesThisWave.Add(enemy); 
+                    spawnedEnemiesThisWave.Add(enemy);
                     batchIndex++;
                     timeSinceLastEnemy = Time.time;
                 }
@@ -74,11 +75,13 @@ public class Wave : MonoBehaviour
                 gameManager.money += 20;
                 waveEnded = true;
                 spawnedEnemiesThisWave.Clear();
+                if (gameManager.stars <= 9)
+                {
+                    gameManager.stars += 1;
+                }
             }
         }
     }
-
-
     private bool AllEnemiesDestroyed()
     {
         return spawnedEnemiesThisWave.All(e => e == null);
