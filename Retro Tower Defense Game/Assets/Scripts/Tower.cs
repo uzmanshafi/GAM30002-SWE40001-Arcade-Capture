@@ -43,6 +43,9 @@ public abstract class Tower : MonoBehaviour
     // For description to display when placing
     [SerializeField] public string towerDescription;
 
+    [NonSerialized] public bool isPowerPointBuffed;
+    [NonSerialized] public bool isStaffBuffed;
+
     // Start is called before the first frame update
     void Start()
     {

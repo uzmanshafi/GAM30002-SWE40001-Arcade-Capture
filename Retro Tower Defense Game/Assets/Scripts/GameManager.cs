@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour
             tower.cooldown = tower.base_cooldown;
             tower.range = tower.base_range;
             tower.damage = tower.base_damage; //tower doesn't have the damage on it, that must be on projectile somehow. Not sure how to make that work
+            tower.isPowerPointBuffed = false;
 
             PowerPointTower ppt;
             //Get all the powerpoint towers using unity magic otherwise just do this
@@ -131,6 +132,7 @@ public class GameManager : MonoBehaviour
                         tower.cooldown *= ppt.cooldown_multipler;
                         tower.range *= ppt.range_multipler;
                         tower.damage *= ppt.damage_multiplier;
+                        tower.isPowerPointBuffed = true;
                     }
 
                 }

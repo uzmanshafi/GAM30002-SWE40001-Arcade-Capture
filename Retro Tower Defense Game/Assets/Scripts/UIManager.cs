@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
 
     private Tower selectedTower;
 
+
     public void sellSelectedTower()
     {
         if (selectedTower.TryGetComponent<PongTower>(out PongTower pt))
@@ -130,6 +131,28 @@ public class UIManager : MonoBehaviour
                     if (selectedTower.inspectSprite != null)
                     {
                         g.GetComponent<Image>().sprite = selectedTower.inspectSprite;
+                    }
+                }
+                if (g.name == "PowerPointBuff")
+                {
+                    if (selectedTower.isPowerPointBuffed)
+                    {
+                        g.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        g.gameObject.SetActive(false);
+                    }
+                }
+                if (g.name == "StaffBuff")
+                {
+                    if (selectedTower.isStaffBuffed)
+                    {
+                        g.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        g.gameObject.SetActive(false);
                     }
                 }
             }
