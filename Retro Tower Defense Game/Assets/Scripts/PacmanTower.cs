@@ -95,7 +95,15 @@ public class PacmanTower : Tower
         GhostProjectiles ghostScript = ghost.GetComponent<GhostProjectiles>();
         ghostScript.SetExitPoint(spawnPoint);  // Set the spawn point as the exit point
         ghostScript.SetWaypoints(waypoints.Points);
-        ghostScript.SetStartWaypoint(waypoints.Points.Length - 1);
+        int startIndex; //find index based on startpoint
+        for (startIndex = 0; startIndex < waypoints.Points.Length; startIndex++)
+        {
+            if (waypoints.Points[startIndex] == spawnPoint)
+            {
+                break;
+            }
+        }
+        ghostScript.SetStartWaypoint(startIndex - 1);
         ghostScript.SetStats(speed, damage);
         ghost.SetActive(false);
         gameManager.AddGhost(ghost);
@@ -109,23 +117,18 @@ public class PacmanTower : Tower
             if (Vector2.Distance(transform.position, waypoint) <= range)
             {
                 lastWaypointInRange = waypoint;
-                Debug.Log($"Waypoint {waypoint} is within range.");
-            }
-            else
-            {
-                Debug.Log($"Waypoint {waypoint} is out of range. Breaking...");
-                break;
+                //Debug.Log($"Waypoint {waypoint} is within range.");
             }
         }
 
         if (lastWaypointInRange.HasValue)
         {
-            Debug.Log($"Last waypoint in range: {lastWaypointInRange.Value}");
+            //Debug.Log($"Last waypoint in range: {lastWaypointInRange.Value}");
             return lastWaypointInRange.Value;
         }
         else
         {
-            Debug.Log("No waypoint in range. Defaulting to exit point.");
+            //Debug.Log("No waypoint in range. Defaulting to exit point.");
             return waypoints.Points[waypoints.Points.Length - 1];
         }
     }

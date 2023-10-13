@@ -104,7 +104,7 @@ public class GhostProjectiles : Projectile
             {
                 // Reached the exit point, set flag and initialize waypoint index
                 hasReachedExit = true;
-                currentWaypointIndex = waypoints.Length - 2;  // Skip the last waypoint (exit point)
+                //currentWaypointIndex = waypoints.Length - 2;  // Skip the last waypoint (exit point) //removed this as it was causing them to back track
             }
         }
 
