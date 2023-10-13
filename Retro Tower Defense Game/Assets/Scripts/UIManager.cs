@@ -25,9 +25,9 @@ public class UIManager : MonoBehaviour
     {
         if (selectedTower.TryGetComponent<PongTower>(out PongTower pt))
         {
-            if (GameManager.instance.AllTowers.Contains(pt))
+            if (GameManager.instance.AllTowers.Contains(pt.other))
             {
-                GameManager.instance.AllTowers.Remove(pt);
+                GameManager.instance.AllTowers.Remove(pt.other);
             }
             Destroy(pt.other.gameObject);
         }

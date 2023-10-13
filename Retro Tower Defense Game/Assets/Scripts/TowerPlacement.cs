@@ -93,7 +93,7 @@ public class TowerPlacement : MonoBehaviour
     {
         if (IsMouseOverUI()) return;
 
-        if (currentTower != null && Input.GetMouseButtonDown(0) && IsValidLocation(mouseWorldPos, currentTower.name))
+        if (currentTower != null && Input.GetMouseButtonUp(0) && IsValidLocation(mouseWorldPos, currentTower.name))
         {
             DropTower();
             towerPlacedCooldown = 0.5f; // Reset cooldown after placing a tower
