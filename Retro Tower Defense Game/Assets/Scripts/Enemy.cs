@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     private int i = 0; //index for heading position
     private Vector3 destination;
     protected float health;
+    private bool isDead = false;
 
     private bool is_camo;
 
@@ -114,8 +115,9 @@ public class Enemy : MonoBehaviour
     internal virtual void TakeDamage(float damage)
     {
         health -= damage;
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
+            isDead = true;
             GM.AllEnemies(true).Remove(this);
             GM.money += moneyOnKill;
             GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
