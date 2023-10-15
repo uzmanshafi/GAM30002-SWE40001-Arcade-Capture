@@ -113,7 +113,6 @@ public class SpaceInvaderTower : Tower
     {
         GameObject bullet = Instantiate(bulletPrefab, shipTransform.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody2D>().velocity = -transform.up * 5;
-        AudioSource.PlayClipAtPoint(shootSound, transform.position);
     }
 
     private void SetBoundaries()
@@ -169,6 +168,7 @@ public class SpaceInvaderTower : Tower
         while (enemyInSight)
         {
             tryShoot();
+            AudioSource.PlayClipAtPoint(shootSound, transform.position);
             yield return new WaitForSeconds(cooldown);
         }
     }
