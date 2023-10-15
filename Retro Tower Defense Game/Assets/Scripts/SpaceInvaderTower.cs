@@ -83,6 +83,8 @@ public class SpaceInvaderTower : Tower
 
             float startOffset = -spacing * (bulletCount - 1) / 2;
 
+            AudioSource.PlayClipAtPoint(shootSound, transform.position);
+
             for (int i = 0; i < bulletCount; i++)
             {
                 float xOffset = startOffset + i * spacing;
@@ -98,7 +100,6 @@ public class SpaceInvaderTower : Tower
         bullet.GetComponent<Projectile>().damage = damage;
         
         bullet.GetComponent<Rigidbody2D>().velocity = -transform.up * 5;
-        AudioSource.PlayClipAtPoint(shootSound, transform.position);
     }
 
     private void CheckUpgrades()
@@ -168,7 +169,6 @@ public class SpaceInvaderTower : Tower
         while (enemyInSight)
         {
             tryShoot();
-            AudioSource.PlayClipAtPoint(shootSound, transform.position);
             yield return new WaitForSeconds(cooldown);
         }
     }
