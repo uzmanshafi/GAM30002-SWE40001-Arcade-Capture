@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class StreetFighterTower : BasicTower
 {
 	private int currentLevel;
 	[SerializeField] private AudioClip shoot;
+	[SerializeField] private AudioMixerGroup soundGroup;
 	// Start is called before the first frame update
 	void Start()
     {
@@ -55,7 +57,7 @@ public class StreetFighterTower : BasicTower
 			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 			bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-			AudioSource.PlayClipAtPoint(shoot, transform.position);
+			SoundEffect.PlaySoundEffect(shoot, transform.position, 1, soundGroup);
 			Projectile projectile = bullet.GetComponent<Projectile>();
 			bullet.GetComponent<Rigidbody2D>().velocity = dir * projectile.speed;
 			projectile.target = target;

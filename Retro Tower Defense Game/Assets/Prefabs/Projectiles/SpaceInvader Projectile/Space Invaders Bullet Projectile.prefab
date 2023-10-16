@@ -191,3 +191,4 @@ MonoBehaviour:
   damage: 0
   target: {fileID: 0}
   hit: {fileID: 0}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}

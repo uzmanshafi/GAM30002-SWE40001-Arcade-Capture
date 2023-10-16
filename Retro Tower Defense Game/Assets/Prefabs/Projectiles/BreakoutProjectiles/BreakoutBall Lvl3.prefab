@@ -139,6 +139,7 @@ MonoBehaviour:
   target: {fileID: 0}
   pierce: 5
   rebound: {fileID: 8300000, guid: d782d3195cc3f464f8e881b35d63b202, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
 --- !u!50 &1212948936530446713
 Rigidbody2D:
   serializedVersion: 4

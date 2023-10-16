@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using static Utils;
 public class PredictiveTower : Tower
 {
     [SerializeField] protected float projectile_speed;
     [SerializeField] protected AudioClip shoot;
+    [SerializeField] private AudioMixerGroup soundGroup;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +35,7 @@ public class PredictiveTower : Tower
             
             if (dir is Vector2 _dir)
             {
-                AudioSource.PlayClipAtPoint(shoot, transform.position);
+                SoundEffect.PlaySoundEffect(shoot, transform.position, 1, soundGroup);
                 GameObject bullet = Instantiate(bulletTypes[0], transform.position /*+ dir*/, Quaternion.identity);
 
                 Rigidbody2D projectileRB = bullet.GetComponent<Rigidbody2D>();

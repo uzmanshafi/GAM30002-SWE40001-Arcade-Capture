@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PongTower : Tower
 {
@@ -18,6 +19,7 @@ public class PongTower : Tower
     protected GameObject pongPaddle;
 
     [SerializeField] private AudioClip shoot;
+    [SerializeField] private AudioMixerGroup soundGroup;
 
     public int TowerOrder { get { return pongOrder; } set { pongOrder = value; } }
 
@@ -80,7 +82,7 @@ public class PongTower : Tower
         Vector2 dir = other.transform.position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x);
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-        AudioSource.PlayClipAtPoint(shoot, transform.position);
+        SoundEffect.PlaySoundEffect(shoot, transform.position, 1, soundGroup);
         pongShot = Instantiate(bulletTypes[0], gameObject.transform).GetComponent<Projectile>();
         pongShot.damage = damage;
         shotRB = pongShot.GetComponent<Rigidbody2D>();
@@ -110,7 +112,7 @@ public class PongTower : Tower
                 shotRB.velocity = dir * pongShot.speed;
                 break;
         }
-        AudioSource.PlayClipAtPoint(shoot, transform.position);
+        SoundEffect.PlaySoundEffect(shoot, transform.position, 1, soundGroup);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
