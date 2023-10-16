@@ -10,7 +10,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float MaxHP;
     [SerializeField] private AudioClip die;
-    [SerializeField] private GameObject coinplosion;
+    [SerializeField] protected GameObject coinplosion;
+    [SerializeField] protected float coinParticleMultiplier = 1f;
 
     [SerializeField] protected int moneyOnKill;
     [SerializeField] protected GameObject moneyText;
@@ -124,7 +125,8 @@ public class Enemy : MonoBehaviour
             Destroy(moneyonKillText, .9f);
             moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + moneyOnKill;
             AudioSource.PlayClipAtPoint(die, transform.position);
-            Instantiate(coinplosion, transform.position + new Vector3(0,0,-0.1f), Quaternion.identity);
+            GameObject effect = Instantiate(coinplosion, transform.position + new Vector3(0,0,-0.1f), Quaternion.identity);
+            effect.GetComponent<ParticleSystem>().Emit((int)(moneyOnKill * coinParticleMultiplier));
             //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
             

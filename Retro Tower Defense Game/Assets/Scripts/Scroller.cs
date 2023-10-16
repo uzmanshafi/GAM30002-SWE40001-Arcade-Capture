@@ -27,7 +27,8 @@ public class Scroller : Enemy
             GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
             Destroy(moneyonKillText, .9f);
             moneyonKillText.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "+" + moneyOnKill;
-
+            GameObject effect = Instantiate(coinplosion, transform.position + new Vector3(0, 0, -0.1f), Quaternion.identity);
+            effect.GetComponent<ParticleSystem>().Emit((int)(moneyOnKill * coinParticleMultiplier));
             //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
 
