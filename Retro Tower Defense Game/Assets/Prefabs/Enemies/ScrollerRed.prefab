@@ -115,7 +115,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4837448037053905684}
-  - component: {fileID: 7202263765785567983}
   - component: {fileID: -6883114202230638806}
   - component: {fileID: -6925946968715157871}
   m_Layer: 3
@@ -141,24 +140,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7202263765785567983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 680841621375074119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab4f1d883bda1f74a81e44226a9f8182, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MovementSpeed: 2
-  MaxHP: 5
-  die: {fileID: 0}
-  coinplosion: {fileID: 0}
-  moneyOnKill: 3
-  moneyText: {fileID: 0}
 --- !u!70 &-6883114202230638806
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

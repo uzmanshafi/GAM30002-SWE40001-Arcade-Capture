@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Scroller : Enemy
 {
-
     [SerializeField] public string colour;
-
+    private bool isDead = false;
     void Start()
     {
         base.init();
@@ -21,8 +20,9 @@ public class Scroller : Enemy
     internal override void TakeDamage(float damage)
     {
         health -= damage;
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
+            isDead = true;
             GM.AllEnemies(true).Remove(this);
             GM.money += moneyOnKill;
             GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);

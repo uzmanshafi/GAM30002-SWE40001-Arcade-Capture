@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Family : Enemy
 {
+    private bool isDead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +20,9 @@ public class Family : Enemy
     internal override void TakeDamage(float damage)
     {
         health -= damage;
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
+            isDead = true;
             GM.AllEnemies(true).Remove(this);
             GM.money += moneyOnKill;
             //GameManager.instance.money += moneyOnKill;
