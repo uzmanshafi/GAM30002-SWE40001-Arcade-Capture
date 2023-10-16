@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Family : Enemy
 {
-    private bool isDead = false;
     // Start is called before the first frame update
     void Start()
     {

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Scroller : Enemy
 {
     [SerializeField] public string colour;
-    private bool isDead = false;
     void Start()
     {
         base.init();

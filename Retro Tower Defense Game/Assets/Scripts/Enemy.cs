@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     private int i = 0; //index for heading position
     private Vector3 destination;
     protected float health;
-    private bool isDead = false;
+    protected bool isDead = false;
 
     private bool is_camo;
 
