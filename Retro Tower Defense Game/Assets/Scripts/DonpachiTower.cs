@@ -42,6 +42,7 @@ public class DonpachiTower : Tower
 
     private void Shoot(int projectileCount)
     {
+        AudioSource.PlayClipAtPoint(shootAudioClip, transform.position);
         for (int i = 0; i < projectileCount; i++)
         {
             Quaternion rotation = Quaternion.Euler(0, 0, currentAngle + i * (360f / projectileCount));
