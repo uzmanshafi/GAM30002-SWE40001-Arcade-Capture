@@ -72,7 +72,7 @@ public class Wave : MonoBehaviour
             {
                 waveLoaded = false;
                 waveInProgress = false;
-                gameManager.money += 20;
+                gameManager.money += 30;
                 waveEnded = true;
                 spawnedEnemiesThisWave.Clear();
                 if (gameManager.stars <= 9)
