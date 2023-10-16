@@ -82,12 +82,22 @@ public class TowerPlacement : MonoBehaviour
     }
 
     private void TowerRotation()
+{
+    if (currentTower != null)
     {
-        if (currentTower != null && (Input.GetKeyDown(KeyCode.R) || Input.mouseScrollDelta.y != 0))
+        if (Input.GetKeyDown(KeyCode.R) || Input.mouseScrollDelta.y > 0)
         {
+            // Anti-clockwise rotation for scroll up or 'R' key press
             currentTower.transform.Rotate(0, 0, -45);
         }
+        else if (Input.mouseScrollDelta.y < 0)
+        {
+            // Clockwise rotation for scroll down
+            currentTower.transform.Rotate(0, 0, 45);
+        }
     }
+}
+
 
     private void RunTowerPlacement(Vector3 mouseWorldPos)
     {
@@ -96,7 +106,7 @@ public class TowerPlacement : MonoBehaviour
         if (currentTower != null && Input.GetMouseButtonUp(0) && IsValidLocation(mouseWorldPos, currentTower.name))
         {
             DropTower();
-            towerPlacedCooldown = 0.5f; // Reset cooldown after placing a tower
+            towerPlacedCooldown = 0.5f; // Resets cooldown after placing a tower
         }
     }
 
