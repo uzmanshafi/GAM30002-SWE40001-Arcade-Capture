@@ -3,7 +3,15 @@ guid: 426fa7578bce8464b8d27f38c13ddfed
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - target: {instanceID: 0}
+  - radiusDisplay: {instanceID: 0}
+  - inspectSprite: {instanceID: 0}
+  - bulletPrefab: {instanceID: 0}
+  - shootSound: {instanceID: 0}
+  - soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
+  - shipTransform: {instanceID: 0}
+  - lineOfSight: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

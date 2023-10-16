@@ -189,4 +189,5 @@ MonoBehaviour:
   towerDescription: An arcade machine that shoots at your cursor sniping enemies
   asteroidSpeed: 10
   shoot: {fileID: 8300000, guid: 8153d434cd808d74994ee42843973c73, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   spreadDistance: 1

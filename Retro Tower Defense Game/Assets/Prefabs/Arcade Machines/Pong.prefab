@@ -193,3 +193,4 @@ MonoBehaviour:
   pongOrder: 0
   pongPaddlePrefab: {fileID: 6084772739986610346, guid: 3296c32ad7ead3642a36d7ad24ec9fe6, type: 3}
   shoot: {fileID: 8300000, guid: 90d160172f515774aa95bc4f4906fa10, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}

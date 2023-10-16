@@ -196,3 +196,4 @@ MonoBehaviour:
   - 15
   - 10
   shootAudioClip: {fileID: 8300000, guid: 2350e5c25ef81ee4795ba56215d8a538, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}

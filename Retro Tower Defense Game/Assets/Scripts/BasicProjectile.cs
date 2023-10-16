@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Audio;
 public class BasicProjectile : Projectile
 {
-    [SerializeField] private AudioClip? hit;
+    [SerializeField] private AudioClip hit;
+    [SerializeField] private AudioMixerGroup soundGroup;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +32,7 @@ public class BasicProjectile : Projectile
                 e.TakeDamage(damage);
                 if (hit != null)
                 {
-                    AudioSource.PlayClipAtPoint(hit, transform.position);
+                    SoundEffect.PlaySoundEffect(hit, transform.position, 1, soundGroup);
                 }
                 Destroy(gameObject);
             }

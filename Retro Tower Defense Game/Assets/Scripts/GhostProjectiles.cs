@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GhostProjectiles : Projectile
 {
@@ -16,6 +17,7 @@ public class GhostProjectiles : Projectile
 
     private Rigidbody2D rb;
     [SerializeField] private AudioClip die;
+    [SerializeField] private AudioMixerGroup soundGroup;
 
     private void Awake()
     {
@@ -131,7 +133,7 @@ public class GhostProjectiles : Projectile
             if (this.canSeeCamo || !e.IsCamo)
             {
                 e.TakeDamage(damage);
-                AudioSource.PlayClipAtPoint(die, transform.position);
+                SoundEffect.PlaySoundEffect(die, transform.position, 1, soundGroup);
                 Destroy(gameObject);  // Destroy the ghost upon collision
             }
         }

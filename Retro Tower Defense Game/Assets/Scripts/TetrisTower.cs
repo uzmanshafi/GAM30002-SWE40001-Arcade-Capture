@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using static Utils;
 
 // Design A
@@ -16,6 +17,7 @@ public class TetrisTower : Tower
 	private Enemy? lastEnemyHit;
 	private int hitCount;
 	[SerializeField] private AudioClip shoot;
+	[SerializeField] private AudioMixerGroup soundGroup;
 
 	/*
 	Hits 	|	Damage Multiplier:
@@ -73,7 +75,7 @@ public class TetrisTower : Tower
 			Vector2? dir = aimPrediction(projectile.speed, target, (Vector2)transform.position, range);
 			if (dir is Vector2 _dir)
 			{
-				AudioSource.PlayClipAtPoint(shoot, transform.position);
+				SoundEffect.PlaySoundEffect(shoot, transform.position, 1, soundGroup);
 				GameObject bullet = Instantiate(bulletTypes[bulletType], transform.position /*+ dir*/, Quaternion.identity);
 				projectile = bullet.GetComponent<TetrisProjectile>();
 				projectile.owner = this;

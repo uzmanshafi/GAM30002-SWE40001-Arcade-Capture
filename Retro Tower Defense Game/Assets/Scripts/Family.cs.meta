@@ -3,7 +3,11 @@ guid: 45dd43f732f36904abe581c35ebc43ae
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - die: {instanceID: 0}
+  - soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
+  - coinplosion: {instanceID: 0}
+  - moneyText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

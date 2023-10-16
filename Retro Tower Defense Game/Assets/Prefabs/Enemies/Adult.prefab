@@ -155,6 +155,7 @@ MonoBehaviour:
   MovementSpeed: 2
   MaxHP: 50
   die: {fileID: 8300000, guid: 2ac730ce33b355c40b3f85e4c8a53fc6, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   coinplosion: {fileID: 362535016467107257, guid: d16bdeac41fa5f1489b4e64dd48f0a10, type: 3}
   coinParticleMultiplier: 1
   moneyOnKill: 3

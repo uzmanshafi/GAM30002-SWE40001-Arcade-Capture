@@ -71,6 +71,7 @@ MonoBehaviour:
     multiple customers
   projectile_speed: 5
   shoot: {fileID: 8300000, guid: eae028ee04e25814eb6c4b9774d5363c, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
 --- !u!60 &1328159970898605336
 PolygonCollider2D:
   m_ObjectHideFlags: 0

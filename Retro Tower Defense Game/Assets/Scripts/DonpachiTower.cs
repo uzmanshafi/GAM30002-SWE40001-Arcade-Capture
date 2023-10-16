@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using static System.Math;
 
 public class DonpachiTower : Tower
@@ -14,6 +15,7 @@ public class DonpachiTower : Tower
     [SerializeField] private float[] AngleIncrementUpgrades;
 
     [SerializeField] private AudioClip shootAudioClip;
+    [SerializeField] private AudioMixerGroup soundGroup;
     private void Start()
     {
         base.init();
@@ -33,7 +35,6 @@ public class DonpachiTower : Tower
         //Debug.Log("Trying to shoot");
         if (Time.time - lastShotTime > cooldown)
         {
-            //AudioSource.PlayClipAtPoint(shootAudioClip, transform.position);
             Shoot(1 << (1 + upgradeLevel));
 
             lastShotTime = Time.time;
@@ -42,7 +43,7 @@ public class DonpachiTower : Tower
 
     private void Shoot(int projectileCount)
     {
-        AudioSource.PlayClipAtPoint(shootAudioClip, transform.position);
+        SoundEffect.PlaySoundEffect(shootAudioClip, transform.position, 1, soundGroup);
         for (int i = 0; i < projectileCount; i++)
         {
             Quaternion rotation = Quaternion.Euler(0, 0, currentAngle + i * (360f / projectileCount));

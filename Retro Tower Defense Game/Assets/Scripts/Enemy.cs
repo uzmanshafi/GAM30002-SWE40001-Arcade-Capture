@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using static Utils;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float MaxHP;
-    [SerializeField] private AudioClip die;
+    [SerializeField] protected AudioClip die;
+    [SerializeField] protected AudioMixerGroup soundGroup;
+
     [SerializeField] protected GameObject coinplosion;
     [SerializeField] protected float coinParticleMultiplier = 1f;
 
@@ -124,7 +127,7 @@ public class Enemy : MonoBehaviour
             GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
             Destroy(moneyonKillText, .9f);
             moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + moneyOnKill;
-            AudioSource.PlayClipAtPoint(die, transform.position);
+            SoundEffect.PlaySoundEffect(die, transform.position, 1, soundGroup);
             GameObject effect = Instantiate(coinplosion, transform.position + new Vector3(0,0,-0.1f), Quaternion.identity);
             effect.GetComponent<ParticleSystem>().Emit((int)(moneyOnKill * coinParticleMultiplier));
             //GameManager.instance.money += moneyOnKill;
