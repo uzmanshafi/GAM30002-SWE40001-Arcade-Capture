@@ -494,7 +494,7 @@ MonoBehaviour:
     description: spawns 3 lines of bullet
   towerDescription: A sliding tower that shoots in a line, moving side to side
   bulletPrefab: {fileID: 4005175662800323705, guid: b7da219df0b5cc54bb3a8ca6c8ae6fcd, type: 3}
-  shootSound: {fileID: 8300000, guid: ad10ec842d593734893eb7ccef0dec81, type: 3}
+  shootSound: {fileID: 8300000, guid: 8ec7f2bc1e9e7be4aa4a2d7797761656, type: 3}
   MovementSpeed: 1
   sightDistance: 10
   shipTransform: {fileID: 8928510976217991125}
