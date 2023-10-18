@@ -8891,6 +8891,7 @@ MonoBehaviour:
   pathTilemap: {fileID: 1032469544}
   RadiusPrefab: {fileID: 2122240868449220821, guid: 26f16191b8ce0234f8d084345a4b6750, type: 3}
   Controlindicator: {fileID: 1550139977}
+  pongIndicatorPrefab: {fileID: 1936937484929444071, guid: 603a0b53cc0b9824dbc3951137fd0a8d, type: 3}
 --- !u!114 &690477377
 MonoBehaviour:
   m_ObjectHideFlags: 0

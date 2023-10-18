@@ -60,18 +60,20 @@ public class PongTower : Tower
     
     private void face()
     {
-        transform.right = other.transform.position - transform.position;
-        other.transform.right = transform.position - other.transform.position;
+        //transform.right = other.transform.position - transform.position;
+        //other.transform.right = transform.position - other.transform.position;
         if (pongOrder == 1)
         {
             pongPaddle = Instantiate(pongPaddlePrefab, transform);
             pongPaddle.GetComponent<PongPaddle>().parent = this;
             pongPaddle.transform.position = Vector3.MoveTowards(pongPaddle.transform.position, other.transform.position, .5f);
+            pongPaddle.transform.right = other.transform.position - transform.position;
             pongPaddle.transform.eulerAngles = new Vector3(pongPaddle.transform.eulerAngles.x, pongPaddle.transform.eulerAngles.y, pongPaddle.transform.eulerAngles.z + 90);
 
             other.pongPaddle = Instantiate(pongPaddlePrefab, other.transform);
             other.pongPaddle.GetComponent<PongPaddle>().parent = other;
             other.pongPaddle.transform.position = Vector3.MoveTowards(other.pongPaddle.transform.position, transform.position, .5f);
+            other.pongPaddle.transform.right = transform.position - other.transform.position;
             other.pongPaddle.transform.eulerAngles = new Vector3(other.pongPaddle.transform.eulerAngles.x, other.pongPaddle.transform.eulerAngles.y, other.pongPaddle.transform.eulerAngles.z + 90);
         }
         matched = true;
