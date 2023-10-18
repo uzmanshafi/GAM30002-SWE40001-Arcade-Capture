@@ -17,8 +17,6 @@ public class MenuController : MonoBehaviour
    [SerializeField] private Slider volumeSlider = null;
    [SerializeField] private float defaultVolume = 0.5f;
 
-   [SerializeField] private GameObject confirmationPrompt = null;
-
    public void NewGameDialogYes()
    {
         SceneManager.LoadScene(_nameGameLevel);
@@ -63,13 +61,5 @@ public class MenuController : MonoBehaviour
    public void ApplyVolume()
    {
         PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
-        StartCoroutine(ConfirmationBox());
-   }
-
-   public IEnumerator ConfirmationBox()
-   {
-        confirmationPrompt.SetActive(true);
-        yield return new WaitForSeconds(2);
-        confirmationPrompt.SetActive(false);
    }
 }
