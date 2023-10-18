@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PongTower : Tower
 {
@@ -18,6 +19,7 @@ public class PongTower : Tower
     protected GameObject pongPaddle;
 
     [SerializeField] private AudioClip shoot;
+    [SerializeField] private AudioMixerGroup soundGroup;
 
     public int TowerOrder { get { return pongOrder; } set { pongOrder = value; } }
 
@@ -58,18 +60,20 @@ public class PongTower : Tower
     
     private void face()
     {
-        transform.right = other.transform.position - transform.position;
-        other.transform.right = transform.position - other.transform.position;
+        //transform.right = other.transform.position - transform.position;
+        //other.transform.right = transform.position - other.transform.position;
         if (pongOrder == 1)
         {
             pongPaddle = Instantiate(pongPaddlePrefab, transform);
             pongPaddle.GetComponent<PongPaddle>().parent = this;
             pongPaddle.transform.position = Vector3.MoveTowards(pongPaddle.transform.position, other.transform.position, .5f);
+            pongPaddle.transform.right = other.transform.position - transform.position;
             pongPaddle.transform.eulerAngles = new Vector3(pongPaddle.transform.eulerAngles.x, pongPaddle.transform.eulerAngles.y, pongPaddle.transform.eulerAngles.z + 90);
 
             other.pongPaddle = Instantiate(pongPaddlePrefab, other.transform);
             other.pongPaddle.GetComponent<PongPaddle>().parent = other;
             other.pongPaddle.transform.position = Vector3.MoveTowards(other.pongPaddle.transform.position, transform.position, .5f);
+            other.pongPaddle.transform.right = transform.position - other.transform.position;
             other.pongPaddle.transform.eulerAngles = new Vector3(other.pongPaddle.transform.eulerAngles.x, other.pongPaddle.transform.eulerAngles.y, other.pongPaddle.transform.eulerAngles.z + 90);
         }
         matched = true;
@@ -80,7 +84,7 @@ public class PongTower : Tower
         Vector2 dir = other.transform.position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x);
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-        AudioSource.PlayClipAtPoint(shoot, transform.position);
+        SoundEffect.PlaySoundEffect(shoot, transform.position, 1, soundGroup);
         pongShot = Instantiate(bulletTypes[0], gameObject.transform).GetComponent<Projectile>();
         pongShot.damage = damage;
         shotRB = pongShot.GetComponent<Rigidbody2D>();
@@ -110,7 +114,7 @@ public class PongTower : Tower
                 shotRB.velocity = dir * pongShot.speed;
                 break;
         }
-        AudioSource.PlayClipAtPoint(shoot, transform.position);
+        SoundEffect.PlaySoundEffect(shoot, transform.position, 1, soundGroup);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

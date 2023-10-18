@@ -81,6 +81,10 @@ public class Wave : MonoBehaviour
                 }
             }
         }
+        if (Input.GetKey(KeyCode.Space) && !gameObject.GetComponent<Wave>().waveInProgress)
+        {
+            startWave();
+        }
     }
     private bool AllEnemiesDestroyed()
     {

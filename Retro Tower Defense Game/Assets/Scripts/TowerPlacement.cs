@@ -30,6 +30,10 @@ public class TowerPlacement : MonoBehaviour
     //control indicators
     [SerializeField] private GameObject Controlindicator;
 
+    //Pong Placement Indicators
+    [SerializeField] private GameObject pongIndicatorPrefab;
+    private LineRenderer pongIndicator;
+
     void Start()
     {
         gameManager = GameManager.instance;
@@ -231,6 +235,13 @@ public class TowerPlacement : MonoBehaviour
             }
         }
 
+        if (pongIndicator != null && currentTower.TryGetComponent<PongTower>(out pt) && pt.other != null)
+        {
+            pongIndicator.positionCount = 2;
+            pongIndicator.SetPosition(0, Vector3.MoveTowards(pt.other.transform.position, pt.transform.position, .5f));
+            pongIndicator.SetPosition(1, Vector3.MoveTowards(pt.transform.position, pt.other.transform.position, .5f));
+        }
+
         // Checks the distance to the starRatingUI
         float distanceToStarRating = Vector3.Distance(currentTower.transform.position, starRatingUI.transform.position);
         float moveThreshold = 2f;
@@ -287,6 +298,7 @@ public class TowerPlacement : MonoBehaviour
             pt.other.other = pt;
             currentTower.GetComponent<Tower>().enabled = false;
             shootScript.enabled = true;
+            pongIndicator = Instantiate(pongIndicatorPrefab, currentTower.transform).GetComponent<LineRenderer>();
         }
         else if (currentTower.TryGetComponent<PongTower>(out PongTower pt2) && pt2.other != null)
         {
@@ -302,6 +314,8 @@ public class TowerPlacement : MonoBehaviour
                 currentTowerSpriteRenderer.color = Color.white;
                 currentTower = null;
                 currentTowerSpriteRenderer = null;
+                Destroy(pongIndicator.gameObject);
+                pongIndicator = null;
                 DestroyCurrentRadius();
             }
         }

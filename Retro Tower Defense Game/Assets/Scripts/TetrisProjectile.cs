@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class TetrisProjectile : Projectile
 {
 
     public TetrisTower owner; // This is instantiated on creation
     [SerializeField] private AudioClip hit;
+    [SerializeField] private AudioMixerGroup soundGroup;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +34,7 @@ public class TetrisProjectile : Projectile
         {
             if (this.canSeeCamo || !e.IsCamo) {
                 float damageMultiplier = owner.enemyHitEvent(e);
-                AudioSource.PlayClipAtPoint(hit, transform.position);
+                SoundEffect.PlaySoundEffect(hit, transform.position, 1, soundGroup);
                 e.TakeDamage(damage * damageMultiplier);
                 Destroy(gameObject);
             }

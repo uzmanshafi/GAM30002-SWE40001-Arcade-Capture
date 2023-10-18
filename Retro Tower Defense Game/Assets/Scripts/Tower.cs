@@ -115,15 +115,26 @@ public abstract class Tower : MonoBehaviour
         float bestDistance = Mathf.Infinity;
         Enemy bestEnemy = null;
         float tempDistance;
-        Vector3 endPoint;
+        Vector3 nextWaypoint; 
         if (enemies_in_range.Count > 0)
         {
+            int furthestIndex = 0;
+            int tempIndex;
+            foreach (Enemy e in enemies_in_range)
+            {
+                tempIndex = e.getWaypointIndex;
+                if (tempIndex > furthestIndex)
+                {
+                    furthestIndex = tempIndex;
+                }
+            }
             foreach (Enemy e in enemies_in_range) // find enemy closest to end point (Distance not furthest on path)
             {
                 if (e == null) { continue; }
                 if (e.IsCamo && !canSeeCamo) { continue; }
-                endPoint = e.GetWaypoints.Points[e.GetWaypoints.Points.Length - 1];
-                tempDistance = Vector2.Distance(e.transform.position, endPoint);
+                if (e.getWaypointIndex < furthestIndex) { continue; }
+                nextWaypoint = e.GetWaypoints.Points[e.getWaypointIndex];
+                tempDistance = Vector2.Distance(e.transform.position, nextWaypoint);
                 if (tempDistance < bestDistance)
                 {
                     bestDistance = tempDistance;

@@ -206,3 +206,4 @@ MonoBehaviour:
   - {fileID: -1594264756, guid: 55fa3ace591a5ec489179d320e481e0d, type: 3}
   - {fileID: -2103847571, guid: 55fa3ace591a5ec489179d320e481e0d, type: 3}
   die: {fileID: 8300000, guid: 20d599099aa8de0439985291b8cf7991, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
