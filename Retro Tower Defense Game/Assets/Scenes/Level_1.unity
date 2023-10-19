@@ -10119,6 +10119,7 @@ MonoBehaviour:
   wakaWaka: {fileID: 690477379}
   PAXGameOver: {fileID: 1945338817}
   PAXGameWon: {fileID: 282992484}
+  starRatingFill: {fileID: 1330613675}
 --- !u!4 &690477375
 Transform:
   m_ObjectHideFlags: 0

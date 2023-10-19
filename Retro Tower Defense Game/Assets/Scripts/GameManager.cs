@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using static Utils;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,6 +27,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject PAXGameOver;
     public GameObject PAXGameWon;
+
+    [SerializeField] private Image starRatingFill;
+
+    private Color originalStarColor;
+
+
+
 
 
     public List<Enemy> AllEnemies(bool canSeeCamo)
@@ -62,6 +70,8 @@ public class GameManager : MonoBehaviour
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("Projectile"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Pathing"), LayerMask.NameToLayer("Projectile"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Pathing"), LayerMask.NameToLayer("PongProjectile"));
+
+        originalStarColor = starRatingFill.color;
     }
 
     // Update is called once per frame. It doesn't matter what order this is called as after the first cycle the values will remain the same most of the time, unless a tower is moved/sold/upgraded. That does mean that we could actually only call this on those events, but that can happen another day
@@ -144,5 +154,23 @@ public class GameManager : MonoBehaviour
 
         }
     }
+
+    public void FlashStarRatingRed()
+    {
+        StartCoroutine(FlashColorCoroutine(Color.red));
+    }
+
+    public void FlashStarRatingGreen()
+    {
+        StartCoroutine(FlashColorCoroutine(Color.green));
+    }
+
+    private IEnumerator FlashColorCoroutine(Color colorToFlash)
+    {
+        starRatingFill.color = colorToFlash;  // Sets to the desired color immediately.
+        yield return new WaitForSeconds(0.2f);  // Flashes for half a second. Adjust this value as needed.
+        starRatingFill.color = originalStarColor;  // Returns to original color.
+    }
+
 }
 

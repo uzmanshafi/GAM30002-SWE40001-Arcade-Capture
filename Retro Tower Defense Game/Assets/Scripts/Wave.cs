@@ -77,7 +77,7 @@ public class Wave : MonoBehaviour
                 spawnedEnemiesThisWave.Clear();
                 if (gameManager.stars <= 9)
                 {
-                    gameManager.stars += 1;
+                    StartCoroutine(IncreaseStarRating());
                 }
             }
         }
@@ -133,6 +133,15 @@ public class Wave : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator IncreaseStarRating()
+    {
+        yield return new WaitForSeconds(0.5f); // Waits for 1 second
+
+        gameManager.stars += 1;
+        gameManager.FlashStarRatingGreen();
+    }
+
 
     public void startWave()
     {
