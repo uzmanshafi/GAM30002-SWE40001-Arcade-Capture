@@ -128,6 +128,8 @@ public class GameManager : MonoBehaviour
             tower.range = tower.base_range;
             tower.damage = tower.base_damage; //tower doesn't have the damage on it, that must be on projectile somehow. Not sure how to make that work
             tower.isPowerPointBuffed = false;
+            tower.isStaffBuffed = false;
+            tower.isStaffBuffed2 = false;
 
             PowerPointTower ppt;
             //Get all the powerpoint towers using unity magic otherwise just do this
@@ -145,6 +147,21 @@ public class GameManager : MonoBehaviour
                         tower.isPowerPointBuffed = true;
                     }
 
+                }
+                else if (powerpoint_tower.TryGetComponent<StaffTower>(out StaffTower st))
+                {
+                    if (withinRange((Vector2)tower.transform.position, (Vector2)st.transform.position, st.range))
+                    {
+                        if(st.upgradeLevel == 0)
+                        {
+                            tower.isStaffBuffed = true;
+                        }
+                        else
+                        {
+                            tower.isStaffBuffed2 = true;
+                        }
+
+                    }
                 }
                 else
                 {

@@ -146,7 +146,7 @@ public class UIManager : MonoBehaviour
                 }
                 if (g.name == "StaffBuff")
                 {
-                    if (selectedTower.isStaffBuffed)
+                    if (selectedTower.isStaffBuffed || selectedTower.isStaffBuffed2)
                     {
                         g.gameObject.SetActive(true);
                     }
