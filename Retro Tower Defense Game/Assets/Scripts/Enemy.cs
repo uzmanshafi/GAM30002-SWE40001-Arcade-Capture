@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
 
     private bool is_camo;
 
+    private SpriteRenderer starIndicator;
+
     [SerializeField] EnemyHealthBar healthBar;
 
     [NonSerialized] public bool spawnAtStart = true;
@@ -139,7 +141,7 @@ public class Enemy : MonoBehaviour
             Destroy(moneyonKillText, .9f);
             moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + moneyOnKill;
             SoundEffect.PlaySoundEffect(die, transform.position, 1, soundGroup);
-            GameObject effect = Instantiate(coinplosion, transform.position + new Vector3(0,0,-0.1f), Quaternion.identity);
+            GameObject effect = Instantiate(coinplosion, transform.position + new Vector3(0, 0, -0.1f), Quaternion.identity);
             effect.GetComponent<ParticleSystem>().Emit((int)(moneyOnKill * coinParticleMultiplier));
             //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
@@ -154,11 +156,12 @@ public class Enemy : MonoBehaviour
 
     private void endReached()
     {
-
         GM.AllEnemies(true).Remove(this);
         GM.stars -= 1f;
+        GM.FlashStarRatingRed();  // Flashes the star rating red.
         Destroy(gameObject);
     }
+
 
     public float GetCurrentHealth()
     {

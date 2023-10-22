@@ -45,6 +45,7 @@ public abstract class Tower : MonoBehaviour
 
     [NonSerialized] public bool isPowerPointBuffed;
     [NonSerialized] public bool isStaffBuffed;
+    [NonSerialized] public bool isStaffBuffed2;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +65,10 @@ public abstract class Tower : MonoBehaviour
     void Update()
     {
         tryShoot();
+        if (canSeeCamo != isStaffBuffed2)
+        {
+            canSeeCamo = isStaffBuffed2;
+        }
     }
 
     public void selected(bool t)
@@ -91,18 +96,13 @@ public abstract class Tower : MonoBehaviour
             Scroller s;
             if (results[i].collider.gameObject.TryGetComponent<Enemy>(out e))
             {
-                /*Debug.Log(Vector2.Distance(e.transform.position, transform.position) < range);  This was returning false most of the time
                 if (e.TryGetComponent<Scroller>(out s))
                 {
-                    if (s.colour == controlColour)
+                    if (s.colour != controlColour && !isStaffBuffed && !isStaffBuffed2)
                     {
-                        enemies_in_range.Add(s);
+                        continue;
                     }
                 }
-                else
-                {
-                    enemies_in_range.Add(e);
-                }*/
                 if (Vector2.Distance(e.transform.position, transform.position) < range)
                 {
                     enemies_in_range.Add(e);
