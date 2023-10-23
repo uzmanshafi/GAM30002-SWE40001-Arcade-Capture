@@ -10129,6 +10129,9 @@ MonoBehaviour:
   currentWave: 0
   ghostAmbient: {fileID: 690477380}
   wakaWaka: {fileID: 690477379}
+  loseLife: {fileID: 8300000, guid: ca1ec55e6119a9e40a6184b90c20efb7, type: 3}
+  gainLife: {fileID: 8300000, guid: 64da3ba141d03934aa0c99048367103d, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   PAXGameOver: {fileID: 1945338817}
   PAXGameWon: {fileID: 282992484}
   starRatingFill: {fileID: 1330613675}
@@ -10174,6 +10177,8 @@ MonoBehaviour:
   groundTilemap: {fileID: 1474541320}
   pathTilemap: {fileID: 1032469544}
   RadiusPrefab: {fileID: 2122240868449220821, guid: 26f16191b8ce0234f8d084345a4b6750, type: 3}
+  place: {fileID: 8300000, guid: 6bc105bbeddc8c0418b62184d38e8ec8, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   Controlindicator: {fileID: 1550139977}
   pongIndicatorPrefab: {fileID: 1936937484929444071, guid: 603a0b53cc0b9824dbc3951137fd0a8d, type: 3}
 --- !u!114 &690477377
@@ -10236,6 +10241,8 @@ MonoBehaviour:
   - {fileID: 680841621375074119, guid: 8ff8117c851a41444927dd58fd350601, type: 3}
   - {fileID: 680841621375074119, guid: 54d3be7b5786675438e264ea0a1105fe, type: 3}
   - {fileID: 680841621375074119, guid: 8c3945630018fdf438f472fd0489d1c1, type: 3}
+  waveClear: {fileID: 8300000, guid: b1ef97e907f0db94ab0aa9c2e64c4658, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   waveInProgress: 0
   waveEnded: 1
 --- !u!82 &690477379
@@ -22869,6 +22876,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b28dd8acb5c2cd4fb4b9a4fa1c4ca0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sell: {fileID: 8300000, guid: 1b19783f48bf1054ba1a48fd16e66ffb, type: 3}
+  upgrade: {fileID: 8300000, guid: 3ee4a90ac85f5564182245bb379a1bee, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   moneyText: {fileID: 1989691201}
   starText: {fileID: 1725849370}
   waveText: {fileID: 1815648423}

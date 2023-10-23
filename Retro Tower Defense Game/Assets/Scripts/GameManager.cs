@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Audio;
 using static Utils;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,6 +19,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private AudioSource ghostAmbient;
     [SerializeField] private AudioSource wakaWaka;
+    [SerializeField] protected AudioClip loseLife;
+    [SerializeField] protected AudioClip gainLife;
+    [SerializeField] protected AudioMixerGroup soundGroup;
 
     private List<Enemy> _allEnemies = new List<Enemy>();
     private List<Tower> _allTowers = new List<Tower>();
@@ -174,11 +178,13 @@ public class GameManager : MonoBehaviour
 
     public void FlashStarRatingRed()
     {
+        SoundEffect.PlaySoundEffect(loseLife, transform.position, 1, soundGroup);
         StartCoroutine(FlashColorCoroutine(Color.red));
     }
 
     public void FlashStarRatingGreen()
     {
+        SoundEffect.PlaySoundEffect(gainLife, transform.position, 1, soundGroup);
         StartCoroutine(FlashColorCoroutine(Color.green));
     }
 
