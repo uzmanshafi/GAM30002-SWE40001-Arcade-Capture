@@ -38,6 +38,7 @@ public abstract class Tower : MonoBehaviour
 
     [SerializeField] public Sprite inspectSprite;
     [SerializeField] public int upgradeLevel = 0;
+    [SerializeField] public Sprite[] upgradeSprites;
     [SerializeField] public TowerUpgrade[] upgrades;
 
     // For description to display when placing
