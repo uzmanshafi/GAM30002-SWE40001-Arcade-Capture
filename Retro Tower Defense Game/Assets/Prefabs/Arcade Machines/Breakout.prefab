@@ -181,6 +181,10 @@ MonoBehaviour:
   controlColour: Blue
   inspectSprite: {fileID: 21300000, guid: f0b11857ff59e394a8977a87553e45e3, type: 3}
   upgradeLevel: 0
+  upgradeSprites:
+  - {fileID: 21300000, guid: cb6898d37361a994693ebea37a95284c, type: 3}
+  - {fileID: 21300000, guid: d2686383560a2c646b7fc85569be4355, type: 3}
+  - {fileID: 21300000, guid: d01287d013d67a94c976064344a7565c, type: 3}
   upgrades:
   - cost: 0
     description: An arcade that builds a combo on Players that are hit consecutivley

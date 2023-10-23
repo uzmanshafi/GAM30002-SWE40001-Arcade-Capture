@@ -485,6 +485,10 @@ MonoBehaviour:
   controlColour: Red
   inspectSprite: {fileID: 21300000, guid: 0b5eec608edd06742ac97b71a9c52160, type: 3}
   upgradeLevel: 0
+  upgradeSprites:
+  - {fileID: 21300000, guid: e39912fbff2469545a2b0a43647a7486, type: 3}
+  - {fileID: 21300000, guid: 3f673c7ba14f3a947aacaa73ffac6eec, type: 3}
+  - {fileID: 21300000, guid: 9af0b16bbb6d70643b2946f6b712b2b3, type: 3}
   upgrades:
   - cost: 0
     description: spawn 1 line of bullets

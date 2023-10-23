@@ -184,6 +184,7 @@ public class UIManager : MonoBehaviour
                 SoundEffect.PlaySoundEffect(upgrade, selectedTower.transform.position, 1, soundGroup);
                 GameManager.instance.money -= selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
                 selectedTower.upgradeLevel += 1;
+                selectedTower.GetComponent<SpriteRenderer>().sprite = selectedTower.upgradeSprites[selectedTower.upgradeLevel];
             }
         }
     }
