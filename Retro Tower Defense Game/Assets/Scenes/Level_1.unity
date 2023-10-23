@@ -22877,8 +22877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sell: {fileID: 8300000, guid: 1b19783f48bf1054ba1a48fd16e66ffb, type: 3}
-  upgrade: {fileID: 8300000, guid: 6785e730b050c5841b36f6e953200874, type: 3}
-  interact: {fileID: 8300000, guid: 9b871fac76a939249b112ca94cc771d7, type: 3}
+  upgrade: {fileID: 8300000, guid: 3ee4a90ac85f5564182245bb379a1bee, type: 3}
   soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   moneyText: {fileID: 1989691201}
   starText: {fileID: 1725849370}
