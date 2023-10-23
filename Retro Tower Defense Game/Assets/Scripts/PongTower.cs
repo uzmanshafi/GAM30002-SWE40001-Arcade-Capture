@@ -39,6 +39,7 @@ public class PongTower : Tower
             if (pongOrder == 0)
             {
                 other.upgradeLevel = upgradeLevel;
+                other.GetComponent<SpriteRenderer>().sprite = other.upgradeSprites[other.upgradeLevel];
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))

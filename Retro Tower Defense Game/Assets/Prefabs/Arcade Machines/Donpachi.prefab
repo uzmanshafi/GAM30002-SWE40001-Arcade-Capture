@@ -179,6 +179,10 @@ MonoBehaviour:
   controlColour: Red
   inspectSprite: {fileID: 21300000, guid: 6948038dd2cf4994580939914d886ecb, type: 3}
   upgradeLevel: 0
+  upgradeSprites:
+  - {fileID: 21300000, guid: 8e6faed9564793448bf6fd0287d38be7, type: 3}
+  - {fileID: 21300000, guid: 1fdfeb32890652f4388cfb5a5cbf29f4, type: 3}
+  - {fileID: 21300000, guid: 4c614564997a1fe40b3c728dcae9bfad, type: 3}
   upgrades:
   - cost: 0
     description: 
