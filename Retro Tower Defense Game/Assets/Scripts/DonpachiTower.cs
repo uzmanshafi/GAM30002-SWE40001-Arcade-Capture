@@ -64,6 +64,7 @@ public class DonpachiTower : Tower
         Projectile proj = bullet.GetComponent<Projectile>();
         proj.target = null;
         proj.damage = damage;
+        proj.color = controlColour;
 
         Destroy(bullet, bulletLifetime);
     }

@@ -176,7 +176,7 @@ MonoBehaviour:
   radiusDisplay: {fileID: 0}
   bulletTypes:
   - {fileID: 2396885586352238776, guid: 221bdd90329558b4492adce3c9f3e450, type: 3}
-  controlColour: 
+  controlColour: Red
   inspectSprite: {fileID: 21300000, guid: 6948038dd2cf4994580939914d886ecb, type: 3}
   upgradeLevel: 0
   upgrades:

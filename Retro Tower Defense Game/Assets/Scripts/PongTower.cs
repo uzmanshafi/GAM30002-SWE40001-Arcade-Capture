@@ -87,6 +87,8 @@ public class PongTower : Tower
         SoundEffect.PlaySoundEffect(shoot, transform.position, 1, soundGroup);
         pongShot = Instantiate(bulletTypes[0], gameObject.transform).GetComponent<Projectile>();
         pongShot.damage = damage;
+        pongShot.color = controlColour;
+
         shotRB = pongShot.GetComponent<Rigidbody2D>();
         other.pongShot = pongShot;
         other.shotRB = shotRB;
