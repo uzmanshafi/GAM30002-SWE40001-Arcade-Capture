@@ -151,4 +151,25 @@ public static class Utils {
         return closest;
     }
 
+    public static Vector2 nearestPointOnSegment(Vector2 point, Vector2 a, Vector2 b) {
+        // Triangle PAB
+        // Angle PAB
+        // Same as angle between vector AB and AP
+        float angle_a = Vector2.angle(b - a, point - a);
+        // Angle PBA
+        // Same as angle between vector BA and BP
+        float angle_b = Vector2.angle(a - b, point - b);
+
+        if (angle_a >= 90) {
+            return a;
+        }
+        if (angle_b >= 90) {
+            return b;
+        }
+
+        // Get length of line from A to point on AB
+        float length = Vector2.Dot(b - a, point - a) / (b - a).Length;
+
+        return a + (b - a).normalized * length;
+    }
 }
