@@ -30,9 +30,17 @@ public class DonpachiBullet : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
+
             if (this.canSeeCamo || !e.IsCamo) {
-                e.TakeDamage(damage);
-                Destroy(gameObject);
+                if (e.TryGetComponent<Scroller>(out Scroller s) && s.colour != color && !canSeeCamo)
+                {
+                    Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
+                }
+                else
+                {
+                    e.TakeDamage(damage);
+                    Destroy(gameObject);
+                } 
             }
         }
     }

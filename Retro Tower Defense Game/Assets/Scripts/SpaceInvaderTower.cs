@@ -99,8 +99,10 @@ public class SpaceInvaderTower : Tower
     {
         Vector3 spawnPosition = shipTransform.position + transform.right * xOffset;
         GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
-        bullet.GetComponent<Projectile>().damage = damage;
-        
+        Projectile proj = bullet.GetComponent<Projectile>();
+        proj.damage = damage;
+        proj.color = controlColour;
+
         bullet.GetComponent<Rigidbody2D>().velocity = -transform.up * 5;
     }
 

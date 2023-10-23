@@ -9,13 +9,13 @@ public class BasicProjectile : Projectile
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public override void move()
@@ -28,13 +28,21 @@ public class BasicProjectile : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
-            if (this.canSeeCamo || !e.IsCamo) {
-                e.TakeDamage(damage);
-                if (hit != null)
+            if (this.canSeeCamo || !e.IsCamo)
+            {
+                if (e.TryGetComponent<Scroller>(out Scroller s) && s.colour != color && !canSeeCamo)
                 {
-                    SoundEffect.PlaySoundEffect(hit, transform.position, 1, soundGroup);
+                    Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
                 }
-                Destroy(gameObject);
+                else
+                {
+                    e.TakeDamage(damage);
+                    if (hit != null)
+                    {
+                        SoundEffect.PlaySoundEffect(hit, transform.position, 1, soundGroup);
+                    }
+                    Destroy(gameObject);
+                }
             }
         }
     }
@@ -44,9 +52,19 @@ public class BasicProjectile : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
-            if (this.canSeeCamo || !e.IsCamo) {
-                e.TakeDamage(damage);
+            if (this.canSeeCamo || !e.IsCamo)
+            {
+                if (e.TryGetComponent<Scroller>(out Scroller s) && s.colour != color)
+                {
+                    Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision);
+                }
+                else
+                {
+                    e.TakeDamage(damage);
+                }
+
             }
         }
     }
 }
+
