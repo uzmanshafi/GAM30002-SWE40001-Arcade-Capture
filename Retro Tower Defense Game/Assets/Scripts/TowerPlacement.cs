@@ -315,7 +315,7 @@ public class TowerPlacement : MonoBehaviour
                 {
                     gameManager.AllTowers.Add(shootScript);
                     gameManager.money -= shootScript.cost;
-                    GameObject moneyonKillText = Instantiate(moneyText, currentTower.transform.position, Quaternion.identity);
+                    GameObject moneyonKillText = Instantiate(moneyText, currentTower.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
                     Destroy(moneyonKillText, .9f);
                     moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "-" + shootScript.cost;
                     moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
