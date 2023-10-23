@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] protected AudioClip sell;
     [SerializeField] protected AudioClip upgrade;
     [SerializeField] protected AudioMixerGroup soundGroup;
+    [SerializeField] protected GameObject moneyTextEffect;
+    [SerializeField] protected GameObject upgradeEffect;
+    [SerializeField] protected GameObject coinplosion;
 
     public static UIManager instance;
 
@@ -42,7 +45,12 @@ public class UIManager : MonoBehaviour
         {
             GameManager.instance.AllTowers.Remove(selectedTower);
         }
+        GameObject moneyonKillText = Instantiate(moneyTextEffect, selectedTower.transform.position, Quaternion.identity);
+        Destroy(moneyonKillText, .9f);
+        moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + (int)(selectedTower.cost * 1f);
         SoundEffect.PlaySoundEffect(sell, selectedTower.gameObject.transform.position, 1, soundGroup);
+        GameObject effect = Instantiate(coinplosion, selectedTower.gameObject.transform.position + new Vector3(0, 0, -0.1f), Quaternion.identity);
+        effect.GetComponent<ParticleSystem>().Emit((int)(selectedTower.cost * 1f));
         Destroy(selectedTower.gameObject);
         deselectTower();
     }
@@ -183,6 +191,12 @@ public class UIManager : MonoBehaviour
             {
                 SoundEffect.PlaySoundEffect(upgrade, selectedTower.transform.position, 1, soundGroup);
                 GameManager.instance.money -= selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
+                GameObject moneyonUpgradeText = Instantiate(moneyTextEffect, selectedTower.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                Destroy(moneyonUpgradeText, .9f);
+                moneyonUpgradeText.GetComponentInChildren<TextMeshProUGUI>().text = "-" + selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
+                moneyonUpgradeText.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
+                GameObject upgradeText = Instantiate(upgradeEffect, selectedTower.transform.position + new Vector3(0,0,0), Quaternion.identity);
+                Destroy(upgradeText, .9f);
                 selectedTower.upgradeLevel += 1;
                 selectedTower.GetComponent<SpriteRenderer>().sprite = selectedTower.upgradeSprites[selectedTower.upgradeLevel];
             }
