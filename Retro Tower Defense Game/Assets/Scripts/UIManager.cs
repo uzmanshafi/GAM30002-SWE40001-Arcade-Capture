@@ -4,10 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] protected AudioClip sell;
+    [SerializeField] protected AudioClip upgrade;
+    [SerializeField] protected AudioMixerGroup soundGroup;
+
     public static UIManager instance;
 
     public TextMeshProUGUI moneyText;
@@ -37,6 +42,7 @@ public class UIManager : MonoBehaviour
         {
             GameManager.instance.AllTowers.Remove(selectedTower);
         }
+        SoundEffect.PlaySoundEffect(sell, selectedTower.gameObject.transform.position, 1, soundGroup);
         Destroy(selectedTower.gameObject);
         deselectTower();
     }
@@ -47,7 +53,6 @@ public class UIManager : MonoBehaviour
         {
             return;
         }
-
         selectedTower = t;
         upgradeMenu.SetActive(true);
     }
@@ -176,6 +181,7 @@ public class UIManager : MonoBehaviour
         {
             if (GameManager.instance.money - selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost >= 0)
             {
+                SoundEffect.PlaySoundEffect(upgrade, selectedTower.transform.position, 1, soundGroup);
                 GameManager.instance.money -= selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
                 selectedTower.upgradeLevel += 1;
             }
