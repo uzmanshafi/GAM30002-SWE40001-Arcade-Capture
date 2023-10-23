@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
@@ -26,6 +27,9 @@ public class TowerPlacement : MonoBehaviour
     private float moveDuration = 1.5f;
     private bool starRatingIsUp = false;
     private bool isMovingStarRating = false;
+
+    [SerializeField] protected AudioClip place;
+    [SerializeField] protected AudioMixerGroup soundGroup;
 
     //control indicators
     [SerializeField] private GameObject Controlindicator;
@@ -160,7 +164,6 @@ public class TowerPlacement : MonoBehaviour
         {
             return;
         }
-
         uiManager.deselectTower();
         DestroyCurrentRadius();
 
@@ -265,6 +268,7 @@ public class TowerPlacement : MonoBehaviour
         // Deactivate the LineRadiusPrefab if the current tower is a "SpaceInvaders" tower
         if (currentTower && currentTower.name.StartsWith("SpaceInvaders"))
         {
+            SoundEffect.PlaySoundEffect(place, currentTower.transform.position, 1, soundGroup);
             Transform childTransform = currentTower.transform.Find("LineRadiusPrefab");
             if (childTransform != null && childTransform.CompareTag("LineRadius"))
             {
@@ -304,6 +308,7 @@ public class TowerPlacement : MonoBehaviour
         {
             if (Vector2.Distance(pt2.transform.position, pt2.other.transform.position) <= pt2.other.range)
             {
+                SoundEffect.PlaySoundEffect(place, currentTower.transform.position, 1, soundGroup);
                 shootScript.enabled = true;
                 if (!gameManager.AllTowers.Contains(shootScript))
                 {
@@ -321,6 +326,7 @@ public class TowerPlacement : MonoBehaviour
         }
         else
         {
+            SoundEffect.PlaySoundEffect(place, currentTower.transform.position, 1, soundGroup);
             if (!gameManager.AllTowers.Contains(shootScript))
             {
                 gameManager.AllTowers.Add(shootScript);
@@ -332,7 +338,6 @@ public class TowerPlacement : MonoBehaviour
             currentTowerSpriteRenderer = null;
             DestroyCurrentRadius();
         }
-
         Controlindicator.SetActive(false);
     }
 
