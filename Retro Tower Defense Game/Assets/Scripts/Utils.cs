@@ -155,10 +155,10 @@ public static class Utils {
         // Triangle PAB
         // Angle PAB
         // Same as angle between vector AB and AP
-        float angle_a = Vector2.angle(b - a, point - a);
+        float angle_a = Vector2.Angle(b - a, point - a);
         // Angle PBA
         // Same as angle between vector BA and BP
-        float angle_b = Vector2.angle(a - b, point - b);
+        float angle_b = Vector2.Angle(a - b, point - b);
 
         if (angle_a >= 90) {
             return a;
@@ -168,7 +168,7 @@ public static class Utils {
         }
 
         // Get length of line from A to point on AB
-        float length = Vector2.Dot(b - a, point - a) / (b - a).Length;
+        float length = Vector2.Dot(b - a, point - a) / (b - a).length;
 
         return a + (b - a).normalized * length;
     }

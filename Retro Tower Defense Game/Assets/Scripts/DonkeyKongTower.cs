@@ -16,16 +16,17 @@ public class DonkeyKongTower : PredictiveTower
 		// Find closest point on path
 
 		float nearest_point_distance_squared = float.MaxValue;
-		Vector2 nearest_point? = null;
+		Vector2? nearest_point = null;
+		Waypoints waypoints = GameManager.instance.GetComponent<Waypoints>();
 
 		// Loop through waypoints
-		for (int i = 0; i < waypoints.length - 1; ++i) {
+		for (int i = 0; i < waypoints.Points.Length - 1; ++i) {
 			// For each waypoint segment, get nearest point from tower position.
-			point = nearestPointOnSegment(this.position, waypoints[i], waypoints[i+1]);
+			Vector2 point = nearestPointOnSegment(this.transform.position, waypoints.Points[i], waypoints.Points[i+1]);
 			// If distance is smaller than nearest_point_distance then update it as well as nearest_point
-			if ((this.position - point).sqrMagnitude < nearest_point_distance_squared) {
+			if (((Vector2)this.transform.position - point).sqrMagnitude < nearest_point_distance_squared) {
 				nearest_point = point;
-				nearest_point_distance_squared = (this.position - point).sqrMagnitude;
+				nearest_point_distance_squared = ((Vector2)this.transform.position - point).sqrMagnitude;
 			}
 		}
 
