@@ -126,18 +126,32 @@ public class UIManager : MonoBehaviour
                 {
                     TextMeshProUGUI tmp = g.GetComponentInChildren<TextMeshProUGUI>();
                     if (tmp != null)
-                    {
-                        //Debug.Log(selectedTower.upgradeLevel + " " + selectedTower.upgrades.Length);
-                        if (selectedTower.upgradeLevel < 2)
+                    
+                        if (tmp.name == "CostText")
                         {
-                            tmp.text = "UPGRADE $" + selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
+                            //Debug.Log(selectedTower.upgradeLevel + " " + selectedTower.upgrades.Length);
+                            if (selectedTower.upgradeLevel < 2)
+                            {
+                                tmp.text = "UPGRADE $" + selectedTower.upgrades[selectedTower.upgradeLevel + 1].cost;
+                            }
+                            else
+                            {
+                                tmp.text = "MAXED";
+                            }
                         }
                         else
                         {
-                            tmp.text = "MAXED";
+                            if (selectedTower.upgradeLevel < 1)
+                            {
+                                tmp.text = selectedTower.towerUpgrade;
+                            }
+                            else
+                            {
+                                tmp.text = selectedTower.towerUpgrade2;
+                            }
                         }
 
-                    }
+                    
                 }
                 if (g.name == "towerSprite")
                 {
