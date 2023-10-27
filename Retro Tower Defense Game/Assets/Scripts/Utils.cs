@@ -168,7 +168,7 @@ public static class Utils {
         }
 
         // Get length of line from A to point on AB
-        float length = Vector2.Dot(b - a, point - a) / (b - a).length;
+        float length = Vector2.Dot(b - a, point - a) / Vector2.Distance(b, a);
 
         return a + (b - a).normalized * length;
     }
