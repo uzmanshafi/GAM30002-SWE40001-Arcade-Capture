@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using static Utils;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float MovementSpeed;
     [SerializeField] private float MaxHP;
-    [SerializeField] private AudioClip die;
+    [SerializeField] protected AudioClip die;
+    [SerializeField] protected AudioMixerGroup soundGroup;
+
     [SerializeField] protected GameObject coinplosion;
     [SerializeField] protected float coinParticleMultiplier = 1f;
 
@@ -25,6 +28,10 @@ public class Enemy : MonoBehaviour
     protected bool isDead = false;
 
     private bool is_camo;
+
+    private SpriteRenderer starIndicator;
+
+    [SerializeField] EnemyHealthBar healthBar;
 
     [NonSerialized] public bool spawnAtStart = true;
 
@@ -49,6 +56,7 @@ public class Enemy : MonoBehaviour
 
     public bool IsCamo => is_camo; //Getter
 
+
     void Start()
     {
         init();
@@ -59,7 +67,7 @@ public class Enemy : MonoBehaviour
         waypoints = GM.GetComponent<Waypoints>();
         health = MaxHP;
         gameObject.SetActive(true);
-        
+
         if (spawnAtStart)
         {
             transform.position = waypoints.Points[i];
@@ -97,7 +105,7 @@ public class Enemy : MonoBehaviour
             {
                 destination = new Vector3(waypoints.getWaypointPosition(i).x + .1f, waypoints.getWaypointPosition(i).y);
             }
-            else if(waypoints.getWaypointPosition(i).x == waypoints.getWaypointPosition(i + 1).x) // if destination and waypoint after that are equal in x, head a little further to avoid turning early
+            else if (waypoints.getWaypointPosition(i).x == waypoints.getWaypointPosition(i + 1).x) // if destination and waypoint after that are equal in x, head a little further to avoid turning early
             {
                 destination = new Vector3(waypoints.getWaypointPosition(i).x + .1f, waypoints.getWaypointPosition(i).y);
             }
@@ -116,6 +124,14 @@ public class Enemy : MonoBehaviour
     internal virtual void TakeDamage(float damage)
     {
         health -= damage;
+
+        EnemyHealthBar healthBar = GetComponentInChildren<EnemyHealthBar>();
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(this);
+        }
+
+
         if (health <= 0 && !isDead)
         {
             isDead = true;
@@ -124,12 +140,12 @@ public class Enemy : MonoBehaviour
             GameObject moneyonKillText = Instantiate(moneyText, transform.position, Quaternion.identity);
             Destroy(moneyonKillText, .9f);
             moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + moneyOnKill;
-            AudioSource.PlayClipAtPoint(die, transform.position);
-            GameObject effect = Instantiate(coinplosion, transform.position + new Vector3(0,0,-0.1f), Quaternion.identity);
+            SoundEffect.PlaySoundEffect(die, transform.position, 1, soundGroup);
+            GameObject effect = Instantiate(coinplosion, transform.position + new Vector3(0, 0, -0.1f), Quaternion.identity);
             effect.GetComponent<ParticleSystem>().Emit((int)(moneyOnKill * coinParticleMultiplier));
             //GameManager.instance.money += moneyOnKill;
             Destroy(gameObject);
-            
+
         }
     }
 
@@ -140,9 +156,21 @@ public class Enemy : MonoBehaviour
 
     private void endReached()
     {
-
         GM.AllEnemies(true).Remove(this);
         GM.stars -= 1f;
+        GM.FlashStarRatingRed();  // Flashes the star rating red.
         Destroy(gameObject);
     }
+
+
+    public float GetCurrentHealth()
+    {
+        return health;
+    }
+
+    public float GetMaxHealth()
+    {
+        return MaxHP;
+    }
+
 }

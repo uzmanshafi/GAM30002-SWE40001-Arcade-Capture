@@ -179,6 +179,10 @@ MonoBehaviour:
   controlColour: Red
   inspectSprite: {fileID: 21300000, guid: 8c99f9d95a5afcc41b579f9679acbecd, type: 3}
   upgradeLevel: 0
+  upgradeSprites:
+  - {fileID: 21300000, guid: d45c2e5c042eb6a458f94de0265fa47c, type: 3}
+  - {fileID: 21300000, guid: 50246b334fad3f644bbf3822eefb9526, type: 3}
+  - {fileID: 21300000, guid: f3ed417456e29f64ab3c93d4d0000cba, type: 3}
   upgrades:
   - cost: 0
     description: An arcade that calls in an astroid from space to strike your target
@@ -189,4 +193,5 @@ MonoBehaviour:
   towerDescription: An arcade machine that shoots at your cursor sniping enemies
   asteroidSpeed: 10
   shoot: {fileID: 8300000, guid: 8153d434cd808d74994ee42843973c73, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   spreadDistance: 1

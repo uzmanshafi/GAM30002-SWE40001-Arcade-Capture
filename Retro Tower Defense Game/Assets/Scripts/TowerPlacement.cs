@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
@@ -27,8 +28,16 @@ public class TowerPlacement : MonoBehaviour
     private bool starRatingIsUp = false;
     private bool isMovingStarRating = false;
 
+    [SerializeField] protected GameObject moneyText;
+    [SerializeField] protected AudioClip place;
+    [SerializeField] protected AudioMixerGroup soundGroup;
+
     //control indicators
     [SerializeField] private GameObject Controlindicator;
+
+    //Pong Placement Indicators
+    [SerializeField] private GameObject pongIndicatorPrefab;
+    private LineRenderer pongIndicator;
 
     void Start()
     {
@@ -82,12 +91,22 @@ public class TowerPlacement : MonoBehaviour
     }
 
     private void TowerRotation()
+{
+    if (currentTower != null)
     {
-        if (currentTower != null && (Input.GetKeyDown(KeyCode.R) || Input.mouseScrollDelta.y != 0))
+        if (Input.GetKeyDown(KeyCode.R) || Input.mouseScrollDelta.y > 0)
         {
+            // Anti-clockwise rotation for scroll up or 'R' key press
             currentTower.transform.Rotate(0, 0, -45);
         }
+        else if (Input.mouseScrollDelta.y < 0)
+        {
+            // Clockwise rotation for scroll down
+            currentTower.transform.Rotate(0, 0, 45);
+        }
     }
+}
+
 
     private void RunTowerPlacement(Vector3 mouseWorldPos)
     {
@@ -96,7 +115,7 @@ public class TowerPlacement : MonoBehaviour
         if (currentTower != null && Input.GetMouseButtonUp(0) && IsValidLocation(mouseWorldPos, currentTower.name))
         {
             DropTower();
-            towerPlacedCooldown = 0.5f; // Reset cooldown after placing a tower
+            towerPlacedCooldown = 0.5f; // Resets cooldown after placing a tower
         }
     }
 
@@ -146,7 +165,6 @@ public class TowerPlacement : MonoBehaviour
         {
             return;
         }
-
         uiManager.deselectTower();
         DestroyCurrentRadius();
 
@@ -221,6 +239,13 @@ public class TowerPlacement : MonoBehaviour
             }
         }
 
+        if (pongIndicator != null && currentTower.TryGetComponent<PongTower>(out pt) && pt.other != null)
+        {
+            pongIndicator.positionCount = 2;
+            pongIndicator.SetPosition(0, Vector3.MoveTowards(pt.other.transform.position, pt.transform.position, .5f));
+            pongIndicator.SetPosition(1, Vector3.MoveTowards(pt.transform.position, pt.other.transform.position, .5f));
+        }
+
         // Checks the distance to the starRatingUI
         float distanceToStarRating = Vector3.Distance(currentTower.transform.position, starRatingUI.transform.position);
         float moveThreshold = 2f;
@@ -244,6 +269,7 @@ public class TowerPlacement : MonoBehaviour
         // Deactivate the LineRadiusPrefab if the current tower is a "SpaceInvaders" tower
         if (currentTower && currentTower.name.StartsWith("SpaceInvaders"))
         {
+            SoundEffect.PlaySoundEffect(place, currentTower.transform.position, 1, soundGroup);
             Transform childTransform = currentTower.transform.Find("LineRadiusPrefab");
             if (childTransform != null && childTransform.CompareTag("LineRadius"))
             {
@@ -277,30 +303,43 @@ public class TowerPlacement : MonoBehaviour
             pt.other.other = pt;
             currentTower.GetComponent<Tower>().enabled = false;
             shootScript.enabled = true;
+            pongIndicator = Instantiate(pongIndicatorPrefab, currentTower.transform).GetComponent<LineRenderer>();
         }
         else if (currentTower.TryGetComponent<PongTower>(out PongTower pt2) && pt2.other != null)
         {
             if (Vector2.Distance(pt2.transform.position, pt2.other.transform.position) <= pt2.other.range)
             {
+                SoundEffect.PlaySoundEffect(place, currentTower.transform.position, 1, soundGroup);
                 shootScript.enabled = true;
                 if (!gameManager.AllTowers.Contains(shootScript))
                 {
                     gameManager.AllTowers.Add(shootScript);
                     gameManager.money -= shootScript.cost;
+                    GameObject moneyonKillText = Instantiate(moneyText, currentTower.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                    Destroy(moneyonKillText, .9f);
+                    moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "-" + shootScript.cost;
+                    moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
                 }
                 pt2.TowerOrder = 1;
                 currentTowerSpriteRenderer.color = Color.white;
                 currentTower = null;
                 currentTowerSpriteRenderer = null;
+                Destroy(pongIndicator.gameObject);
+                pongIndicator = null;
                 DestroyCurrentRadius();
             }
         }
         else
         {
+            SoundEffect.PlaySoundEffect(place, currentTower.transform.position, 1, soundGroup);
             if (!gameManager.AllTowers.Contains(shootScript))
             {
                 gameManager.AllTowers.Add(shootScript);
                 gameManager.money -= shootScript.cost;
+                GameObject moneyonKillText = Instantiate(moneyText, currentTower.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                Destroy(moneyonKillText, .9f);
+                moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "-" + shootScript.cost;
+                moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
             }
             shootScript.enabled = true;
             currentTowerSpriteRenderer.color = Color.white;
@@ -308,7 +347,6 @@ public class TowerPlacement : MonoBehaviour
             currentTowerSpriteRenderer = null;
             DestroyCurrentRadius();
         }
-
         Controlindicator.SetActive(false);
     }
 

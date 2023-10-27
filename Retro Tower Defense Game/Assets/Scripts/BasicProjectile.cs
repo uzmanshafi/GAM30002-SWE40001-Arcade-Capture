@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Audio;
 public class BasicProjectile : Projectile
 {
-    [SerializeField] private AudioClip? hit;
+    [SerializeField] private AudioClip hit;
+    [SerializeField] private AudioMixerGroup soundGroup;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public override void move()
@@ -27,13 +28,21 @@ public class BasicProjectile : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
-            if (this.canSeeCamo || !e.IsCamo) {
-                e.TakeDamage(damage);
-                if (hit != null)
+            if (this.canSeeCamo || !e.IsCamo)
+            {
+                if (e.TryGetComponent<Scroller>(out Scroller s) && s.colour != color && !canSeeCamo)
                 {
-                    AudioSource.PlayClipAtPoint(hit, transform.position);
+                    Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
                 }
-                Destroy(gameObject);
+                else
+                {
+                    e.TakeDamage(damage);
+                    if (hit != null)
+                    {
+                        SoundEffect.PlaySoundEffect(hit, transform.position, 1, soundGroup);
+                    }
+                    Destroy(gameObject);
+                }
             }
         }
     }
@@ -43,9 +52,19 @@ public class BasicProjectile : Projectile
         Enemy e;
         if (collision.gameObject.TryGetComponent<Enemy>(out e))
         {
-            if (this.canSeeCamo || !e.IsCamo) {
-                e.TakeDamage(damage);
+            if (this.canSeeCamo || !e.IsCamo)
+            {
+                if (e.TryGetComponent<Scroller>(out Scroller s) && s.colour != color)
+                {
+                    Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision);
+                }
+                else
+                {
+                    e.TakeDamage(damage);
+                }
+
             }
         }
     }
 }
+

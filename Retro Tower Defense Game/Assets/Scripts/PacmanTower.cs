@@ -84,7 +84,7 @@ public class PacmanTower : Tower
 
     void ConfigureBasedOnUpgrade()
     {
-        cooldown = 6.0f;
+        cooldown = 2.0f;
     }
 
     void SpawnGhost(float speed, float damage, GameObject ghostPrefab)

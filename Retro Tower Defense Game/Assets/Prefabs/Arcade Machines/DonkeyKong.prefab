@@ -60,6 +60,10 @@ MonoBehaviour:
   controlColour: Green
   inspectSprite: {fileID: 21300000, guid: a57b0fa3002c2e1448e7b2feb427a4af, type: 3}
   upgradeLevel: 0
+  upgradeSprites:
+  - {fileID: 21300000, guid: 712c2d9989aad724d8572894cb0f8fe9, type: 3}
+  - {fileID: 21300000, guid: 7053f85395e215e48a1e7b6daa94c0d6, type: 3}
+  - {fileID: 21300000, guid: 5240af345eacd3941a3b063a04f15c88, type: 3}
   upgrades:
   - cost: 0
     description: 
@@ -71,6 +75,7 @@ MonoBehaviour:
     multiple customers
   projectile_speed: 5
   shoot: {fileID: 8300000, guid: eae028ee04e25814eb6c4b9774d5363c, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
 --- !u!60 &1328159970898605336
 PolygonCollider2D:
   m_ObjectHideFlags: 0

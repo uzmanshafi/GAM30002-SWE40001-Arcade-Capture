@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AsteroidsTower : Tower
 {
     [SerializeField] private float asteroidSpeed;
     [SerializeField] private AudioClip shoot;
+    [SerializeField] private AudioMixerGroup soundGroup;
 
     [SerializeField] private float spreadDistance;
 
@@ -28,7 +30,7 @@ public class AsteroidsTower : Tower
 
     protected override void tryShoot()
     {
-        AudioSource.PlayClipAtPoint(shoot, transform.position);
+        SoundEffect.PlaySoundEffect(shoot, transform.position, 1, soundGroup);
         /*GameObject asteroid = Instantiate(bulletTypes[0], transform.position, Quaternion.identity);
         Vector2 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - asteroid.transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x);
@@ -58,7 +60,9 @@ public class AsteroidsTower : Tower
 
             // Can we put this in the Instantiate function?
             asteroid.GetComponent<Rigidbody2D>().velocity = dir * asteroidSpeed;
-            asteroid.GetComponent<Projectile>().damage = damage;
+            Projectile astrProj = asteroid.GetComponent<Projectile>();
+            astrProj.damage = damage;
+            astrProj.color = controlColour;
 
             Destroy(asteroid, bulletLifetime); //What does this line do?
 

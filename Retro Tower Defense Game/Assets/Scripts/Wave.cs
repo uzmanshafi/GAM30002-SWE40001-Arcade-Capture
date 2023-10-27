@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using System.Linq;
 using System.IO;
 
@@ -8,6 +9,8 @@ public class Wave : MonoBehaviour
 {
     [SerializeField] private string[] waveFileNames;
     [SerializeField] public GameObject[] enemyList;
+    [SerializeField] protected AudioClip waveClear;
+    [SerializeField] protected AudioMixerGroup soundGroup;
     private SortedDictionary<float, WaveBatch> waveBatches = new SortedDictionary<float, WaveBatch>();
     private float timeSinceLastEnemy;
     private float waveTime;
@@ -70,6 +73,7 @@ public class Wave : MonoBehaviour
 
             if (waveBatches.Count <= 0 && AllEnemiesDestroyed())
             {
+                SoundEffect.PlaySoundEffect(waveClear, transform.position, 1, soundGroup);
                 waveLoaded = false;
                 waveInProgress = false;
                 gameManager.money += 30;
@@ -77,9 +81,13 @@ public class Wave : MonoBehaviour
                 spawnedEnemiesThisWave.Clear();
                 if (gameManager.stars <= 9)
                 {
-                    gameManager.stars += 1;
+                    StartCoroutine(IncreaseStarRating());
                 }
             }
+        }
+        if (Input.GetKey(KeyCode.Space) && !gameObject.GetComponent<Wave>().waveInProgress)
+        {
+            startWave();
         }
     }
     private bool AllEnemiesDestroyed()
@@ -129,6 +137,15 @@ public class Wave : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator IncreaseStarRating()
+    {
+        yield return new WaitForSeconds(0.5f); // Waits for 1 second
+
+        gameManager.stars += 1;
+        gameManager.FlashStarRatingGreen();
+    }
+
 
     public void startWave()
     {

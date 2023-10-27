@@ -38,13 +38,17 @@ public abstract class Tower : MonoBehaviour
 
     [SerializeField] public Sprite inspectSprite;
     [SerializeField] public int upgradeLevel = 0;
+    [SerializeField] public Sprite[] upgradeSprites;
     [SerializeField] public TowerUpgrade[] upgrades;
 
     // For description to display when placing
     [SerializeField] public string towerDescription;
+    [SerializeField] public string towerUpgrade;
+    [SerializeField] public string towerUpgrade2;
 
     [NonSerialized] public bool isPowerPointBuffed;
     [NonSerialized] public bool isStaffBuffed;
+    [NonSerialized] public bool isStaffBuffed2;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +68,10 @@ public abstract class Tower : MonoBehaviour
     void Update()
     {
         tryShoot();
+        if (canSeeCamo != isStaffBuffed2)
+        {
+            canSeeCamo = isStaffBuffed2;
+        }
     }
 
     public void selected(bool t)
@@ -91,18 +99,13 @@ public abstract class Tower : MonoBehaviour
             Scroller s;
             if (results[i].collider.gameObject.TryGetComponent<Enemy>(out e))
             {
-                /*Debug.Log(Vector2.Distance(e.transform.position, transform.position) < range);  This was returning false most of the time
                 if (e.TryGetComponent<Scroller>(out s))
                 {
-                    if (s.colour == controlColour)
+                    if (s.colour != controlColour && !isStaffBuffed && !isStaffBuffed2)
                     {
-                        enemies_in_range.Add(s);
+                        continue;
                     }
                 }
-                else
-                {
-                    enemies_in_range.Add(e);
-                }*/
                 if (Vector2.Distance(e.transform.position, transform.position) < range)
                 {
                     enemies_in_range.Add(e);
@@ -115,15 +118,26 @@ public abstract class Tower : MonoBehaviour
         float bestDistance = Mathf.Infinity;
         Enemy bestEnemy = null;
         float tempDistance;
-        Vector3 endPoint;
+        Vector3 nextWaypoint; 
         if (enemies_in_range.Count > 0)
         {
+            int furthestIndex = 0;
+            int tempIndex;
+            foreach (Enemy e in enemies_in_range)
+            {
+                tempIndex = e.getWaypointIndex;
+                if (tempIndex > furthestIndex)
+                {
+                    furthestIndex = tempIndex;
+                }
+            }
             foreach (Enemy e in enemies_in_range) // find enemy closest to end point (Distance not furthest on path)
             {
                 if (e == null) { continue; }
                 if (e.IsCamo && !canSeeCamo) { continue; }
-                endPoint = e.GetWaypoints.Points[e.GetWaypoints.Points.Length - 1];
-                tempDistance = Vector2.Distance(e.transform.position, endPoint);
+                if (e.getWaypointIndex < furthestIndex) { continue; }
+                nextWaypoint = e.GetWaypoints.Points[e.getWaypointIndex];
+                tempDistance = Vector2.Distance(e.transform.position, nextWaypoint);
                 if (tempDistance < bestDistance)
                 {
                     bestDistance = tempDistance;

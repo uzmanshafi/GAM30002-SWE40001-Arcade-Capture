@@ -179,6 +179,10 @@ MonoBehaviour:
   controlColour: Blue
   inspectSprite: {fileID: 21300000, guid: 4145268d453ff7a45b293be5044fb861, type: 3}
   upgradeLevel: 0
+  upgradeSprites:
+  - {fileID: 21300000, guid: 995e25f99850dd54c908982a2ac301b0, type: 3}
+  - {fileID: 21300000, guid: 3d87e56877be3f341b1b6b5031d6389b, type: 3}
+  - {fileID: 21300000, guid: b6787256ed45f9349b26ff1090ee7e92, type: 3}
   upgrades:
   - cost: 0
     description: 
@@ -193,3 +197,4 @@ MonoBehaviour:
   pongOrder: 0
   pongPaddlePrefab: {fileID: 6084772739986610346, guid: 3296c32ad7ead3642a36d7ad24ec9fe6, type: 3}
   shoot: {fileID: 8300000, guid: 90d160172f515774aa95bc4f4906fa10, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using System;
 using static Utils;
 
@@ -11,6 +12,7 @@ public class BreakoutProjectile : Projectile
     // This is how many enemies it can hit before it is destroyed
     [SerializeField] private int pierce;
     [SerializeField] private AudioClip rebound;
+    [SerializeField] private AudioMixerGroup soundGroup;
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +56,7 @@ public class BreakoutProjectile : Projectile
             if (this.canSeeCamo || !e.IsCamo) {
                 e.TakeDamage(damage);
                 pierce--;
-                AudioSource.PlayClipAtPoint(rebound, transform.position);
+                SoundEffect.PlaySoundEffect(rebound, transform.position, 1, soundGroup);
                 if (pierce < 0)
                 {
                     Destroy(gameObject);

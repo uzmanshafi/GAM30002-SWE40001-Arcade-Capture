@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SpaceInvaderTower : Tower
 {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private AudioClip shootSound;
+    [SerializeField] private AudioMixerGroup soundGroup;
     [SerializeField] private float MovementSpeed = 1.0f;
     [SerializeField] private float sightDistance = 5.0f;
     [SerializeField] private Transform shipTransform;
@@ -82,8 +84,8 @@ public class SpaceInvaderTower : Tower
             float spacing = 0.2f;
 
             float startOffset = -spacing * (bulletCount - 1) / 2;
-
-            AudioSource.PlayClipAtPoint(shootSound, transform.position);
+            
+            SoundEffect.PlaySoundEffect(shootSound, transform.position,1,soundGroup);
 
             for (int i = 0; i < bulletCount; i++)
             {
@@ -97,8 +99,10 @@ public class SpaceInvaderTower : Tower
     {
         Vector3 spawnPosition = shipTransform.position + transform.right * xOffset;
         GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
-        bullet.GetComponent<Projectile>().damage = damage;
-        
+        Projectile proj = bullet.GetComponent<Projectile>();
+        proj.damage = damage;
+        proj.color = controlColour;
+
         bullet.GetComponent<Rigidbody2D>().velocity = -transform.up * 5;
     }
 

@@ -3,7 +3,12 @@ guid: bd0cd23d559cf6645acbdc61eaa3eded
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - target: {instanceID: 0}
+  - radiusDisplay: {instanceID: 0}
+  - inspectSprite: {instanceID: 0}
+  - shootAudioClip: {instanceID: 0}
+  - soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

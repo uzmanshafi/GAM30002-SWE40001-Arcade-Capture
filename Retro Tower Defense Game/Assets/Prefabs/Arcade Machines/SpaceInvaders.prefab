@@ -482,9 +482,13 @@ MonoBehaviour:
   radius: 0
   radiusDisplay: {fileID: 0}
   bulletTypes: []
-  controlColour: 
+  controlColour: Red
   inspectSprite: {fileID: 21300000, guid: 0b5eec608edd06742ac97b71a9c52160, type: 3}
   upgradeLevel: 0
+  upgradeSprites:
+  - {fileID: 21300000, guid: e39912fbff2469545a2b0a43647a7486, type: 3}
+  - {fileID: 21300000, guid: 3f673c7ba14f3a947aacaa73ffac6eec, type: 3}
+  - {fileID: 21300000, guid: 9af0b16bbb6d70643b2946f6b712b2b3, type: 3}
   upgrades:
   - cost: 0
     description: spawn 1 line of bullets
@@ -495,6 +499,7 @@ MonoBehaviour:
   towerDescription: A sliding tower that shoots in a line, moving side to side
   bulletPrefab: {fileID: 4005175662800323705, guid: b7da219df0b5cc54bb3a8ca6c8ae6fcd, type: 3}
   shootSound: {fileID: 8300000, guid: 8ec7f2bc1e9e7be4aa4a2d7797761656, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   MovementSpeed: 1
   sightDistance: 10
   shipTransform: {fileID: 8928510976217991125}

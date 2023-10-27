@@ -176,9 +176,13 @@ MonoBehaviour:
   radiusDisplay: {fileID: 0}
   bulletTypes:
   - {fileID: 2396885586352238776, guid: 221bdd90329558b4492adce3c9f3e450, type: 3}
-  controlColour: 
+  controlColour: Red
   inspectSprite: {fileID: 21300000, guid: 6948038dd2cf4994580939914d886ecb, type: 3}
   upgradeLevel: 0
+  upgradeSprites:
+  - {fileID: 21300000, guid: 8e6faed9564793448bf6fd0287d38be7, type: 3}
+  - {fileID: 21300000, guid: 1fdfeb32890652f4388cfb5a5cbf29f4, type: 3}
+  - {fileID: 21300000, guid: 4c614564997a1fe40b3c728dcae9bfad, type: 3}
   upgrades:
   - cost: 0
     description: 
@@ -196,3 +200,4 @@ MonoBehaviour:
   - 15
   - 10
   shootAudioClip: {fileID: 8300000, guid: 2350e5c25ef81ee4795ba56215d8a538, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
