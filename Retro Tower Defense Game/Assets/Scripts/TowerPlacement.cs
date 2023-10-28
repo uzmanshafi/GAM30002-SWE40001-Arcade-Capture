@@ -28,6 +28,7 @@ public class TowerPlacement : MonoBehaviour
     private bool starRatingIsUp = false;
     private bool isMovingStarRating = false;
 
+    [SerializeField] protected GameObject moneyText;
     [SerializeField] protected AudioClip place;
     [SerializeField] protected AudioMixerGroup soundGroup;
 
@@ -314,6 +315,10 @@ public class TowerPlacement : MonoBehaviour
                 {
                     gameManager.AllTowers.Add(shootScript);
                     gameManager.money -= shootScript.cost;
+                    GameObject moneyonKillText = Instantiate(moneyText, currentTower.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                    Destroy(moneyonKillText, .9f);
+                    moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "-" + shootScript.cost;
+                    moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
                 }
                 pt2.TowerOrder = 1;
                 currentTowerSpriteRenderer.color = Color.white;
@@ -331,6 +336,10 @@ public class TowerPlacement : MonoBehaviour
             {
                 gameManager.AllTowers.Add(shootScript);
                 gameManager.money -= shootScript.cost;
+                GameObject moneyonKillText = Instantiate(moneyText, currentTower.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                Destroy(moneyonKillText, .9f);
+                moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().text = "-" + shootScript.cost;
+                moneyonKillText.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
             }
             shootScript.enabled = true;
             currentTowerSpriteRenderer.color = Color.white;

@@ -43,6 +43,8 @@ public abstract class Tower : MonoBehaviour
 
     // For description to display when placing
     [SerializeField] public string towerDescription;
+    [SerializeField] public string towerUpgrade;
+    [SerializeField] public string towerUpgrade2;
 
     [NonSerialized] public bool isPowerPointBuffed;
     [NonSerialized] public bool isStaffBuffed;

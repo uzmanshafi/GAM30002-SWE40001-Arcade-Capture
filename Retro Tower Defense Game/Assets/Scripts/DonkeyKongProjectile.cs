@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,24 +20,28 @@ public class DonkeyKongProjectile : Projectile
     [SerializeField] private float barrelLifetime;
 
     // These are the points that the enemy has been to. We copy them here because the enemy could be destroyed
-    private Vector3[] pathPoints;
+    [NonSerialized] public Vector3[] pathPoints;
 
     // This index starts at the end and goes towards 0.
-    private int pathPointIndex;
+    [NonSerialized] public int pathPointIndex;
 
     // Start is called before the first frame update
     void Start()
     {
         rollingAlongPath = false;
-        targetDown = false;
-        destination = target.transform.position;
+        if (target)
+        {
+            targetDown = false;
+            destination = target.transform.position;
 
-        // Save the path that the barrel will follow once it hits the path
-        // Copy the waypoints that the enemy has gone through
-        pathPoints = new Vector3[target.GetWaypoints.Points.Length];
-        System.Array.Copy(target.GetWaypoints.Points, 0, pathPoints, 0, target.GetWaypoints.Points.Length);
+            // Save the path that the barrel will follow once it hits the path
+            // Copy the waypoints that the enemy has gone through
+            pathPoints = new Vector3[target.GetWaypoints.Points.Length];
+            System.Array.Copy(target.GetWaypoints.Points, 0, pathPoints, 0, target.GetWaypoints.Points.Length);
 
-        pathPointIndex = target.getWaypointIndex - 1;
+            pathPointIndex = target.getWaypointIndex - 1;
+        }
+        
     }
 
     // Update is called once per frame. (Does this call move?)
