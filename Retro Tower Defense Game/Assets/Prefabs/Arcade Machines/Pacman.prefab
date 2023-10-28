@@ -193,7 +193,8 @@ MonoBehaviour:
     description: 
   - cost: 250
     description: 
-  towerDescription: A Summoning arcade macine that spawns ghosts at the end on the
-    path
+  towerDescription: A Summoning arcade macine that spawns ghosts along the path
+  towerUpgrade: Summons 2 more ghosts
+  towerUpgrade2: Ghost spawn more frequently
   baseGhostSpeed: 1
   baseGhostDamage: 1

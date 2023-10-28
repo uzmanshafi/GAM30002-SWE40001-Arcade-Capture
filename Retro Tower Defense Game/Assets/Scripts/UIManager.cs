@@ -21,9 +21,11 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI starText;
     public TextMeshProUGUI waveText;
+    public TextMeshProUGUI upgradeText;
 
     public GameObject towerMenu;
     public GameObject upgradeMenu;
+    public GameObject textBack;
 
     public Slider starBar;
 
@@ -139,18 +141,19 @@ public class UIManager : MonoBehaviour
                                 tmp.text = "MAXED";
                             }
                         }
+                        if (selectedTower.upgradeLevel < 1)
+                        {
+                            upgradeText.text = selectedTower.towerUpgrade;
+                        }
                         else
                         {
-                            if (selectedTower.upgradeLevel < 1)
+                            upgradeText.text = selectedTower.towerUpgrade2;
+                            if (selectedTower.upgradeLevel == 2)
                             {
-                                tmp.text = selectedTower.towerUpgrade;
-                            }
-                            else
-                            {
-                                tmp.text = selectedTower.towerUpgrade2;
+                                upgradeText.gameObject.SetActive(false);
+                                textBack.gameObject.SetActive(false);
                             }
                         }
-
                     
                 }
                 if (g.name == "towerSprite")

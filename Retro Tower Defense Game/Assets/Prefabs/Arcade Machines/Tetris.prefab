@@ -194,11 +194,11 @@ MonoBehaviour:
     description: 
   - cost: 70
     description: 
-  - cost: 100
+  - cost: 150
     description: 
   towerDescription: A basic tower that shoots a direct projectile.
-  towerUpgrade: Fire faster
-  towerUpgrade2: fire even faster
+  towerUpgrade: shoots faster
+  towerUpgrade2: greatly increases range
   shoot: {fileID: 8300000, guid: 6ff5ce9feee6be84ca5b17ff21632c24, type: 3}
   soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   comboMultiplier: 2

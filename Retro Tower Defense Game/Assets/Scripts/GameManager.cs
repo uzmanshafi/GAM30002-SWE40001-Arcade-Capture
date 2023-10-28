@@ -8,6 +8,7 @@ using UnityEngine.Audio;
 using static Utils;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,8 +32,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject PAXGameOver;
     public GameObject PAXGameWon;
+    public GameObject tooltip;
+    public TextMeshProUGUI toolText;
 
-    [SerializeField] private Image starRatingFill;
+
+
+[SerializeField] private Image starRatingFill;
 
     private Color originalStarColor;
 
@@ -103,6 +108,9 @@ public class GameManager : MonoBehaviour
         {
             PAXGameOver.SetActive(true);
         }
+
+        //tooltip text check/changes
+        //TooltipDisplay();
 
         if (currentWave == 10 && !gameObject.GetComponent<Wave>().waveInProgress)
         {
@@ -195,5 +203,26 @@ public class GameManager : MonoBehaviour
         starRatingFill.color = originalStarColor;  // Returns to original color.
     }
 
+    public void TooltipDisplay()
+    {
+        if (currentWave == 1 && !gameObject.GetComponent<Wave>().waveInProgress)
+        {
+            toolText.text = "yo you beat wave 1";
+            StartCoroutine(tooltipCoroutine());
+            return;
+        }
+        if (currentWave == 2 && !gameObject.GetComponent<Wave>().waveInProgress)
+        {
+            toolText.text = "yo you beat wave 2";
+            StartCoroutine(tooltipCoroutine());
+            return;
+        }
+    }
+    private IEnumerator tooltipCoroutine()
+    {
+        tooltip.SetActive(true);
+        yield return new WaitForSeconds(1f);  // Flashes for half a second. Adjust this value as needed.
+        tooltip.SetActive(false);
+    }
 }
 

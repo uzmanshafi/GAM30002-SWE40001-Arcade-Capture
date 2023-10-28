@@ -97,12 +97,12 @@ public class TowerPlacement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) || Input.mouseScrollDelta.y > 0)
         {
             // Anti-clockwise rotation for scroll up or 'R' key press
-            currentTower.transform.Rotate(0, 0, -45);
+            currentTower.transform.Rotate(0, 0, 45);
         }
         else if (Input.mouseScrollDelta.y < 0)
         {
             // Clockwise rotation for scroll down
-            currentTower.transform.Rotate(0, 0, 45);
+            currentTower.transform.Rotate(0, 0, -45);
         }
     }
 }

@@ -193,6 +193,8 @@ MonoBehaviour:
   - cost: 150
     description: Even more bounces!
   towerDescription: Shoots a projectile at customers that bounces between them
+  towerUpgrade: bounces 2 more times
+  towerUpgrade2: bounces an aditional 2 times
   projectile_speed: 8
   shoot: {fileID: 8300000, guid: 9a217e7c71553ad439f026d510863cd4, type: 3}
   soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}

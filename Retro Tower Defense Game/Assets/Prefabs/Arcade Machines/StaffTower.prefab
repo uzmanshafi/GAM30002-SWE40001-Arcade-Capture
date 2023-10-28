@@ -180,4 +180,6 @@ MonoBehaviour:
     description: 
   - cost: 0
     description: 
-  towerDescription: 
+  towerDescription: Allows surrounding arcade machines to capture special customers
+  towerUpgrade: 
+  towerUpgrade2: 

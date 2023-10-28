@@ -497,6 +497,8 @@ MonoBehaviour:
   - cost: 200
     description: spawns 3 lines of bullet
   towerDescription: A sliding tower that shoots in a line, moving side to side
+  towerUpgrade: shoots an aditional line of bullets
+  towerUpgrade2: shoots a third line of bullets
   bulletPrefab: {fileID: 4005175662800323705, guid: b7da219df0b5cc54bb3a8ca6c8ae6fcd, type: 3}
   shootSound: {fileID: 8300000, guid: 8ec7f2bc1e9e7be4aa4a2d7797761656, type: 3}
   soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}

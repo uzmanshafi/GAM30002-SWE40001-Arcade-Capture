@@ -191,6 +191,8 @@ MonoBehaviour:
   - cost: 200
     description: Pong ball bounces super fast
   towerDescription: 2 separate towers that shoot a projectile between each other
+  towerUpgrade: ball bounces faster
+  towerUpgrade2: ball bounces even faster
   pongShot: {fileID: 0}
   other: {fileID: 0}
   shotRB: {fileID: 0}

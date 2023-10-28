@@ -71,8 +71,9 @@ MonoBehaviour:
     description: 50
   - cost: 100
     description: 75
-  towerDescription: Throws barrels at enemies that will roll down the path hitting
-    multiple customers
+  towerDescription: Throws barrels at the closest path, rolling through customers
+  towerUpgrade: shoots barrels faster
+  towerUpgrade2: shoots barrels even faster
   projectile_speed: 5
   shoot: {fileID: 8300000, guid: eae028ee04e25814eb6c4b9774d5363c, type: 3}
   soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}

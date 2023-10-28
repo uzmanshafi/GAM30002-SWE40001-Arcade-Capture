@@ -191,6 +191,8 @@ MonoBehaviour:
   - cost: 500
     description: 
   towerDescription: A tower that spins, spraying weak bullets in all directions
+  towerUpgrade: Shoots in 4 directions
+  towerUpgrade2: Shoots in 8 directions
   ProjectileSpeedUpgrades:
   - 0.4
   - 0.4

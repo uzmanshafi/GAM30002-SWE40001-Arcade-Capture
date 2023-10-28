@@ -192,5 +192,7 @@ MonoBehaviour:
   - cost: 100
     description: 
   towerDescription: Slowly punches customers in close proximity to itself
+  towerUpgrade: faster punches
+  towerUpgrade2: even faster punches
   shoot: {fileID: 8300000, guid: b9cced4f71a6e704b97b77f5b9461df8, type: 3}
   soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
