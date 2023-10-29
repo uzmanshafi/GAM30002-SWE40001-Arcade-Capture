@@ -67,9 +67,9 @@ MonoBehaviour:
   upgrades:
   - cost: 0
     description: 
-  - cost: 80
-    description: 50
   - cost: 100
+    description: 50
+  - cost: 200
     description: 75
   towerDescription: Throws barrels at the closest path, rolling through customers
   towerUpgrade: shoots barrels faster

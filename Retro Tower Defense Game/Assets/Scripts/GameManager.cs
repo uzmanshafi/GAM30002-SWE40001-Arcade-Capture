@@ -112,15 +112,15 @@ public class GameManager : MonoBehaviour
         //tooltip text check/changes
         //TooltipDisplay();
 
-        if (currentWave == 10 && !gameObject.GetComponent<Wave>().waveInProgress)
+        if (currentWave == 30 && !gameObject.GetComponent<Wave>().waveInProgress)
         {
             PAXGameWon.SetActive(true);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.P))
-        {
-            SceneManager.LoadScene("PAXSplash");
-        }
+        //if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.P))
+        //{
+        //    SceneManager.LoadScene("PAXSplash");
+        //}
 
     }
 

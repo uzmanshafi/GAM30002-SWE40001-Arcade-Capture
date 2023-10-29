@@ -190,7 +190,7 @@ MonoBehaviour:
     description: An arcade that builds a combo on Players that are hit consecutivley
   - cost: 100
     description: More bounces!
-  - cost: 150
+  - cost: 200
     description: Even more bounces!
   towerDescription: Shoots a projectile at customers that bounces between them
   towerUpgrade: bounces 2 more times

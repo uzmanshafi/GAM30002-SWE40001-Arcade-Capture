@@ -178,8 +178,8 @@ MonoBehaviour:
     description: 
   - cost: 80
     description: 
-  - cost: 0
+  - cost: 150
     description: 
   towerDescription: Allows surrounding arcade machines to capture special customers
-  towerUpgrade: 
-  towerUpgrade2: 
+  towerUpgrade: Suuronding arcade machines can now target vandals
+  towerUpgrade2: Surrounding arcade machines can no longer be broken
