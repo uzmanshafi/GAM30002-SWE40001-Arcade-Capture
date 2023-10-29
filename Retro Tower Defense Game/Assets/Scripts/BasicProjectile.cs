@@ -30,7 +30,7 @@ public class BasicProjectile : Projectile
         {
             if (this.canSeeCamo || !e.IsCamo)
             {
-                if (e.TryGetComponent<Scroller>(out Scroller s) && s.colour != color && !canSeeCamo)
+                if ((e.TryGetComponent<Scroller>(out Scroller s) && s.colour != color && !canSeeCamo) || (e.TryGetComponent<Vandal>(out Vandal v) && !canSeeCamo2))
                 {
                     Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
                 }
@@ -54,13 +54,17 @@ public class BasicProjectile : Projectile
         {
             if (this.canSeeCamo || !e.IsCamo)
             {
-                if (e.TryGetComponent<Scroller>(out Scroller s) && s.colour != color)
+                if ((e.TryGetComponent<Scroller>(out Scroller s) && s.colour != color && !canSeeCamo) || (e.TryGetComponent<Vandal>(out Vandal v) && !canSeeCamo2))
                 {
                     Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision);
                 }
                 else
                 {
                     e.TakeDamage(damage);
+                    if (hit != null)
+                    {
+                        SoundEffect.PlaySoundEffect(hit, transform.position, 1, soundGroup);
+                    }
                 }
 
             }

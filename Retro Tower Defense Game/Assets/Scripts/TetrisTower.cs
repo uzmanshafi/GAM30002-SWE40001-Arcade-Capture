@@ -80,6 +80,8 @@ public class TetrisTower : Tower
 				projectile = bullet.GetComponent<TetrisProjectile>();
 				projectile.owner = this;
 				projectile.damage = damage;
+				projectile.canSeeCamo = canSeeCamo;
+				projectile.canSeeCamo2 = isStaffBuffed2;
 				bullet.GetComponent<Rigidbody2D>().velocity = _dir * projectile.speed;
 				Destroy(bullet, bulletLifetime);
 				lastShotTime = Time.time;

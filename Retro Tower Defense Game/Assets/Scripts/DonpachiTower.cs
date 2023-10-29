@@ -65,6 +65,8 @@ public class DonpachiTower : Tower
         proj.target = null;
         proj.damage = damage;
         proj.color = controlColour;
+        proj.canSeeCamo = canSeeCamo;
+        proj.canSeeCamo2 = isStaffBuffed2;
 
         Destroy(bullet, bulletLifetime);
     }

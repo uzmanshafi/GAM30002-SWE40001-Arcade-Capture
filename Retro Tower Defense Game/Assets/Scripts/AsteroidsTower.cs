@@ -63,6 +63,8 @@ public class AsteroidsTower : Tower
             Projectile astrProj = asteroid.GetComponent<Projectile>();
             astrProj.damage = damage;
             astrProj.color = controlColour;
+            astrProj.canSeeCamo = canSeeCamo;
+            astrProj.canSeeCamo2 = isStaffBuffed2;
 
             Destroy(asteroid, bulletLifetime); //What does this line do?
 

@@ -97,11 +97,19 @@ public abstract class Tower : MonoBehaviour
         {
             Enemy e;
             Scroller s;
+            Vandal v;
             if (results[i].collider.gameObject.TryGetComponent<Enemy>(out e))
             {
                 if (e.TryGetComponent<Scroller>(out s))
                 {
                     if (s.colour != controlColour && !isStaffBuffed && !isStaffBuffed2)
+                    {
+                        continue;
+                    }
+                }
+                if (e.TryGetComponent<Vandal>(out v))
+                {
+                    if (!isStaffBuffed2)
                     {
                         continue;
                     }
