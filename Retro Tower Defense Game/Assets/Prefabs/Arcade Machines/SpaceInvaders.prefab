@@ -497,15 +497,13 @@ MonoBehaviour:
   - cost: 200
     description: spawns 3 lines of bullet
   towerDescription: A sliding tower that shoots in a line, moving side to side
-  towerUpgrade: shoots an aditional line of bullets
-  towerUpgrade2: shoots a third line of bullets
+  towerUpgrade: 
+  towerUpgrade2: 
   bulletPrefab: {fileID: 4005175662800323705, guid: b7da219df0b5cc54bb3a8ca6c8ae6fcd, type: 3}
   shootSound: {fileID: 8300000, guid: 8ec7f2bc1e9e7be4aa4a2d7797761656, type: 3}
   soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
   MovementSpeed: 1
-  sightDistance: 10
   shipTransform: {fileID: 8928510976217991125}
-  lineOfSight: {fileID: 7069760945098292685, guid: 5e68605147d1241428a0191a07c79453, type: 3}
   bulletLinesPerLevel: 010000000200000003000000
 --- !u!61 &9070834913492343801
 BoxCollider2D:
@@ -700,11 +698,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7758431802714671222, guid: 7c3cc2b13af7f9944b63b0dcc23c75fe, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7758431802714671222, guid: 7c3cc2b13af7f9944b63b0dcc23c75fe, type: 3}
       propertyPath: m_TagString
       value: LineRadius
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797517282094812666, guid: 7c3cc2b13af7f9944b63b0dcc23c75fe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797517282094812666, guid: 7c3cc2b13af7f9944b63b0dcc23c75fe, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 27.113398
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797517282094812666, guid: 7c3cc2b13af7f9944b63b0dcc23c75fe, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797517282094812666, guid: 7c3cc2b13af7f9944b63b0dcc23c75fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -13.0767
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
