@@ -15,6 +15,7 @@ public abstract class Projectile : MonoBehaviour
 
     [NonSerialized] public string color;
     [NonSerialized] public bool canSeeCamo;
+    [NonSerialized] public bool canSeeCamo2;
     //public Vector2 Position => position;
     //public Vector2 Direction => direction;
 

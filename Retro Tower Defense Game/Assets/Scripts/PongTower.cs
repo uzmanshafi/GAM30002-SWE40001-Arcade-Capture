@@ -42,6 +42,16 @@ public class PongTower : Tower
                 other.GetComponent<SpriteRenderer>().sprite = other.upgradeSprites[other.upgradeLevel];
             }
         }
+        if(isStaffBuffed != other.isStaffBuffed) 
+        {
+            isStaffBuffed = true;
+            other.isStaffBuffed = true;
+        }
+        if(isStaffBuffed2 != other.isStaffBuffed2)
+        {
+            isStaffBuffed2 = true;
+            other.isStaffBuffed2 = true;
+        }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             matchTowers();
@@ -88,6 +98,8 @@ public class PongTower : Tower
         SoundEffect.PlaySoundEffect(shoot, transform.position, 1, soundGroup);
         pongShot = Instantiate(bulletTypes[0], gameObject.transform).GetComponent<Projectile>();
         pongShot.damage = damage;
+        pongShot.canSeeCamo = canSeeCamo;
+        pongShot.canSeeCamo2 = isStaffBuffed2;
         pongShot.color = controlColour;
 
         shotRB = pongShot.GetComponent<Rigidbody2D>();
@@ -99,6 +111,9 @@ public class PongTower : Tower
     public void sendBack()
     {
         shotRB.velocity = Vector2.zero;
+        pongShot.damage = damage;
+        pongShot.canSeeCamo = canSeeCamo;
+        pongShot.canSeeCamo2 = isStaffBuffed2;
         Vector2 dir = other.transform.position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x);
         dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));

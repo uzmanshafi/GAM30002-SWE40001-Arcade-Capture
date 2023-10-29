@@ -29,6 +29,8 @@ public class BasicTower : Tower
             GameObject bullet = Instantiate(bulletTypes[0], transform.position + dir, Quaternion.identity);
             Projectile projectile = bullet.GetComponent<Projectile>();
             projectile.target = target;
+            projectile.canSeeCamo = canSeeCamo;
+            projectile.canSeeCamo2 = isStaffBuffed2;
             Destroy(projectile.gameObject, bulletLifetime);
             lastShotTime = Time.time;
         }

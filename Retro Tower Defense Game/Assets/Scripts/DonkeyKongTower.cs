@@ -71,6 +71,7 @@ public class DonkeyKongTower : PredictiveTower
 				projectile.pathPoints = currentWaypoints.Points;
 				projectile.pathPointIndex = targetIndex;
 				projectile.canSeeCamo = canSeeCamo;
+				projectile.canSeeCamo2 = isStaffBuffed2;
 				projectile.damage = damage;
 				bullet.GetComponent<Rigidbody2D>().velocity = dir * projectile.speed;
 				Destroy(projectile.gameObject, bulletLifetime);

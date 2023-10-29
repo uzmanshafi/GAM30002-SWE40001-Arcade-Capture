@@ -152,8 +152,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4837448037053905684}
-  - component: {fileID: 7202263765785567983}
   - component: {fileID: 1349874180221673595}
+  - component: {fileID: -2950353804835020223}
   m_Layer: 3
   m_Name: Vandal
   m_TagString: Enemy
@@ -178,27 +178,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7202263765785567983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 680841621375074119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab4f1d883bda1f74a81e44226a9f8182, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MovementSpeed: 3
-  MaxHP: 4
-  die: {fileID: 8300000, guid: 2ac730ce33b355c40b3f85e4c8a53fc6, type: 3}
-  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
-  coinplosion: {fileID: 362535016467107257, guid: d16bdeac41fa5f1489b4e64dd48f0a10, type: 3}
-  coinParticleMultiplier: 1
-  moneyOnKill: 5
-  moneyText: {fileID: 5660431514969612783, guid: e2a284bea1015024aaed48df25ac7b95, type: 3}
-  healthBar: {fileID: 0}
 --- !u!70 &1349874180221673595
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -234,6 +213,29 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.2, y: 0.4}
   m_Direction: 0
+--- !u!114 &-2950353804835020223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680841621375074119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6972522fdcd638643b20a7a060dc7ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovementSpeed: 3
+  MaxHP: 4
+  die: {fileID: 8300000, guid: 2ac730ce33b355c40b3f85e4c8a53fc6, type: 3}
+  soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
+  coinplosion: {fileID: 362535016467107257, guid: d16bdeac41fa5f1489b4e64dd48f0a10, type: 3}
+  coinParticleMultiplier: 1
+  moneyOnKill: 5
+  moneyText: {fileID: 5660431514969612783, guid: e2a284bea1015024aaed48df25ac7b95, type: 3}
+  healthBar: {fileID: 0}
+  vandaliseLength: 5
+  vandaliseCooldown: 2.5
 --- !u!1 &4044435196978843822
 GameObject:
   m_ObjectHideFlags: 0

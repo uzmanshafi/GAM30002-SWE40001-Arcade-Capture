@@ -314,6 +314,10 @@ public class TowerPlacement : MonoBehaviour
                 if (!gameManager.AllTowers.Contains(shootScript))
                 {
                     gameManager.AllTowers.Add(shootScript);
+                    if(!gameManager.AllTowers.Contains(pt2.other.GetComponent<Tower>()))
+                    {
+                        gameManager.AllTowers.Add(pt2.other.GetComponent<Tower>());
+                    }
                     gameManager.money -= shootScript.cost;
                     GameObject moneyonKillText = Instantiate(moneyText, currentTower.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
                     Destroy(moneyonKillText, .9f);

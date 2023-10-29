@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6972522fdcd638643b20a7a060dc7ec4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - die: {instanceID: 0}
+  - soundGroup: {fileID: 24300002, guid: d9e1f73dc39d43943b29fd54322ccb3d, type: 2}
+  - coinplosion: {instanceID: 0}
+  - moneyText: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -102,6 +102,8 @@ public class SpaceInvaderTower : Tower
         Projectile proj = bullet.GetComponent<Projectile>();
         proj.damage = damage;
         proj.color = controlColour;
+        proj.canSeeCamo = canSeeCamo;
+        proj.canSeeCamo2 = isStaffBuffed2;
 
         bullet.GetComponent<Rigidbody2D>().velocity = -transform.up * 5;
     }
