@@ -22,6 +22,10 @@ public class Wave : MonoBehaviour
     private bool waveLoaded = false;
     public bool waveEnded = true;
 
+
+    private bool isAutoWave = false;
+    public GameObject wavelight;
+
     private List<GameObject> spawnedEnemiesThisWave = new List<GameObject>();
 
 
@@ -86,6 +90,10 @@ public class Wave : MonoBehaviour
             }
         }
         if (Input.GetKey(KeyCode.Space) && !gameObject.GetComponent<Wave>().waveInProgress)
+        {
+            startWave();
+        }
+        if (isAutoWave && waveInProgress == false)
         {
             startWave();
         }
@@ -157,6 +165,20 @@ public class Wave : MonoBehaviour
             waveIndex++;
             waveInProgress = true;
             gameManager.currentWave += 1;
+        }
+    }
+
+    public void ToggleAutoWave()
+    {
+        isAutoWave = !isAutoWave;
+
+        if (isAutoWave)
+        {    
+            wavelight.SetActive(true);
+        }
+        else
+        {
+            wavelight.SetActive(false);
         }
     }
 }
