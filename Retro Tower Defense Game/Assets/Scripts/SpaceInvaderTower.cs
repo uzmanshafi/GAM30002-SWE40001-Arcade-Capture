@@ -8,11 +8,7 @@ public class SpaceInvaderTower : Tower
     [SerializeField] private AudioClip shootSound;
     [SerializeField] private AudioMixerGroup soundGroup;
     [SerializeField] private float MovementSpeed = 1.0f;
-    [SerializeField] private float sightDistance = 5.0f;
     [SerializeField] private Transform shipTransform;
-    [SerializeField] private LineRenderer lineOfSight;
-
-    public float SightDistance => sightDistance;
 
     private Vector2 leftBoundary;
     private Vector2 rightBoundary;
@@ -20,7 +16,6 @@ public class SpaceInvaderTower : Tower
     private Wave waveScript;
     private Vector2 originalShipPosition;
 
-    private bool enemyInSight = false;
 
     [Header("Level Values Configuration")]
     [SerializeField] private int[] bulletLinesPerLevel = { 1, 2, 3 };
@@ -45,47 +40,27 @@ public class SpaceInvaderTower : Tower
             {
                 shipTransform.gameObject.SetActive(true);
                 StartCoroutine(AnimateLiftOff());
-            }
-
-            if (EnemyInSight() && !enemyInSight)
-            {
-                enemyInSight = true;
                 StartCoroutine(MoveShipLeftAndRight());
                 StartCoroutine(ShootAtEnemies());
             }
         }
-        else if (shipTransform.gameObject.activeSelf && enemyInSight)
+        else if (shipTransform.gameObject.activeSelf)
         {
-            enemyInSight = false;
             StopAllCoroutines();
             StartCoroutine(ReturnToOriginalPosition());
         }
     }
 
-    private void DrawLineOfSight()
-    {
-        Vector3 endPosition = shipTransform.position - transform.up * sightDistance;
-        lineOfSight.SetPosition(0, shipTransform.position);
-        lineOfSight.SetPosition(1, endPosition);
-    }
-
-    private bool EnemyInSight()
-    {
-        int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
-        RaycastHit2D hit = Physics2D.Raycast(shipTransform.position, -transform.up, sightDistance, enemyLayerMask);
-        return hit.collider != null;
-    }
-
     protected override void tryShoot()
     {
-        if (waveScript.waveInProgress && enemyInSight)
+        if (waveScript.waveInProgress)
         {
             int bulletCount = bulletLinesPerLevel[currentUpgradeLevel];
             float spacing = 0.2f;
 
             float startOffset = -spacing * (bulletCount - 1) / 2;
             
-            SoundEffect.PlaySoundEffect(shootSound, transform.position,1,soundGroup);
+            SoundEffect.PlaySoundEffect(shootSound, transform.position, 1, soundGroup);
 
             for (int i = 0; i < bulletCount; i++)
             {
@@ -114,12 +89,6 @@ public class SpaceInvaderTower : Tower
         {
             currentUpgradeLevel = upgradeLevel;
         }
-    }
-
-    private void FireBullet()
-    {
-        GameObject bullet = Instantiate(bulletPrefab, shipTransform.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().velocity = -transform.up * 5;
     }
 
     private void SetBoundaries()
@@ -154,9 +123,8 @@ public class SpaceInvaderTower : Tower
     {
         bool movingRight = true;
 
-        while (enemyInSight)
+        while (true)
         {
-
             Vector2 targetPosition = movingRight ? transform.TransformPoint(rightBoundary) : transform.TransformPoint(leftBoundary);
 
             while (Vector2.Distance(shipTransform.position, targetPosition) > 0.1f)
@@ -172,7 +140,7 @@ public class SpaceInvaderTower : Tower
 
     IEnumerator ShootAtEnemies()
     {
-        while (enemyInSight)
+        while (true)
         {
             tryShoot();
             yield return new WaitForSeconds(cooldown);
