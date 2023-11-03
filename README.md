@@ -1,6 +1,6 @@
 # Tower Defense Game Capstone Project
 
-fill this up
+This repository hosts the source code for Arcade Capture, a retro arcade tower defence game. This project is a collaborative effort between students of the Bachelor of Computer Science and Bachelor of Games and Interactivity programs at Swinburne University, as part of the SWE 40001 SEPA and SEPB units.
 
 ## Concept
 
